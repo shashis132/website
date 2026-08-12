@@ -1,52 +1,50 @@
-# Netlify setup
+# Vercel setup
 
 The host choice in `README.md` is now made: this repository is configured for
-Netlify. `vercel.json` has been removed, and `_redirects` is the single routing
-table, as `DEVELOPER-HANDOFF.md` requires.
+Vercel. `vercel.json` is the single routing file, and the Netlify configuration
+(`_redirects`, `netlify.toml`, `netlify-build.sh`) has been removed, as
+`DEVELOPER-HANDOFF.md` requires — one routing file per host, not alternatives.
 
 ## What is in the repository
 
 | File | Purpose |
 |---|---|
-| `netlify.toml` | Publish directory, build command, security and cache headers |
-| `netlify-build.sh` | Stages the deployable site into `dist/` |
-| `_redirects` | The three rewrites and three redirects, copied into `dist/` |
+| `vercel.json` | Routes, redirects, security and cache headers |
+| `.vercelignore` | Keeps `qa/`, `apps-script/` and the markdown off the public site |
 | `apps-script/Code.gs` | Google Apps Script that receives the lead form into a sheet |
 
-There is no framework and nothing to compile. The "build" only copies the
-publishable files into `dist/`, because Netlify publishes a whole directory and
-has no exclude option — this keeps `qa/`, `apps-script/` and the handover
-markdown off the public site. Run it locally with `bash netlify-build.sh`.
+There is no framework, no build step and nothing to compile. Vercel serves the
+repository root as static files.
 
-## 1. Create the site
+## 1. Create the project
 
-1. Sign in at <https://app.netlify.com> and choose **Add new site → Import an
-   existing project → GitHub**.
-2. Authorise Netlify for the `Genius-CFO/website` repository.
-3. Pick the branch you want to deploy from.
-4. Netlify reads `netlify.toml`, so the build settings are already filled in:
-   - Build command: `bash netlify-build.sh`
-   - Publish directory: `dist`
-5. **Deploy site.**
+1. Sign in at <https://vercel.com> and choose **Add New… → Project**.
+2. Import `Genius-CFO/website` from GitHub.
+3. Framework Preset: **Other**. Leave Build Command, Output Directory and
+   Install Command empty — there is nothing to build, and setting an Output
+   Directory would break the paths.
+4. **Deploy.**
 
-The first deploy lands on a `random-name.netlify.app` URL. Everything below can
-be verified there before any DNS is touched.
+Vercel reads `vercel.json` on every deployment, so the routes and headers need
+no configuration in the dashboard.
+
+The first deploy lands on a `*.vercel.app` URL. Everything below can be verified
+there before any DNS is touched.
 
 ## 2. Point `geniuscfo.ai` at it
 
-In **Site configuration → Domain management → Add a domain**, enter
-`geniuscfo.ai`. Netlify then gives you one of two paths:
+In **Project → Settings → Domains**, add `geniuscfo.ai`. Vercel then shows the
+records to create at your registrar — typically:
 
-- **Netlify DNS** — change the nameservers at your registrar to the four
-  Netlify gives you. Netlify handles the apex record and the certificate.
-- **External DNS** — keep your current DNS and add, at the registrar:
-  - `geniuscfo.ai` → `A` → `75.2.60.5` (Netlify's load balancer; confirm the
-    value Netlify shows you, it is authoritative over this document)
-  - `www.geniuscfo.ai` → `CNAME` → your `*.netlify.app` hostname
+- `geniuscfo.ai` → `A` → `76.76.21.21`
+- `www.geniuscfo.ai` → `CNAME` → `cname.vercel-dns.com`
 
-Set `geniuscfo.ai` as the **primary domain** so `www` redirects to the apex —
-every canonical tag, the sitemap and `llms.txt` use the bare apex. HTTPS is
-issued automatically once DNS resolves; leave **Force HTTPS** on.
+Use the values Vercel displays; they are authoritative over this document.
+Alternatively, move the nameservers to Vercel and let it manage the zone.
+
+Set `geniuscfo.ai` as the **primary** domain, redirecting `www` to it — every
+canonical tag, the sitemap and `llms.txt` use the bare apex. HTTPS is issued
+automatically once DNS resolves.
 
 ## 3. The lead form and its sheet
 
@@ -113,7 +111,7 @@ GTM. Confirm with GTM Preview against the deployed URL, not locally.
 
 ## 5. Check the deployed site
 
-Against the Netlify URL, and again after DNS moves:
+Against the `*.vercel.app` URL, and again after DNS moves:
 
 | Request | Expected |
 |---|---|
@@ -122,20 +120,34 @@ Against the Netlify URL, and again after DNS moves:
 | `/business` | 200, the business page, no trailing slash |
 | `/ca-firms` | 200, the CA/firm page |
 | `/pricing` | 200, the pricing page |
-| `/pricing.html` | 301 → `/pricing` |
+| `/pricing.html` | 308 → `/pricing` |
 | `/pricing?audience=business#business-plans` | 200, query string preserved |
 | `/qa/lighthouse-v3-business.json` | 404 — QA evidence must not be public |
+| `/DEVELOPER-HANDOFF.md` | 404 |
 
 ```sh
 for p in / /index.html /business /ca-firms /pricing /pricing.html; do
-  curl -s -o /dev/null -w "%{http_code} %{redirect_url}  $p\n" "https://YOUR-SITE.netlify.app$p"
+  curl -s -o /dev/null -w "%{http_code} %{redirect_url}  $p\n" "https://YOUR-PROJECT.vercel.app$p"
 done
 ```
 
-The rules in `_redirects` carry a `!` suffix. Netlify skips an unforced rule
-whenever a real file exists at that path, which would leave the root
-`index.html` fallback page being served at `/` instead of redirecting to
-`/business`. Do not drop the `!` from the root rules.
+### Why the config looks the way it does
+
+`redirects` in `vercel.json` are evaluated **before** the filesystem, which is
+what makes `/` → `/business` work even though a real `index.html` sits at the
+root. `rewrites` are evaluated **after** the filesystem, so they only serve as a
+fallback for the three clean URLs. Verified against Vercel's own routing library
+(`@vercel/routing-utils`).
+
+`cleanUrls` and `trailingSlash` are deliberately **not** set. Turning them on
+inserts a generated `^/(.*)/$ → /$1` rule ahead of everything else, which
+matches `/` itself and redirects the site root to itself; it also shadows the
+explicit `/index.html` and `/pricing.html` rules. The three rules written here
+do the whole job without that risk.
+
+Redirects are `308` (Vercel's `"permanent": true`), not `301`. Both are
+permanent and equivalent for search engines; 308 additionally preserves the
+request method.
 
 ## Still outstanding before launch
 
@@ -146,7 +158,7 @@ by this setup:
 - Re-verify the answer-engine crawler tokens in `robots.txt`.
 - Re-verify the competitor comparison table on `/business`.
 - Run Lighthouse against the deployed site.
-- Consider a Content-Security-Policy. `netlify.toml` deliberately sets none:
-  the pages carry inline JSON-LD and an inline GTM loader, and post to
+- Consider a Content-Security-Policy. `vercel.json` deliberately sets none: the
+  pages carry inline JSON-LD and an inline GTM loader, and post to
   `script.google.com`, so a policy has to be authored against those and tested
   rather than guessed.

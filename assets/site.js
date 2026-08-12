@@ -9,7 +9,7 @@
      The Google Apps Script web app writing to the leads sheet, and the only
      place that sheet is configured. Redeploying the script mints a new
      /s/…/exec id, so this constant has to be updated whenever it is
-     redeployed — see apps-script/Code.gs and NETLIFY-SETUP.md.
+     redeployed — see apps-script/Code.gs and VERCEL-SETUP.md.
 
      Two POSTs per lead: step 1 on contact submit, step 2 on triage submit,
      both carrying the same phone and email so the sheet merges them into

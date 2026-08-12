@@ -20,9 +20,9 @@ Configure the host to serve the physical documents above at extensionless public
 
 ### Root redirect and legacy fragments
 
-The host is Netlify. `_redirects` is the routing table and `vercel.json` has been removed; see `NETLIFY-SETUP.md`. The rules permanently redirect `/` and `/index.html` to `/business` and redirect `/pricing.html` to `/pricing`.
+The host is Vercel. `vercel.json` is the routing file and the Netlify configuration has been removed; see `VERCEL-SETUP.md`. The rules permanently redirect `/` and `/index.html` to `/business` and redirect `/pricing.html` to `/pricing`.
 
-Every rule carries a `!` (forced) suffix. Netlify skips an unforced rule when a real file exists at the requested path, which would leave the root `index.html` fallback served at `/` instead of redirecting. Do not drop the `!`.
+`redirects` are evaluated before the filesystem, which is what lets `/` redirect despite the root `index.html` existing; `rewrites` are evaluated after it. Do not add `cleanUrls` or `trailingSlash`: they insert a generated `^/(.*)/$ → /$1` rule ahead of everything, which matches `/` and redirects the site root to itself, and they shadow the explicit `/index.html` and `/pricing.html` rules.
 
 Fragments such as `#for-firms` are not sent to the server. A permanent root redirect cannot inspect them. Replace old root fragment links at their source with the new audience URLs. Root `index.html` retains client-side fragment handling only as a fallback for hosts that ignore the supplied routing configuration.
 
@@ -61,7 +61,7 @@ flow ported from the current geniuscfo.ai landing page, rewritten in vanilla JS 
 
 `LEAD_ENDPOINT` at the top of `assets/site.js` points at the Google Apps Script web app for the
 new leads sheet. The URL carried over from the old landing page has been removed. The receiver
-is `apps-script/Code.gs`; `NETLIFY-SETUP.md` covers deployment and where the rows land.
+is `apps-script/Code.gs`; `VERCEL-SETUP.md` covers deployment and where the rows land.
 
 If the constant is ever blanked the form still advances and nothing is posted; each submit logs
 a console warning naming the missing endpoint.

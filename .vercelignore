@@ -1,0 +1,9 @@
+# Files in the repository that are not part of the deployed site.
+#
+# Vercel serves the repository root, so anything left here is publicly
+# fetchable. qa/ is verification evidence, apps-script/ is the leads-sheet
+# receiver, and the markdown is internal handover documentation.
+qa/
+apps-script/
+*.md
+.gitignore

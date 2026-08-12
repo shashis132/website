@@ -1,3 +1,2 @@
-# Netlify build output and local CLI state.
-dist/
-.netlify/
+# Local Vercel CLI state.
+.vercel/

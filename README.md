@@ -23,22 +23,22 @@ assets/fonts/             Self-hosted fonts
 apps-script/Code.gs       Google Apps Script receiving the lead form into a sheet
 qa/                       Test reports and reference captures; not deployed content
 index.html                Fallback redirect only; not a content page
-_redirects                Production routes for Netlify/Cloudflare Pages
-netlify.toml              Netlify publish directory and headers
-netlify-build.sh          Stages the deployable files into dist/
-NETLIFY-SETUP.md           Netlify, DNS, lead-sheet and GTM setup
+vercel.json               Production routes and headers for Vercel
+.vercelignore             Keeps qa/, apps-script/ and the markdown off the site
+VERCEL-SETUP.md            Vercel, DNS, lead-sheet and GTM setup
 DEVELOPER-HANDOFF.md       Implementation and integration details
 QA-SUMMARY.md              Verification record
 ```
 
 ## Deployment choice
 
-The host is Netlify. `_redirects` is the routing table; `vercel.json` has been
-removed. On another host, reproduce the same three rewrites and three redirects.
+The host is Vercel. `vercel.json` is the routing file; the Netlify
+configuration has been removed. On another host, reproduce the same three
+rewrites and three redirects.
 
 The configuration permanently redirects `/` and `/index.html` to `/business`. It rewrites the three public URLs to their physical HTML documents without exposing `index.html` in public URLs.
 
-`NETLIFY-SETUP.md` is the step-by-step: creating the site, pointing
+`VERCEL-SETUP.md` is the step-by-step: creating the project, pointing
 `geniuscfo.ai` at it, wiring the lead form to its Google Sheet, and the
 post-deploy URL checks.
 
