@@ -6,24 +6,21 @@
   /* --------------------------------------------------------------------
      Lead capture endpoint.
 
-     PASTE THE GOOGLE APPS SCRIPT WEB APP URL HERE. It is the only place the
-     leads sheet is configured. The URL looks like:
-
-       https://script.google.com/macros/s/AKfycb…/exec
-
-     Deploy the script as a web app with "Execute as: Me" and "Who has
-     access: Anyone", then copy the /exec URL. Redeploying the script mints
-     a new id, so this constant has to be updated with it.
+     The Google Apps Script web app writing to the leads sheet, and the only
+     place that sheet is configured. Redeploying the script mints a new
+     /s/…/exec id, so this constant has to be updated whenever it is
+     redeployed — see apps-script/Code.gs and NETLIFY-SETUP.md.
 
      Two POSTs per lead: step 1 on contact submit, step 2 on triage submit,
-     both carrying the same phone and email so the sheet can merge them.
-     Sent with mode:"no-cors" — the opaque response is expected and ignored,
-     so a failed write is silent. Test with a real submission after wiring.
+     both carrying the same phone and email so the sheet merges them into
+     one row. Sent with mode:"no-cors" — the opaque response is expected and
+     ignored, so a failed write is silent and only a real test submission
+     proves the sheet is receiving.
 
-     While this is empty, nothing is posted and the form still advances; a
-     warning is logged to the console on each submit.
+     If this is ever blanked, nothing is posted, the form still advances and
+     each submit logs a console warning.
      -------------------------------------------------------------------- */
-  const LEAD_ENDPOINT = "";
+  const LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbyggslRlgh1LopVaK_88gms4MgePKgBTfChm1kl2ClIRTdmKVGZV5YsahpAdbjHPAp-Aw/exec";
 
   const TRACKING_KEYS = [
     "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term",

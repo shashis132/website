@@ -48,24 +48,40 @@ Set `geniuscfo.ai` as the **primary domain** so `www` redirects to the apex —
 every canonical tag, the sitemap and `llms.txt` use the bare apex. HTTPS is
 issued automatically once DNS resolves; leave **Force HTTPS** on.
 
-## 3. Wire the lead form to the sheet
+## 3. The lead form and its sheet
 
-The old Apps Script endpoint has been removed from `assets/site.js`. Until a new
-one is set, submissions still advance through the form but nothing is written
-anywhere, and a warning naming the missing endpoint is logged to the console.
+`LEAD_ENDPOINT` in `assets/site.js` is set to the deployed Apps Script web app.
+Redeploying that script mints a new `/exec` id, so the constant has to be
+updated whenever you redeploy it.
 
-1. Open the Google Sheet the leads should land in → **Extensions → Apps Script**.
+### Where the rows land
+
+`apps-script/Code.gs` does not create a spreadsheet. It writes to the
+spreadsheet the script project belongs to, into a tab called **Leads** that is
+created on the first submission — so there is nothing to look for until a lead
+has actually been submitted.
+
+- **Script created from inside a sheet** (Extensions → Apps Script): that sheet
+  is the destination. Its name is shown at the top of the Apps Script editor,
+  and **Overview → Project details** links back to it.
+- **Standalone script** (created at script.google.com): there is no attached
+  sheet and the script will error. Create the spreadsheet, copy the id out of
+  its URL — `docs.google.com/spreadsheets/d/`**`THIS_PART`**`/edit` — paste it
+  into `SPREADSHEET_ID` at the top of `Code.gs`, and redeploy.
+
+Either way, running **`showSheetUrl`** from the Apps Script editor logs the name
+and URL of the spreadsheet the script is actually writing to. Use it to settle
+the question rather than guessing.
+
+### If you need to redeploy the script
+
+1. Open the target Google Sheet → **Extensions → Apps Script**.
 2. Replace the contents of `Code.gs` with `apps-script/Code.gs` from this
-   repository, and save. (If you already have a script for this sheet, use it
-   instead — it only has to accept a form-encoded POST with the fields listed
-   below.)
+   repository, and save.
 3. **Deploy → New deployment → Web app**, with **Execute as: Me** and **Who has
    access: Anyone**. Authorise it when prompted.
-4. Copy the `/exec` URL.
-5. Paste it into `LEAD_ENDPOINT` at the top of `assets/site.js`, commit, push.
-
-Redeploying the Apps Script mints a new `/exec` id, so `LEAD_ENDPOINT` has to be
-updated whenever you redeploy it.
+4. Copy the `/exec` URL into `LEAD_ENDPOINT` at the top of `assets/site.js`,
+   commit, push.
 
 **Two posts per lead.** Step 1 (contact) appends a row. Step 2 (triage) posts
 again with the same phone number, and the supplied script finds that row and
@@ -82,8 +98,10 @@ appends will give you two rows per lead.
 
 **Verifying is not optional.** The POST uses `mode:"no-cors"`, so the browser
 never sees whether the write succeeded and the site cannot tell you it failed.
-Submit one real lead on the deployed site and confirm the row appears with both
-the step 1 and the step 2 values in it.
+Submit one real lead on the deployed site and confirm a single row appears in
+the **Leads** tab with both the step 1 and the step 2 values in it. If the write
+fails, the reason is in the Apps Script project's **Executions** log — that is
+the only place it surfaces.
 
 ## 4. Google Tag Manager
 

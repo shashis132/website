@@ -17,6 +17,20 @@
  * rather than writing a second row.
  */
 
+/**
+ * Where the rows go.
+ *
+ * Leave SPREADSHEET_ID empty when the script is bound to a spreadsheet
+ * (created via Extensions → Apps Script from inside the sheet) — it then
+ * writes to that spreadsheet. For a standalone script project, paste the
+ * spreadsheet id here: it is the long segment in the sheet's own URL,
+ *
+ *   https://docs.google.com/spreadsheets/d/THIS_PART/edit
+ *
+ * Run showSheetUrl() from the editor at any time to log which spreadsheet
+ * this script is actually writing to.
+ */
+var SPREADSHEET_ID = '';
 var SHEET_NAME = 'Leads';
 
 var COLUMNS = [
@@ -94,8 +108,30 @@ function doGet() {
   return respond_({ ok: true, service: 'geniuscfo-leads' });
 }
 
-function getSheet_() {
+/** Logs the spreadsheet this script writes to. Run it from the editor. */
+function showSheetUrl() {
+  var book = getBook_();
+  var url = book.getUrl();
+  console.log('Leads spreadsheet: %s\n%s', book.getName(), url);
+  return url;
+}
+
+function getBook_() {
+  if (SPREADSHEET_ID) return SpreadsheetApp.openById(SPREADSHEET_ID);
+
   var book = SpreadsheetApp.getActiveSpreadsheet();
+  if (!book) {
+    throw new Error(
+      'No spreadsheet. This script is standalone, not bound to a sheet — ' +
+      'set SPREADSHEET_ID at the top of this file to the id in the target ' +
+      "spreadsheet's URL, then redeploy."
+    );
+  }
+  return book;
+}
+
+function getSheet_() {
+  var book = getBook_();
   var sheet = book.getSheetByName(SHEET_NAME);
   if (!sheet) sheet = book.insertSheet(SHEET_NAME);
 
@@ -103,6 +139,10 @@ function getSheet_() {
     sheet.appendRow(COLUMNS);
     sheet.getRange(1, 1, 1, COLUMNS.length).setFontWeight('bold');
     sheet.setFrozenRows(1);
+    /* Keep mobile numbers as typed rather than letting Sheets read them as
+       numbers and reformat them. */
+    sheet.getRange(1, COLUMNS.indexOf('phone') + 1, sheet.getMaxRows(), 1)
+      .setNumberFormat('@');
   }
   return sheet;
 }
@@ -110,7 +150,6 @@ function getSheet_() {
 function appendRow_(sheet, data) {
   var row = COLUMNS.map(function (key) {
     if (key === 'received_at') return new Date();
-    if (key === 'phone') return "'" + String(data.phone || '');
     return data[key] === undefined ? '' : data[key];
   });
   sheet.appendRow(row);

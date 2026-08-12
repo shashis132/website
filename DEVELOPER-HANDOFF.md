@@ -59,13 +59,12 @@ flow ported from the current geniuscfo.ai landing page, rewritten in vanilla JS 
 
 **Endpoint**
 
-`LEAD_ENDPOINT` at the top of `assets/site.js` is **empty**. The Apps Script URL carried over
-from the old landing page has been removed; the leads now go to a new sheet, whose deployed
-`/exec` URL has to be pasted into that constant. `apps-script/Code.gs` is a ready-to-deploy
-receiver for it, and `NETLIFY-SETUP.md` has the deployment steps.
+`LEAD_ENDPOINT` at the top of `assets/site.js` points at the Google Apps Script web app for the
+new leads sheet. The URL carried over from the old landing page has been removed. The receiver
+is `apps-script/Code.gs`; `NETLIFY-SETUP.md` covers deployment and where the rows land.
 
-While the constant is empty the form still advances and nothing is posted; each submit logs a
-console warning naming the missing endpoint.
+If the constant is ever blanked the form still advances and nothing is posted; each submit logs
+a console warning naming the missing endpoint.
 
 Two POSTs are sent per lead — one on step 1, one on step 2 — carrying the same phone and email
 so the sheet can merge them into one row. Requests use `mode:"no-cors"`; the opaque response is
@@ -258,9 +257,9 @@ Before launch, connect the form endpoint, confirm analytics, reconfirm commercia
 6. **The "firms can trial five client companies" claim was removed** — five is not a boundary in
    the new plan structure. Replaced with full access for 14 days.
 7. **Derived monthly equivalents** for Pro, Pro Max and Enterprise — see above.
-8. **The lead endpoint is unset.** The old landing page's Apps Script URL was removed; leads go
-   to a new sheet whose `/exec` URL has to be pasted into `LEAD_ENDPOINT`. Submit one real lead
-   afterwards and confirm the row lands with both step 1 and step 2 in it.
+8. **Lead endpoint liveness is unverified.** `LEAD_ENDPOINT` is wired to the new sheet's Apps
+   Script deployment, but no test write has been made through it. Submit one real lead on the
+   deployed site and confirm a single row lands with both step 1 and step 2 in it.
 9. **The header audience toggle still uses pill-shaped controls** (`.route-toggle`, 999px radius),
    which the design brief's rejection checklist disallows. Left as-is because it is v2 chrome
    outside the pricing re-skin; the billing switch itself was squared off to 4px.
