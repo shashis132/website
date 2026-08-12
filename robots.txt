@@ -1,0 +1,67 @@
+# GeniusCFO — https://geniuscfo.ai
+# Every public page is intended to be crawled, indexed, retrieved and cited.
+
+User-agent: *
+Allow: /
+
+# Search crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Answer and generative engines. Named explicitly so retrieval and citation
+# are a deliberate choice rather than a side effect of the catch-all rule.
+# Verify these tokens against each vendor's current documentation before launch;
+# crawler names change and new ones appear.
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+Sitemap: https://geniuscfo.ai/sitemap.xml
+
+# Machine-readable summaries for language models.
+# https://geniuscfo.ai/llms.txt
+# https://geniuscfo.ai/llms-full.txt

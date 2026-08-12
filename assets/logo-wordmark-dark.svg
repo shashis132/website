@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="52" viewBox="0 0 240 52" fill="none">
+  <circle cx="26" cy="26" r="23" stroke="rgba(0,200,150,0.12)" stroke-width="1"></circle>
+  <path d="M26 5C14.4 5 5 14.4 5 26C5 37.6 14.4 47 26 47C30.7 47 35.1 45.5 38.7 42.9" stroke="#00C896" stroke-width="3" stroke-linecap="round"></path>
+  <path d="M26 26H44V14" stroke="#00C896" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+  <circle cx="26" cy="26" r="2.5" fill="#FF9F1C"></circle>
+  <text x="58" y="34" font-family="Fraunces, Georgia, serif" font-size="22" font-weight="900" fill="#FFFFFF" letter-spacing="-0.5"><tspan>Genius</tspan><tspan fill="#00C896" font-style="italic" font-weight="400">CFO</tspan></text>
+</svg>

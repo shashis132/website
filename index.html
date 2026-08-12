@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <title>Choose your GeniusCFO experience</title>
+  <link rel="canonical" href="https://geniuscfo.ai/business">
+  <meta http-equiv="refresh" content="0;url=/business">
+  <style>
+    :root{color-scheme:dark;font-family:system-ui,sans-serif;background:#0b0f1a;color:#f4f0e7}
+    body{min-height:100vh;display:grid;place-items:center;margin:0;padding:24px;text-align:center}
+    a{color:#31d0aa}p{max-width:42rem;line-height:1.6}
+  </style>
+  <script>
+    (() => {
+      const search = window.location.search;
+      const firmHashes = new Set(["#for-firms", "#firms", "#firm-product", "#firm-how", "#firm-services", "#firm-faq"]);
+      const target = firmHashes.has(window.location.hash.toLowerCase()) ? "/ca-firms" : "/business";
+      window.location.replace(target + search);
+    })();
+  </script>
+</head>
+<body>
+  <main>
+    <h1>Opening GeniusCFO for Business…</h1>
+    <p>If you are not redirected, continue to <a href="/business">GeniusCFO for Business</a> or <a href="/ca-firms">GeniusCFO for CA &amp; Accounting Firms</a>.</p>
+  </main>
+</body>
+</html>

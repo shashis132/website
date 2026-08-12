@@ -1,0 +1,7 @@
+# Netlify/Cloudflare Pages production routes.
+/business   /business/index.html   200
+/ca-firms   /ca-firms/index.html   200
+/pricing    /pricing/index.html    200
+/pricing.html   /pricing           301
+/index.html     /business          308
+/               /business          308
