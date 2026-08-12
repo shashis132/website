@@ -1,0 +1,68 @@
+# Netlify configuration for the GeniusCFO website.
+#
+# Routing lives in `_redirects` (per README.md and DEVELOPER-HANDOFF.md), not
+# here, so there is a single routing table. `netlify-build.sh` copies it into
+# the publish directory. This file only sets the publish directory and headers.
+
+[build]
+  command = "bash netlify-build.sh"
+  publish = "dist"
+
+# ---------------------------------------------------------------------------
+# Security headers
+# ---------------------------------------------------------------------------
+# No Content-Security-Policy is set: the pages carry an inline GTM loader and
+# inline JSON-LD, load googletagmanager.com, and POST the lead form to
+# script.google.com. A CSP is worth adding, but it has to be authored and
+# tested against those, not guessed at here.
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), payment=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+
+# ---------------------------------------------------------------------------
+# Caching
+# ---------------------------------------------------------------------------
+# Fonts and product captures are content-stable and get a long immutable cache.
+# site.css and site.js are cache-busted with `?v=` in the markup, but the bare
+# filenames are also reachable, so they stay revalidated on every request.
+
+[[headers]]
+  for = "/assets/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/screens/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/og-geniuscfo.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/logo-on-paper.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/logo-wordmark-dark.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/site.css"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/assets/site.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

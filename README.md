@@ -20,23 +20,27 @@ assets/site.css           Shared styles and responsive components
 assets/site.js            Shared interactions, tracking, plan selector and lead form
 assets/screens/           Product captures used by the pages
 assets/fonts/             Self-hosted fonts
+apps-script/Code.gs       Google Apps Script receiving the lead form into a sheet
 qa/                       Test reports and reference captures; not deployed content
 index.html                Fallback redirect only; not a content page
-vercel.json               Production routes for Vercel
 _redirects                Production routes for Netlify/Cloudflare Pages
+netlify.toml              Netlify publish directory and headers
+netlify-build.sh          Stages the deployable files into dist/
+NETLIFY-SETUP.md           Netlify, DNS, lead-sheet and GTM setup
 DEVELOPER-HANDOFF.md       Implementation and integration details
 QA-SUMMARY.md              Verification record
 ```
 
 ## Deployment choice
 
-Use only the routing file for the selected host:
+The host is Netlify. `_redirects` is the routing table; `vercel.json` has been
+removed. On another host, reproduce the same three rewrites and three redirects.
 
-- Vercel: keep `vercel.json`.
-- Netlify or Cloudflare Pages: keep `_redirects`.
-- Another host: reproduce the same three rewrites and redirects from either file.
+The configuration permanently redirects `/` and `/index.html` to `/business`. It rewrites the three public URLs to their physical HTML documents without exposing `index.html` in public URLs.
 
-Both supplied configurations permanently redirect `/` and `/index.html` to `/business`. They rewrite the three public URLs to their physical HTML documents without exposing `index.html` in public URLs.
+`NETLIFY-SETUP.md` is the step-by-step: creating the site, pointing
+`geniuscfo.ai` at it, wiring the lead form to its Google Sheet, and the
+post-deploy URL checks.
 
 URL fragments are never sent to the server. Therefore an old root link such as `https://geniuscfo.ai/#for-firms` cannot be distinguished by a permanent server redirect and must be replaced at its source with `https://geniuscfo.ai/ca-firms`. The fallback root `index.html` retains client-side fragment handling only for hosts that do not apply the supplied production redirects.
 

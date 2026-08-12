@@ -1,0 +1,3 @@
+# Netlify build output and local CLI state.
+dist/
+.netlify/

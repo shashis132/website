@@ -20,12 +20,9 @@ Configure the host to serve the physical documents above at extensionless public
 
 ### Root redirect and legacy fragments
 
-The production configurations are final, not alternatives:
+The host is Netlify. `_redirects` is the routing table and `vercel.json` has been removed; see `NETLIFY-SETUP.md`. The rules permanently redirect `/` and `/index.html` to `/business` and redirect `/pricing.html` to `/pricing`.
 
-- `vercel.json` is for Vercel.
-- `_redirects` is for Netlify or Cloudflare Pages.
-
-Use only the file for the selected host. Both permanently redirect `/` and `/index.html` to `/business` and redirect `/pricing.html` to `/pricing`.
+Every rule carries a `!` (forced) suffix. Netlify skips an unforced rule when a real file exists at the requested path, which would leave the root `index.html` fallback served at `/` instead of redirecting. Do not drop the `!`.
 
 Fragments such as `#for-firms` are not sent to the server. A permanent root redirect cannot inspect them. Replace old root fragment links at their source with the new audience URLs. Root `index.html` retains client-side fragment handling only as a fallback for hosts that ignore the supplied routing configuration.
 
@@ -62,15 +59,18 @@ flow ported from the current geniuscfo.ai landing page, rewritten in vanilla JS 
 
 **Endpoint**
 
-`LEAD_ENDPOINT` at the top of `assets/site.js` points at the same Google Apps Script web app
-the current landing page uses:
+`LEAD_ENDPOINT` at the top of `assets/site.js` is **empty**. The Apps Script URL carried over
+from the old landing page has been removed; the leads now go to a new sheet, whose deployed
+`/exec` URL has to be pasted into that constant. `apps-script/Code.gs` is a ready-to-deploy
+receiver for it, and `NETLIFY-SETUP.md` has the deployment steps.
 
-`https://script.google.com/macros/s/AKfycby2kV…/exec`
+While the constant is empty the form still advances and nothing is posted; each submit logs a
+console warning naming the missing endpoint.
 
-Two POSTs are sent per lead — one on step 1, one on step 2 — keyed to the same phone and email,
-matching the existing sheet's expectations. Requests use `mode:"no-cors"`; the opaque response
-is expected and ignored, so a failed write is silent. **Confirm the sheet is still accepting
-writes before launch**, and swap the constant if the script is redeployed (a redeploy changes
+Two POSTs are sent per lead — one on step 1, one on step 2 — carrying the same phone and email
+so the sheet can merge them into one row. Requests use `mode:"no-cors"`; the opaque response is
+expected and ignored, so a failed write is silent. **Submit one real lead and confirm the row
+lands before launch**, and swap the constant if the script is redeployed (a redeploy changes
 the `/s/…/exec` id).
 
 **Payload fields**
@@ -89,6 +89,12 @@ the `/s/…/exec` id).
 UTMs are read from the URL and persisted to `sessionStorage` under `gc_utm`, so a lead submitted
 several pages after arrival still carries the campaign it came in on. This matches the current
 landing page's behaviour.
+
+**Google Tag Manager**
+
+Container `GTM-NPMFZCZG` is installed on all four HTML files: the loader high in `<head>`, the
+`<noscript>` iframe immediately after `<body>`. It initialises `dataLayer` before `site.js`
+loads, so the events below are available to it. The tags themselves are configured in GTM.
 
 **Analytics events pushed to `dataLayer`**
 
@@ -252,8 +258,9 @@ Before launch, connect the form endpoint, confirm analytics, reconfirm commercia
 6. **The "firms can trial five client companies" claim was removed** — five is not a boundary in
    the new plan structure. Replaced with full access for 14 days.
 7. **Derived monthly equivalents** for Pro, Pro Max and Enterprise — see above.
-8. **Lead endpoint liveness is unverified from here.** No test write was made to the production
-   sheet. Submit one real lead in staging and confirm the row lands with both step 1 and step 2.
+8. **The lead endpoint is unset.** The old landing page's Apps Script URL was removed; leads go
+   to a new sheet whose `/exec` URL has to be pasted into `LEAD_ENDPOINT`. Submit one real lead
+   afterwards and confirm the row lands with both step 1 and step 2 in it.
 9. **The header audience toggle still uses pill-shaped controls** (`.route-toggle`, 999px radius),
    which the design brief's rejection checklist disallows. Left as-is because it is v2 chrome
    outside the pricing re-skin; the billing switch itself was squared off to 4px.

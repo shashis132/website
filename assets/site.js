@@ -5,12 +5,25 @@
 
   /* --------------------------------------------------------------------
      Lead capture endpoint.
-     Ported from the current geniuscfo.ai landing page (Google Apps Script
-     web app writing to the leads sheet). Two POSTs per lead: step 1 on
-     contact submit, step 2 on triage submit, keyed to the same phone/email.
-     Sent with mode:"no-cors" — the opaque response is expected and ignored.
+
+     PASTE THE GOOGLE APPS SCRIPT WEB APP URL HERE. It is the only place the
+     leads sheet is configured. The URL looks like:
+
+       https://script.google.com/macros/s/AKfycb…/exec
+
+     Deploy the script as a web app with "Execute as: Me" and "Who has
+     access: Anyone", then copy the /exec URL. Redeploying the script mints
+     a new id, so this constant has to be updated with it.
+
+     Two POSTs per lead: step 1 on contact submit, step 2 on triage submit,
+     both carrying the same phone and email so the sheet can merge them.
+     Sent with mode:"no-cors" — the opaque response is expected and ignored,
+     so a failed write is silent. Test with a real submission after wiring.
+
+     While this is empty, nothing is posted and the form still advances; a
+     warning is logged to the console on each submit.
      -------------------------------------------------------------------- */
-  const LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycby2kVnqAkcFj93_kSpzUHwWzEXyysxlsxhLW7WymcU1_CcvadwLrLeWqVfbyA54QM6grA/exec";
+  const LEAD_ENDPOINT = "";
 
   const TRACKING_KEYS = [
     "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term",
@@ -404,6 +417,14 @@
       TRACKING_KEYS.forEach((key) => {
         if (!payload[key]) payload[key] = tracking.get(key) || "";
       });
+
+      if (!LEAD_ENDPOINT) {
+        window.console && console.warn(
+          "GeniusCFO: LEAD_ENDPOINT is not set in assets/site.js — lead not sent.",
+          payload
+        );
+        return;
+      }
 
       /* The response is opaque, so success cannot be read. The .catch is not
          optional: without it a blocked or offline POST rejects unhandled and
