@@ -17,18 +17,20 @@
   <meta name="theme-color" content="#0B0F1A">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="GeniusCFO">
-  <meta property="og:title" content="Your affordable AI CFO on your laptop and phone">
+  <meta property="og:title" content="The CFO your business never had">
   <meta property="og:description" content="Automate bookkeeping, prepare GST information, and get answers, alerts and forecasts from your updated accounts.">
   <meta property="og:url" content="https://geniuscfo.ai/business">
   <meta property="og:image" content="https://geniuscfo.ai/assets/og-geniuscfo.png">
   <meta property="og:image:alt" content="GeniusCFO dashboard for an Indian business">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Your affordable AI CFO on your laptop and phone">
+  <meta name="twitter:title" content="The CFO your business never had">
   <meta name="twitter:description" content="Automate bookkeeping, prepare GST information, and get answers, alerts and forecasts from your updated accounts.">
   <meta name="twitter:image" content="https://geniuscfo.ai/assets/og-geniuscfo.png">
   <link rel="icon" href="../assets/logo-on-paper.png" type="image/png">
   <link rel="preload" href="../assets/fonts/ibm-plex-sans-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/site.css?v=20260811-2">
+  <link rel="preload" href="../assets/fonts/ibm-plex-sans-condensed-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/site-v4.css?v=20260818-v5">
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -349,86 +351,232 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </header>
 
+  <a class="btn btn-primary floating-cta" href="#demo" data-floating-cta>Book a demo</a>
+
   <main id="main">
-    <section class="hero on-ink business-hero">
+
+    <!-- 00 · CLAIM ================================================== -->
+    <section class="hero business-hero">
       <div class="wrap hero-grid">
         <div class="hero-copy">
-          <p class="status-line">AI CFO FOR INDIAN BUSINESSES</p>
-          <h1>Your affordable AI CFO on your laptop and phone.</h1>
-          <p class="hero-lead">Automate bookkeeping, prepare GST information, and get answers, alerts and forecasts from your updated accounts.</p>
-          <p class="business-hero-price">Starts at ₹999 per month. Free for 14 days.</p>
-          <div class="hero-actions">
+          <p class="status-line fade-up">AI CFO FOR INDIAN BUSINESSES</p>
+          <h1 data-word-rise>The CFO your business never had.</h1>
+          <p class="hero-lead fade-up">Automate bookkeeping, prepare GST information, and get answers, alerts and forecasts from your updated accounts.</p>
+          <p class="business-hero-price fade-up">Starts at ₹999 per month · Free for 14 days</p>
+          <div class="hero-actions fade-up">
             <a class="btn btn-primary" href="#demo">Book a demo</a>
             <a class="btn btn-quiet" href="/pricing?audience=business#business-plans" data-preserve-query>See business pricing</a>
           </div>
         </div>
-        <a class="hero-product screen-link" href="../assets/screens/business-dashboard-desktop.png" data-lightbox data-image-label="See important business numbers and alerts at a glance" aria-haspopup="dialog">
+        <a class="hero-product screen-link" href="../assets/screens/business-dashboard-desktop.png?v=20260818"
+           data-lightbox
+           data-motion-video="../assets/screens/business-ask-to-dashboard-animated.mp4?v=20260818"
+           data-motion-video-webm="../assets/screens/business-ask-to-dashboard-animated.webm?v=20260818"
+           data-motion-image="../assets/screens/business-ask-to-dashboard-animated.webp?v=20260818"
+           data-motion-poster="../assets/screens/business-ask-to-dashboard-poster.webp?v=20260818"
+           data-image-label="Ask a question and watch the dashboard build itself"
+           aria-haspopup="dialog">
           <span class="screen-window">
-            <picture><source srcset="../assets/screens/business-dashboard-desktop.webp" type="image/webp"><img src="../assets/screens/business-dashboard-desktop.png" width="1440" height="900" fetchpriority="high" decoding="async" alt="GeniusCFO executive dashboard showing sales, profit, cash, receivables, payables, runway and financial alerts"></picture>
-            <span class="screen-caption"><strong>See important business numbers and alerts at a glance</strong><span class="screen-expand">Open full size ↗</span></span>
+            <span class="screen-motion" data-motion-slot>
+              <picture><source srcset="../assets/screens/business-ask-to-dashboard-poster.webp?v=20260818" type="image/webp"><img src="../assets/screens/business-ask-to-dashboard-poster.png?v=20260818" width="1440" height="900" fetchpriority="high" decoding="async" alt="GeniusCFO asked how business is today, answering with the executive dashboard: sales, profit, cash, receivables, payables, runway and financial alerts"></picture>
+              <span class="screen-play">Replay</span>
+            </span>
+            <span class="screen-caption"><strong>Ask a question. The dashboard answers it.</strong><span class="screen-expand">Open full size ↗</span></span>
           </span>
         </a>
       </div>
     </section>
 
-    <section class="chapter on-paper" id="product">
+
+    <!-- 01 · SUITE ================================================== -->
+    <section class="chapter chapter-major wash-tint" id="suite">
       <div class="wrap">
-        <div class="chapter-head chapter-intro">
-          <p class="chapter-marker">01 · WHAT YOU CAN DO</p>
-          <h2>Keep your accounts updated and understand what they are telling you.</h2>
-          <p class="lead">GeniusCFO connects routine accounting work with dashboards, GST information, bank matching and clear financial answers.</p>
+        <div class="chapter-head chapter-head-centre">
+          <p class="chapter-marker">01 · The suite</p>
+          <h2 data-scroll-fade>Your AI Accounting Suite.</h2>
+          <p class="lead">One workspace, four jobs: the CFO who reads the numbers, the accountant who posts them, the GST desk that files from them &mdash; and what is coming next.</p>
         </div>
-        <div class="business-feature-grid">
-          <article class="business-feature">
-            <a class="screen-link" href="../assets/screens/business-dashboard-desktop.png" data-lightbox data-image-label="See important business numbers and alerts at a glance" aria-haspopup="dialog">
-              <span class="screen-window"><picture><source srcset="../assets/screens/business-dashboard-desktop.webp" type="image/webp"><img src="../assets/screens/business-dashboard-desktop.png" width="1440" height="900" loading="lazy" alt="Executive dashboard with business numbers and alerts"></picture><span class="screen-caption"><strong>Understand your business at a glance</strong><span class="screen-expand">Open full size ↗</span></span></span>
-            </a>
-            <h3>See important business numbers and alerts at a glance.</h3>
-            <p>Check sales, profit, cash, receivables, payables, working capital and cash runway in one dashboard.</p>
+
+        <div class="suite-grid">
+          <article class="suite-card">
+            <h3>CFO</h3>
+            <p class="suite-kicker">Decisions from the books</p>
+            <ul class="suite-list">
+              <li>CFO Insights</li>
+              <li>Cash Flow Forecasting</li>
+              <li>Margin Analysis</li>
+              <li>Risk Alerts</li>
+              <li>Tax Intelligence</li>
+              <li>Scenario Modelling</li>
+              <li>Chat Interface</li>
+              <li>Persona Modes</li>
+            </ul>
           </article>
-          <article class="business-feature">
-            <a class="screen-link" href="../assets/screens/business-ask-desktop.png" data-lightbox data-image-label="Ask questions about profit, cash and GST" aria-haspopup="dialog">
-              <span class="screen-window"><picture><source srcset="../assets/screens/business-ask-desktop.webp" type="image/webp"><img src="../assets/screens/business-ask-desktop.png" width="1440" height="900" loading="lazy" alt="Ask GeniusCFO answering a question about annual profit"></picture><span class="screen-caption"><strong>Ask questions about profit, cash and GST</strong><span class="screen-expand">Open full size ↗</span></span></span>
-            </a>
-            <h3>Ask financial questions by typing or speaking.</h3>
-            <p>Ask GeniusCFO about profit, cash, customers, GST and other information in your updated books.</p>
+
+          <article class="suite-card">
+            <h3>Accountant</h3>
+            <p class="suite-kicker">The work itself</p>
+            <ul class="suite-list">
+              <li>Journal Entry</li>
+              <li>Invoicing</li>
+              <li>Bank Reconciliation</li>
+              <li>Financial Statements</li>
+              <li>FP&amp;A</li>
+              <li>Inventory Management</li>
+            </ul>
           </article>
-          <article class="business-feature">
-            <a class="screen-link" href="../assets/screens/business-gst-desktop.png" data-lightbox data-image-label="Prepare GST information from updated books" aria-haspopup="dialog">
-              <span class="screen-window"><picture><source srcset="../assets/screens/business-gst-desktop.webp" type="image/webp"><img src="../assets/screens/business-gst-desktop.png" width="1440" height="900" loading="lazy" alt="GST workspace showing output GST, input tax credit, net payable, due date and mismatches"></picture><span class="screen-caption"><strong>Prepare GST information from updated books</strong><span class="screen-expand">Open full size ↗</span></span></span>
-            </a>
-            <h3>Prepare GST information from updated books.</h3>
-            <p>Review output GST, input tax credit, net payable, return status and mismatches in the same accounting workspace.</p>
+
+          <article class="suite-card">
+            <h3>GST</h3>
+            <p class="suite-kicker">Prepared, checked, reviewed</p>
+            <ul class="suite-list">
+              <li>GST data preparation</li>
+              <li>GSTR-1 &amp; GSTR-3B preparation</li>
+              <li>Input Tax Credit (ITC) reconciliation</li>
+              <li>GST mismatch &amp; exception detection</li>
+              <li>GST return review</li>
+            </ul>
           </article>
-          <article class="business-feature">
-            <a class="screen-link" href="../assets/screens/business-bank-desktop.png" data-lightbox data-image-label="Match bank transactions with accounting entries" aria-haspopup="dialog">
-              <span class="screen-window"><picture><source srcset="../assets/screens/business-bank-desktop.webp" type="image/webp"><img src="../assets/screens/business-bank-desktop.png" width="1440" height="900" loading="lazy" alt="Bank reconciliation workspace showing unmatched statement transactions and accounting entries"></picture><span class="screen-caption"><strong>Match bank transactions with accounting entries</strong><span class="screen-expand">Open full size ↗</span></span></span>
-            </a>
-            <h3>Match bank transactions with accounting entries.</h3>
-            <p>Compare statement transactions with entries in the books, identify mismatches and complete bank reconciliation.</p>
-          </article>
-          <article class="business-feature business-feature-mobile">
-            <a class="screen-link" href="../assets/screens/business-home-mobile-clean.png" data-lightbox data-image-label="Use GeniusCFO on phone and desktop" aria-haspopup="dialog">
-              <span class="screen-window"><picture><source srcset="../assets/screens/business-home-mobile-clean.webp" type="image/webp"><img src="../assets/screens/business-home-mobile-clean.png" width="852" height="1846" loading="lazy" alt="Mobile GeniusCFO screen with question prompts, voice input and current cash information"></picture><span class="screen-caption"><strong>Use GeniusCFO on phone and desktop</strong><span class="screen-expand">Open full size ↗</span></span></span>
-            </a>
-            <h3>Use GeniusCFO on your phone and desktop.</h3>
-            <p>Check current numbers, read alerts and ask a financial question without waiting to return to your desk.</p>
+
+          <article class="suite-card suite-card-soon">
+            <h3>Coming soon</h3>
+            <p class="suite-kicker">On the roadmap</p>
+            <ul class="suite-list">
+              <li>Payroll</li>
+              <li>Auditing</li>
+              <li>ITR Filing</li>
+              <li>CRM</li>
+              <li>Expense Management</li>
+            </ul>
           </article>
         </div>
+
+        <p class="suite-note">Every plan carries the whole suite. The tiers differ in how much AI you get.</p>
       </div>
     </section>
 
-    <section class="chapter on-ink" id="ask-geniuscfo">
+    <!-- 02 · MECHANISM ============================================== -->
+    <section class="chapter chapter-major" id="product">
+      <div class="wrap">
+        <div class="chapter-head chapter-head-centre">
+          <p class="chapter-marker">02 · What you can do</p>
+          <h2 data-scroll-fade>Books that keep themselves current.</h2>
+          <p class="lead">GeniusCFO connects routine accounting work with dashboards, GST and clear answers.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>See the whole business at a glance.</h3>
+            <p><b>One dashboard, every number.</b> Sales, profit, cash, receivables, payables, working capital and cash runway, updated from your books.</p>
+            <ul class="plan-features">
+              <li>Live profit and cash position</li>
+              <li>Receivables and payables ageing</li>
+              <li>Working capital and runway</li>
+            </ul>
+            <div class="card-media">
+              <a class="screen-link" href="../assets/screens/business-dashboard-desktop.png?v=20260818" data-lightbox data-image-label="Understand your business at a glance" aria-haspopup="dialog">
+                <span class="screen-window"><picture><source srcset="../assets/screens/business-dashboard-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/business-dashboard-desktop.png?v=20260818" width="1440" height="900" loading="lazy" alt="Executive dashboard with business numbers and alerts"></picture></span>
+              </a>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Ask in plain English.</h3>
+            <p><b>Type it or say it.</b> Ask GeniusCFO about profit, cash, customers, GST and anything else sitting in your updated books.</p>
+            <ul class="plan-features">
+              <li>Typed or voice questions</li>
+              <li>Answers drawn from your books</li>
+              <li>Follow-up questions in context</li>
+            </ul>
+            <div class="card-media">
+              <a class="screen-link" href="../assets/screens/business-ask-desktop.png?v=20260818" data-lightbox data-image-label="Ask questions about profit, cash and GST" aria-haspopup="dialog">
+                <span class="screen-window"><picture><source srcset="../assets/screens/business-ask-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/business-ask-desktop.png?v=20260818" width="1440" height="900" loading="lazy" alt="Ask GeniusCFO answering a question about annual profit"></picture></span>
+              </a>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>GST prepared from the books.</h3>
+            <p><b>No separate spreadsheet.</b> Output GST, input tax credit, net payable, return status and mismatches, all in the same accounting workspace.</p>
+            <ul class="plan-features">
+              <li>Output GST and input tax credit</li>
+              <li>Net payable and return status</li>
+              <li>Mismatches flagged for review</li>
+            </ul>
+            <div class="card-media">
+              <a class="screen-link" href="../assets/screens/business-gst-desktop.png?v=20260818" data-lightbox data-image-label="Prepare GST information from updated books" aria-haspopup="dialog">
+                <span class="screen-window"><picture><source srcset="../assets/screens/business-gst-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/business-gst-desktop.png?v=20260818" width="1440" height="900" loading="lazy" alt="GST workspace showing output GST, input tax credit, net payable, due date and mismatches"></picture></span>
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <div class="more-panel" id="product-more" data-more-panel>
+          <div>
+            <div class="grid-2" style="margin-top:28px">
+              <article class="card">
+                <h3>Bank matched to the books.</h3>
+                <p><b>Reconciliation without the evening.</b> Compare statement transactions with entries in the books, identify mismatches and close the reconciliation.</p>
+                <ul class="plan-features">
+                  <li>Statement lines matched to entries</li>
+                  <li>Mismatches surfaced, not buried</li>
+                  <li>Reconciliation completed in place</li>
+                </ul>
+                <div class="card-media">
+                  <a class="screen-link" href="../assets/screens/business-bank-desktop.png?v=20260818" data-lightbox data-image-label="Match bank transactions with accounting entries" aria-haspopup="dialog">
+                    <span class="screen-window"><picture><source srcset="../assets/screens/business-bank-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/business-bank-desktop.png?v=20260818" width="1440" height="900" loading="lazy" alt="Bank reconciliation workspace showing unmatched statement transactions and accounting entries"></picture></span>
+                  </a>
+                </div>
+              </article>
+
+              <article class="card">
+                <h3>The same books on your phone.</h3>
+                <p><b>Answers away from the desk.</b> Check current numbers, read alerts and ask a financial question without waiting to get back to your laptop.</p>
+                <ul class="plan-features">
+                  <li>Full dashboard on mobile</li>
+                  <li>Voice questions on the move</li>
+                  <li>Alerts wherever you are</li>
+                </ul>
+                <div class="card-media">
+                  <a class="screen-link" href="../assets/screens/business-home-mobile-clean.png?v=20260818" data-lightbox data-image-label="Use GeniusCFO on phone and desktop" aria-haspopup="dialog">
+                    <span class="screen-window" style="max-width:320px;margin-inline:auto"><picture><source srcset="../assets/screens/business-home-mobile-clean.webp?v=20260818" type="image/webp"><img src="../assets/screens/business-home-mobile-clean.png?v=20260818" width="852" height="1846" loading="lazy" alt="Mobile GeniusCFO screen with question prompts, voice input and current cash information"></picture></span>
+                  </a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <p class="know-more">
+          <button class="know-more-btn" type="button" data-know-more="product-more" data-label-more="Know more" data-label-less="Show less" hidden>Know more</button>
+        </p>
+      </div>
+    </section>
+
+    <!-- 03 · ASK ==================================================== -->
+    <section class="chapter" id="ask-geniuscfo">
       <div class="wrap ask-demo" data-ask-module>
         <div class="ask-demo-media">
-          <a class="screen-link" href="../assets/screens/business-ask-mobile.png" data-lightbox data-image-label="Ask GeniusCFO on a phone using typed or voice input" aria-haspopup="dialog">
-            <span class="screen-window"><picture><source srcset="../assets/screens/business-ask-mobile.webp" type="image/webp"><img src="../assets/screens/business-ask-mobile.png" width="390" height="844" loading="lazy" alt="Ask GeniusCFO mobile screen with a financial answer and voice control"></picture><span class="screen-caption"><strong>Ask GeniusCFO on phone or desktop</strong><span class="screen-expand">Open full size ↗</span></span></span>
+          <a class="screen-link" href="../assets/screens/business-ask-mobile.png?v=20260818"
+             data-lightbox
+             data-motion-video="../assets/screens/business-ask-chat-animated.mp4?v=20260818"
+             data-motion-video-webm="../assets/screens/business-ask-chat-animated.webm?v=20260818"
+             data-motion-poster="../assets/screens/business-ask-chat-poster.webp?v=20260818"
+             data-image-label="Ask GeniusCFO a question and watch the answer come back"
+             aria-haspopup="dialog">
+            <span class="screen-window">
+              <span class="screen-motion" data-motion-slot>
+                <picture><source srcset="../assets/screens/business-ask-chat-poster.webp?v=20260818" type="image/webp"><img src="../assets/screens/business-ask-chat-poster.png?v=20260818" width="852" height="1846" loading="lazy" alt="Ask GeniusCFO on a phone: the question is typed, GeniusCFO reads the posted ledger and answers with profit before tax, margin and revenue growth"></picture>
+                <span class="screen-play">Replay</span>
+              </span>
+              <span class="screen-caption"><strong>Ask GeniusCFO on phone or desktop</strong><span class="screen-expand">Open full size ↗</span></span>
+            </span>
           </a>
         </div>
         <div class="ask-demo-copy">
-          <p class="chapter-marker">02 · ASK GENIUSCFO</p>
-          <h2>Ask a question. Get an answer from your accounts.</h2>
-          <p class="lead">Choose an example question to see the type of answer GeniusCFO provides.</p>
+          <p class="chapter-marker">03 · Ask GeniusCFO</p>
+          <h2 data-scroll-fade>Ask a question. Get the number.</h2>
+          <p class="lead">Choose an example question and see the kind of answer your books return.</p>
           <div class="ask-prompts" aria-label="Example questions">
             <button type="button" data-ask-choice="profit" aria-pressed="true">Am I profitable this year?</button>
             <button type="button" data-ask-choice="cash" aria-pressed="false">What is my cash position?</button>
@@ -443,77 +591,168 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <section class="chapter on-paper" id="alerts">
+    <!-- 04 · OUTPUT ================================================= -->
+    <section class="chapter chapter-major" id="statements">
       <div class="wrap">
-        <div class="chapter-head chapter-intro">
-          <p class="chapter-marker">03 · EARLY ALERTS</p>
-          <h2>See financial issues while there is time to act.</h2>
-          <p class="lead">GeniusCFO uses information in the books to show payment, tax and cash alerts without waiting for month-end.</p>
+        <div class="chapter-head chapter-head-centre">
+          <p class="chapter-marker">04 · What you get</p>
+          <h2 data-scroll-fade>Statements, not a shoebox.</h2>
+          <p class="lead">Balance sheet, profit and loss and ledgers, built from the same updated books.</p>
         </div>
-        <div class="alert-grid">
-          <article class="alert-screen-card">
-            <a class="screen-link" href="../assets/screens/business-alert-gst.png" data-lightbox data-image-label="Review GST and input tax credit alerts" aria-haspopup="dialog">
-              <span class="screen-window alert-screen-window"><picture><source srcset="../assets/screens/business-alert-gst.webp" type="image/webp"><img src="../assets/screens/business-alert-gst.png" width="1005" height="618" loading="lazy" alt="GeniusCFO dashboard insight showing unclaimed input tax credit and supplier filing details"></picture><span class="screen-caption"><strong>Review GST and input tax credit alerts</strong><span class="screen-expand">Open full size ↗</span></span></span>
-            </a>
-          </article>
-          <article class="alert-screen-card">
-            <a class="screen-link" href="../assets/screens/business-alert-customer.png" data-lightbox data-image-label="See overdue customer payments" aria-haspopup="dialog">
-              <span class="screen-window alert-screen-window"><picture><source srcset="../assets/screens/business-alert-customer.webp" type="image/webp"><img src="../assets/screens/business-alert-customer.png" width="1002" height="618" loading="lazy" alt="GeniusCFO dashboard insight showing customer receivables and an overdue payment"></picture><span class="screen-caption"><strong>See overdue customer payments</strong><span class="screen-expand">Open full size ↗</span></span></span>
-            </a>
-          </article>
-          <article class="alert-screen-card">
-            <a class="screen-link" href="../assets/screens/business-alert-runway.png" data-lightbox data-image-label="Check cash burn and runway" aria-haspopup="dialog">
-              <span class="screen-window alert-screen-window"><picture><source srcset="../assets/screens/business-alert-runway.webp" type="image/webp"><img src="../assets/screens/business-alert-runway.png" width="1014" height="618" loading="lazy" alt="GeniusCFO dashboard insight comparing monthly cash burn with available cash and runway"></picture><span class="screen-caption"><strong>Check cash burn and runway</strong><span class="screen-expand">Open full size ↗</span></span></span>
-            </a>
-          </article>
+        <div class="screen-mat">
+          <a class="screen-link" href="../assets/screens/app-balance-sheet-desktop.png?v=20260818" data-lightbox data-image-label="Balance sheet produced from the same updated books" aria-haspopup="dialog">
+            <span class="screen-window"><picture><source srcset="../assets/screens/app-balance-sheet-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/app-balance-sheet-desktop.png?v=20260818" width="1440" height="900" loading="lazy" alt="GeniusCFO balance sheet showing assets, liabilities and equity produced from the accounting books"></picture><span class="screen-caption"><strong>Balance sheet produced from the same updated books</strong><span class="screen-expand">Open full size ↗</span></span></span>
+          </a>
         </div>
       </div>
     </section>
 
-    <section class="chapter on-ink" id="how">
+    <!-- 05 · OBJECTION ============================================== -->
+    <section class="chapter chapter-major wash-tint" id="review">
       <div class="wrap">
-        <div class="chapter-head chapter-intro">
-          <p class="chapter-marker">04 · HOW IT WORKS</p>
-          <h2>Start in three clear steps.</h2>
+        <div class="chapter-head chapter-head-centre">
+          <p class="chapter-marker">05 · Review and trust</p>
+          <h2 data-scroll-fade>Automated work. Human review.</h2>
+          <p class="lead">The most common question about automated accounting, answered three ways.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="proof">
+            <a class="screen-link" href="../assets/screens/app-journal-desktop.png?v=20260818" data-lightbox data-image-label="Your accountant or CA reviews the same entries" aria-haspopup="dialog">
+              <span class="screen-window"><picture><source srcset="../assets/screens/app-journal-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/app-journal-desktop.png?v=20260818" width="1440" height="900" loading="lazy" alt="Journal entries listing with debits, credits and narration open for review"></picture></span>
+            </a>
+            <div class="proof-copy lead-in">
+              <strong>Your CA sees the same books.</strong>
+              <p>Your accountant or CA can review the entries, source records, reports and GST information in the same workspace you use.</p>
+            </div>
+          </article>
+
+          <article class="proof">
+            <a class="screen-link" href="../assets/screens/app-notes-desktop.png?v=20260818" data-lightbox data-image-label="Every entry traces back to its source record" aria-haspopup="dialog">
+              <span class="screen-window"><picture><source srcset="../assets/screens/app-notes-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/app-notes-desktop.png?v=20260818" width="1440" height="900" loading="lazy" alt="Supporting notes and source records attached to accounting entries"></picture></span>
+            </a>
+            <div class="proof-copy lead-in">
+              <strong>Every entry has a source.</strong>
+              <p>Entries are prepared from your business documents and bank activity, and the underlying record stays attached for review.</p>
+            </div>
+          </article>
+
+          <article class="proof">
+            <a class="screen-link" href="../assets/screens/business-alert-gst.png?v=20260818" data-lightbox data-image-label="Issues surface before month-end, not after" aria-haspopup="dialog">
+              <span class="screen-window"><picture><source srcset="../assets/screens/business-alert-gst.webp?v=20260818" type="image/webp"><img src="../assets/screens/business-alert-gst.png?v=20260818" width="993" height="600" loading="lazy" alt="Dashboard insight showing unclaimed input tax credit and supplier filing details"></picture></span>
+            </a>
+            <div class="proof-copy lead-in">
+              <strong>You find out early.</strong>
+              <p>Because the books stay current, payment, tax and cash issues show up while there is still time to act on them.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="more-panel" id="alerts-more" data-more-panel>
+          <div>
+            <div class="split" style="margin-top:44px" id="alerts">
+              <div class="alert-strip">
+                <a class="screen-link" href="../assets/screens/business-alert-runway.png?v=20260818" data-lightbox data-image-label="Check cash burn and runway" aria-haspopup="dialog">
+                  <span class="screen-window"><picture><source srcset="../assets/screens/business-alert-runway.webp?v=20260818" type="image/webp"><img src="../assets/screens/business-alert-runway.png?v=20260818" width="993" height="600" loading="lazy" alt="Dashboard insight comparing monthly cash burn with available cash and runway"></picture></span>
+                </a>
+                <a class="screen-link" href="../assets/screens/business-alert-customer.png?v=20260818" data-lightbox data-image-label="See overdue customer payments" aria-haspopup="dialog">
+                  <span class="screen-window"><picture><source srcset="../assets/screens/business-alert-customer.webp?v=20260818" type="image/webp"><img src="../assets/screens/business-alert-customer.png?v=20260818" width="993" height="600" loading="lazy" alt="Dashboard insight showing customer receivables and an overdue payment"></picture></span>
+                </a>
+              </div>
+              <div class="split-copy">
+                <p class="chapter-marker">Early alerts</p>
+                <h3 class="h2-like">Problems, while they are still small.</h3>
+                <div class="stat">
+                  <p class="stat-figure">Before month-end</p>
+                  <p class="stat-label">When you find out</p>
+                </div>
+                <p class="body-lg lead-in"><b>No waiting for the close.</b> GeniusCFO reads the information already in your books and raises payment, tax and cash alerts as they appear &mdash; not four weeks later.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="know-more">
+          <button class="know-more-btn" type="button" data-know-more="alerts-more" data-label-more="Know more about early alerts" data-label-less="Show less" hidden>Know more about early alerts</button>
+        </p>
+      </div>
+    </section>
+
+    <!-- 06 · BREADTH ================================================ -->
+    <section class="chapter" id="comparison">
+      <div class="wrap">
+        <div class="chapter-head chapter-head-centre">
+          <p class="chapter-marker">06 · One workspace</p>
+          <h2 data-scroll-fade>Everything in one place.</h2>
+          <p class="lead">The accounting work a growing Indian business actually has to do.</p>
+        </div>
+
+        <div class="marquee" role="list" aria-label="What GeniusCFO covers">
+          <div class="marquee-track" data-marquee>
+            <span class="marquee-item" role="listitem">Bookkeeping</span>
+            <span class="marquee-item" role="listitem">GST</span>
+            <span class="marquee-item" role="listitem">TDS</span>
+            <span class="marquee-item" role="listitem">ITR</span>
+            <span class="marquee-item" role="listitem">Bank reconciliation</span>
+            <span class="marquee-item" role="listitem">Financial statements</span>
+            <span class="marquee-item" role="listitem">Cash flow</span>
+            <span class="marquee-item" role="listitem">Receivables</span>
+            <span class="marquee-item" role="listitem">Payables</span>
+            <span class="marquee-item" role="listitem">Intelligence Hub</span>
+          </div>
+        </div>
+
+        <div class="more-panel" id="comparison-more" data-more-panel>
+          <div>
+            <div style="margin-top:40px">
+              <p class="chapter-marker" style="margin-bottom:14px">How GeniusCFO compares</p>
+              <div class="comparison-legend" aria-label="Comparison symbols"><span><b aria-hidden="true">✓</b> Available</span><span><b aria-hidden="true">◐</b> Partial</span><span><b aria-hidden="true">×</b> Not available</span></div>
+              <div class="comparison-wrap">
+                <table class="comparison-table">
+                  <caption>Feature comparison for Tally, Zoho, ClearTax, Vyapar, Khatabook and GeniusCFO.</caption>
+                  <thead><tr><th scope="col">Capability</th><th scope="col">Tally</th><th scope="col">Zoho</th><th scope="col">ClearTax</th><th scope="col">Vyapar</th><th scope="col">Khatabook</th><th scope="col">GeniusCFO</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Real-time books</th><td data-label="Tally"><span aria-label="Not available">×</span></td><td data-label="Zoho"><span aria-label="Partial">◐</span></td><td data-label="ClearTax"><span aria-label="Not available">×</span></td><td data-label="Vyapar"><span aria-label="Partial">◐</span></td><td data-label="Khatabook"><span aria-label="Partial">◐</span></td><td data-label="GeniusCFO" class="gcfo-mark"><span aria-label="Available">✓</span></td></tr>
+                    <tr><th scope="row">Cash-flow forecasting</th><td data-label="Tally"><span aria-label="Not available">×</span></td><td data-label="Zoho"><span aria-label="Partial">◐</span></td><td data-label="ClearTax"><span aria-label="Not available">×</span></td><td data-label="Vyapar"><span aria-label="Not available">×</span></td><td data-label="Khatabook"><span aria-label="Not available">×</span></td><td data-label="GeniusCFO" class="gcfo-mark"><span aria-label="Available">✓</span></td></tr>
+                    <tr><th scope="row">GST filing built in</th><td data-label="Tally"><span aria-label="Partial">◐</span></td><td data-label="Zoho"><span aria-label="Partial">◐</span></td><td data-label="ClearTax"><span aria-label="Available">✓</span></td><td data-label="Vyapar"><span aria-label="Partial">◐</span></td><td data-label="Khatabook"><span aria-label="Not available">×</span></td><td data-label="GeniusCFO" class="gcfo-mark"><span aria-label="Available">✓</span></td></tr>
+                    <tr><th scope="row">Ask in plain English</th><td data-label="Tally"><span aria-label="Not available">×</span></td><td data-label="Zoho"><span aria-label="Not available">×</span></td><td data-label="ClearTax"><span aria-label="Not available">×</span></td><td data-label="Vyapar"><span aria-label="Not available">×</span></td><td data-label="Khatabook"><span aria-label="Not available">×</span></td><td data-label="GeniusCFO" class="gcfo-mark"><span aria-label="Available">✓</span></td></tr>
+                    <tr><th scope="row">Proactive warnings</th><td data-label="Tally"><span aria-label="Not available">×</span></td><td data-label="Zoho"><span aria-label="Not available">×</span></td><td data-label="ClearTax"><span aria-label="Not available">×</span></td><td data-label="Vyapar"><span aria-label="Not available">×</span></td><td data-label="Khatabook"><span aria-label="Not available">×</span></td><td data-label="GeniusCFO" class="gcfo-mark"><span aria-label="Available">✓</span></td></tr>
+                    <tr><th scope="row">Runs fully on mobile</th><td data-label="Tally"><span aria-label="Not available">×</span></td><td data-label="Zoho"><span aria-label="Partial">◐</span></td><td data-label="ClearTax"><span aria-label="Partial">◐</span></td><td data-label="Vyapar"><span aria-label="Partial">◐</span></td><td data-label="Khatabook"><span aria-label="Partial">◐</span></td><td data-label="GeniusCFO" class="gcfo-mark"><span aria-label="Available">✓</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="know-more">
+          <button class="know-more-btn" type="button" data-know-more="comparison-more" data-label-more="Know more" data-label-less="Show less" hidden>Know more</button>
+        </p>
+      </div>
+    </section>
+
+    <!-- 07 · GETTING STARTED ======================================== -->
+    <section class="chapter" id="how">
+      <div class="wrap">
+        <div class="chapter-head">
+          <p class="chapter-marker">07 · Getting started</p>
+          <h2 data-scroll-fade>Three steps to current books.</h2>
         </div>
         <ol class="steps">
-          <li><span class="list-label">01 · CONNECT</span><span>Bring in business documents, bank activity or accounting data.</span></li>
-          <li><span class="list-label">02 · PREPARE</span><span>GeniusCFO prepares accounting entries and keeps dashboards, GST information and reports updated.</span></li>
-          <li><span class="list-label">03 · REVIEW AND USE</span><span>Review the work with your accountant or CA, ask questions and act on alerts.</span></li>
+          <li><span class="list-label">01 · Connect</span><span>Bring in business documents, bank activity or accounting data.</span></li>
+          <li><span class="list-label">02 · Prepare</span><span>GeniusCFO prepares accounting entries and keeps dashboards, GST information and reports updated.</span></li>
+          <li><span class="list-label">03 · Review and use</span><span>Review the work with your accountant or CA, ask questions and act on alerts.</span></li>
         </ol>
       </div>
     </section>
 
-    <section class="chapter on-paper" id="comparison">
+    <!-- 08 · PRICING ================================================ -->
+    <section class="chapter chapter-major wash-tint" id="business-pricing">
       <div class="wrap">
-        <div class="chapter-head chapter-intro">
-          <p class="chapter-marker">05 · COMPARISON</p>
-          <h2>Compare the features business owners use every day.</h2>
-        </div>
-        <div class="comparison-legend" aria-label="Comparison symbols"><span><b aria-hidden="true">✓</b> Available</span><span><b aria-hidden="true">◐</b> Partial</span><span><b aria-hidden="true">×</b> Not available</span></div>
-        <div class="comparison-wrap">
-          <table class="comparison-table">
-            <caption>Feature comparison for Tally, Zoho, ClearTax, Vyapar, Khatabook and GeniusCFO.</caption>
-            <thead><tr><th scope="col">Capability</th><th scope="col">Tally</th><th scope="col">Zoho</th><th scope="col">ClearTax</th><th scope="col">Vyapar</th><th scope="col">Khatabook</th><th scope="col">GeniusCFO</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">Real-time books</th><td data-label="Tally"><span aria-label="Not available">×</span></td><td data-label="Zoho"><span aria-label="Partial">◐</span></td><td data-label="ClearTax"><span aria-label="Not available">×</span></td><td data-label="Vyapar"><span aria-label="Partial">◐</span></td><td data-label="Khatabook"><span aria-label="Partial">◐</span></td><td data-label="GeniusCFO" class="gcfo-mark"><span aria-label="Available">✓</span></td></tr>
-              <tr><th scope="row">Cash-flow forecasting</th><td data-label="Tally"><span aria-label="Not available">×</span></td><td data-label="Zoho"><span aria-label="Partial">◐</span></td><td data-label="ClearTax"><span aria-label="Not available">×</span></td><td data-label="Vyapar"><span aria-label="Not available">×</span></td><td data-label="Khatabook"><span aria-label="Not available">×</span></td><td data-label="GeniusCFO" class="gcfo-mark"><span aria-label="Available">✓</span></td></tr>
-              <tr><th scope="row">GST filing built in</th><td data-label="Tally"><span aria-label="Partial">◐</span></td><td data-label="Zoho"><span aria-label="Partial">◐</span></td><td data-label="ClearTax"><span aria-label="Available">✓</span></td><td data-label="Vyapar"><span aria-label="Partial">◐</span></td><td data-label="Khatabook"><span aria-label="Not available">×</span></td><td data-label="GeniusCFO" class="gcfo-mark"><span aria-label="Available">✓</span></td></tr>
-              <tr><th scope="row">Ask in plain English</th><td data-label="Tally"><span aria-label="Not available">×</span></td><td data-label="Zoho"><span aria-label="Not available">×</span></td><td data-label="ClearTax"><span aria-label="Not available">×</span></td><td data-label="Vyapar"><span aria-label="Not available">×</span></td><td data-label="Khatabook"><span aria-label="Not available">×</span></td><td data-label="GeniusCFO" class="gcfo-mark"><span aria-label="Available">✓</span></td></tr>
-              <tr><th scope="row">Proactive warnings</th><td data-label="Tally"><span aria-label="Not available">×</span></td><td data-label="Zoho"><span aria-label="Not available">×</span></td><td data-label="ClearTax"><span aria-label="Not available">×</span></td><td data-label="Vyapar"><span aria-label="Not available">×</span></td><td data-label="Khatabook"><span aria-label="Not available">×</span></td><td data-label="GeniusCFO" class="gcfo-mark"><span aria-label="Available">✓</span></td></tr>
-              <tr><th scope="row">Runs fully on mobile</th><td data-label="Tally"><span aria-label="Not available">×</span></td><td data-label="Zoho"><span aria-label="Partial">◐</span></td><td data-label="ClearTax"><span aria-label="Partial">◐</span></td><td data-label="Vyapar"><span aria-label="Partial">◐</span></td><td data-label="Khatabook"><span aria-label="Partial">◐</span></td><td data-label="GeniusCFO" class="gcfo-mark"><span aria-label="Available">✓</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section class="chapter on-ink" id="business-pricing">
-      <div class="wrap">
-        <div class="chapter-head chapter-intro">
-          <p class="chapter-marker">06 · PRICING</p>
-          <h2>Start free. Pay when you&rsquo;re ready.</h2>
-          <p class="lead">Every plan starts with a 14-day free trial and carries the full product &mdash; books, GST, TDS, ITR, unlimited workflows and the Intelligence Hub. The tiers differ in how much AI you get.</p>
+        <div class="chapter-head">
+          <p class="chapter-marker">08 · Pricing</p>
+          <h2 data-scroll-fade>Start free. Pay when you&rsquo;re ready.</h2>
+          <p class="lead">Every plan carries the full product. The tiers differ in how much AI you get.</p>
         </div>
         <div class="plan-selector" data-plan-selector="business">
           <div class="billing-control">
@@ -541,8 +780,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <span class="plan-option-name">Light</span>
               <span class="plan-option-price"><span data-price-slot>₹2,398</span><small data-price-note>EVERY 3 MONTHS · EX-GST · SAVE 20%</small></span>
             </span>
-            <span class="plan-option-scope">1 company · just you</span>
-            <ul class="plan-features"><li>Email support</li><li>Baseline AI allowance</li></ul>
+            <span class="plan-option-scope">1 company &middot; just you</span>
+            <ul class="plan-features">
+              <li>Books</li>
+              <li>GST</li>
+              <li>TDS</li>
+              <li>ITR</li>
+              <li>Workflows: unlimited</li>
+              <li>Intelligence Hub</li>
+              <li>Support: email</li>
+            </ul>
           </label>
           <label class="plan-option" data-plan-id="pro" data-plan-name="Pro"
             data-monthly-display="₹1,999" data-monthly-note="PER MONTH · EX-GST"
@@ -555,8 +802,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <span class="plan-option-name">Pro</span>
               <span class="plan-option-price"><span data-price-slot>₹4,798</span><small data-price-note>EVERY 3 MONTHS · EX-GST · SAVE 20%</small></span>
             </span>
-            <span class="plan-option-scope">1 company · just you</span>
-            <ul class="plan-features"><li>Priority support</li><li>More AI than Light</li></ul>
+            <span class="plan-option-scope">1 company &middot; just you</span>
+            <ul class="plan-features">
+              <li>Books</li>
+              <li>GST</li>
+              <li>TDS</li>
+              <li>ITR</li>
+              <li>Workflows: unlimited</li>
+              <li>Intelligence Hub</li>
+              <li>Support: priority</li>
+              <li class="is-extra">More AI than Light</li>
+            </ul>
           </label>
           <label class="plan-option" data-plan-id="pro_max" data-plan-name="Pro Max"
             data-monthly-display="₹2,999" data-monthly-note="PER MONTH · EX-GST"
@@ -569,8 +825,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <span class="plan-option-name">Pro Max</span>
               <span class="plan-option-price"><span data-price-slot>₹7,198</span><small data-price-note>EVERY 3 MONTHS · EX-GST · SAVE 20%</small></span>
             </span>
-            <span class="plan-option-scope">1 company · just you</span>
-            <ul class="plan-features"><li>Priority support</li><li>Advisory</li><li>The most AI of the individual plans</li></ul>
+            <span class="plan-option-scope">1 company &middot; just you</span>
+            <ul class="plan-features">
+              <li>Books</li>
+              <li>GST</li>
+              <li>TDS</li>
+              <li>ITR</li>
+              <li>Workflows: unlimited</li>
+              <li>Intelligence Hub</li>
+              <li>Support: priority</li>
+              <li class="is-extra">Advisory</li>
+              <li class="is-extra">The most AI of the individual plans</li>
+            </ul>
           </label>
           </div>
           <div class="plan-actions">
@@ -578,59 +844,51 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p class="plan-cta-note">GeniusCFO costs ₹999 per month for Light, ₹1,999 for Pro and ₹2,999 for Pro Max, for one business and one user. Prices exclude 18% GST, and billing every three months costs 20% less than the monthly rate. <a href="/pricing?audience=business#business-plans" data-preserve-query>See full pricing, managed services and add-ons</a>.</p>
           </div>
         </div>
+
+        <div class="more-panel" id="services-more" data-more-panel>
+          <div>
+            <div style="margin-top:48px">
+              <p class="chapter-marker" style="margin-bottom:10px">Want a person on it as well?</p>
+              <p class="lead" style="margin-bottom:24px">Add professional accounting support on top of your plan. Optional, and billed separately.</p>
+              <div class="service-list">
+                <article class="service-block">
+                  <h3>Accountant+</h3><p class="service-price">₹999/month</p>
+                  <p>A dedicated accountant supports month-end review, bookkeeping cleanup and filing preparation.</p>
+                </article>
+                <article class="service-block">
+                  <h3>CA+</h3><p class="service-price">₹2,999/month</p>
+                  <p>A Chartered Accountant supports GST, TDS and income tax filing, quarterly review and tax advice.</p>
+                </article>
+                <article class="service-block">
+                  <h3>Independent Statutory &amp; Tax Auditor</h3><p class="service-price">₹4,999/financial year</p>
+                  <p>Connect with an independent Chartered Accountant for statutory and tax audit services.</p>
+                </article>
+              </div>
+              <p class="pricing-support">Managed services are not included in any plan. Prices exclude 18% GST.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="know-more">
+          <button class="know-more-btn" type="button" data-know-more="services-more" data-label-more="Know more about managed services" data-label-less="Show less" hidden>Know more about managed services</button>
+        </p>
       </div>
     </section>
 
-    <section class="chapter on-paper" id="managed-services">
-      <div class="wrap">
-        <div class="chapter-head chapter-intro">
-          <p class="chapter-marker">07 · MANAGED SERVICES</p>
-          <h2>Want a person on it as well?</h2>
-          <p class="lead">Add professional accounting support on top of your plan when you want help managing the work. Optional, and billed separately from the plan.</p>
-        </div>
-        <div class="service-list">
-          <article class="service-block">
-            <div><h3>Accountant+</h3><p class="service-price">₹999/month</p></div>
-            <p>A dedicated accountant supports month-end review, bookkeeping cleanup and filing preparation.</p>
-          </article>
-          <article class="service-block">
-            <div><h3>CA+</h3><p class="service-price">₹2,999/month</p></div>
-            <p>A Chartered Accountant supports GST, TDS and income tax filing, quarterly review and tax advice.</p>
-          </article>
-          <article class="service-block">
-            <div><h3>Independent Statutory &amp; Tax Auditor</h3><p class="service-price">₹4,999/financial year</p></div>
-            <p>Connect with an independent Chartered Accountant for statutory and tax audit services.</p>
-          </article>
-        </div>
-        <p class="pricing-support">Managed services are not included in any plan. Prices exclude 18% GST.</p>
-      </div>
-    </section>
-
-    <section class="chapter on-ink" id="faq">
-      <div class="wrap">
-        <div class="chapter-head"><p class="chapter-marker">08 · FAQ</p><h2>FAQs</h2></div>
-        <div class="faq-list">
-          <details><summary>What does GeniusCFO do for a business?</summary><div class="faq-answer">GeniusCFO automates bookkeeping, prepares GST information, matches bank transactions, shows important business numbers and alerts, and answers financial questions from updated accounts.</div></details>
-          <details><summary>Do I need accounting knowledge to use GeniusCFO?</summary><div class="faq-answer">No. Business owners can see clear dashboards and ask questions in everyday English. Your accountant or CA can review the accounting entries and source records.</div></details>
-          <details><summary>Can I ask GeniusCFO questions by voice?</summary><div class="faq-answer">Yes. Ask GeniusCFO accepts typed or voice questions about profit, cash, GST and other financial information in the books.</div></details>
-          <details><summary>Does GeniusCFO prepare GST information?</summary><div class="faq-answer">Yes. GeniusCFO uses updated books to prepare GST information, including output GST, input tax credit, net payable, return status and mismatches for review.</div></details>
-          <details><summary>Can I use GeniusCFO on my phone and laptop?</summary><div class="faq-answer">Yes. GeniusCFO works on phone and desktop, so you can check business numbers, alerts and answers wherever you are.</div></details>
-          <details><summary>Can my accountant or CA review the same books?</summary><div class="faq-answer">Yes. Your accountant or CA can review the entries, source records, reports and GST information in the same accounting workspace.</div></details>
-          <details><summary>What does the free trial include?</summary><div class="faq-answer">Every plan starts with a 14-day free trial with full access to everything from day one. No credit card or UPI mandate is required to begin.</div></details>
-        </div>
-      </div>
-    </section>
-
-    <section class="chapter on-ink chapter-continues" id="demo">
+    <!-- 09 · RESTATE + LEAD FORM ==================================== -->
+    <section class="chapter chapter-major" id="demo">
       <div class="wrap form-shell">
-        <div><p class="chapter-marker">09 · BOOK A DEMO</p><h2>See GeniusCFO with your business needs.</h2><p class="lead">Book a demonstration and see how GeniusCFO handles bookkeeping, GST information, bank matching, alerts and financial questions.</p></div>
+        <div>
+          <p class="chapter-marker">09 · Book a demo</p>
+          <h2 data-scroll-fade>See GeniusCFO with your business needs.</h2>
+          <p class="lead">Book a demonstration and see how GeniusCFO handles bookkeeping, GST, bank matching, alerts and financial questions.</p>
+        </div>
         <div>
           <div class="lead-form" data-lead-form data-lead-track="business">
             <p class="lead-progress" data-lead-progress><span aria-current="step">1 · Your details</span><span>2 · Two questions</span><span>3 · Confirmed</span></p>
-
             <form class="lead-step" data-lead-step="1" data-lead-submit-step1 novalidate autocomplete="off">
-              <h3>Book your demo</h3>
-              <p>Tell us where your books are today and we will shape the demo around them.</p>
+              <h3>Request Priority Access</h3>
+              <p>Tell us a bit about your business, and we&rsquo;ll confirm your spot for a personalized GeniusCFO walkthrough.</p>
 
               <div class="field">
                 <label for="business-name">Your name</label>
@@ -677,8 +935,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               </div>
 
               <label class="consent">
-                <input type="checkbox" name="consent">
-                <span>I agree to be contacted about my demo on WhatsApp and email.</span>
+                <input type="checkbox" name="consent" required aria-required="true">
+                <span>I agree to be contacted about my demo on WhatsApp and/or email.</span>
               </label>
               <p class="lead-error" data-lead-error="consent" hidden></p>
 
@@ -691,7 +949,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <input name="interested_plan" type="hidden">
               </div>
 
-              <button class="btn btn-primary" type="submit">Continue</button>
+              <button class="btn btn-primary" type="submit">Request Access</button>
             </form>
 
             <form class="lead-step" data-lead-step="2" data-lead-submit-step2 novalidate hidden>
@@ -764,11 +1022,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
     </section>
+
+    <!-- 10 · FAQ (below the lead form, per Content directions) ======= -->
+    <section class="chapter" id="faq">
+      <div class="wrap">
+        <div class="chapter-head">
+          <p class="chapter-marker">10 · FAQ</p>
+          <h2 data-scroll-fade>Questions people ask first.</h2>
+        </div>
+        <div class="faq-list">
+          <details><summary>What does GeniusCFO do for a business?</summary><div class="faq-answer">GeniusCFO automates bookkeeping, prepares GST information, matches bank transactions, shows important business numbers and alerts, and answers financial questions from updated accounts.</div></details>
+          <details><summary>Do I need accounting knowledge to use GeniusCFO?</summary><div class="faq-answer">No. Business owners can see clear dashboards and ask questions in everyday English. Your accountant or CA can review the accounting entries and source records.</div></details>
+          <details><summary>Can I ask GeniusCFO questions by voice?</summary><div class="faq-answer">Yes. Ask GeniusCFO accepts typed or voice questions about profit, cash, GST and other financial information in the books.</div></details>
+          <details><summary>Does GeniusCFO prepare GST information?</summary><div class="faq-answer">Yes. GeniusCFO uses updated books to prepare GST information, including output GST, input tax credit, net payable, return status and mismatches for review.</div></details>
+          <details><summary>Can I use GeniusCFO on my phone and laptop?</summary><div class="faq-answer">Yes. GeniusCFO works on phone and desktop, so you can check business numbers, alerts and answers wherever you are.</div></details>
+          <details><summary>Can my accountant or CA review the same books?</summary><div class="faq-answer">Yes. Your accountant or CA can review the entries, source records, reports and GST information in the same accounting workspace.</div></details>
+          <details><summary>What does the free trial include?</summary><div class="faq-answer">Every plan starts with a 14-day free trial with full access to everything from day one. No credit card or UPI mandate is required to begin.</div></details>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
     <div class="wrap footer-grid">
-      <div class="footer-brand"><img src="../assets/logo-wordmark-dark.svg" width="240" height="52" alt="GeniusCFO"><p>Affordable accounting automation and financial answers for Indian businesses.</p></div>
+      <div class="footer-brand"><img src="../assets/logo-on-paper.png" width="492" height="128" alt="GeniusCFO"><p>Affordable accounting automation and financial answers for Indian businesses.</p></div>
       <div class="footer-col"><h2>Business</h2><ul><li><a href="#product">Product</a></li><li><a href="#how">How it works</a></li><li><a href="/pricing?audience=business#business-plans" data-preserve-query>Business pricing</a></li></ul></div>
       <div class="footer-col"><h2>CA firms</h2><ul><li><a href="/ca-firms" data-preserve-query>CA/Firm experience</a></li><li><a href="/pricing?audience=ca-firms#firm-plans" data-preserve-query>CA/Firm pricing</a></li></ul></div>
       <div class="footer-col"><h2>Access</h2><ul><li><a href="#demo">Book a demo</a></li><li><a href="#faq">FAQ</a></li></ul></div>
@@ -778,9 +1055,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </footer>
 
   <dialog class="image-dialog" data-image-dialog aria-labelledby="image-dialog-title">
-    <div class="image-dialog-shell"><div class="image-dialog-head"><p id="image-dialog-title" data-image-dialog-title></p><button type="button" class="image-dialog-close" data-image-dialog-close>Close</button></div><div class="image-dialog-stage"><img data-image-dialog-image src="" alt=""></div></div>
+    <div class="image-dialog-shell"><div class="image-dialog-head"><p id="image-dialog-title" data-image-dialog-title></p><span class="image-dialog-actions"><button type="button" class="image-dialog-replay" data-image-dialog-replay hidden>Play again</button><button type="button" class="image-dialog-close" data-image-dialog-close>Close</button></span></div><div class="image-dialog-stage"><img data-image-dialog-image alt=""></div></div>
   </dialog>
 
-  <script src="../assets/site.js?v=20260811-2" defer></script>
+  <script src="../assets/site.js?v=20260818-v5" defer></script>
+  <script src="../assets/site-v4.js?v=20260818-v5" defer></script>
 </body>
 </html>

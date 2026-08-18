@@ -1,4 +1,4 @@
-# GeniusCFO Website V3
+# GeniusCFO Website V5
 
 Start here. This handover contains exactly three public website pages:
 
@@ -16,9 +16,11 @@ These are separate, source-readable HTML documents. The Business and CA/Firm pag
 business/index.html       Business landing page
 ca-firms/index.html       CA/Firm landing page
 pricing/index.html        Shared Pricing page
-assets/site.css           Shared styles and responsive components
-assets/site.js            Shared interactions, tracking, plan selector and lead form
-assets/screens/           Product captures used by the pages
+assets/site-v4.css        Stylesheet for all three pages (V4 design language)
+assets/site.css           V3 stylesheet, no longer linked by any page
+assets/site.js            Lead form, plan selector, UTM preservation, lightbox, animated screens
+assets/site-v4.js         Presentation only: know-more, floating CTA, scroll-fade, word-rise, marquee
+assets/screens/           Product captures and the two animated screens used by the pages
 assets/fonts/             Self-hosted fonts
 apps-script/Code.gs       Google Apps Script receiving the lead form into a sheet
 qa/                       Test reports and reference captures; not deployed content
@@ -26,8 +28,6 @@ index.html                Fallback redirect only; not a content page
 vercel.json               Production routes and headers for Vercel
 .vercelignore             Keeps qa/, apps-script/ and the markdown off the site
 VERCEL-SETUP.md            Vercel, DNS, lead-sheet and GTM setup
-DEVELOPER-HANDOFF.md       Implementation and integration details
-QA-SUMMARY.md              Verification record
 ```
 
 ## Deployment choice
@@ -54,7 +54,26 @@ Serve this folder over HTTP. With a basic static server, preview:
 
 The trailing slash is a local static-server detail. Production canonical URLs do not use a trailing slash.
 
-## What is new in V3
+## What is new in V5
+
+- All three pages now run the V4 design language (`assets/site-v4.css`). V4 only ever
+  shipped `/business`; `/ca-firms` and `/pricing` have been rebuilt to match.
+- New section on `/business` and `/ca-firms`: **Your AI Accounting Suite** — CFO,
+  Accountant, GST and Coming soon — directly under the hero.
+- The business hero and the Ask GeniusCFO screen are animated. Both ship as a still
+  poster and gain their animation only after the page has finished loading visibly;
+  clicking either opens it full size and plays it from the start. Sources are built in
+  Remotion (see `GCFO Claude Central/geniuscfo-videos`).
+- Early alerts is no longer its own section on `/business`; it folds into
+  *Review and trust* behind a Know more control.
+- Plan cards carry check-marked feature lists on every page.
+- `generate_lead` now fires on completion of **step 2** of the lead form, not step 1.
+  Step 1 still writes to the sheet and fires `lead_step1_complete`.
+- The consent checkbox is mandatory and reads "WhatsApp and/or email".
+- Every product screenshot was recaptured from the current
+  `geniuscfo-launch-mockup` build.
+
+## What was new in V3
 
 - Pricing was rebuilt on the plan architecture from `app.geniuscfo.ai/#pricing`: Light / Pro /
   Pro Max for businesses, Team / Enterprise for CA firms, billed monthly or every three months.
@@ -65,6 +84,5 @@ The trailing slash is a local static-server detail. Production canonical URLs do
   Script sheet the current geniuscfo.ai landing page uses.
 - Every pricing CTA books a demo. The website does not sell a plan directly.
 
-Read `DEVELOPER-HANDOFF.md` before connecting forms, analytics or production hosting, and
-`QA-SUMMARY.md` for what has and has not been verified — the browser-rendered, responsive and
-Lighthouse checks still need to be run.
+`VERCEL-SETUP.md` covers connecting the lead sheet, GTM and production hosting.
+`qa/` holds the rendered evidence for the current build.

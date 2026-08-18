@@ -485,7 +485,10 @@
         return;
       }
 
-      pushDataLayer("generate_lead", {
+      /* Step 1 is a contact record, not yet a lead: it is written to the
+         sheet immediately, but the GTM conversion does not fire here. Only
+         a completed step 2 counts as a true lead — see submitStepTwo. */
+      pushDataLayer("lead_step1_complete", {
         role: state.role,
         track: track,
         whatsapp_optin: consent && consent.checked ? "yes" : "no"
@@ -496,14 +499,22 @@
 
     const submitStepTwo = (event) => {
       event.preventDefault();
-      pushDataLayer("lead_step2_complete", {
+      /* The conversion. Step 2 completing is what qualifies the record as a
+         lead, so generate_lead fires here and nowhere else. lead_step2_complete
+         is kept alongside it so any existing GTM trigger on that name still
+         works. */
+      const consentField = field("consent");
+      const leadParams = {
         role: state.role,
         track: track,
         challenge: state.challenge,
         accounting_tool: state.tool,
         client_accounting_tool: state.clientTool,
-        client_count: state.clientCount
-      });
+        client_count: state.clientCount,
+        whatsapp_optin: consentField && consentField.checked ? "yes" : "no"
+      };
+      pushDataLayer("generate_lead", leadParams);
+      pushDataLayer("lead_step2_complete", leadParams);
       send({
         step: "2",
         challenge: state.challenge,
@@ -574,12 +585,228 @@
     if (choices[0]) showAnswer(choices[0].dataset.askChoice);
   });
 
+  /* ====================================================================
+     Animated screens (V5)
+
+     A screen that moves ships as a still poster in the HTML and gains its
+     animation only after the page has finished loading visibly and the
+     element has scrolled into view. Three reasons, in order:
+
+       1. The brief: "the animation should only start once the page has
+          completed loading visibly for the user."
+       2. The animation is the heaviest asset on the page. Deferring it
+          keeps it out of the critical path entirely — LCP is the poster.
+       3. It gives us a frame-zero to return to, so the lightbox can replay
+          from the start rather than catching the tail of a loop.
+
+     Two encodings of the same animation ship for every motion screen:
+
+       data-motion-video  H.264 MP4  — ~0.6 MB, and a <video> can be seeked,
+                                       so replay is exact and free.
+       data-motion-image  animated WebP — ~2.4 MB, the named deliverable and
+                                       the fallback where MP4 will not play.
+                                       Replayed by minting a fresh object URL
+                                       from the already-downloaded blob, which
+                                       restarts the decode without a refetch.
+
+     In practice every current browser takes the MP4 path. Neither is loaded
+     at all under prefers-reduced-motion or Save-Data — those visitors keep
+     the poster, which is a legitimate screenshot of the product.
+     ==================================================================== */
+
+  const motionMedia = (() => {
+    const reduceMotion = window.matchMedia
+      && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const thrifty = (() => {
+      const c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      if (!c) return false;
+      if (c.saveData) return true;
+      return /(^|-)(2g|slow-2g)$/.test(String(c.effectiveType || ""));
+    })();
+
+    /* Two encodings, because neither one is universal: H.264 is absent from
+       Chromium builds without proprietary codecs, and VP9-in-WebM is missing
+       from older Safari. Between them the coverage is complete. */
+    const VIDEO_TYPES = [
+      { attr: "motionVideo", type: 'video/mp4; codecs="avc1.42E01E"', mime: "video/mp4" },
+      { attr: "motionVideoWebm", type: 'video/webm; codecs="vp9"', mime: "video/webm" }
+    ];
+
+    const playableSources = (trigger) =>
+      VIDEO_TYPES.filter((candidate) => {
+        if (!trigger.dataset[candidate.attr]) return false;
+        try {
+          const probe = document.createElement("video");
+          return !!probe.canPlayType && probe.canPlayType(candidate.type) !== "";
+        } catch (error) { return false; }
+      });
+
+    const blobs = new Map();
+    const fetchBlob = (url) => {
+      if (!blobs.has(url)) {
+        blobs.set(url, window.fetch(url).then((response) => {
+          if (!response.ok) throw new Error("motion asset " + response.status);
+          return response.blob();
+        }));
+      }
+      return blobs.get(url);
+    };
+
+    /* A fresh object URL for the same blob is a different resource identity,
+       which is what makes the decoder start the animation over. The previous
+       one is revoked so the blob is not held twice. */
+    const freshObjectUrl = (holder, blob) => {
+      if (holder.__motionUrl) URL.revokeObjectURL(holder.__motionUrl);
+      holder.__motionUrl = URL.createObjectURL(blob);
+      return holder.__motionUrl;
+    };
+
+    const enabled = !reduceMotion && !thrifty;
+
+    const buildVideo = (trigger, sources, opts) => {
+      const video = document.createElement("video");
+      video.className = "screen-motion-video";
+      video.muted = true;
+      video.defaultMuted = true;
+      video.playsInline = true;
+      video.setAttribute("muted", "");
+      video.setAttribute("playsinline", "");
+      video.setAttribute("aria-hidden", "true");
+      video.preload = "auto";
+      video.loop = !!(opts && opts.loop);
+      video.controls = !!(opts && opts.controls);
+      video.poster = trigger.dataset.motionPoster || "";
+      sources.forEach((candidate) => {
+        const source = document.createElement("source");
+        source.src = trigger.dataset[candidate.attr];
+        source.type = candidate.mime;
+        video.appendChild(source);
+      });
+      return video;
+    };
+
+    const play = (video) => {
+      try {
+        video.currentTime = 0;
+        const p = video.play();
+        if (p && typeof p.catch === "function") p.catch(() => { /* autoplay refused */ });
+      } catch (error) { /* nothing to do */ }
+    };
+
+    /* ---- in-page: swap the poster for the animation, once, when seen ---- */
+    const activate = (trigger) => {
+      if (trigger.dataset.motionState === "on") return;
+      trigger.dataset.motionState = "on";
+
+      const slot = trigger.querySelector("[data-motion-slot]") || trigger.querySelector(".screen-window");
+      if (!slot) return;
+
+      const sources = playableSources(trigger);
+      if (sources.length) {
+        const video = buildVideo(trigger, sources);
+        video.addEventListener("canplay", () => play(video), { once: true });
+        slot.appendChild(video);
+        slot.classList.add("has-motion");
+        return;
+      }
+
+      const still = trigger.querySelector("img");
+      const animated = trigger.dataset.motionImage;
+      if (!still || !animated) return;
+      fetchBlob(animated).then((blob) => {
+        const picture = still.closest("picture");
+        if (picture) {
+          picture.querySelectorAll("source").forEach((source) => source.remove());
+        }
+        still.src = freshObjectUrl(still, blob);
+        slot.classList.add("has-motion");
+      }).catch(() => { /* keep the poster */ });
+    };
+
+    const observe = () => {
+      const triggers = Array.from(document.querySelectorAll("[data-motion-video], [data-motion-video-webm], [data-motion-image]"));
+      if (!triggers.length) return;
+
+      if (!enabled) {
+        triggers.forEach((trigger) => { trigger.dataset.motionState = "still"; });
+        return;
+      }
+
+      if (typeof IntersectionObserver !== "function") {
+        triggers.forEach(activate);
+        return;
+      }
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          io.unobserve(entry.target);
+          activate(entry.target);
+        });
+      }, { rootMargin: "200px 0px" });
+
+      triggers.forEach((trigger) => io.observe(trigger));
+    };
+
+    /* "Loaded visibly" is the load event plus two frames — the point at which
+       the browser has painted everything it was already committed to. */
+    const whenSettled = (fn) => {
+      const go = () => requestAnimationFrame(() => requestAnimationFrame(fn));
+      if (document.readyState === "complete") go();
+      else window.addEventListener("load", go, { once: true });
+    };
+
+    whenSettled(observe);
+
+    /* ---- lightbox: build a node that is guaranteed to start at frame 0 ---- */
+    const enlarged = (trigger) => {
+      if (!enabled) return null;
+
+      const sources = playableSources(trigger);
+      if (sources.length) {
+        const video = buildVideo(trigger, sources, { controls: true, loop: false });
+        video.className = "screen-motion-video is-enlarged";
+        video.removeAttribute("aria-hidden");
+        video.addEventListener("loadeddata", () => play(video), { once: true });
+        return { node: video, replay: () => play(video) };
+      }
+
+      if (trigger.dataset.motionImage) {
+        const image = document.createElement("img");
+        image.alt = (trigger.querySelector("img") || {}).alt || "";
+        const load = () => fetchBlob(trigger.dataset.motionImage)
+          .then((blob) => { image.src = freshObjectUrl(image, blob); })
+          .catch(() => { image.src = trigger.getAttribute("href"); });
+        load();
+        return { node: image, replay: load };
+      }
+
+      return null;
+    };
+
+    return { enlarged: enlarged, enabled: enabled };
+  })();
+
   const imageDialog = document.querySelector("[data-image-dialog]");
   if (imageDialog && typeof imageDialog.showModal === "function") {
     const dialogImage = imageDialog.querySelector("[data-image-dialog-image]");
     const dialogTitle = imageDialog.querySelector("[data-image-dialog-title]");
+    const dialogStage = imageDialog.querySelector(".image-dialog-stage");
     const closeButton = imageDialog.querySelector("[data-image-dialog-close]");
+    const replayButton = imageDialog.querySelector("[data-image-dialog-replay]");
     let lastImageTrigger = null;
+    let motionNode = null;
+    let motionReplay = null;
+
+    const clearMotion = () => {
+      if (motionNode && motionNode.parentNode) motionNode.parentNode.removeChild(motionNode);
+      if (motionNode && motionNode.__motionUrl) URL.revokeObjectURL(motionNode.__motionUrl);
+      motionNode = null;
+      motionReplay = null;
+      if (dialogImage) dialogImage.hidden = false;
+      if (replayButton) replayButton.hidden = true;
+    };
 
     document.querySelectorAll("[data-lightbox]").forEach((trigger) => {
       trigger.addEventListener("click", (event) => {
@@ -587,15 +814,36 @@
         if (!sourceImage || !dialogImage || !dialogTitle) return;
 
         event.preventDefault();
+        clearMotion();
         lastImageTrigger = trigger;
-        dialogImage.src = trigger.href;
-        dialogImage.alt = sourceImage.alt;
         dialogTitle.textContent = trigger.dataset.imageLabel || sourceImage.alt;
+
+        /* An animated screen opens as the animation, played from the start.
+           Everything else opens as the full-size still it links to. */
+        const motion = motionMedia.enlarged(trigger);
+        if (motion && dialogStage) {
+          dialogImage.hidden = true;
+          dialogImage.removeAttribute("src");
+          motionNode = motion.node;
+          motionReplay = motion.replay;
+          dialogStage.appendChild(motionNode);
+          if (replayButton) replayButton.hidden = false;
+        } else {
+          dialogImage.src = trigger.href;
+          dialogImage.alt = sourceImage.alt;
+        }
+
         imageDialog.showModal();
         document.body.classList.add("image-dialog-open");
         if (closeButton) closeButton.focus();
       });
     });
+
+    if (replayButton) {
+      replayButton.addEventListener("click", () => {
+        if (motionReplay) motionReplay();
+      });
+    }
 
     if (closeButton) {
       closeButton.addEventListener("click", () => imageDialog.close());
@@ -614,6 +862,7 @@
 
     imageDialog.addEventListener("close", () => {
       document.body.classList.remove("image-dialog-open");
+      clearMotion();
       dialogImage.removeAttribute("src");
       if (lastImageTrigger) lastImageTrigger.focus();
     });

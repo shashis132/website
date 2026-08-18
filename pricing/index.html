@@ -28,7 +28,10 @@
   <meta name="twitter:image" content="https://geniuscfo.ai/assets/og-geniuscfo.png">
   <link rel="icon" href="../assets/logo-on-paper.png" type="image/png">
   <link rel="preload" href="../assets/fonts/ibm-plex-sans-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/site.css?v=20260811-2">
+  <link rel="preload" href="../assets/fonts/ibm-plex-sans-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/ibm-plex-sans-condensed-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/site-v4.css?v=20260818-v5">
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -510,11 +513,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </header>
 
+  <a class="btn btn-primary floating-cta" href="#book-demo" data-floating-cta>Book a demo</a>
+
   <main id="main">
-    <section class="pricing-hero">
+    <section class="hero pricing-hero">
       <div class="wrap">
-        <p class="status-line">PRICING · NO PER-ENTRY FEES. EVER.</p>
-        <h1>Start free. Pay when you&rsquo;re ready.</h1>
+        <p class="status-line fade-up">PRICING · NO PER-ENTRY FEES. EVER.</p>
+        <h1 data-word-rise>Start free. Pay when you&rsquo;re ready.</h1>
         <p class="lead">Every plan starts with a 14-day free trial. No credit card required. Full access to everything from day one. Every plan includes the full product &mdash; the tiers differ in how much AI you get.</p>
         <nav class="pricing-jump" aria-label="Jump to audience pricing">
           <a href="#business-plans" data-pricing-choice="business">See business plans</a>
@@ -523,11 +528,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <section class="chapter on-paper" id="trial">
+    <section class="chapter chapter-major wash-tint" id="trial">
       <div class="wrap">
         <div class="chapter-head chapter-intro">
-          <p class="chapter-marker">01 · FREE TRIAL</p>
-          <h2>Try GeniusCFO free for 14 days.</h2>
+          <p class="chapter-marker">01 · Free trial</p>
+          <h2 data-scroll-fade>Try GeniusCFO free for 14 days.</h2>
         </div>
         <dl class="trial-grid">
           <div><dt>Payment details</dt><dd>No credit card or UPI mandate is required to begin.</dd></div>
@@ -543,11 +548,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <section class="chapter on-ink" id="business-plans">
+    <section class="chapter" id="business-plans">
       <div class="wrap">
         <div class="chapter-head chapter-intro">
-          <p class="chapter-marker">02 · PLANS FOR BUSINESSES</p>
-          <h2>Plans for a business running its own books.</h2>
+          <p class="chapter-marker">02 · Plans for businesses</p>
+          <h2 data-scroll-fade>Plans for a business running its own books.</h2>
           <p class="lead">One company, run by you. Every plan carries the full product &mdash; books, GST, TDS, ITR, unlimited workflows and the Intelligence Hub.</p>
         </div>
         <div class="plan-selector" data-plan-selector="business">
@@ -577,7 +582,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <span class="plan-option-price"><span data-price-slot>₹2,398</span><small data-price-note>EVERY 3 MONTHS · EX-GST · SAVE 20%</small></span>
             </span>
             <span class="plan-option-scope">1 company · just you</span>
-            <ul class="plan-features"><li>Email support</li><li>Baseline AI allowance</li></ul>
+            <ul class="plan-features">
+              <li>Books</li><li>GST</li><li>TDS</li><li>ITR</li>
+              <li>Workflows: unlimited</li><li>Intelligence Hub</li><li>Support: email</li>
+            </ul>
           </label>
           <label class="plan-option" data-plan-id="pro" data-plan-name="Pro"
             data-monthly-display="₹1,999" data-monthly-note="PER MONTH · EX-GST"
@@ -591,7 +599,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <span class="plan-option-price"><span data-price-slot>₹4,798</span><small data-price-note>EVERY 3 MONTHS · EX-GST · SAVE 20%</small></span>
             </span>
             <span class="plan-option-scope">1 company · just you</span>
-            <ul class="plan-features"><li>Priority support</li><li>More AI than Light</li></ul>
+            <ul class="plan-features">
+              <li>Books</li><li>GST</li><li>TDS</li><li>ITR</li>
+              <li>Workflows: unlimited</li><li>Intelligence Hub</li><li>Support: priority</li>
+              <li class="is-extra">More AI than Light</li>
+            </ul>
           </label>
           <label class="plan-option" data-plan-id="pro_max" data-plan-name="Pro Max"
             data-monthly-display="₹2,999" data-monthly-note="PER MONTH · EX-GST"
@@ -605,7 +617,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <span class="plan-option-price"><span data-price-slot>₹7,198</span><small data-price-note>EVERY 3 MONTHS · EX-GST · SAVE 20%</small></span>
             </span>
             <span class="plan-option-scope">1 company · just you</span>
-            <ul class="plan-features"><li>Priority support</li><li>Advisory</li><li>The most AI of the individual plans</li></ul>
+            <ul class="plan-features">
+              <li>Books</li><li>GST</li><li>TDS</li><li>ITR</li>
+              <li>Workflows: unlimited</li><li>Intelligence Hub</li><li>Support: priority</li>
+              <li class="is-extra">Advisory</li>
+              <li class="is-extra">The most AI of the individual plans</li>
+            </ul>
           </label>
           </div>
           <div class="plan-actions">
@@ -616,11 +633,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <section class="chapter on-paper" id="managed-services">
+    <section class="chapter chapter-major" id="managed-services">
       <div class="wrap">
         <div class="chapter-head chapter-intro">
-          <p class="chapter-marker">03 · MANAGED SERVICES</p>
-          <h2>Managed accounting services for businesses.</h2>
+          <p class="chapter-marker">03 · Managed services</p>
+          <h2 data-scroll-fade>Managed accounting services for businesses.</h2>
           <p class="lead">Add professional accounting support to a GeniusCFO plan when you want help managing the work. Billed separately from the plan.</p>
         </div>
         <div class="service-list">
@@ -641,11 +658,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <section class="chapter on-ink" id="firm-plans">
+    <section class="chapter wash-tint" id="firm-plans">
       <div class="wrap">
         <div class="chapter-head chapter-intro">
-          <p class="chapter-marker">04 · PLANS FOR CA FIRMS</p>
-          <h2>Plans for CA firms and vCFO practices.</h2>
+          <p class="chapter-marker">04 · Plans for CA firms</p>
+          <h2 data-scroll-fade>Plans for CA firms and vCFO practices.</h2>
           <p class="lead">Firm plans are priced by the client companies and team members included. Start at three client companies and add more as the practice grows.</p>
         </div>
         <div class="plan-selector" data-plan-selector="firm">
@@ -675,7 +692,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <span class="plan-option-price"><span data-price-slot>₹9,598</span><small data-price-note>EVERY 3 MONTHS · EX-GST · SAVE 20%</small></span>
             </span>
             <span class="plan-option-scope">3 client companies · 2 extra members</span>
-            <ul class="plan-features"><li>Priority support</li><li>Advisory</li><li>2 extra members included</li></ul>
+            <ul class="plan-features">
+              <li>Books</li><li>GST</li><li>TDS</li><li>ITR</li>
+              <li>Workflows: unlimited</li><li>Intelligence Hub</li><li>Support: priority</li>
+              <li class="is-extra">Advisory</li>
+              <li class="is-extra">2 extra members included</li>
+            </ul>
           </label>
           <label class="plan-option" data-plan-id="enterprise" data-plan-name="Enterprise"
             data-monthly-display="₹6,999" data-monthly-note="PER MONTH · EX-GST"
@@ -689,7 +711,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <span class="plan-option-price"><span data-price-slot>₹16,798</span><small data-price-note>EVERY 3 MONTHS · EX-GST · SAVE 20%</small></span>
             </span>
             <span class="plan-option-scope">10 client companies · 5 extra members</span>
-            <ul class="plan-features"><li>Priority support</li><li>Advisory</li><li>Dedicated onboarding</li><li>5 extra members included</li></ul>
+            <ul class="plan-features">
+              <li>Books</li><li>GST</li><li>TDS</li><li>ITR</li>
+              <li>Workflows: unlimited</li><li>Intelligence Hub</li><li>Support: priority</li>
+              <li class="is-extra">Advisory</li>
+              <li class="is-extra">Dedicated onboarding</li>
+              <li class="is-extra">5 extra members included</li>
+            </ul>
           </label>
           </div>
           <dl class="plan-extras">
@@ -704,11 +732,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <section class="chapter on-paper" id="addons">
+    <section class="chapter chapter-major wash-tint" id="addons">
       <div class="wrap">
         <div class="chapter-head chapter-intro">
-          <p class="chapter-marker">05 · ADD-ONS</p>
-          <h2>Optional add-ons.</h2>
+          <p class="chapter-marker">05 · Add-ons</p>
+          <h2 data-scroll-fade>Optional add-ons.</h2>
           <p class="lead">Available on any plan. Charged per month, on top of the plan price.</p>
         </div>
         <div class="ruled-table-wrap compact-table">
@@ -725,11 +753,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <section class="chapter on-paper chapter-continues" id="plan-summary">
+    <section class="chapter chapter-continues" id="plan-summary">
       <div class="wrap">
         <div class="chapter-head chapter-intro">
-          <p class="chapter-marker">06 · EVERY PLAN AND PRICE</p>
-          <h2>What does GeniusCFO cost per month?</h2>
+          <p class="chapter-marker">06 · Every plan and price</p>
+          <h2 data-scroll-fade>What does GeniusCFO cost per month?</h2>
           <p class="lead">GeniusCFO costs ₹999 to ₹2,999 per month for a single business and ₹3,999 to ₹6,999 per month for a CA or vCFO firm. All prices exclude 18% GST. Billing every three months costs 20% less than the monthly rate, and every plan begins with a 14-day free trial.</p>
         </div>
         <div class="ruled-table-wrap">
@@ -758,11 +786,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <section class="chapter on-ink" id="faq">
+    <section class="chapter chapter-major" id="faq">
       <div class="wrap">
         <div class="chapter-head">
           <p class="chapter-marker">07 · FAQ</p>
-          <h2>Questions about GeniusCFO pricing.</h2>
+          <h2 data-scroll-fade>Questions about GeniusCFO pricing.</h2>
         </div>
         <div class="faq-list">
           <details>
@@ -801,10 +829,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <section class="chapter on-paper page-close" id="book-demo">
+    <section class="chapter chapter-major wash-tint page-close" id="book-demo">
       <div class="wrap">
-        <p class="chapter-marker">08 · BOOK A DEMO</p>
-        <h2>See the plan running against your own books.</h2>
+        <p class="chapter-marker">08 · Book a demo</p>
+        <h2 data-scroll-fade>See GeniusCFO with your business needs.</h2>
         <p class="lead">Book a demonstration and the GeniusCFO team will walk through the plan that fits your business or firm, with your numbers in front of you.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="/business#demo" data-preserve-query>Book a business demo</a>
@@ -817,7 +845,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <footer class="site-footer">
     <div class="wrap footer-grid">
       <div class="footer-brand">
-        <img src="../assets/logo-wordmark-dark.svg" width="240" height="52" alt="GeniusCFO">
+        <img src="../assets/logo-on-paper.png" width="492" height="128" alt="GeniusCFO">
         <p>Published pricing for Indian businesses and CA firms.</p>
       </div>
       <div class="footer-col">
@@ -861,6 +889,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </footer>
 
-  <script src="../assets/site.js?v=20260811-2" defer></script>
+  <script src="../assets/site.js?v=20260818-v5" defer></script>
+  <script src="../assets/site-v4.js?v=20260818-v5" defer></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
 > routine bookkeeping, prepares GST information and financial statements, and answers financial
 > questions from updated accounts. Operated by GeniusCFO, serving India.
 
-Last updated: 2026-08-11
+Last updated: 2026-08-18
 Canonical short version: https://geniuscfo.ai/llms.txt
 Contact: marketing@geniuscfo.ai
 

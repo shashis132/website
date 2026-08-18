@@ -2,15 +2,24 @@
 
 > GeniusCFO is accounting automation software for Indian businesses and CA firms. It automates routine bookkeeping, prepares GST information and financial statements, and answers financial questions from updated accounts.
 
-Last updated: 2026-08-11. Operated by GeniusCFO, serving India. Contact: marketing@geniuscfo.ai.
+Last updated: 2026-08-18. Operated by GeniusCFO, serving India. Contact: marketing@geniuscfo.ai.
 Full reference, including every published question and answer: [llms-full.txt](https://geniuscfo.ai/llms-full.txt).
 Where this file and the website disagree, https://geniuscfo.ai is authoritative.
 
 ## Canonical pages
 
 - [GeniusCFO for Business](https://geniuscfo.ai/business): An affordable AI CFO on phone and desktop for bookkeeping, GST information, bank reconciliation, financial answers, alerts and forecasts. Plans start at ₹999 per month and every plan begins with a 14-day free trial.
-- [GeniusCFO for CA and Accounting Firms](https://geniuscfo.ai/ca-firms): An AI accounting team for every client, covering bookkeeping, GST information, financial statements and reconciliations while the firm retains professional judgement and final approval.
+- [GeniusCFO for CA and Accounting Firms](https://geniuscfo.ai/ca-firms): You bought software, then you staffed it. GeniusCFO does the preparation instead — journal entries with debits and credits, bank reconciliation, GST and Schedule III statements — and hands each one to the firm with its source document for review and sign-off.
 - [GeniusCFO Pricing](https://geniuscfo.ai/pricing): Plans for businesses (Light, Pro, Pro Max), plans for CA firms (Team, Enterprise), managed accounting services, optional add-ons and a 14-day free trial.
+
+## The AI Accounting Suite
+
+Every plan carries the whole suite; the tiers differ in how much AI is included.
+
+- CFO: CFO Insights, cash flow forecasting, margin analysis, risk alerts, tax intelligence, scenario modelling, chat interface, persona modes.
+- Accountant: journal entry, invoicing, bank reconciliation, financial statements, FP&A, inventory management.
+- GST: GST data preparation, GSTR-1 and GSTR-3B preparation, input tax credit (ITC) reconciliation, GST mismatch and exception detection, GST return review.
+- Coming soon: payroll, auditing, ITR filing, CRM, expense management.
 
 ## Business product overview
 
@@ -18,7 +27,7 @@ GeniusCFO shows sales, profit, cash, receivables, payables, working capital and 
 
 ## CA/Firm product overview
 
-GeniusCFO automates routine bookkeeping entries and prepares GST information, the Statement of Profit and Loss, Balance Sheet, Cash Flow Statement, Notes to Accounts and Trial Balance. It also supports bank reconciliation. CA firms review the work, apply professional judgement and retain final sign-off.
+A firm pays for a licence and then pays again in professional hours to run it. GeniusCFO does the preparation instead: journal entries with debit and credit lines, bank reconciliation, GST information, and Schedule III financial statements — the Statement of Profit and Loss, Balance Sheet, Cash Flow Statement and Notes to Accounts — plus Trial Balance, General Ledger and Chart of Accounts. Each item is handed to the firm with its source document. CA firms review the work, apply professional judgement and retain final sign-off.
 
 ## Commercial notes
 

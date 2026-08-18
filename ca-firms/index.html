@@ -17,18 +17,21 @@
   <meta name="theme-color" content="#0B0F1A">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="GeniusCFO">
-  <meta property="og:title" content="Accounting automation software for CA firms">
+  <meta property="og:title" content="You bought software. Then you staffed it.">
   <meta property="og:description" content="Your AI accounting team for every client. Complete routine work faster, review compliance and spend more time on advice and firm growth.">
   <meta property="og:url" content="https://geniuscfo.ai/ca-firms">
   <meta property="og:image" content="https://geniuscfo.ai/assets/og-geniuscfo.png">
   <meta property="og:image:alt" content="GeniusCFO accounting automation software for CA firms">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Accounting automation software for CA firms">
+  <meta name="twitter:title" content="You bought software. Then you staffed it.">
   <meta name="twitter:description" content="Automate bookkeeping, GST, financial statements and reconciliations so your firm can serve more clients without increasing headcount.">
   <meta name="twitter:image" content="https://geniuscfo.ai/assets/og-geniuscfo.png">
   <link rel="icon" href="../assets/logo-on-paper.png" type="image/png">
   <link rel="preload" href="../assets/fonts/ibm-plex-sans-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/site.css?v=20260811-2">
+  <link rel="preload" href="../assets/fonts/ibm-plex-sans-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/ibm-plex-sans-condensed-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/site-v4.css?v=20260818-v5">
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -281,27 +284,27 @@
   }
   </script>
 </head>
-<body class="ca-page">
+<body class="firm-page">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPMFZCZG"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-  <a class="skip-link" href="#main">Skip to main content</a>
+  <a class="skip-link"  href="#main">Skip to main content</a>
   <div class="access-strip" data-access-strip role="region" aria-label="Trial and pricing notice">
     <div class="wrap access-inner">
-      <span class="mono">FOR CA FIRMS · FREE TRIAL FOR 14 DAYS · PRICES EXCLUDE 18% GST</span>
+      <span class="mono">FREE FOR 14 DAYS · STARTS AT ₹999 PER MONTH · NO CARD OR UPI MANDATE TO START</span>
       <button class="strip-close" type="button" data-dismiss-strip aria-label="Dismiss access notice">×</button>
     </div>
   </div>
 
   <header class="site-header">
     <div class="wrap header-inner">
-      <a class="logo-link" href="/ca-firms" aria-label="GeniusCFO for CA firms home" data-preserve-query>
+      <a class="logo-link" href="/ca-firms" aria-label="GeniusCFO for CA and accounting firms home" data-preserve-query>
         <img src="../assets/logo-on-paper.png" width="492" height="128" alt="GeniusCFO">
       </a>
       <nav class="desktop-nav" aria-label="Primary navigation">
         <a href="#product">Product</a>
-        <a href="#review">How it works</a>
+        <a href="#review">Review</a>
         <a href="/pricing?audience=ca-firms#firm-plans" data-preserve-query>Pricing</a>
         <a href="#faq">FAQ</a>
       </nav>
@@ -310,14 +313,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <a href="/ca-firms" aria-current="page" data-preserve-query>CA / Firm</a>
       </nav>
       <a class="btn btn-primary header-cta" href="#demo">Book a firm demo</a>
-      <button class="menu-button" type="button" data-menu-button aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
-        <span class="menu-icon"></span>
-      </button>
+      <button class="menu-button" type="button" data-menu-button aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span class="menu-icon"></span></button>
     </div>
     <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
       <nav aria-label="Mobile navigation">
         <a href="#product">Product</a>
-        <a href="#review">How it works</a>
+        <a href="#review">Review</a>
         <a href="/pricing?audience=ca-firms#firm-plans" data-preserve-query>Pricing</a>
         <a href="#faq">FAQ</a>
         <a href="#demo">Book a firm demo</a>
@@ -325,168 +326,366 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </header>
 
+  <a class="btn btn-primary floating-cta" href="#demo" data-floating-cta>Book a firm demo</a>
+
   <main id="main">
-    <section class="hero on-ink">
+
+    <!-- 00 · CLAIM ================================================== -->
+    <section class="hero">
       <div class="wrap hero-grid">
         <div class="hero-copy">
-          <p class="status-line">FOR CA FIRMS</p>
-          <h1>Accounting automation software for CA firms.</h1>
-          <p class="hero-support">Your AI Accounting Team for Every Client.</p>
-          <p class="hero-detail">Automate routine accounting work so your professionals can serve more clients, deliver better advisory and grow the firm's revenue.</p>
-          <div class="hero-actions">
+          <p class="status-line fade-up">FOR CA &amp; ACCOUNTING FIRMS</p>
+          <h1 data-word-rise>You bought software. Then you staffed it.</h1>
+          <p class="hero-lead fade-up">Your firm pays for the license, then pays again in professional hours to run it.</p>
+          <p class="hero-detail fade-up">GeniusCFO does the preparation instead: journal entries with debits &amp; credits, bank reconciliation, GST and Schedule III statements &mdash; each one handed to your team with its source document for review and sign-off.</p>
+          <div class="hero-actions fade-up">
             <a class="btn btn-primary" href="#demo">Book a firm demo</a>
             <a class="btn btn-quiet" href="/pricing?audience=ca-firms#firm-plans" data-preserve-query>See CA firm pricing</a>
           </div>
         </div>
-        <div class="hero-outcomes" aria-label="Main benefits for CA firms">
-          <div><span class="mono">COMPLETE ROUTINE WORK FASTER</span><strong>From journal entries to financial statements, AI completes routine work in minutes—not hours.</strong></div>
-          <div><span class="mono">REVIEW BEFORE APPROVAL</span><strong>AI reviews every transaction, highlights anomalies and validates compliance before final approval.</strong></div>
-          <div><span class="mono">FOCUS ON CLIENT DECISIONS</span><strong>Spend less time preparing reports and more time helping clients make better business decisions.</strong></div>
-        </div>
+        <a class="hero-product screen-link" href="../assets/screens/app-journal-desktop.png?v=20260818" data-lightbox data-image-label="Journal entries prepared with debits, credits and the source document" aria-haspopup="dialog">
+          <span class="screen-window">
+            <picture><source srcset="../assets/screens/app-journal-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/app-journal-desktop.png?v=20260818" width="1440" height="900" fetchpriority="high" decoding="async" alt="Journal entries prepared by GeniusCFO with debit and credit lines, narration, the source document chip and a posted status"></picture>
+            <span class="screen-caption"><strong>Prepared, posted, and still attached to its source document</strong><span class="screen-expand">Open full size ↗</span></span>
+          </span>
+        </a>
       </div>
     </section>
 
-    <section class="chapter on-paper" id="product">
+    <!-- 01 · SUITE ================================================== -->
+    <section class="chapter chapter-major wash-tint" id="suite">
       <div class="wrap">
-        <div class="chapter-head chapter-intro">
-          <p class="chapter-marker">01 · PRODUCT</p>
-          <h2>Automate routine accounting work across every client.</h2>
-          <p class="lead">GeniusCFO prepares bookkeeping entries, GST information, financial statements and reconciliations while keeping the source records available for your team's review.</p>
+        <div class="chapter-head chapter-head-centre">
+          <p class="chapter-marker">01 · The suite</p>
+          <h2 data-scroll-fade>Your AI Accounting Suite.</h2>
+          <p class="lead">One workspace per client company: the CFO layer your partners advise from, the accountant layer that does the preparation, the GST desk &mdash; and what is coming next.</p>
         </div>
 
-        <div class="feature-evidence-grid">
-          <article class="feature-evidence">
-            <a class="screen-link" href="../assets/screens/app-journal-desktop.png" data-lightbox data-image-label="Review debit and credit lines with their source references" aria-haspopup="dialog">
-              <span class="screen-window">
-                <picture><source srcset="../assets/screens/app-journal-desktop.webp" type="image/webp"><img src="../assets/screens/app-journal-desktop.png" width="1440" height="900" loading="lazy" alt="Automated journal entries with debit and credit lines"></picture>
-                <span class="screen-caption"><strong>Review debit and credit lines with their source references</strong><span class="screen-expand">Open full size ↗</span></span>
-              </span>
-            </a>
-            <div class="feature-copy">
-              <h3>Automate routine accounting entries.</h3>
-              <p>Upload supported invoices, bills and statements. GeniusCFO prepares the journal entry with debit and credit lines and keeps the source reference with the entry.</p>
-            </div>
-          </article>
-
-          <article class="feature-evidence">
-            <a class="screen-link" href="../assets/screens/app-gst-desktop-v2.png" data-lightbox data-image-label="Prepare GST forms from the books" aria-haspopup="dialog">
-              <span class="screen-window">
-                <picture><source srcset="../assets/screens/app-gst-desktop-v2.webp" type="image/webp"><img src="../assets/screens/app-gst-desktop-v2.png" width="1440" height="900" loading="lazy" alt="GST workspace with prepared GSTR-3B information"></picture>
-                <span class="screen-caption"><strong>Prepare GST forms from the books</strong><span class="screen-expand">Open full size ↗</span></span>
-              </span>
-            </a>
-            <div class="feature-copy">
-              <h3>Prepare GST forms from the books.</h3>
-              <p>Review GST liabilities, input tax credit and mismatches. Open prepared GSTR-3B information from the same client workspace.</p>
-            </div>
-          </article>
-
-          <article class="feature-evidence">
-            <a class="screen-link" href="../assets/screens/app-balance-sheet-desktop.png" data-lightbox data-image-label="Prepare a Schedule III-format Balance Sheet" aria-haspopup="dialog">
-              <span class="screen-window">
-                <picture><source srcset="../assets/screens/app-balance-sheet-desktop.webp" type="image/webp"><img src="../assets/screens/app-balance-sheet-desktop.png" width="1440" height="900" loading="lazy" alt="Schedule III-format Balance Sheet"></picture>
-                <span class="screen-caption"><strong>Prepare a Schedule III-format Balance Sheet</strong><span class="screen-expand">Open full size ↗</span></span>
-              </span>
-            </a>
-            <div class="feature-copy">
-              <h3>Generate financial statements automatically.</h3>
-              <p>Prepare the Statement of Profit and Loss, Balance Sheet, Cash Flow Statement and Notes to Accounts from the client’s books.</p>
-            </div>
-          </article>
-
-          <article class="feature-evidence">
-            <a class="screen-link" href="../assets/screens/app-notes-desktop.png" data-lightbox data-image-label="Review Notes to Accounts with the financial statements" aria-haspopup="dialog">
-              <span class="screen-window">
-                <picture><source srcset="../assets/screens/app-notes-desktop.webp" type="image/webp"><img src="../assets/screens/app-notes-desktop.png" width="1440" height="900" loading="lazy" alt="Notes to Accounts linked with the financial statements"></picture>
-                <span class="screen-caption"><strong>Review Notes to Accounts with the financial statements</strong><span class="screen-expand">Open full size ↗</span></span>
-              </span>
-            </a>
-            <div class="feature-copy">
-              <h3>Keep Notes to Accounts with the statements.</h3>
-              <p>View Schedule III-format Notes to Accounts together with the Balance Sheet, Statement of Profit and Loss and Cash Flow Statement.</p>
-            </div>
-          </article>
-
-          <article class="feature-evidence">
-            <a class="screen-link" href="../assets/screens/app-dashboard-desktop-v2.png" data-lightbox data-image-label="Review current financial information from the client’s books" aria-haspopup="dialog">
-              <span class="screen-window">
-                <picture><source srcset="../assets/screens/app-dashboard-desktop-v2.webp" type="image/webp"><img src="../assets/screens/app-dashboard-desktop-v2.png" width="1440" height="900" loading="lazy" alt="Executive dashboard with current financial information"></picture>
-                <span class="screen-caption"><strong>Review current financial information from the client’s books</strong><span class="screen-expand">Open full size ↗</span></span>
-              </span>
-            </a>
-            <div class="feature-copy">
-              <h3>See current financial information without waiting for month-end.</h3>
-              <p>Review profit, cash, customer payments, supplier payments and working capital as the client’s books are updated.</p>
-            </div>
-          </article>
-
-          <article class="feature-evidence">
-            <a class="screen-link" href="../assets/screens/app-ask-voice-desktop.png" data-lightbox data-image-label="Ask a financial question without searching through reports" aria-haspopup="dialog">
-              <span class="screen-window">
-                <picture><source srcset="../assets/screens/app-ask-voice-desktop.webp" type="image/webp"><img src="../assets/screens/app-ask-voice-desktop.png" width="1440" height="900" loading="lazy" alt="Ask GeniusCFO with typed and voice input"></picture>
-                <span class="screen-caption"><strong>Ask a financial question without searching through reports</strong><span class="screen-expand">Open full size ↗</span></span>
-              </span>
-            </a>
-            <div class="feature-copy">
-              <h3>Ask a financial question without searching through reports.</h3>
-              <p>Type a question or use voice input to find information from the client’s books with fewer clicks and less navigation.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="chapter on-ink" id="reports">
-      <div class="wrap">
-        <div class="chapter-head chapter-intro">
-          <p class="chapter-marker">02 · REPORTS</p>
-          <h2>Prepare reports and statements from the same books.</h2>
-          <p class="lead">GeniusCFO prepares financial outputs from the accounting records already maintained for the client.</p>
-        </div>
-        <div class="output-groups">
-          <div>
-            <h3>Financial statements</h3>
-            <ul class="index-list">
-              <li>Statement of Profit and Loss</li>
-              <li>Balance Sheet</li>
-              <li>Cash Flow Statement</li>
-              <li>Notes to Accounts</li>
+        <div class="suite-grid">
+          <article class="suite-card">
+            <h3>CFO</h3>
+            <p class="suite-kicker">What you advise on</p>
+            <ul class="suite-list">
+              <li>CFO Insights</li>
+              <li>Cash Flow Forecasting</li>
+              <li>Margin Analysis</li>
+              <li>Risk Alerts</li>
+              <li>Tax Intelligence</li>
+              <li>Scenario Modelling</li>
+              <li>Chat Interface</li>
+              <li>Persona Modes</li>
             </ul>
-          </div>
-          <div>
-            <h3>Accounting report</h3>
-            <ul class="index-list"><li>Trial Balance</li></ul>
-            <h3 class="output-subhead">GST work</h3>
-            <ul class="index-list">
-              <li>Prepared GSTR-3B information</li>
-              <li>GST liability, input tax credit and mismatch review</li>
+          </article>
+
+          <article class="suite-card">
+            <h3>Accountant</h3>
+            <p class="suite-kicker">What stops being manual</p>
+            <ul class="suite-list">
+              <li>Journal Entry</li>
+              <li>Invoicing</li>
+              <li>Bank Reconciliation</li>
+              <li>Financial Statements</li>
+              <li>FP&amp;A</li>
+              <li>Inventory Management</li>
             </ul>
+          </article>
+
+          <article class="suite-card">
+            <h3>GST</h3>
+            <p class="suite-kicker">Prepared for your review</p>
+            <ul class="suite-list">
+              <li>GST data preparation</li>
+              <li>GSTR-1 &amp; GSTR-3B preparation</li>
+              <li>Input Tax Credit (ITC) reconciliation</li>
+              <li>GST mismatch &amp; exception detection</li>
+              <li>GST return review</li>
+            </ul>
+          </article>
+
+          <article class="suite-card suite-card-soon">
+            <h3>Coming soon</h3>
+            <p class="suite-kicker">On the roadmap</p>
+            <ul class="suite-list">
+              <li>Payroll</li>
+              <li>Auditing</li>
+              <li>ITR Filing</li>
+              <li>CRM</li>
+              <li>Expense Management</li>
+            </ul>
+          </article>
+        </div>
+
+        <p class="suite-note">Every firm plan carries the whole suite for every client company on it.</p>
+      </div>
+    </section>
+
+    <!-- 02 · MECHANISM ============================================== -->
+    <section class="chapter chapter-major" id="product">
+      <div class="wrap">
+        <div class="chapter-head chapter-head-centre">
+          <p class="chapter-marker">02 · What it prepares</p>
+          <h2 data-scroll-fade>The preparation, done before your team opens it.</h2>
+          <p class="lead">GeniusCFO prepares bookkeeping entries, GST information, statements and reconciliations, and keeps the source record attached to every one.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Entries with debits and credits.</h3>
+            <p><b>Not a summary &mdash; the accounting.</b> Invoices, bills and statements come back as posted journal entries with the narration and the source document still attached.</p>
+            <ul class="plan-features">
+              <li>Dr/Cr lines against real ledgers</li>
+              <li>Source document on every entry</li>
+              <li>Posted, editable, reversible</li>
+            </ul>
+            <div class="card-media">
+              <a class="screen-link" href="../assets/screens/app-journal-desktop.png?v=20260818" data-lightbox data-image-label="Review debit and credit lines with their source references" aria-haspopup="dialog">
+                <span class="screen-window"><picture><source srcset="../assets/screens/app-journal-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/app-journal-desktop.png?v=20260818" width="1440" height="900" loading="lazy" alt="Automated journal entries with debit and credit lines"></picture></span>
+              </a>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>GST prepared from the books.</h3>
+            <p><b>No separate working file.</b> GST liability, input tax credit, mismatches and prepared GSTR-1 and GSTR-3B information, in the same client workspace.</p>
+            <ul class="plan-features">
+              <li>Output GST and ITC reconciled</li>
+              <li>GSTR-1 and GSTR-3B prepared</li>
+              <li>Mismatches flagged before filing</li>
+            </ul>
+            <div class="card-media">
+              <a class="screen-link" href="../assets/screens/business-gst-desktop.png?v=20260818" data-lightbox data-image-label="Prepare GST forms from the books" aria-haspopup="dialog">
+                <span class="screen-window"><picture><source srcset="../assets/screens/business-gst-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/business-gst-desktop.png?v=20260818" width="1440" height="900" loading="lazy" alt="GST workspace with prepared GSTR-3B information, input tax credit and mismatches"></picture></span>
+              </a>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Bank matched to the books.</h3>
+            <p><b>Books against the bank&rsquo;s own closing balance.</b> Every account, every period, with the gap explained rather than left for someone to find.</p>
+            <ul class="plan-features">
+              <li>Per-account reconciliation summary</li>
+              <li>Differences explained, not just listed</li>
+              <li>Unpresented items carried forward</li>
+            </ul>
+            <div class="card-media">
+              <a class="screen-link" href="../assets/screens/business-bank-desktop.png?v=20260818" data-lightbox data-image-label="Reconcile books against the bank's own closing balance" aria-haspopup="dialog">
+                <span class="screen-window"><picture><source srcset="../assets/screens/business-bank-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/business-bank-desktop.png?v=20260818" width="1440" height="900" loading="lazy" alt="Bank reconciliation summary comparing books with the bank's closing balance for each account"></picture></span>
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <div class="more-panel" id="product-more" data-more-panel>
+          <div>
+            <div class="grid-2" style="margin-top:28px">
+              <article class="card">
+                <h3>The client&rsquo;s numbers, without waiting for the close.</h3>
+                <p><b>Advisory needs current books.</b> Profit, cash, receivables, payables and working capital update as the client&rsquo;s books do &mdash; so the conversation can happen in August, not October.</p>
+                <ul class="plan-features">
+                  <li>Live profit and cash position</li>
+                  <li>Receivables and payables ageing</li>
+                  <li>Alerts raised as they appear</li>
+                </ul>
+                <div class="card-media">
+                  <a class="screen-link" href="../assets/screens/business-dashboard-desktop.png?v=20260818" data-lightbox data-image-label="Review current financial information from the client's books" aria-haspopup="dialog">
+                    <span class="screen-window"><picture><source srcset="../assets/screens/business-dashboard-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/business-dashboard-desktop.png?v=20260818" width="1440" height="900" loading="lazy" alt="Executive dashboard with current financial information for a client company"></picture></span>
+                  </a>
+                </div>
+              </article>
+
+              <article class="card">
+                <h3>Ask instead of hunting through reports.</h3>
+                <p><b>Type it or say it.</b> Ask a question of the client&rsquo;s books and get the figure with the entries it traces to &mdash; fewer clicks than opening the ledger.</p>
+                <ul class="plan-features">
+                  <li>Typed or voice questions</li>
+                  <li>Figures traced to posted entries</li>
+                  <li>Follow-ups in context</li>
+                </ul>
+                <div class="card-media">
+                  <a class="screen-link" href="../assets/screens/business-ask-desktop.png?v=20260818" data-lightbox data-image-label="Ask a financial question without searching through reports" aria-haspopup="dialog">
+                    <span class="screen-window"><picture><source srcset="../assets/screens/business-ask-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/business-ask-desktop.png?v=20260818" width="1440" height="900" loading="lazy" alt="Ask GeniusCFO answering a question about annual profit from the client's books"></picture></span>
+                  </a>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
+
+        <p class="know-more">
+          <button class="know-more-btn" type="button" data-know-more="product-more" data-label-more="Know more" data-label-less="Show less" hidden>Know more</button>
+        </p>
       </div>
     </section>
 
-    <section class="chapter on-paper" id="review">
+    <!-- 03 · OUTPUT ================================================= -->
+    <section class="chapter chapter-major" id="reports">
       <div class="wrap">
-        <div class="chapter-head chapter-intro">
-          <p class="chapter-marker">03 · REVIEW</p>
-          <h2>Automate routine work. Keep professional review with your firm.</h2>
-          <p class="lead">GeniusCFO reduces repetitive preparation work. Your team reviews the accounting work, applies professional judgement and keeps final sign-off with the firm.</p>
+        <div class="chapter-head chapter-head-centre">
+          <p class="chapter-marker">03 · What you get</p>
+          <h2 data-scroll-fade>Schedule III, not a working file.</h2>
+          <p class="lead">Statement of Profit and Loss, Balance Sheet, Cash Flow and Notes to Accounts, in statutory format with the prior-year column, from the same books.</p>
         </div>
-        <ol class="review-steps">
-          <li><span class="list-label">01 · COLLECT</span><strong>Collect the client’s accounting documents and data.</strong></li>
-          <li><span class="list-label">02 · PREPARE</span><strong>GeniusCFO prepares entries, reports, financial statements and GST information.</strong></li>
-          <li><span class="list-label">03 · REVIEW</span><strong>Your team reviews source records and the items that need attention.</strong></li>
-          <li><span class="list-label">04 · SIGN OFF</span><strong>Your firm applies professional judgement and completes final sign-off.</strong></li>
-        </ol>
+        <div class="screen-mat">
+          <a class="screen-link" href="../assets/screens/app-balance-sheet-desktop.png?v=20260818" data-lightbox data-image-label="Balance Sheet in Schedule III format with the prior-year column" aria-haspopup="dialog">
+            <span class="screen-window"><picture><source srcset="../assets/screens/app-balance-sheet-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/app-balance-sheet-desktop.png?v=20260818" width="1440" height="900" loading="lazy" alt="Balance Sheet in Schedule III format showing assets, equity and liabilities with the prior-year column"></picture><span class="screen-caption"><strong>Balance Sheet in Schedule III format, with the prior-year column</strong><span class="screen-expand">Open full size ↗</span></span></span>
+          </a>
+        </div>
       </div>
     </section>
 
-    <section class="chapter on-ink" id="firm-pricing">
+    <!-- 04 · OBJECTION ============================================== -->
+    <section class="chapter chapter-major wash-tint" id="review">
       <div class="wrap">
-        <div class="chapter-head chapter-intro">
-          <p class="chapter-marker">04 · PRICING</p>
-          <h2>Priced by the client companies you run on it.</h2>
+        <div class="chapter-head chapter-head-centre">
+          <p class="chapter-marker">04 · Review and sign-off</p>
+          <h2 data-scroll-fade>Automated work. Your professional judgement.</h2>
+          <p class="lead">Preparation stops being manual. Review, judgement and sign-off stay with the firm.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="proof">
+            <a class="screen-link" href="../assets/screens/app-trial-balance-desktop.png?v=20260818" data-lightbox data-image-label="A trial balance that balances, with unposted batches shown" aria-haspopup="dialog">
+              <span class="screen-window"><picture><source srcset="../assets/screens/app-trial-balance-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/app-trial-balance-desktop.png?v=20260818" width="1440" height="900" loading="lazy" alt="Trial balance showing total debits equal to total credits and no unposted batches"></picture></span>
+            </a>
+            <div class="proof-copy lead-in">
+              <strong>It ties out before you open it.</strong>
+              <p>Total debits against total credits, the difference, and the count of anything still unposted &mdash; on the screen, not at the end of an afternoon.</p>
+            </div>
+          </article>
+
+          <article class="proof">
+            <a class="screen-link" href="../assets/screens/app-chart-of-accounts-desktop.png?v=20260818" data-lightbox data-image-label="Chart of accounts with balances, tax mapping and account detail" aria-haspopup="dialog">
+              <span class="screen-window"><picture><source srcset="../assets/screens/app-chart-of-accounts-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/app-chart-of-accounts-desktop.png?v=20260818" width="1440" height="900" loading="lazy" alt="Chart of accounts with balances, active status, tax mapping and an account detail drawer"></picture></span>
+            </a>
+            <div class="proof-copy lead-in">
+              <strong>The account structure is yours.</strong>
+              <p>Heads, balances, tax mapping and the movement behind each account, editable by your team rather than fixed by the software.</p>
+            </div>
+          </article>
+
+          <article class="proof">
+            <a class="screen-link" href="../assets/screens/app-notes-desktop.png?v=20260818" data-lightbox data-image-label="Notes to Accounts alongside the statements" aria-haspopup="dialog">
+              <span class="screen-window"><picture><source srcset="../assets/screens/app-notes-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/app-notes-desktop.png?v=20260818" width="1440" height="900" loading="lazy" alt="Notes to Accounts prepared alongside the Balance Sheet and Statement of Profit and Loss"></picture></span>
+            </a>
+            <div class="proof-copy lead-in">
+              <strong>Every figure traces to a document.</strong>
+              <p>Notes sit with the statements, and each entry keeps the invoice, bill or statement it came from &mdash; so the review is a review, not a reconstruction.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="more-panel" id="review-more" data-more-panel>
+          <div>
+            <div style="margin-top:44px">
+              <p class="chapter-marker" style="margin-bottom:14px">Where the work changes hands</p>
+              <ol class="steps">
+                <li><span class="list-label">01 · Collect</span><span>Collect the client&rsquo;s accounting documents and data.</span></li>
+                <li><span class="list-label">02 · Prepare</span><span>GeniusCFO prepares entries, reports, financial statements and GST information.</span></li>
+                <li><span class="list-label">03 · Review</span><span>Your team reviews source records and the items that need attention.</span></li>
+                <li><span class="list-label">04 · Sign off</span><span>Your firm applies professional judgement and completes final sign-off.</span></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <p class="know-more">
+          <button class="know-more-btn" type="button" data-know-more="review-more" data-label-more="Know more about the review flow" data-label-less="Show less" hidden>Know more about the review flow</button>
+        </p>
+      </div>
+    </section>
+
+    <!-- 05 · BREADTH ================================================ -->
+    <section class="chapter" id="outputs">
+      <div class="wrap">
+        <div class="chapter-head chapter-head-centre">
+          <p class="chapter-marker">05 · One workspace</p>
+          <h2 data-scroll-fade>Everything a client engagement needs.</h2>
+          <p class="lead">The routine work a practice actually carries, per client company.</p>
+        </div>
+
+        <div class="marquee" role="list" aria-label="What GeniusCFO covers for a client engagement">
+          <div class="marquee-track" data-marquee>
+            <span class="marquee-item" role="listitem">Journal entries</span>
+            <span class="marquee-item" role="listitem">Chart of accounts</span>
+            <span class="marquee-item" role="listitem">General ledger</span>
+            <span class="marquee-item" role="listitem">Trial balance</span>
+            <span class="marquee-item" role="listitem">Bank reconciliation</span>
+            <span class="marquee-item" role="listitem">GST</span>
+            <span class="marquee-item" role="listitem">Schedule III statements</span>
+            <span class="marquee-item" role="listitem">Notes to Accounts</span>
+            <span class="marquee-item" role="listitem">Cash flow</span>
+            <span class="marquee-item" role="listitem">Intelligence Hub</span>
+          </div>
+        </div>
+
+        <div class="more-panel" id="outputs-more" data-more-panel>
+          <div>
+            <div class="output-groups" style="margin-top:40px">
+              <div>
+                <h3>Financial statements</h3>
+                <ul class="index-list">
+                  <li>Statement of Profit and Loss</li>
+                  <li>Balance Sheet</li>
+                  <li>Cash Flow Statement</li>
+                  <li>Notes to Accounts</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Accounting reports</h3>
+                <ul class="index-list">
+                  <li>Trial Balance</li>
+                  <li>General Ledger</li>
+                  <li>Chart of Accounts</li>
+                  <li>Bank reconciliation summary</li>
+                </ul>
+              </div>
+              <div>
+                <h3>GST work</h3>
+                <ul class="index-list">
+                  <li>Prepared GSTR-1 and GSTR-3B information</li>
+                  <li>GST liability, input tax credit and mismatch review</li>
+                  <li>GSTR-2B reconciliation</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="know-more">
+          <button class="know-more-btn" type="button" data-know-more="outputs-more" data-label-more="Know more" data-label-less="Show less" hidden>Know more</button>
+        </p>
+      </div>
+    </section>
+
+    <!-- 06 · DEPTH ================================================== -->
+    <section class="chapter chapter-major" id="ledger">
+      <div class="wrap split">
+        <div class="alert-strip">
+          <a class="screen-link" href="../assets/screens/app-ledger-desktop.png?v=20260818" data-lightbox data-image-label="General ledger with balances per account" aria-haspopup="dialog">
+            <span class="screen-window"><picture><source srcset="../assets/screens/app-ledger-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/app-ledger-desktop.png?v=20260818" width="1440" height="900" loading="lazy" alt="General ledger showing bank balances and movement per account"></picture></span>
+          </a>
+          <a class="screen-link" href="../assets/screens/app-pl-desktop.png?v=20260818" data-lightbox data-image-label="Statement of Profit and Loss in Schedule III format" aria-haspopup="dialog">
+            <span class="screen-window"><picture><source srcset="../assets/screens/app-pl-desktop.webp?v=20260818" type="image/webp"><img src="../assets/screens/app-pl-desktop.png?v=20260818" width="1440" height="900" loading="lazy" alt="Statement of Profit and Loss in Schedule III format with the prior-year column"></picture></span>
+          </a>
+        </div>
+        <div class="split-copy">
+          <p class="chapter-marker">06 · Capacity</p>
+          <h2 data-scroll-fade>More clients, without more hires.</h2>
+          <div class="stat">
+            <p class="stat-figure">Preparation</p>
+            <p class="stat-label">What stops costing professional hours</p>
+          </div>
+          <p class="body-lg lead-in"><b>The licence stops being a second salary.</b> The routine preparation runs on the software; your professionals spend their hours on review, judgement and the advisory work clients actually pay a firm for.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 · PRICING ================================================ -->
+    <section class="chapter chapter-major wash-tint" id="firm-pricing">
+      <div class="wrap">
+        <div class="chapter-head">
+          <p class="chapter-marker">07 · Pricing</p>
+          <h2 data-scroll-fade>Priced by the client companies you run on it.</h2>
           <p class="lead">Firm plans include the client companies and team members you need to start. Add more as the practice grows &mdash; the plan does not have to be resized every time you win work.</p>
         </div>
         <div class="plan-selector" data-plan-selector="firm">
@@ -515,8 +714,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <span class="plan-option-name">Team</span>
               <span class="plan-option-price"><span data-price-slot>₹9,598</span><small data-price-note>EVERY 3 MONTHS · EX-GST · SAVE 20%</small></span>
             </span>
-            <span class="plan-option-scope">3 client companies · 2 extra members</span>
-            <ul class="plan-features"><li>Priority support</li><li>Advisory</li><li>2 extra members included</li></ul>
+            <span class="plan-option-scope">3 client companies &middot; 2 extra members</span>
+            <ul class="plan-features">
+              <li>Books</li>
+              <li>GST</li>
+              <li>TDS</li>
+              <li>ITR</li>
+              <li>Workflows: unlimited</li>
+              <li>Intelligence Hub</li>
+              <li>Support: priority</li>
+              <li class="is-extra">Advisory</li>
+              <li class="is-extra">2 extra members included</li>
+            </ul>
           </label>
           <label class="plan-option" data-plan-id="enterprise" data-plan-name="Enterprise"
             data-monthly-display="₹6,999" data-monthly-note="PER MONTH · EX-GST"
@@ -529,8 +738,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <span class="plan-option-name">Enterprise</span>
               <span class="plan-option-price"><span data-price-slot>₹16,798</span><small data-price-note>EVERY 3 MONTHS · EX-GST · SAVE 20%</small></span>
             </span>
-            <span class="plan-option-scope">10 client companies · 5 extra members</span>
-            <ul class="plan-features"><li>Priority support</li><li>Advisory</li><li>Dedicated onboarding</li><li>5 extra members included</li></ul>
+            <span class="plan-option-scope">10 client companies &middot; 5 extra members</span>
+            <ul class="plan-features">
+              <li>Books</li>
+              <li>GST</li>
+              <li>TDS</li>
+              <li>ITR</li>
+              <li>Workflows: unlimited</li>
+              <li>Intelligence Hub</li>
+              <li>Support: priority</li>
+              <li class="is-extra">Advisory</li>
+              <li class="is-extra">Dedicated onboarding</li>
+              <li class="is-extra">5 extra members included</li>
+            </ul>
           </label>
           </div>
           <dl class="plan-extras">
@@ -545,11 +765,161 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <section class="chapter on-paper" id="faq">
+    <!-- 08 · RESTATE + LEAD FORM ==================================== -->
+    <section class="chapter chapter-major" id="demo">
+      <div class="wrap form-shell">
+        <div>
+          <p class="chapter-marker">08 · Book a demo</p>
+          <h2 data-scroll-fade>See GeniusCFO with one of your client cases.</h2>
+          <p class="lead">Bring one client case to the demonstration. We will show how GeniusCFO handles its bookkeeping, GST, bank matching and statements &mdash; and where your team picks it up.</p>
+        </div>
+        <div>
+          <div class="lead-form" data-lead-form data-lead-track="practice">
+                      <p class="lead-progress" data-lead-progress><span aria-current="step">1 · Your details</span><span>2 · Two questions</span><span>3 · Confirmed</span></p>
+
+                      <form class="lead-step" data-lead-step="1" data-lead-submit-step1 novalidate autocomplete="off">
+                        <h3>Request Priority Access</h3>
+                        <p>Tell us a bit about your firm, and we&rsquo;ll confirm your spot for a personalized GeniusCFO walkthrough.</p>
+
+                        <div class="field">
+                          <label for="firm-name">Your name</label>
+                          <input id="firm-name" name="name" type="text" autocomplete="name">
+                          <p class="lead-error" data-lead-error="name" hidden></p>
+                        </div>
+                        <div class="field">
+                          <label for="firm-company">Firm name</label>
+                          <input id="firm-company" name="company" type="text" autocomplete="organization">
+                          <p class="lead-error" data-lead-error="company" hidden></p>
+                        </div>
+                        <div class="field">
+                          <label for="firm-phone">Mobile number (WhatsApp)</label>
+                          <div class="phone-field">
+                            <span class="phone-prefix">+91</span>
+                            <input id="firm-phone" name="phone" type="text" inputmode="numeric" autocomplete="tel-national" maxlength="10" aria-describedby="firm-phone-help">
+                          </div>
+                          <small id="firm-phone-help">Enter a valid 10-digit Indian mobile number.</small>
+                          <p class="lead-error" data-lead-error="phone" hidden></p>
+                        </div>
+                        <div class="field">
+                          <label for="firm-email">Email (optional)</label>
+                          <input id="firm-email" name="email" type="email" autocomplete="email">
+                          <p class="lead-error" data-lead-error="email" hidden></p>
+                        </div>
+
+                        <div class="chip-group" data-chip-group="role">
+                          <p class="chip-group-label" id="firm-role-label">I am a&hellip;</p>
+                          <div class="chip-set" role="group" aria-labelledby="firm-role-label">
+                          <button class="chip" type="button" data-chip-value="business_owner" aria-pressed="false">Business owner</button>
+                          <button class="chip" type="button" data-chip-value="ca_firm" aria-pressed="true">CA / Accounting firm</button>
+                          <button class="chip" type="button" data-chip-value="cfo_firm" aria-pressed="false">CFO / vCFO firm</button>
+                          <button class="chip" type="button" data-chip-value="other" aria-pressed="false">Other</button>
+                          </div>
+                          <p class="lead-error" data-lead-error="role" hidden></p>
+                        </div>
+
+                        <div class="field" data-turnover-field hidden>
+                          <label for="firm-turnover">Annual turnover</label>
+                          <select id="firm-turnover" name="turnover">
+                            <option value="">Select range</option>
+                            <option>Less than ₹50 Lakhs</option><option>₹50 L – ₹1 Cr</option><option>₹1 Cr – ₹5 Cr</option><option>₹5 Cr – ₹10 Cr</option><option>₹10 Cr – ₹20 Cr</option><option>₹20 Cr +</option>
+                          </select>
+                        </div>
+
+                        <label class="consent">
+                          <input type="checkbox" name="consent" required aria-required="true">
+                          <span>I agree to be contacted about my demo on WhatsApp and/or email.</span>
+                        </label>
+                        <p class="lead-error" data-lead-error="consent" hidden></p>
+
+                        <div class="form-meta">
+                          <input name="role" type="hidden" value="ca_firm">
+                          <input name="challenge" type="hidden">
+                          <input name="tool" type="hidden">
+                          <input name="clientTool" type="hidden">
+                          <input name="clientCount" type="hidden">
+                          <input name="interested_plan" type="hidden">
+                        </div>
+
+                        <button class="btn btn-primary" type="submit">Request Access</button>
+                      </form>
+
+                      <form class="lead-step" data-lead-step="2" data-lead-submit-step2 novalidate hidden>
+                        <h3>Two quick questions.</h3>
+                        <p>Nobody sees a question that doesn&rsquo;t apply. This just tells us where to start.</p>
+
+                        <div data-lead-branch="owner">
+                          <div class="chip-group" data-chip-group="challenge">
+                            <p class="chip-group-label" id="firm-challenge-label">Your biggest accounting challenge right now</p>
+                            <div class="chip-set" role="group" aria-labelledby="firm-challenge-label">
+                          <button class="chip" type="button" data-chip-value="Cash flow visibility" aria-pressed="false">Cash flow visibility</button>
+                          <button class="chip" type="button" data-chip-value="GST compliance" aria-pressed="false">GST compliance</button>
+                          <button class="chip" type="button" data-chip-value="Managing invoices" aria-pressed="false">Managing invoices</button>
+                          <button class="chip" type="button" data-chip-value="Expense tracking" aria-pressed="false">Expense tracking</button>
+                          <button class="chip" type="button" data-chip-value="Financial reporting" aria-pressed="false">Financial reporting</button>
+                          <button class="chip" type="button" data-chip-value="Decision-making based on numbers" aria-pressed="false">Decision-making based on numbers</button>
+                          <button class="chip" type="button" data-chip-value="Fundraising readiness" aria-pressed="false">Fundraising readiness</button>
+                          <button class="chip" type="button" data-chip-value="None of the above" aria-pressed="false">None of the above</button>
+                            </div>
+                          </div>
+                          <div class="chip-group" data-chip-group="tool">
+                            <p class="chip-group-label" id="firm-tool-label">What do you use for your accounting?</p>
+                            <div class="chip-set" role="group" aria-labelledby="firm-tool-label">
+                          <button class="chip" type="button" data-chip-value="Excel" aria-pressed="false">Excel</button>
+                          <button class="chip" type="button" data-chip-value="Accountant/CA" aria-pressed="false">Accountant/CA</button>
+                          <button class="chip" type="button" data-chip-value="Tally" aria-pressed="false">Tally</button>
+                          <button class="chip" type="button" data-chip-value="Zoho" aria-pressed="false">Zoho</button>
+                          <button class="chip" type="button" data-chip-value="Diary" aria-pressed="false">Diary</button>
+                          <button class="chip" type="button" data-chip-value="QuickBooks" aria-pressed="false">QuickBooks</button>
+                          <button class="chip" type="button" data-chip-value="Other" aria-pressed="false">Other</button>
+                          <button class="chip" type="button" data-chip-value="None" aria-pressed="false">None</button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div data-lead-branch="firm">
+                          <div class="chip-group" data-chip-group="clientTool">
+                            <p class="chip-group-label" id="firm-clienttool-label">What do you use for client accounting?</p>
+                            <div class="chip-set" role="group" aria-labelledby="firm-clienttool-label">
+                          <button class="chip" type="button" data-chip-value="Tally" aria-pressed="false">Tally</button>
+                          <button class="chip" type="button" data-chip-value="Zoho" aria-pressed="false">Zoho</button>
+                          <button class="chip" type="button" data-chip-value="QuickBooks" aria-pressed="false">QuickBooks</button>
+                          <button class="chip" type="button" data-chip-value="Other" aria-pressed="false">Other</button>
+                            </div>
+                          </div>
+                          <div class="chip-group" data-chip-group="clientCount">
+                            <p class="chip-group-label" id="firm-clientcount-label">How many clients do you serve?</p>
+                            <div class="chip-set" role="group" aria-labelledby="firm-clientcount-label">
+                          <button class="chip" type="button" data-chip-value="1-5" aria-pressed="false">1-5</button>
+                          <button class="chip" type="button" data-chip-value="6-10" aria-pressed="false">6-10</button>
+                          <button class="chip" type="button" data-chip-value="11-25" aria-pressed="false">11-25</button>
+                          <button class="chip" type="button" data-chip-value="26-50" aria-pressed="false">26-50</button>
+                          <button class="chip" type="button" data-chip-value="More than 50" aria-pressed="false">More than 50</button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="lead-actions">
+                          <button class="btn btn-primary" type="submit">Finish</button>
+                          <button class="lead-back" type="button" data-lead-back>Back</button>
+                        </div>
+                        <p class="lead-skip">Your details are already with us &mdash; these answers only route the demo.</p>
+                      </form>
+
+                      <div class="lead-step form-success" data-lead-step="3" hidden>
+                        <h3>Your demo request is received.</h3>
+                        <p>The GeniusCFO team will contact you on the number you provided. If you opted in, the confirmation will also arrive on WhatsApp.</p>
+                      </div>
+                    </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 · RESIDUAL =============================================== -->
+    <section class="chapter" id="faq">
       <div class="wrap">
         <div class="chapter-head">
-          <p class="chapter-marker">05 · FAQ</p>
-          <h2>FAQs</h2>
+          <p class="chapter-marker">09 · FAQ</p>
+          <h2 data-scroll-fade>Questions firms ask first.</h2>
         </div>
         <div class="faq-list">
           <details>
@@ -588,212 +958,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <section class="chapter on-ink chapter-continues" id="demo">
-      <div class="wrap form-shell">
-        <div>
-          <p class="chapter-marker">06 · BOOK A DEMO</p>
-          <h2>Book a demo with one client case.</h2>
-          <p class="lead">Bring one client case to the demonstration. We will show how GeniusCFO can reduce routine accounting work for your firm.</p>
-        </div>
-        <div>
-          <div class="lead-form" data-lead-form data-lead-track="practice">
-            <p class="lead-progress" data-lead-progress><span aria-current="step">1 · Your details</span><span>2 · Two questions</span><span>3 · Confirmed</span></p>
-
-            <form class="lead-step" data-lead-step="1" data-lead-submit-step1 novalidate autocomplete="off">
-              <h3>Book your firm demo</h3>
-              <p>Tell us where your practice is today and we will route the demo to match it.</p>
-
-              <div class="field">
-                <label for="firm-name">Your name</label>
-                <input id="firm-name" name="name" type="text" autocomplete="name">
-                <p class="lead-error" data-lead-error="name" hidden></p>
-              </div>
-              <div class="field">
-                <label for="firm-company">Firm name</label>
-                <input id="firm-company" name="company" type="text" autocomplete="organization">
-                <p class="lead-error" data-lead-error="company" hidden></p>
-              </div>
-              <div class="field">
-                <label for="firm-phone">Mobile number (WhatsApp)</label>
-                <div class="phone-field">
-                  <span class="phone-prefix">+91</span>
-                  <input id="firm-phone" name="phone" type="text" inputmode="numeric" autocomplete="tel-national" maxlength="10" aria-describedby="firm-phone-help">
-                </div>
-                <small id="firm-phone-help">Enter a valid 10-digit Indian mobile number.</small>
-                <p class="lead-error" data-lead-error="phone" hidden></p>
-              </div>
-              <div class="field">
-                <label for="firm-email">Email (optional)</label>
-                <input id="firm-email" name="email" type="email" autocomplete="email">
-                <p class="lead-error" data-lead-error="email" hidden></p>
-              </div>
-
-              <div class="chip-group" data-chip-group="role">
-                <p class="chip-group-label" id="firm-role-label">I am a&hellip;</p>
-                <div class="chip-set" role="group" aria-labelledby="firm-role-label">
-                <button class="chip" type="button" data-chip-value="business_owner" aria-pressed="false">Business owner</button>
-                <button class="chip" type="button" data-chip-value="ca_firm" aria-pressed="true">CA / Accounting firm</button>
-                <button class="chip" type="button" data-chip-value="cfo_firm" aria-pressed="false">CFO / vCFO firm</button>
-                <button class="chip" type="button" data-chip-value="other" aria-pressed="false">Other</button>
-                </div>
-                <p class="lead-error" data-lead-error="role" hidden></p>
-              </div>
-
-              <div class="field" data-turnover-field hidden>
-                <label for="firm-turnover">Annual turnover</label>
-                <select id="firm-turnover" name="turnover">
-                  <option value="">Select range</option>
-                  <option>Less than ₹50 Lakhs</option><option>₹50 L – ₹1 Cr</option><option>₹1 Cr – ₹5 Cr</option><option>₹5 Cr – ₹10 Cr</option><option>₹10 Cr – ₹20 Cr</option><option>₹20 Cr +</option>
-                </select>
-              </div>
-
-              <label class="consent">
-                <input type="checkbox" name="consent">
-                <span>I agree to be contacted about my demo on WhatsApp and email.</span>
-              </label>
-              <p class="lead-error" data-lead-error="consent" hidden></p>
-
-              <div class="form-meta">
-                <input name="role" type="hidden" value="ca_firm">
-                <input name="challenge" type="hidden">
-                <input name="tool" type="hidden">
-                <input name="clientTool" type="hidden">
-                <input name="clientCount" type="hidden">
-                <input name="interested_plan" type="hidden">
-              </div>
-
-              <button class="btn btn-primary" type="submit">Continue</button>
-            </form>
-
-            <form class="lead-step" data-lead-step="2" data-lead-submit-step2 novalidate hidden>
-              <h3>Two quick questions.</h3>
-              <p>Nobody sees a question that doesn&rsquo;t apply. This just tells us where to start.</p>
-
-              <div data-lead-branch="owner">
-                <div class="chip-group" data-chip-group="challenge">
-                  <p class="chip-group-label" id="firm-challenge-label">Your biggest accounting challenge right now</p>
-                  <div class="chip-set" role="group" aria-labelledby="firm-challenge-label">
-                <button class="chip" type="button" data-chip-value="Cash flow visibility" aria-pressed="false">Cash flow visibility</button>
-                <button class="chip" type="button" data-chip-value="GST compliance" aria-pressed="false">GST compliance</button>
-                <button class="chip" type="button" data-chip-value="Managing invoices" aria-pressed="false">Managing invoices</button>
-                <button class="chip" type="button" data-chip-value="Expense tracking" aria-pressed="false">Expense tracking</button>
-                <button class="chip" type="button" data-chip-value="Financial reporting" aria-pressed="false">Financial reporting</button>
-                <button class="chip" type="button" data-chip-value="Decision-making based on numbers" aria-pressed="false">Decision-making based on numbers</button>
-                <button class="chip" type="button" data-chip-value="Fundraising readiness" aria-pressed="false">Fundraising readiness</button>
-                <button class="chip" type="button" data-chip-value="None of the above" aria-pressed="false">None of the above</button>
-                  </div>
-                </div>
-                <div class="chip-group" data-chip-group="tool">
-                  <p class="chip-group-label" id="firm-tool-label">What do you use for your accounting?</p>
-                  <div class="chip-set" role="group" aria-labelledby="firm-tool-label">
-                <button class="chip" type="button" data-chip-value="Excel" aria-pressed="false">Excel</button>
-                <button class="chip" type="button" data-chip-value="Accountant/CA" aria-pressed="false">Accountant/CA</button>
-                <button class="chip" type="button" data-chip-value="Tally" aria-pressed="false">Tally</button>
-                <button class="chip" type="button" data-chip-value="Zoho" aria-pressed="false">Zoho</button>
-                <button class="chip" type="button" data-chip-value="Diary" aria-pressed="false">Diary</button>
-                <button class="chip" type="button" data-chip-value="QuickBooks" aria-pressed="false">QuickBooks</button>
-                <button class="chip" type="button" data-chip-value="Other" aria-pressed="false">Other</button>
-                <button class="chip" type="button" data-chip-value="None" aria-pressed="false">None</button>
-                  </div>
-                </div>
-              </div>
-
-              <div data-lead-branch="firm">
-                <div class="chip-group" data-chip-group="clientTool">
-                  <p class="chip-group-label" id="firm-clienttool-label">What do you use for client accounting?</p>
-                  <div class="chip-set" role="group" aria-labelledby="firm-clienttool-label">
-                <button class="chip" type="button" data-chip-value="Tally" aria-pressed="false">Tally</button>
-                <button class="chip" type="button" data-chip-value="Zoho" aria-pressed="false">Zoho</button>
-                <button class="chip" type="button" data-chip-value="QuickBooks" aria-pressed="false">QuickBooks</button>
-                <button class="chip" type="button" data-chip-value="Other" aria-pressed="false">Other</button>
-                  </div>
-                </div>
-                <div class="chip-group" data-chip-group="clientCount">
-                  <p class="chip-group-label" id="firm-clientcount-label">How many clients do you serve?</p>
-                  <div class="chip-set" role="group" aria-labelledby="firm-clientcount-label">
-                <button class="chip" type="button" data-chip-value="1-5" aria-pressed="false">1-5</button>
-                <button class="chip" type="button" data-chip-value="6-10" aria-pressed="false">6-10</button>
-                <button class="chip" type="button" data-chip-value="11-25" aria-pressed="false">11-25</button>
-                <button class="chip" type="button" data-chip-value="26-50" aria-pressed="false">26-50</button>
-                <button class="chip" type="button" data-chip-value="More than 50" aria-pressed="false">More than 50</button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="lead-actions">
-                <button class="btn btn-primary" type="submit">Finish</button>
-                <button class="lead-back" type="button" data-lead-back>Back</button>
-              </div>
-              <p class="lead-skip">Your details are already with us &mdash; these answers only route the demo.</p>
-            </form>
-
-            <div class="lead-step form-success" data-lead-step="3" hidden>
-              <h3>Your demo request is received.</h3>
-              <p>The GeniusCFO team will contact you on the number you provided. If you opted in, the confirmation will also arrive on WhatsApp.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer class="site-footer">
     <div class="wrap footer-grid">
-      <div class="footer-brand">
-        <img src="../assets/logo-wordmark-dark.svg" width="240" height="52" alt="GeniusCFO">
-        <p>Accounting automation software for CA firms and Indian businesses.</p>
-      </div>
-      <div class="footer-col">
-        <h2>For firms</h2>
-        <ul>
-          <li><a href="#product">Product</a></li>
-          <li><a href="#review">How it works</a></li>
-          <li><a href="/pricing?audience=ca-firms#firm-plans" data-preserve-query>CA/Firm pricing</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h2>For business</h2>
-        <ul>
-          <li><a href="/business" data-preserve-query>Business experience</a></li>
-          <li><a href="/pricing?audience=business#business-plans" data-preserve-query>Business pricing</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h2>Access</h2>
-        <ul>
-          <li><a href="#demo">Book a firm demo</a></li>
-          <li><a href="#faq">FAQ</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h2>Let's Connect</h2>
-        <ul>
-          <li><a href="https://www.linkedin.com/company/genius-cfo" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-          <li><a href="https://www.facebook.com/profile.php?id=61574302727802" target="_blank" rel="noopener noreferrer">Facebook</a></li>
-          <li><a href="https://www.instagram.com/genius_cfo" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-          <li><a href="https://x.com/GeniusCFO" target="_blank" rel="noopener noreferrer">X</a></li>
-          <li><a href="mailto:marketing@geniuscfo.ai">marketing@geniuscfo.ai</a></li>
-        </ul>
-      </div>
+      <div class="footer-brand"><img src="../assets/logo-on-paper.png" width="492" height="128" alt="GeniusCFO"><p>Affordable accounting automation and financial answers for Indian businesses.</p></div>
+      <div class="footer-col"><h2>Business</h2><ul><li><a href="#product">Product</a></li><li><a href="#how">How it works</a></li><li><a href="/pricing?audience=business#business-plans" data-preserve-query>Business pricing</a></li></ul></div>
+      <div class="footer-col"><h2>CA firms</h2><ul><li><a href="/ca-firms" data-preserve-query>CA/Firm experience</a></li><li><a href="/pricing?audience=ca-firms#firm-plans" data-preserve-query>CA/Firm pricing</a></li></ul></div>
+      <div class="footer-col"><h2>Access</h2><ul><li><a href="#demo">Book a demo</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+      <div class="footer-col"><h2>Let's Connect</h2><ul><li><a href="https://www.linkedin.com/company/genius-cfo" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://www.facebook.com/profile.php?id=61574302727802" target="_blank" rel="noopener noreferrer">Facebook</a></li><li><a href="https://www.instagram.com/genius_cfo" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><a href="https://x.com/GeniusCFO" target="_blank" rel="noopener noreferrer">X</a></li><li><a href="mailto:marketing@geniuscfo.ai">marketing@geniuscfo.ai</a></li></ul></div>
     </div>
-    <div class="wrap footer-bottom">
-      <p class="mono trust-line">ROUTINE WORK AUTOMATED · PROFESSIONAL REVIEW RETAINED</p>
-      <p>© 2026 GeniusCFO. Prices exclude 18% GST.</p>
-    </div>
+    <div class="wrap footer-bottom"><p class="mono trust-line">UPDATED ACCOUNTS · CLEAR ANSWERS · HUMAN REVIEW</p><p>© 2026 GeniusCFO. Prices exclude 18% GST.</p></div>
   </footer>
 
   <dialog class="image-dialog" data-image-dialog aria-labelledby="image-dialog-title">
-    <div class="image-dialog-shell">
-      <div class="image-dialog-head">
-        <p id="image-dialog-title" data-image-dialog-title></p>
-        <button type="button" class="image-dialog-close" data-image-dialog-close>Close</button>
-      </div>
-      <div class="image-dialog-stage">
-        <img data-image-dialog-image src="" alt="">
-      </div>
-    </div>
+    <div class="image-dialog-shell"><div class="image-dialog-head"><p id="image-dialog-title" data-image-dialog-title></p><span class="image-dialog-actions"><button type="button" class="image-dialog-replay" data-image-dialog-replay hidden>Play again</button><button type="button" class="image-dialog-close" data-image-dialog-close>Close</button></span></div><div class="image-dialog-stage"><img data-image-dialog-image alt=""></div></div>
   </dialog>
 
-  <script src="../assets/site.js?v=20260811-2" defer></script>
+  <script src="../assets/site.js?v=20260818-v5" defer></script>
+  <script src="../assets/site-v4.js?v=20260818-v5" defer></script>
 </body>
 </html>
