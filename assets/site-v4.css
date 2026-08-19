@@ -476,18 +476,24 @@ main > .hero { margin-top: 0; }
 
 /* Pills are used for controls only — never content containers */
 .route-toggle {
-  display: none;
+  display: flex;
+  flex: 0 0 auto;
+  margin-left: auto;
   padding: 3px;
   border: var(--hairline);
-  border-radius: var(--r-pill);
+  border-radius: var(--r-chip);
   background: rgba(255, 255, 255, 0.66);
   box-shadow: var(--sh-hairline);
 }
 .route-toggle a {
-  padding: 7px 16px;
-  border-radius: var(--r-pill);
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  border-radius: var(--r-chip);
   color: var(--text-soft);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   text-decoration: none;
   transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
 }
@@ -499,7 +505,7 @@ main > .hero { margin-top: 0; }
 .header-cta { display: none; height: 42px; padding: 0 18px; }
 
 .menu-button {
-  margin-left: auto;
+  margin-left: 0;
   width: 42px;
   height: 42px;
   display: grid;
@@ -560,10 +566,16 @@ main > .hero { margin-top: 0; }
 .floating-cta.is-visible { opacity: 1; transform: none; pointer-events: auto; }
 
 @media (min-width: 1024px) {
-  .desktop-nav, .route-toggle { display: flex; }
+  .desktop-nav { display: flex; }
   .header-cta { display: inline-flex; }
   .menu-button, .mobile-menu { display: none; }
-  .route-toggle { margin-inline: 0; }
+  .route-toggle { margin-inline: 0; border-radius: var(--r-pill); }
+  .route-toggle a {
+    min-height: 0;
+    padding: 7px 16px;
+    border-radius: var(--r-pill);
+    font-size: 0.875rem;
+  }
   .desktop-nav { margin-inline: auto 0; }
 }
 
@@ -1837,6 +1849,11 @@ main > .logo-band + .chapter.chapter-major {
    and a plan grid. It keeps V4's surfaces and rhythm, but the tables stay
    ruled rather than boxed — a price list reads better as rules. */
 
+.pricing-page {
+  --rhythm: clamp(64px, 9vw, 128px);
+  --rhythm-major: clamp(96px, 13vw, 192px);
+}
+
 .pricing-hero { padding-block: clamp(72px, 11vw, 132px); }
 .pricing-hero .wrap { display: grid; gap: 22px; }
 .pricing-hero h1 { max-width: 15ch; }
@@ -1865,6 +1882,11 @@ main > .logo-band + .chapter.chapter-major {
 
 .chapter-intro { max-width: 760px; }
 .chapter-continues { border-top: 2px solid var(--emerald); }
+.pricing-page .chapter-continues {
+  margin-top: clamp(48px, 6vw, 64px);
+  padding-top: clamp(32px, 5.5vw, 64px);
+}
+.pricing-page .site-footer { margin-top: 0; }
 
 .trial-grid { display: grid; border-top: var(--hairline-strong); }
 .trial-grid > div {
