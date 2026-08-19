@@ -580,7 +580,10 @@ main > .logo-band {
   display: grid;
   place-items: center;
 }
-main > .logo-band + .chapter.chapter-major { margin-top: 0; }
+main > .logo-band + .chapter.chapter-major {
+  margin-top: 0;
+  padding-top: clamp(32px, 5.5vw, 64px);
+}
 
 .logo-band-mark {
   display: block;
