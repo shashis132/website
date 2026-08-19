@@ -575,12 +575,12 @@ main > .hero { margin-top: 0; }
 
 main > .logo-band {
   margin-top: 0;
-  padding-block: clamp(64px, 8.5vw, 116px);
+  padding-block: clamp(32px, 5.5vw, 64px);
   background: var(--surface);
   display: grid;
   place-items: center;
 }
-main > .logo-band + .chapter.chapter-major { margin-top: var(--rhythm); }
+main > .logo-band + .chapter.chapter-major { margin-top: 0; }
 
 .logo-band-mark {
   display: block;
