@@ -463,8 +463,6 @@ main > .hero { margin-top: 0; }
   max-width: var(--max-wide);
   min-height: var(--header-h);
 }
-.logo-link { display: inline-flex; flex-shrink: 0; }
-.logo-link img { width: auto; height: 30px; }
 
 .desktop-nav { display: none; gap: 26px; margin-inline: auto; }
 .desktop-nav a {
@@ -567,6 +565,41 @@ main > .hero { margin-top: 0; }
   .menu-button, .mobile-menu { display: none; }
   .route-toggle { margin-inline: 0; }
   .desktop-nav { margin-inline: auto 0; }
+}
+
+/* ---------- 7b. Logo band ---------- *
+   The animated mark sits in the white the hero leaves behind, before the
+   first tinted chapter. It replays every time it re-enters the viewport and
+   on click or tap; under prefers-reduced-motion it is the static logo and
+   the button is inert. See geniuscfo-animated-logo-spec.md sections 8.1 and 9. */
+
+main > .logo-band {
+  margin-top: 0;
+  padding-block: clamp(64px, 8.5vw, 116px);
+  background: var(--surface);
+  display: grid;
+  place-items: center;
+}
+main > .logo-band + .chapter.chapter-major { margin-top: var(--rhythm); }
+
+.logo-band-mark {
+  display: block;
+  width: min(420px, 62vw);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.logo-band-mark:focus-visible {
+  outline: 2px solid var(--emerald-deep);
+  outline-offset: 12px;
+  border-radius: 6px;
+}
+.logo-band-mark svg { display: block; width: 100%; height: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-band-mark { cursor: default; }
 }
 
 /* ---------- 7. Hero ---------- *
@@ -1400,7 +1433,9 @@ main > .hero { margin-top: 0; }
 @media (min-width: 900px) {
   .footer-grid { grid-template-columns: minmax(0, 1.4fr) repeat(4, minmax(0, 1fr)); gap: 28px; }
 }
-.footer-brand img { height: 30px; width: auto; }
+.footer-brand img { height: 53px; width: auto; }
+.footer-logo-link { display: inline-flex; }
+.footer-logo-link:hover img { opacity: 0.82; transition: opacity var(--dur) var(--ease); }
 .footer-brand p { max-width: 34ch; margin-top: 14px; color: var(--text-soft); font-size: 0.9375rem; }
 .footer-col h2 {
   margin-bottom: 12px;

@@ -461,7 +461,7 @@
       if (!state.role) { showError("role", "Please choose the option that describes you."); ok = false; }
       const consent = field("consent");
       if (consent && !consent.checked) {
-        showError("consent", "Please confirm we may contact you about your demo.");
+        showError("consent", "Please confirm we may contact you about your access request.");
         ok = false;
       }
       if (!ok) {

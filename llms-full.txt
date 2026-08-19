@@ -66,14 +66,14 @@ For firm plans these are described as additional client company 599 per company 
 additional team member 299 per member per month.
 
 Managed accounting services for business customers, billed separately and not included in any plan:
-Accountant+ 999 per month, CA+ 2,999 per month, and an Independent Statutory & Tax Auditor at 4,999
-per financial year. These services are for business customers, not for CA/Firm plan holders.
+Accountant+ 999 per month and CA+ 2,999 per month. These services are for business customers,
+not for CA/Firm plan holders.
 
 Every plan carries the full product — books, GST, TDS, ITR, unlimited workflows and the
 Intelligence Hub. Plans differ in the AI allowance, the level of support, and how many companies
 and members are covered.
 
-The website does not sell plans directly. Every pricing action books a demonstration with the
+The website does not sell plans directly. Every pricing action opens an access request with the
 GeniusCFO team; plans are chosen and paid for inside the product after the trial.
 
 ## Questions and answers — GeniusCFO for business owners
@@ -173,7 +173,7 @@ No. Plan prices exclude 18% GST. The total including GST is shown against the se
 
 ### Are managed accounting services included in a plan?
 
-No. Accountant+, CA+ and the Independent Statutory and Tax Auditor service are optional services for business customers and are billed separately.
+No. Accountant+ and CA+ are optional services for business customers and are billed separately.
 
 ### How are plans for CA firms priced?
 
