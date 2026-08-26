@@ -1349,6 +1349,7 @@ main > .logo-band + .chapter.chapter-major {
 .lead-step { display: grid; gap: 16px; }
 .lead-step[hidden] { display: none; }
 .lead-step h3 { font-size: 1.5rem; }
+.lead-step h3[tabindex="-1"]:focus { outline: none; }
 .lead-step > p { color: var(--text-soft); font-size: 0.9375rem; }
 
 .field { display: grid; gap: 6px; }
@@ -1434,6 +1435,59 @@ main > .logo-band + .chapter.chapter-major {
 }
 .form-success h3 { color: var(--emerald-text); }
 .form-success p { margin-top: 8px; color: var(--text-soft); }
+
+.booking-step { min-width: 0; }
+.booking-confirmation {
+  padding: 12px 14px;
+  border-radius: var(--r-md);
+  border: var(--hairline-soft);
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--text-soft);
+  font-size: 0.875rem;
+}
+.booking-confirmation.is-confirmed {
+  border-color: rgba(0, 200, 150, 0.42);
+  background: rgba(0, 200, 150, 0.09);
+  color: var(--emerald-text);
+  font-weight: 600;
+}
+.booking-loading {
+  padding: 12px 14px;
+  border-left: 2px solid var(--emerald-deep);
+  background: rgba(255, 255, 255, 0.56);
+  color: var(--text-soft);
+  font-size: 0.875rem;
+}
+.booking-frame {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 760px;
+  border: var(--hairline-strong);
+  border-radius: var(--r-window);
+  background: #fff;
+  box-shadow: var(--sh-inset-well);
+}
+.booking-fallback { color: var(--text-subtle); font-size: 0.8125rem; }
+.booking-fallback a { color: var(--emerald-text); font-weight: 700; }
+.booking-fallback a:hover { color: var(--text-max); }
+.lead-calendar-visible .floating-cta { display: none; }
+
+@media (max-width: 520px) {
+  .lead-calendar-visible .lead-form {
+    padding-inline: 0;
+    overflow: hidden;
+  }
+  .lead-calendar-visible .form-shell > div:last-child { margin-inline: -20px; }
+  .lead-calendar-visible .lead-progress,
+  .lead-calendar-visible .booking-step > h3,
+  .lead-calendar-visible .booking-step > p { margin-inline: 20px; }
+  .lead-calendar-visible .booking-frame {
+    height: 720px;
+    border-inline: 0;
+    border-radius: 0;
+  }
+}
 
 /* ---------- 20. Footer ---------- *
    A tint, not white and not dark. Wordmark left, link columns right. */

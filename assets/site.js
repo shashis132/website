@@ -21,6 +21,10 @@
      each submit logs a console warning.
      -------------------------------------------------------------------- */
   const LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbyggslRlgh1LopVaK_88gms4MgePKgBTfChm1kl2ClIRTdmKVGZV5YsahpAdbjHPAp-Aw/exec";
+  const BOOKING_ENDPOINT = "https://script.google.com/macros/s/AKfycbxJFuCBN3CvwtZs3n3h733npfOEFQWtWbLfMJilF_ZZNwHzwrIzlQuwtXcGJb_R-rua/exec";
+  const IS_LOCAL_PREVIEW = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
+  const BOOKING_STATUS_POLL_MS = 5000;
+  const BOOKING_STATUS_TIMEOUT_MS = 20 * 60 * 1000;
 
   const TRACKING_KEYS = [
     "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term",
@@ -269,10 +273,21 @@
   /* ====================================================================
      Multi-step lead form
      Step 1 — contact and role.  Step 2 — triage, branched by role.
-     Step 3 — confirmation.  Each of steps 1 and 2 POSTs to the sheet.
+     Step 3 — Google Calendar booking.  Each of steps 1 and 2 POSTs to
+     the sheet. The conversion fires only after the sheet receiver confirms
+     that Google Calendar created a matching appointment event.
      ==================================================================== */
 
   const FIRM_ROLES = ["ca_firm", "cfo_firm"];
+
+  const createLeadId = () => {
+    try {
+      if (window.crypto && typeof window.crypto.randomUUID === "function") {
+        return window.crypto.randomUUID();
+      }
+    } catch (error) { /* secure random UUID is best-effort */ }
+    return `lead_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 12)}`;
+  };
 
   document.querySelectorAll("[data-lead-form]").forEach((root) => {
     const track = root.dataset.leadTrack === "practice" ? "practice" : "business";
@@ -283,6 +298,9 @@
     };
     const progress = Array.from(root.querySelectorAll("[data-lead-progress] span"));
     const turnoverField = root.querySelector("[data-turnover-field]");
+    const bookingFrame = root.querySelector("[data-booking-frame]");
+    const bookingLoading = root.querySelector("[data-booking-loading]");
+    const bookingStatus = root.querySelector("[data-booking-status]");
     const branches = {
       owner: root.querySelector('[data-lead-branch="owner"]'),
       firm: root.querySelector('[data-lead-branch="firm"]')
@@ -294,7 +312,12 @@
       challenge: "",
       tool: "",
       clientTool: "",
-      clientCount: ""
+      clientCount: "",
+      leadId: createLeadId(),
+      bookingPollStartedAt: 0,
+      bookingPollTimer: null,
+      bookingPollInFlight: false,
+      conversionFired: false
     };
 
     const field = (name) => root.querySelector(`[name="${name}"]`);
@@ -347,6 +370,7 @@
 
     const setStep = (next) => {
       state.step = next;
+      document.documentElement.classList.toggle("lead-calendar-visible", next === 3);
       Object.keys(steps).forEach((key) => {
         if (steps[key]) steps[key].hidden = Number(key) !== next;
       });
@@ -359,7 +383,149 @@
         heading.setAttribute("tabindex", "-1");
         heading.focus({ preventScroll: true });
       }
+      if (next === 3 && bookingFrame && bookingFrame.dataset.bookingActive !== "true") {
+        bookingFrame.dataset.bookingActive = "true";
+        bookingFrame.src = bookingFrame.dataset.src;
+      }
+      if (next === 3) startBookingStatusPolling();
     };
+
+    if (bookingFrame) {
+      bookingFrame.addEventListener("load", () => {
+        if (bookingFrame.dataset.bookingActive === "true" && bookingLoading) {
+          bookingLoading.hidden = true;
+        }
+      });
+    }
+
+    const setBookingStatus = (message, confirmed) => {
+      if (!bookingStatus) return;
+      bookingStatus.textContent = message;
+      bookingStatus.classList.toggle("is-confirmed", !!confirmed);
+    };
+
+    const stopBookingStatusPolling = () => {
+      if (state.bookingPollTimer) window.clearTimeout(state.bookingPollTimer);
+      state.bookingPollTimer = null;
+    };
+
+    const fireConfirmedLead = (result) => {
+      const eventId = String(result && result.conversion_event_id || "").trim();
+      if (!eventId || state.conversionFired) return;
+
+      const storageKey = `gcfo_generate_lead_${eventId}`;
+      try {
+        if (window.localStorage.getItem(storageKey) === "1") {
+          state.conversionFired = true;
+          stopBookingStatusPolling();
+          setBookingStatus("Your demo is booked. Check your email for the Google Calendar confirmation.", true);
+          return;
+        }
+      } catch (error) { /* private mode — in-memory dedupe still applies */ }
+
+      state.conversionFired = true;
+      stopBookingStatusPolling();
+      pushDataLayer("generate_lead", {
+        event_id: eventId,
+        lead_id: state.leadId,
+        booking_status: "confirmed",
+        booking_source: "google_calendar",
+        role: state.role,
+        track: track,
+        challenge: state.challenge,
+        accounting_tool: state.tool,
+        client_accounting_tool: state.clientTool,
+        client_count: state.clientCount
+      });
+
+      try { window.localStorage.setItem(storageKey, "1"); } catch (error) { /* best-effort */ }
+      setBookingStatus("Your demo is booked. Check your email for the Google Calendar confirmation.", true);
+    };
+
+    const registerBookingLead = () => {
+      if (!BOOKING_ENDPOINT || !state.leadId || IS_LOCAL_PREVIEW) return;
+      try {
+        const request = window.fetch(BOOKING_ENDPOINT, {
+          method: "POST",
+          mode: "no-cors",
+          keepalive: true,
+          headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+          body: new URLSearchParams({
+            lead_id: state.leadId,
+            email: value("email"),
+            track: track
+          })
+        });
+        if (request && typeof request.catch === "function") {
+          request.catch(() => { /* The status poll will keep waiting if registration failed. */ });
+        }
+      } catch (error) { /* fetch unavailable — the Sheet submission still remains intact */ }
+    };
+
+    const requestBookingStatus = () => {
+      if (!BOOKING_ENDPOINT || !state.leadId || IS_LOCAL_PREVIEW) return Promise.resolve(null);
+
+      return new Promise((resolve) => {
+        const callbackName = `gcfoBookingStatus_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+        const script = document.createElement("script");
+        let settled = false;
+
+        const finish = (payload) => {
+          if (settled) return;
+          settled = true;
+          window.clearTimeout(timeout);
+          try { delete window[callbackName]; } catch (error) { window[callbackName] = undefined; }
+          if (script.parentNode) script.parentNode.removeChild(script);
+          resolve(payload || null);
+        };
+
+        const timeout = window.setTimeout(() => finish(null), 8000);
+        window[callbackName] = finish;
+        script.async = true;
+        script.onerror = () => finish(null);
+
+        const statusUrl = new URL(BOOKING_ENDPOINT);
+        statusUrl.searchParams.set("action", "booking-status");
+        statusUrl.searchParams.set("lead_id", state.leadId);
+        statusUrl.searchParams.set("callback", callbackName);
+        statusUrl.searchParams.set("_", String(Date.now()));
+        script.src = statusUrl.toString();
+        document.head.appendChild(script);
+      });
+    };
+
+    const pollBookingStatus = () => {
+      if (state.step !== 3 || state.conversionFired || state.bookingPollInFlight) return;
+      if (Date.now() - state.bookingPollStartedAt > BOOKING_STATUS_TIMEOUT_MS) {
+        stopBookingStatusPolling();
+        setBookingStatus("Your details are saved. If you booked a slot, the Google Calendar email is your confirmation.", false);
+        return;
+      }
+
+      state.bookingPollInFlight = true;
+      requestBookingStatus()
+        .then((result) => {
+          if (result && result.status === "confirmed") fireConfirmedLead(result);
+        })
+        .catch(() => { /* Calendar confirmation is best-effort until the next poll. */ })
+        .finally(() => {
+          state.bookingPollInFlight = false;
+          if (!state.conversionFired && state.step === 3) {
+            state.bookingPollTimer = window.setTimeout(pollBookingStatus, BOOKING_STATUS_POLL_MS);
+          }
+        });
+    };
+
+    function startBookingStatusPolling() {
+      if (IS_LOCAL_PREVIEW || state.conversionFired) return;
+      stopBookingStatusPolling();
+      if (!state.bookingPollStartedAt) state.bookingPollStartedAt = Date.now();
+      pollBookingStatus();
+    }
+
+    window.addEventListener("focus", () => {
+      if (state.step === 3 && !state.conversionFired) pollBookingStatus();
+    });
 
     const isFirm = () => FIRM_ROLES.indexOf(state.role) > -1;
 
@@ -394,6 +560,7 @@
     const send = (extra) => {
       const payload = Object.assign({
         name: value("name"),
+        lead_id: state.leadId,
         phone: value("phone"),
         email: value("email"),
         company: value("company"),
@@ -414,6 +581,12 @@
       TRACKING_KEYS.forEach((key) => {
         if (!payload[key]) payload[key] = tracking.get(key) || "";
       });
+
+      /* Local visual QA must never add synthetic rows to the live leads sheet. */
+      if (IS_LOCAL_PREVIEW) {
+        window.console && console.info("GeniusCFO local preview: lead payload suppressed.", payload);
+        return;
+      }
 
       if (!LEAD_ENDPOINT) {
         window.console && console.warn(
@@ -454,7 +627,10 @@
         ok = false;
       }
       const email = value("email");
-      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      if (!email) {
+        showError("email", "Please enter your email address.");
+        ok = false;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
         showError("email", "That email doesn't look right.");
         ok = false;
       }
@@ -485,9 +661,7 @@
         return;
       }
 
-      /* Step 1 is a contact record, not yet a lead: it is written to the
-         sheet immediately, but the GTM conversion does not fire here. Only
-         a completed step 2 counts as a true lead — see submitStepTwo. */
+      /* Step 1 is a contact record, not a conversion. */
       pushDataLayer("lead_step1_complete", {
         role: state.role,
         track: track,
@@ -499,10 +673,8 @@
 
     const submitStepTwo = (event) => {
       event.preventDefault();
-      /* The conversion. Step 2 completing is what qualifies the record as a
-         lead, so generate_lead fires here and nowhere else. lead_step2_complete
-         is kept alongside it so any existing GTM trigger on that name still
-         works. */
+      /* Step 2 saves the triage answers and opens the booking calendar. It is
+         not a confirmed appointment, so no conversion event fires here. */
       const consentField = field("consent");
       const leadParams = {
         role: state.role,
@@ -513,7 +685,6 @@
         client_count: state.clientCount,
         whatsapp_optin: consentField && consentField.checked ? "yes" : "no"
       };
-      pushDataLayer("generate_lead", leadParams);
       pushDataLayer("lead_step2_complete", leadParams);
       send({
         step: "2",
@@ -522,6 +693,7 @@
         client_accounting_tool: state.clientTool,
         client_count: state.clientCount
       });
+      registerBookingLead();
       setStep(3);
     };
 

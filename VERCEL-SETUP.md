@@ -11,7 +11,9 @@ Vercel. `vercel.json` is the single routing file, and the Netlify configuration
 |---|---|
 | `vercel.json` | Routes, redirects, security and cache headers |
 | `.vercelignore` | Keeps `qa/`, `apps-script/` and the markdown off the public site |
-| `apps-script/Code.gs` | Google Apps Script that receives the lead form into a sheet |
+| `apps-script/Code.gs` | Existing Google Apps Script receiver for the linked leads Sheet |
+| `apps-script/BookingVerifier.gs` | Marketing-owned verifier for confirmed Calendar bookings |
+| `apps-script/appsscript.json` | Explicit read-only Calendar and trigger scopes for the verifier |
 
 There is no framework, no build step and nothing to compile. Vercel serves the
 repository root as static files.
@@ -46,45 +48,38 @@ Set `geniuscfo.ai` as the **primary** domain, redirecting `www` to it — every
 canonical tag, the sitemap and `llms.txt` use the bare apex. HTTPS is issued
 automatically once DNS resolves.
 
-## 3. The lead form and its sheet
+## 3. Lead form, Google Sheet and confirmed bookings
 
-`LEAD_ENDPOINT` in `assets/site.js` is set to the deployed Apps Script web app.
-Redeploying that script mints a new `/exec` id, so the constant has to be
-updated whenever you redeploy it.
+`assets/site.js` deliberately uses two existing Apps Script services:
 
-### Where the rows land
+- `LEAD_ENDPOINT` remains the Shashi-owned **GCFO leads** receiver attached to
+  the **GCFO ad campaign** spreadsheet. It keeps every form submission in the
+  current linked **Leads** tab.
+- `BOOKING_ENDPOINT` is the marketing-owned **GeniusCFO Booking Verifier**. It
+  has read-only Calendar access and owns the public, non-sensitive booking
+  status endpoint.
 
-`apps-script/Code.gs` does not create a spreadsheet. It writes to the
-spreadsheet the script project belongs to, into a tab called **Leads** that is
-created on the first submission — so there is nothing to look for until a lead
-has actually been submitted.
+This split preserves the working Sheet integration even though
+`marketing@geniuscfo.ai` has Viewer access to the old Apps Script project and
+Comment-only access to its Sheet.
 
-- **Script created from inside a sheet** (Extensions → Apps Script): that sheet
-  is the destination. Its name is shown at the top of the Apps Script editor,
-  and **Overview → Project details** links back to it.
-- **Standalone script** (created at script.google.com): there is no attached
-  sheet and the script will error. Create the spreadsheet, copy the id out of
-  its URL — `docs.google.com/spreadsheets/d/`**`THIS_PART`**`/edit` — paste it
-  into `SPREADSHEET_ID` at the top of `Code.gs`, and redeploy.
+The website flow is:
 
-Either way, running **`showSheetUrl`** from the Apps Script editor logs the name
-and URL of the spreadsheet the script is actually writing to. Use it to settle
-the question rather than guessing.
+1. Step 1 validates and saves contact details. Email is mandatory.
+2. Step 2 saves the triage answers in the same row and separately registers the
+   browser `lead_id` plus email with the booking verifier as `pending`.
+3. Step 3 opens the real Google Calendar appointment schedule.
+4. The verifier checks Calendar every five minutes using read-only access.
+5. While Step 3 remains open, the page checks the non-sensitive status and
+   pushes `generate_lead` once when a matching booking becomes `confirmed`.
 
-### If you need to redeploy the script
+Neither a Step 1 nor a Step 2 submission is a conversion.
 
-1. Open the target Google Sheet → **Extensions → Apps Script**.
-2. Replace the contents of `Code.gs` with `apps-script/Code.gs` from this
-   repository, and save.
-3. **Deploy → New deployment → Web app**, with **Execute as: Me** and **Who has
-   access: Anyone**. Authorise it when prompted.
-4. Copy the `/exec` URL into `LEAD_ENDPOINT` at the top of `assets/site.js`,
-   commit, push.
+### Linked lead Sheet
 
-**Two posts per lead.** Step 1 (contact) appends a row. Step 2 (triage) posts
-again with the same phone number, and the supplied script finds that row and
-fills in the triage answers instead of writing a second row. A script that only
-appends will give you two rows per lead.
+`apps-script/Code.gs` is the source copy of the existing bound receiver. Step 1
+appends the lead; Step 2 finds the newest matching phone number and fills in the
+triage answers, so a completed flow stays in one row.
 
 **Fields posted:** `name`, `phone`, `email`, `company`, `turnover`, `role`,
 `track`, `whatsapp_optin`, `whatsapp_consent_source`,
@@ -92,22 +87,69 @@ appends will give you two rows per lead.
 `landing_path`, `page`, `referrer`, `timestamp`, `step`, `challenge`,
 `accounting_tool`, `client_accounting_tool`, `client_count`, plus `utm_source`,
 `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `gclid`, `fbclid`,
-`msclkid`.
+`msclkid`, and `lead_id`. The old receiver safely ignores the extra `lead_id`
+field while continuing its phone-number update.
+
+### Booking verifier deployment
+
+The standalone **GeniusCFO Booking Verifier** project is owned by
+`marketing@geniuscfo.ai`.
+
+- Script ID: `1ngsAep5cRP1-MYj35_bgR9EQ_UEVXPgP60Izcu0JlLeXdoo9RkCi62jS`
+- Web app: `https://script.google.com/macros/s/AKfycbxJFuCBN3CvwtZs3n3h733npfOEFQWtWbLfMJilF_ZZNwHzwrIzlQuwtXcGJb_R-rua/exec`
+- Execute as: `marketing@geniuscfo.ai`
+- Access: **Anyone**
+- Trigger: one five-minute, time-based `syncConfirmedBookings` trigger
+- OAuth scopes: Calendar read-only and offline trigger execution
+
+For a code update, copy `apps-script/BookingVerifier.gs` into `Code.gs` and
+`apps-script/appsscript.json` into the manifest, save, then use **Deploy →
+Manage deployments → Edit → New version**. Do not create another deployment;
+updating the active deployment preserves `BOOKING_ENDPOINT`.
+
+Run `installBookingTriggers` only when the trigger is missing or must be reset.
+It removes old verifier triggers before creating exactly one replacement.
+
+The base URL must return
+`{"ok":true,"service":"geniuscfo-booking-verifier"}`. A request with
+`?action=booking-status&lead_id=not-a-real-lead&callback=gcfoTest` must return a
+JSONP `pending` response.
+
+The appointment title is normalized before matching, so the current
+**Genius CFO Demo Call** title matches `BOOKING_TITLE_KEY`. A verifier record
+changes to `confirmed` only when an active Calendar event has that title, its
+attendee email exactly matches the registered lead email, and its creation time
+follows the Step 2 request. Pending and confirmed verifier records are removed
+after 45 days. The public status response exposes no name, email, phone,
+Calendar event ID or appointment time.
 
 **Verifying is not optional.** The POST uses `mode:"no-cors"`, so the browser
 never sees whether the write succeeded and the site cannot tell you it failed.
 Submit one real lead on the deployed site and confirm a single row appears in
-the **Leads** tab with both the step 1 and the step 2 values in it. If the write
-fails, the reason is in the Apps Script project's **Executions** log — that is
-the only place it surfaces.
+the **Leads** tab with both the Step 1 and Step 2 values. Book a real test slot
+with the same email and keep Step 3 open for up to five minutes. Confirm the
+page changes to the booked state and emits one `generate_lead`. If the Sheet
+write fails, inspect **GCFO leads → Executions**; if booking confirmation fails,
+inspect **GeniusCFO Booking Verifier → Executions**.
 
 ## 4. Google Tag Manager
 
 `GTM-NPMFZCZG` is installed on all four HTML files — the loader high in `<head>`
-and the `<noscript>` iframe immediately after `<body>`. `assets/site.js` pushes
-`generate_lead`, `lead_step2_complete`, `pricing_plan_selected` and
-`pricing_billing_toggled` onto `dataLayer`; configure the tags for those inside
-GTM. Confirm with GTM Preview against the deployed URL, not locally.
+and the `<noscript>` iframe immediately after `<body>`. The current live
+container already has an exact-match custom-event trigger for `generate_lead`,
+a GA4 lead tag, LinkedIn lead tag, and a Meta mapping from that event to the
+standard **Lead** event. The confirmed Meta Pixel/Dataset ID is
+`26539065255760528`; do not replace it or add a duplicate base tag.
+
+`assets/site.js` emits `lead_step1_complete` and `lead_step2_complete` for
+funnel diagnostics, but emits `generate_lead` only after the Apps Script status
+changes to `confirmed`. The event contains the server-derived
+`conversion_event_id` as `event_id` and does not put the lead's contact details
+in `dataLayer`.
+
+After the Apps Script release and website deploy, verify one real booking in
+GTM Preview and Meta Test Events. The expected order is Step 1 diagnostic →
+Step 2 diagnostic → Calendar event created → `generate_lead`/Meta **Lead**.
 
 ## 5. Check the deployed site
 

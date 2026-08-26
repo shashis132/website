@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  <script>if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-NPMFZCZG');</script>
+  })(window,document,'script','dataLayer','GTM-NPMFZCZG');}</script>
   <!-- End Google Tag Manager -->
   <title>AI CFO for Indian Businesses | GeniusCFO</title>
   <meta name="description" content="AI CFO for Indian businesses. Automate bookkeeping, prepare GST information, and get answers, alerts and forecasts from your updated accounts.">
@@ -907,7 +907,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div>
           <div class="lead-form" data-lead-form data-lead-track="business">
-            <p class="lead-progress" data-lead-progress><span aria-current="step">1 · Your details</span><span>2 · Two questions</span><span>3 · Confirmed</span></p>
+            <p class="lead-progress" data-lead-progress><span aria-current="step">1 · Your details</span><span>2 · Two questions</span><span>3 · Book a time</span></p>
             <form class="lead-step" data-lead-step="1" data-lead-submit-step1 novalidate autocomplete="off">
               <h3>Request Priority Access</h3>
               <p>Tell us a bit about your business, and we&rsquo;ll confirm your spot for a personalized GeniusCFO walkthrough.</p>
@@ -932,8 +932,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <p class="lead-error" data-lead-error="phone" hidden></p>
               </div>
               <div class="field">
-                <label for="business-email">Email (optional)</label>
-                <input id="business-email" name="email" type="email" autocomplete="email">
+                <label for="business-email">Email</label>
+                <input id="business-email" name="email" type="email" autocomplete="email" required aria-required="true">
                 <p class="lead-error" data-lead-error="email" hidden></p>
               </div>
 
@@ -971,7 +971,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <input name="interested_plan" type="hidden">
               </div>
 
-              <button class="btn btn-primary" type="submit">Request Access</button>
+              <button class="btn btn-primary" type="submit">Next</button>
             </form>
 
             <form class="lead-step" data-lead-step="2" data-lead-submit-step2 novalidate hidden>
@@ -1030,15 +1030,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               </div>
 
               <div class="lead-actions">
-                <button class="btn btn-primary" type="submit">Finish</button>
+                <button class="btn btn-primary" type="submit">Next</button>
                 <button class="lead-back" type="button" data-lead-back>Back</button>
               </div>
               <p class="lead-skip">Your details are already with us &mdash; these answers only route your access request.</p>
             </form>
 
-            <div class="lead-step form-success" data-lead-step="3" hidden>
-              <h3>Your access request is received.</h3>
-              <p>The GeniusCFO team will contact you on the number you provided. If you opted in, the confirmation will also arrive on WhatsApp.</p>
+            <div class="lead-step booking-step" data-lead-step="3" hidden>
+              <h3>Book a time for your demo.</h3>
+              <p>Your details are saved. Choose a 60-minute slot below and use the same email address you entered above.</p>
+              <p class="booking-confirmation" data-booking-status role="status" aria-live="polite">After you book, keep this page open while we confirm the appointment with Google Calendar.</p>
+              <p class="booking-loading" data-booking-loading role="status">Loading available times&hellip;</p>
+              <iframe
+                class="booking-frame"
+                title="Book a GeniusCFO demo in Google Calendar"
+                src="about:blank"
+                data-booking-frame
+                data-src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3iBccV4tr7pGXWT234L1VHOL3L4rNb3WXCfGTKBK3Wxk8sWZAcxBA8TJiEsD4dpJ9heBvhjVWC?gv=true"
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                frameborder="0"></iframe>
+              <p class="booking-fallback">If the calendar does not load, <a href="https://calendar.app.google/Qd6t4XQF29C95ujU7" target="_blank" rel="noopener noreferrer">open the booking page in a new tab&nbsp;&nearr;</a></p>
             </div>
           </div>
         </div>
