@@ -5,9 +5,9 @@
  * owns the GeniusCFO appointment schedule (marketing@geniuscfo.ai).
  *
  * The existing GCFO leads receiver remains responsible for the linked Google
- * Sheet. This service stores only a short-lived lead ID/email match, watches
- * Calendar for a real appointment event, and exposes a non-sensitive status
- * for the website to poll.
+ * Sheet. This service stores only short-lived lead correlation signals,
+ * watches Calendar for a real appointment event, and exposes a non-sensitive
+ * status for the website to poll.
  */
 
 /** Leave blank when the appointment schedule writes to this account's primary calendar. */
@@ -16,6 +16,7 @@ var BOOKING_TITLE_KEY = 'geniuscfodemocall';
 var BOOKING_LOOKBACK_DAYS = 2;
 var BOOKING_LOOKAHEAD_DAYS = 120;
 var BOOKING_REQUEST_GRACE_MINUTES = 10;
+var BOOKING_MATCH_WINDOW_MINUTES = 30;
 var LEAD_RETENTION_DAYS = 45;
 var LEAD_PROPERTY_PREFIX = 'lead:';
 
@@ -26,6 +27,7 @@ function doPost(e) {
     var data = (e && e.parameter) || {};
     var leadId = String(data.lead_id || '').trim();
     var email = normalizeEmail_(data.email);
+    var nameKey = normalizePersonName_(data.name);
 
     if (!isValidLeadId_(leadId) || !isValidEmail_(email)) {
       return respond_({ ok: false, error: 'A valid lead ID and email are required.' });
@@ -41,6 +43,7 @@ function doPost(e) {
     properties.setProperty(key, JSON.stringify({
       lead_id: leadId,
       email: email,
+      name_key: nameKey,
       track: String(data.track || '').trim(),
       requested_at: new Date().toISOString(),
       status: 'pending'
@@ -92,9 +95,10 @@ function removeBookingTriggers() {
 }
 
 /**
- * Appointment schedules create Calendar events. Match an active event by the
- * schedule title and exact attendee email, then confirm the newest pending
- * website lead registered for that email.
+ * Appointment schedules create Calendar events. The schedule title must match.
+ * Correlation then uses, in order: attendee email, one unambiguous normalized
+ * booker-name match, or one unambiguous lead in the short request-time window.
+ * Ambiguous events remain unmatched, so no conversion is emitted by guessing.
  */
 function syncConfirmedBookings() {
   var lock = LockService.getScriptLock();
@@ -104,7 +108,7 @@ function syncConfirmedBookings() {
     var stored = properties.getProperties();
     var now = new Date();
     var expiry = now.getTime() - LEAD_RETENTION_DAYS * 24 * 60 * 60 * 1000;
-    var pendingByEmail = {};
+    var pendingRecords = [];
     var knownEventIds = {};
 
     Object.keys(stored).forEach(function (key) {
@@ -122,17 +126,21 @@ function syncConfirmedBookings() {
 
       var email = normalizeEmail_(record.email);
       if (!isValidEmail_(email)) return;
-      if (!pendingByEmail[email]) pendingByEmail[email] = [];
-      pendingByEmail[email].push({ key: key, record: record, requested_at: requestedAt });
-    });
-
-    Object.keys(pendingByEmail).forEach(function (email) {
-      pendingByEmail[email].sort(function (a, b) {
-        return b.requested_at.getTime() - a.requested_at.getTime();
+      pendingRecords.push({
+        key: key,
+        record: record,
+        requested_at: requestedAt,
+        email: email,
+        name_key: normalizePersonName_(record.name_key || record.name),
+        consumed: false
       });
     });
 
-    if (!Object.keys(pendingByEmail).length) return 0;
+    pendingRecords.sort(function (a, b) {
+      return b.requested_at.getTime() - a.requested_at.getTime();
+    });
+
+    if (!pendingRecords.length) return 0;
 
     var calendar = getBookingCalendar_();
     var rangeStart = new Date(now.getTime() - BOOKING_LOOKBACK_DAYS * 24 * 60 * 60 * 1000);
@@ -147,28 +155,53 @@ function syncConfirmedBookings() {
         var eventId = String(event.getId() || '');
         if (!eventId || knownEventIds[eventId]) return;
 
-        var createdAt = event.getDateCreated();
-        var guests = event.getGuestList();
+        var createdAt = asDate_(event.getDateCreated());
+        if (!createdAt) return;
+
+        var eligible = pendingRecords.filter(function (lead) {
+          return !lead.consumed && isWithinBookingWindow_(lead.requested_at, createdAt);
+        });
+        if (!eligible.length) return;
+
+        var guestEmails = {};
+        var guests = event.getGuestList() || [];
+        guests.forEach(function (guest) {
+          var guestEmail = normalizeEmail_(guest.getEmail());
+          if (isValidEmail_(guestEmail)) guestEmails[guestEmail] = true;
+        });
+
         var candidate = null;
+        var matchedBy = '';
+        var emailMatches = eligible.filter(function (lead) {
+          return !!guestEmails[lead.email];
+        });
 
-        for (var guestIndex = 0; guestIndex < guests.length && !candidate; guestIndex++) {
-          var guestEmail = normalizeEmail_(guests[guestIndex].getEmail());
-          var leads = pendingByEmail[guestEmail] || [];
+        if (emailMatches.length) {
+          candidate = closestCandidate_(emailMatches, createdAt);
+          matchedBy = 'email';
+        }
 
-          for (var leadIndex = 0; leadIndex < leads.length; leadIndex++) {
-            var earliestAllowed = leads[leadIndex].requested_at.getTime() -
-              BOOKING_REQUEST_GRACE_MINUTES * 60 * 1000;
-            if (createdAt.getTime() >= earliestAllowed) {
-              candidate = leads[leadIndex];
-              leads.splice(leadIndex, 1);
-              break;
-            }
+        if (!candidate) {
+          var bookingName = bookingNameFromTitle_(event.getTitle());
+          var nameMatches = bookingName ? eligible.filter(function (lead) {
+            return lead.name_key && lead.name_key === bookingName;
+          }) : [];
+
+          if (nameMatches.length === 1) {
+            candidate = nameMatches[0];
+            matchedBy = 'name';
           }
         }
 
+        if (!candidate && eligible.length === 1) {
+          candidate = eligible[0];
+          matchedBy = 'unique_time_window';
+        }
         if (!candidate) return;
 
+        candidate.consumed = true;
         candidate.record.status = 'confirmed';
+        candidate.record.matched_by = matchedBy;
         candidate.record.booking_event_id = eventId;
         candidate.record.booking_start = event.getStartTime().toISOString();
         candidate.record.booking_end = event.getEndTime().toISOString();
@@ -178,7 +211,7 @@ function syncConfirmedBookings() {
 
         knownEventIds[eventId] = true;
         matched++;
-        console.log('Confirmed booking for %s', candidate.record.lead_id);
+        console.log('Confirmed booking for %s via %s', candidate.record.lead_id, matchedBy);
       } catch (eventError) {
         console.error('Skipped Calendar event: %s', eventError);
       }
@@ -219,6 +252,13 @@ function normalizeEmail_(value) {
   return String(value || '').trim().toLowerCase();
 }
 
+function normalizePersonName_(value) {
+  var name = String(value || '').trim().toLowerCase();
+  if (!name) return '';
+  try { name = name.normalize('NFKD').replace(/[\u0300-\u036f]/g, ''); } catch (error) { /* older runtime */ }
+  return name.replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
 function isValidEmail_(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
 }
@@ -237,6 +277,26 @@ function isBookingTitle_(title) {
 
   /* Google appointment schedules append the booker's name in parentheses. */
   return /^Genius\s*CFO\s+Demo\s+Call\s+\([^()]+\)$/i.test(value);
+}
+
+function bookingNameFromTitle_(title) {
+  var match = /^Genius\s*CFO\s+Demo\s+Call\s+\(([^()]+)\)$/i.exec(String(title || '').trim());
+  return match ? normalizePersonName_(match[1]) : '';
+}
+
+function isWithinBookingWindow_(requestedAt, createdAt) {
+  var delta = createdAt.getTime() - requestedAt.getTime();
+  return delta >= -BOOKING_REQUEST_GRACE_MINUTES * 60 * 1000 &&
+    delta <= BOOKING_MATCH_WINDOW_MINUTES * 60 * 1000;
+}
+
+function closestCandidate_(candidates, createdAt) {
+  return candidates.slice().sort(function (a, b) {
+    var aDistance = Math.abs(createdAt.getTime() - a.requested_at.getTime());
+    var bDistance = Math.abs(createdAt.getTime() - b.requested_at.getTime());
+    if (aDistance !== bDistance) return aDistance - bDistance;
+    return b.requested_at.getTime() - a.requested_at.getTime();
+  })[0] || null;
 }
 
 function asDate_(value) {

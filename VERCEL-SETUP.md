@@ -67,7 +67,7 @@ The website flow is:
 
 1. Step 1 validates and saves contact details. Email is mandatory.
 2. Step 2 saves the triage answers in the same row and separately registers the
-   browser `lead_id` plus email with the booking verifier as `pending`.
+   browser `lead_id`, name and email with the booking verifier as `pending`.
 3. Step 3 opens the real Google Calendar appointment schedule.
 4. The verifier checks Calendar every five minutes using read-only access.
 5. While Step 3 remains open, the page checks the non-sensitive status and
@@ -117,20 +117,25 @@ JSONP `pending` response.
 
 The appointment title is normalized before matching, so the current
 **Genius CFO Demo Call** title matches `BOOKING_TITLE_KEY`. A verifier record
-changes to `confirmed` only when an active Calendar event has that title, its
-attendee email exactly matches the registered lead email, and its creation time
-follows the Step 2 request. Pending and confirmed verifier records are removed
-after 45 days. The public status response exposes no name, email, phone,
-Calendar event ID or appointment time.
+changes to `confirmed` only when an active Calendar event has that title and
+its creation time falls within the guarded Step 2 request window. Correlation
+uses an exact attendee-email match first, then one unambiguous normalized
+booker-name match, then a time-only fallback only when exactly one pending lead
+is eligible. Ambiguous events remain pending rather than being guessed. The
+stored record includes `matched_by` for private auditing, but the public status
+response exposes no name, email, phone, match method, Calendar event ID or
+appointment time. Pending and confirmed verifier records are removed after 45
+days.
 
 **Verifying is not optional.** The POST uses `mode:"no-cors"`, so the browser
 never sees whether the write succeeded and the site cannot tell you it failed.
 Submit one real lead on the deployed site and confirm a single row appears in
-the **Leads** tab with both the Step 1 and Step 2 values. Book a real test slot
-with the same email and keep Step 3 open for up to five minutes. Confirm the
-page changes to the booked state and emits one `generate_lead`. If the Sheet
-write fails, inspect **GCFO leads → Executions**; if booking confirmation fails,
-inspect **GeniusCFO Booking Verifier → Executions**.
+the **Leads** tab with both the Step 1 and Step 2 values. Book a real test slot,
+including with a different Google account if desired, and keep Step 3 open for
+up to five minutes. Confirm the page changes to the booked state and emits one
+`generate_lead`. If the Sheet write fails, inspect **GCFO leads → Executions**;
+if booking confirmation fails, inspect **GeniusCFO Booking Verifier →
+Executions**.
 
 ## 4. Google Tag Manager
 

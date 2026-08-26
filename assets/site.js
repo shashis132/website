@@ -24,7 +24,8 @@
   const BOOKING_ENDPOINT = "https://script.google.com/macros/s/AKfycbxJFuCBN3CvwtZs3n3h733npfOEFQWtWbLfMJilF_ZZNwHzwrIzlQuwtXcGJb_R-rua/exec";
   const IS_LOCAL_PREVIEW = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
   const BOOKING_STATUS_POLL_MS = 5000;
-  const BOOKING_STATUS_TIMEOUT_MS = 20 * 60 * 1000;
+  /* Covers the verifier's 30-minute correlation window plus one trigger cycle. */
+  const BOOKING_STATUS_TIMEOUT_MS = 40 * 60 * 1000;
 
   const TRACKING_KEYS = [
     "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term",
@@ -274,7 +275,7 @@
      Multi-step lead form
      Step 1 — contact and role.  Step 2 — triage, branched by role.
      Step 3 — Google Calendar booking.  Each of steps 1 and 2 POSTs to
-     the sheet. The conversion fires only after the sheet receiver confirms
+     the sheet. The conversion fires only after the booking verifier confirms
      that Google Calendar created a matching appointment event.
      ==================================================================== */
 
@@ -452,6 +453,7 @@
           headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
           body: new URLSearchParams({
             lead_id: state.leadId,
+            name: value("name"),
             email: value("email"),
             track: track
           })
