@@ -142,7 +142,7 @@ function syncConfirmedBookings() {
 
     events.forEach(function (event) {
       try {
-        if (normalizeBookingTitle_(event.getTitle()) !== BOOKING_TITLE_KEY) return;
+        if (!isBookingTitle_(event.getTitle())) return;
 
         var eventId = String(event.getId() || '');
         if (!eventId || knownEventIds[eventId]) return;
@@ -229,6 +229,14 @@ function isValidLeadId_(leadId) {
 
 function normalizeBookingTitle_(title) {
   return String(title || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function isBookingTitle_(title) {
+  var value = String(title || '').trim();
+  if (normalizeBookingTitle_(value) === BOOKING_TITLE_KEY) return true;
+
+  /* Google appointment schedules append the booker's name in parentheses. */
+  return /^Genius\s*CFO\s+Demo\s+Call\s+\([^()]+\)$/i.test(value);
 }
 
 function asDate_(value) {

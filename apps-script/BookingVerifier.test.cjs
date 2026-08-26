@@ -85,9 +85,11 @@ events.push({
   getEndTime: () => new Date(Date.now() + 90000000)
 });
 assert.equal(context.syncConfirmedBookings(), 0, 'wrong event title is ignored');
+assert.equal(context.isBookingTitle_('GeniusCFO Demo Call (Testing Singh)'), true);
+assert.equal(context.isBookingTitle_('GeniusCFO Demo Caller'), false);
 
 events.push({
-  getTitle: () => 'Genius CFO Demo Call',
+  getTitle: () => 'GeniusCFO Demo Call (QA Booking)',
   getId: () => 'calendar-event-1',
   getDateCreated: () => new Date(),
   getGuestList: () => [{ getEmail: () => 'qa.booking@example.com' }],
@@ -95,7 +97,7 @@ events.push({
   getEndTime: () => new Date(Date.now() + 90000000)
 });
 
-assert.equal(context.syncConfirmedBookings(), 1, 'matching Calendar event confirms the lead');
+assert.equal(context.syncConfirmedBookings(), 1, 'Google appointment title with booker name confirms the lead');
 const status = context.bookingStatus_(leadId);
 assert.equal(status.status, 'confirmed');
 assert.match(status.conversion_event_id, /^gcfo_booking_[A-Za-z0-9_-]{32}$/);
