@@ -1463,26 +1463,28 @@ main > .logo-band + .chapter.chapter-major {
   width: 100%;
   min-width: 0;
   height: 760px;
+  overflow: auto;
   border: var(--hairline-strong);
   border-radius: var(--r-window);
   background: #fff;
   box-shadow: var(--sh-inset-well);
 }
+.booking-frame iframe { display: block; width: 100%; min-width: 0; border: 0; }
 .booking-fallback { color: var(--text-subtle); font-size: 0.8125rem; }
 .booking-fallback a { color: var(--emerald-text); font-weight: 700; }
 .booking-fallback a:hover { color: var(--text-max); }
-.lead-calendar-visible .floating-cta { display: none; }
+.lead-booking-visible .floating-cta { display: none; }
 
 @media (max-width: 520px) {
-  .lead-calendar-visible .lead-form {
+  .lead-booking-visible .lead-form {
     padding-inline: 0;
     overflow: hidden;
   }
-  .lead-calendar-visible .form-shell > div:last-child { margin-inline: -20px; }
-  .lead-calendar-visible .lead-progress,
-  .lead-calendar-visible .booking-step > h3,
-  .lead-calendar-visible .booking-step > p { margin-inline: 20px; }
-  .lead-calendar-visible .booking-frame {
+  .lead-booking-visible .form-shell > div:last-child { margin-inline: -20px; }
+  .lead-booking-visible .lead-progress,
+  .lead-booking-visible .booking-step > h3,
+  .lead-booking-visible .booking-step > p { margin-inline: 20px; }
+  .lead-booking-visible .booking-frame {
     height: 720px;
     border-inline: 0;
     border-radius: 0;

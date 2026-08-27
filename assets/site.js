@@ -21,15 +21,13 @@
      each submit logs a console warning.
      -------------------------------------------------------------------- */
   const LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbyggslRlgh1LopVaK_88gms4MgePKgBTfChm1kl2ClIRTdmKVGZV5YsahpAdbjHPAp-Aw/exec";
-  const BOOKING_ENDPOINT = "https://script.google.com/macros/s/AKfycbxJFuCBN3CvwtZs3n3h733npfOEFQWtWbLfMJilF_ZZNwHzwrIzlQuwtXcGJb_R-rua/exec";
   const IS_LOCAL_PREVIEW = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
-  const BOOKING_STATUS_POLL_MS = 5000;
-  /* Covers the verifier's 45-minute claim window plus one trigger cycle. The
-     server-side backfill catches anything past this, so the timeout is a
-     display concern now, not a measurement one. */
-  const BOOKING_STATUS_TIMEOUT_MS = 50 * 60 * 1000;
-  /* Needed to name the GA4 session cookie, `_ga_<stream>`. */
-  const GA4_MEASUREMENT_ID = "G-89VFSF4RV7";
+
+  /* Cal.com inline booking. The event type namespace comes from Cal.com's
+     embed generator for https://cal.com/geniuscfo/30min. */
+  const CAL_ORIGIN = "https://app.cal.com";
+  const CAL_LINK = "geniuscfo/30min";
+  const CAL_NAMESPACE = "30min";
 
   const TRACKING_KEYS = [
     "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term",
@@ -278,59 +276,50 @@
   /* ====================================================================
      Multi-step lead form
      Step 1 — contact and role.  Step 2 — triage, branched by role.
-     Step 3 — Google Calendar booking.  Each of steps 1 and 2 POSTs to
-     the sheet. The conversion fires only after the booking verifier confirms
-     that Google Calendar created a matching appointment event.
+     Step 3 — Cal.com inline booking. Each of steps 1 and 2 POSTs to the
+     sheet. Cal.com's own GTM app sends bookingSuccessfulV2 to the web
+     container, where the GA4 tag maps it to `generate_lead`.
      ==================================================================== */
 
   const FIRM_ROLES = ["ca_firm", "cfo_firm"];
 
-  /* --------------------------------------------------------------------
-     Advertising identity, read straight from the first-party cookies.
+  /* Cal.com's generated bootstrap is queue-safe: the API calls below can be
+     registered before embed.js finishes downloading. It runs only when Step 3
+     opens, so the booking app does not slow the initial landing-page load. */
+  const ensureCalApi = () => {
+    ((C, A, L) => {
+      const enqueue = (api, args) => { api.q.push(args); };
+      const doc = C.document;
+      C.Cal = C.Cal || function calQueue() {
+        const cal = C.Cal;
+        const args = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          doc.head.appendChild(doc.createElement("script")).src = A;
+          cal.loaded = true;
+        }
+        if (args[0] === L) {
+          const api = function namespacedQueue() { enqueue(api, arguments); };
+          const namespace = args[1];
+          api.q = api.q || [];
+          if (typeof namespace === "string") {
+            cal.ns[namespace] = cal.ns[namespace] || api;
+            enqueue(cal.ns[namespace], args);
+            enqueue(cal, ["initNamespace", namespace]);
+          } else {
+            enqueue(cal, args);
+          }
+          return;
+        }
+        enqueue(cal, args);
+      };
+    })(window, `${CAL_ORIGIN}/embed/embed.js`, "init");
 
-     These travel with the booking registration so that when the verifier
-     has to send `generate_lead` itself — because the visitor closed the tab
-     before the appointment appeared in Calendar — the conversion still lands
-     on the right GA4 client and the right Meta ad click. Nothing here
-     identifies a person; it is the browser's own advertising identity, the
-     same values the tags on this page already send.
-     -------------------------------------------------------------------- */
-  const readCookie = (name) => {
-    try {
-      const match = document.cookie.match(
-        new RegExp("(?:^|;\\s*)" + name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "=([^;]*)")
-      );
-      return match ? decodeURIComponent(match[1]) : "";
-    } catch (error) {
-      return "";
-    }
-  };
-
-  /* `_ga` is `GA1.1.<client id>`, and the client id itself contains a dot. */
-  const ga4ClientId = () => {
-    const raw = readCookie("_ga");
-    const parts = raw.split(".");
-    return parts.length >= 4 ? parts.slice(2).join(".") : "";
-  };
-
-  /* `_ga_<stream>` has had two shapes: `GS1.1.<session id>.…` and the newer
-     `GS2.2.s<session id>$o…`. Read both rather than assuming the current one. */
-  const ga4SessionId = () => {
-    const raw = readCookie("_ga_" + GA4_MEASUREMENT_ID.replace(/^G-/, ""));
-    if (!raw) return "";
-    const segment = raw.split(".")[2] || "";
-    const modern = /^s(\d+)/.exec(segment);
-    if (modern) return modern[1];
-    return /^\d+$/.test(segment) ? segment : "";
-  };
-
-  const createLeadId = () => {
-    try {
-      if (window.crypto && typeof window.crypto.randomUUID === "function") {
-        return window.crypto.randomUUID();
-      }
-    } catch (error) { /* secure random UUID is best-effort */ }
-    return `lead_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 12)}`;
+    window.Cal("init", CAL_NAMESPACE, { origin: CAL_ORIGIN });
+    window.Cal.config = window.Cal.config || {};
+    window.Cal.config.forwardQueryParams = true;
+    return window.Cal.ns[CAL_NAMESPACE];
   };
 
   document.querySelectorAll("[data-lead-form]").forEach((root) => {
@@ -342,7 +331,7 @@
     };
     const progress = Array.from(root.querySelectorAll("[data-lead-progress] span"));
     const turnoverField = root.querySelector("[data-turnover-field]");
-    const bookingFrame = root.querySelector("[data-booking-frame]");
+    const bookingFrame = root.querySelector("[data-cal-inline]");
     const bookingLoading = root.querySelector("[data-booking-loading]");
     const bookingStatus = root.querySelector("[data-booking-status]");
     const branches = {
@@ -357,11 +346,7 @@
       tool: "",
       clientTool: "",
       clientCount: "",
-      leadId: createLeadId(),
-      bookingPollStartedAt: 0,
-      bookingPollTimer: null,
-      bookingPollInFlight: false,
-      conversionFired: false
+      bookingShown: false
     };
 
     const field = (name) => root.querySelector(`[name="${name}"]`);
@@ -412,9 +397,63 @@
       });
     };
 
+    const setBookingStatus = (message, confirmed) => {
+      if (!bookingStatus) return;
+      bookingStatus.textContent = message;
+      bookingStatus.classList.toggle("is-confirmed", !!confirmed);
+    };
+
+    const setBookingLoadError = () => {
+      if (!bookingLoading) return;
+      bookingLoading.hidden = false;
+      bookingLoading.textContent = "The booking calendar could not load here. Open it in a new tab below.";
+    };
+
+    const showCalBookingSuccess = (calEvent) => {
+      const detail = calEvent && calEvent.detail ? calEvent.detail : {};
+      if (detail.namespace && detail.namespace !== CAL_NAMESPACE) return;
+      if (state.bookingShown) return;
+      state.bookingShown = true;
+      setBookingStatus("Your demo is booked. Check your email for the Cal.com confirmation.", true);
+    };
+
+    const initBooking = () => {
+      if (!bookingFrame || bookingFrame.dataset.calActive === "true") return;
+      bookingFrame.dataset.calActive = "true";
+
+      const cal = ensureCalApi();
+      const markReady = () => {
+        if (bookingLoading) bookingLoading.hidden = true;
+      };
+
+      cal("on", { action: "linkReady", callback: markReady });
+      cal("on", { action: "bookerReady", callback: markReady });
+      cal("on", { action: "linkFailed", callback: setBookingLoadError });
+      cal("on", { action: "bookingSuccessfulV2", callback: showCalBookingSuccess });
+      cal("inline", {
+        elementOrSelector: bookingFrame,
+        config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
+        calLink: CAL_LINK
+      });
+      cal("ui", {
+        cssVarsPerTheme: {
+          light: { "cal-brand": "#00674d" },
+          dark: { "cal-brand": "#00c896" }
+        },
+        hideEventTypeDetails: false,
+        layout: "month_view"
+      });
+
+      const embedScript = document.querySelector(`script[src="${CAL_ORIGIN}/embed/embed.js"]`);
+      if (embedScript && embedScript.dataset.bookingErrorBound !== "true") {
+        embedScript.dataset.bookingErrorBound = "true";
+        embedScript.addEventListener("error", setBookingLoadError, { once: true });
+      }
+    };
+
     const setStep = (next) => {
       state.step = next;
-      document.documentElement.classList.toggle("lead-calendar-visible", next === 3);
+      document.documentElement.classList.toggle("lead-booking-visible", next === 3);
       Object.keys(steps).forEach((key) => {
         if (steps[key]) steps[key].hidden = Number(key) !== next;
       });
@@ -427,184 +466,8 @@
         heading.setAttribute("tabindex", "-1");
         heading.focus({ preventScroll: true });
       }
-      if (next === 3 && bookingFrame && bookingFrame.dataset.bookingActive !== "true") {
-        bookingFrame.dataset.bookingActive = "true";
-        bookingFrame.src = bookingFrame.dataset.src;
-      }
-      if (next === 3) startBookingStatusPolling();
+      if (next === 3) initBooking();
     };
-
-    if (bookingFrame) {
-      bookingFrame.addEventListener("load", () => {
-        if (bookingFrame.dataset.bookingActive === "true" && bookingLoading) {
-          bookingLoading.hidden = true;
-        }
-      });
-    }
-
-    const setBookingStatus = (message, confirmed) => {
-      if (!bookingStatus) return;
-      bookingStatus.textContent = message;
-      bookingStatus.classList.toggle("is-confirmed", !!confirmed);
-    };
-
-    const stopBookingStatusPolling = () => {
-      if (state.bookingPollTimer) window.clearTimeout(state.bookingPollTimer);
-      state.bookingPollTimer = null;
-    };
-
-    const fireConfirmedLead = (result) => {
-      const eventId = String(result && result.conversion_event_id || "").trim();
-      if (!eventId || state.conversionFired) return;
-
-      const storageKey = `gcfo_generate_lead_${eventId}`;
-      try {
-        if (window.localStorage.getItem(storageKey) === "1") {
-          state.conversionFired = true;
-          stopBookingStatusPolling();
-          reportConversionFired();
-          setBookingStatus("Your demo is booked. Check your email for the Google Calendar confirmation.", true);
-          return;
-        }
-      } catch (error) { /* private mode — in-memory dedupe still applies */ }
-
-      state.conversionFired = true;
-      stopBookingStatusPolling();
-      pushDataLayer("generate_lead", {
-        event_id: eventId,
-        lead_id: state.leadId,
-        booking_status: "confirmed",
-        booking_source: "google_calendar",
-        role: state.role,
-        track: track,
-        challenge: state.challenge,
-        accounting_tool: state.tool,
-        client_accounting_tool: state.clientTool,
-        client_count: state.clientCount
-      });
-
-      try { window.localStorage.setItem(storageKey, "1"); } catch (error) { /* best-effort */ }
-      reportConversionFired();
-      setBookingStatus("Your demo is booked. Check your email for the Google Calendar confirmation.", true);
-    };
-
-    /* The verifier already sent this conversion server-side, because this page
-       was not around to do it. Stop polling and show the booked state without
-       pushing anything, or the booking is counted twice. */
-    const acknowledgeServerDelivery = () => {
-      if (state.conversionFired) return;
-      state.conversionFired = true;
-      stopBookingStatusPolling();
-      setBookingStatus("Your demo is booked. Check your email for the Google Calendar confirmation.", true);
-    };
-
-    const postToVerifier = (payload) => {
-      if (!BOOKING_ENDPOINT || !state.leadId || IS_LOCAL_PREVIEW) return;
-      try {
-        const request = window.fetch(BOOKING_ENDPOINT, {
-          method: "POST",
-          mode: "no-cors",
-          keepalive: true,
-          headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-          body: new URLSearchParams(Object.assign({ lead_id: state.leadId }, payload))
-        });
-        if (request && typeof request.catch === "function") {
-          request.catch(() => { /* opaque by design — the poll is the feedback channel */ });
-        }
-      } catch (error) { /* fetch unavailable — the Sheet submission still remains intact */ }
-    };
-
-    /* Registering is what makes a later Calendar event attributable to this
-       browser. The verifier no longer receives the name or email, because it
-       no longer matches on them. */
-    const registerBookingLead = () => {
-      postToVerifier({
-        track: track,
-        role: state.role,
-        client_id: ga4ClientId(),
-        session_id: ga4SessionId(),
-        fbp: readCookie("_fbp"),
-        fbc: readCookie("_fbc"),
-        /* The verifier's own request comes from a Google data centre, so
-           without this Meta would be told the booking came from there. */
-        user_agent: window.navigator ? window.navigator.userAgent : "",
-        page: window.location.href
-      });
-    };
-
-    /* Tells the verifier to stand down: this page has fired the conversion, so
-       the server must not send its own copy. Sent keepalive, because the
-       visitor is usually about to leave. */
-    const reportConversionFired = () => {
-      postToVerifier({ action: "conversion-reported" });
-    };
-
-    const requestBookingStatus = () => {
-      if (!BOOKING_ENDPOINT || !state.leadId || IS_LOCAL_PREVIEW) return Promise.resolve(null);
-
-      return new Promise((resolve) => {
-        const callbackName = `gcfoBookingStatus_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-        const script = document.createElement("script");
-        let settled = false;
-
-        const finish = (payload) => {
-          if (settled) return;
-          settled = true;
-          window.clearTimeout(timeout);
-          try { delete window[callbackName]; } catch (error) { window[callbackName] = undefined; }
-          if (script.parentNode) script.parentNode.removeChild(script);
-          resolve(payload || null);
-        };
-
-        const timeout = window.setTimeout(() => finish(null), 8000);
-        window[callbackName] = finish;
-        script.async = true;
-        script.onerror = () => finish(null);
-
-        const statusUrl = new URL(BOOKING_ENDPOINT);
-        statusUrl.searchParams.set("action", "booking-status");
-        statusUrl.searchParams.set("lead_id", state.leadId);
-        statusUrl.searchParams.set("callback", callbackName);
-        statusUrl.searchParams.set("_", String(Date.now()));
-        script.src = statusUrl.toString();
-        document.head.appendChild(script);
-      });
-    };
-
-    const pollBookingStatus = () => {
-      if (state.step !== 3 || state.conversionFired || state.bookingPollInFlight) return;
-      if (Date.now() - state.bookingPollStartedAt > BOOKING_STATUS_TIMEOUT_MS) {
-        stopBookingStatusPolling();
-        setBookingStatus("Your details are saved. If you booked a slot, the Google Calendar email is your confirmation.", false);
-        return;
-      }
-
-      state.bookingPollInFlight = true;
-      requestBookingStatus()
-        .then((result) => {
-          if (!result) return;
-          if (result.status === "confirmed") fireConfirmedLead(result);
-          else if (result.status === "delivered") acknowledgeServerDelivery();
-        })
-        .catch(() => { /* Calendar confirmation is best-effort until the next poll. */ })
-        .finally(() => {
-          state.bookingPollInFlight = false;
-          if (!state.conversionFired && state.step === 3) {
-            state.bookingPollTimer = window.setTimeout(pollBookingStatus, BOOKING_STATUS_POLL_MS);
-          }
-        });
-    };
-
-    function startBookingStatusPolling() {
-      if (IS_LOCAL_PREVIEW || state.conversionFired) return;
-      stopBookingStatusPolling();
-      if (!state.bookingPollStartedAt) state.bookingPollStartedAt = Date.now();
-      pollBookingStatus();
-    }
-
-    window.addEventListener("focus", () => {
-      if (state.step === 3 && !state.conversionFired) pollBookingStatus();
-    });
 
     const isFirm = () => FIRM_ROLES.indexOf(state.role) > -1;
 
@@ -639,7 +502,6 @@
     const send = (extra) => {
       const payload = Object.assign({
         name: value("name"),
-        lead_id: state.leadId,
         phone: value("phone"),
         email: value("email"),
         company: value("company"),
@@ -752,8 +614,8 @@
 
     const submitStepTwo = (event) => {
       event.preventDefault();
-      /* Step 2 saves the triage answers and opens the booking calendar. It is
-         not a confirmed appointment, so no conversion event fires here. */
+      /* Step 2 saves the triage answers and opens Cal.com. It is not a booked
+         appointment, so no conversion event fires here. */
       const consentField = field("consent");
       const leadParams = {
         role: state.role,
@@ -772,7 +634,6 @@
         client_accounting_tool: state.clientTool,
         client_count: state.clientCount
       });
-      registerBookingLead();
       setStep(3);
     };
 

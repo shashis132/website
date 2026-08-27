@@ -33,7 +33,7 @@
   <link rel="preload" href="../assets/fonts/ibm-plex-sans-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/ibm-plex-sans-condensed-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/site-v4.css?v=20260819-v6-mobile-audience-pricing-rhythm">
+  <link rel="stylesheet" href="../assets/site-v4.css?v=20260827-v7-cal">
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -933,19 +933,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                       <div class="lead-step booking-step" data-lead-step="3" hidden>
                         <h3>Book a time for your firm demo.</h3>
-                        <p>Your details are saved. Choose a 60-minute slot below. You can use any Google account to book.</p>
-                        <p class="booking-confirmation" data-booking-status role="status" aria-live="polite">After you book, keep this page open while we confirm the appointment with Google Calendar.</p>
+                        <p>Your details are saved. Choose a 30-minute slot below.</p>
+                        <p class="booking-confirmation" data-booking-status role="status" aria-live="polite">Your Cal.com booking confirmation will appear here.</p>
                         <p class="booking-loading" data-booking-loading role="status">Loading available times&hellip;</p>
-                        <iframe
+                        <div
                           class="booking-frame"
-                          title="Book a GeniusCFO firm demo in Google Calendar"
-                          src="about:blank"
-                          data-booking-frame
-                          data-src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3iBccV4tr7pGXWT234L1VHOL3L4rNb3WXCfGTKBK3Wxk8sWZAcxBA8TJiEsD4dpJ9heBvhjVWC?gv=true"
-                          loading="lazy"
-                          referrerpolicy="strict-origin-when-cross-origin"
-                          frameborder="0"></iframe>
-                        <p class="booking-fallback">If the calendar does not load, <a href="https://calendar.app.google/Qd6t4XQF29C95ujU7" target="_blank" rel="noopener noreferrer">open the booking page in a new tab&nbsp;&nearr;</a></p>
+                          data-cal-inline
+                          role="region"
+                          aria-label="Book a 30-minute GeniusCFO firm demo"></div>
+                        <p class="booking-fallback">If the calendar does not load, <a href="https://cal.com/geniuscfo/30min" target="_blank" rel="noopener noreferrer">open the Cal.com booking page in a new tab&nbsp;&nearr;</a></p>
                       </div>
                     </div>
         </div>
@@ -1013,7 +1009,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="image-dialog-shell"><div class="image-dialog-head"><p id="image-dialog-title" data-image-dialog-title></p><span class="image-dialog-actions"><button type="button" class="image-dialog-replay" data-image-dialog-replay hidden>Play again</button><button type="button" class="image-dialog-close" data-image-dialog-close>Close</button></span></div><div class="image-dialog-stage"><img data-image-dialog-image alt=""></div></div>
   </dialog>
 
-  <script src="../assets/site.js?v=20260827-v2" defer></script>
+  <script src="../assets/site.js?v=20260827-v3-cal" defer></script>
   <script src="../assets/site-v4.js?v=20260819-v6" defer></script>
   <script type="module" src="../assets/logo-band.js?v=20260819-v6"></script>
 </body>
