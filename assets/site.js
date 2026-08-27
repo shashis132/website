@@ -24,8 +24,12 @@
   const BOOKING_ENDPOINT = "https://script.google.com/macros/s/AKfycbxJFuCBN3CvwtZs3n3h733npfOEFQWtWbLfMJilF_ZZNwHzwrIzlQuwtXcGJb_R-rua/exec";
   const IS_LOCAL_PREVIEW = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
   const BOOKING_STATUS_POLL_MS = 5000;
-  /* Covers the verifier's 30-minute correlation window plus one trigger cycle. */
-  const BOOKING_STATUS_TIMEOUT_MS = 40 * 60 * 1000;
+  /* Covers the verifier's 45-minute claim window plus one trigger cycle. The
+     server-side backfill catches anything past this, so the timeout is a
+     display concern now, not a measurement one. */
+  const BOOKING_STATUS_TIMEOUT_MS = 50 * 60 * 1000;
+  /* Needed to name the GA4 session cookie, `_ga_<stream>`. */
+  const GA4_MEASUREMENT_ID = "G-89VFSF4RV7";
 
   const TRACKING_KEYS = [
     "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term",
@@ -281,6 +285,45 @@
 
   const FIRM_ROLES = ["ca_firm", "cfo_firm"];
 
+  /* --------------------------------------------------------------------
+     Advertising identity, read straight from the first-party cookies.
+
+     These travel with the booking registration so that when the verifier
+     has to send `generate_lead` itself — because the visitor closed the tab
+     before the appointment appeared in Calendar — the conversion still lands
+     on the right GA4 client and the right Meta ad click. Nothing here
+     identifies a person; it is the browser's own advertising identity, the
+     same values the tags on this page already send.
+     -------------------------------------------------------------------- */
+  const readCookie = (name) => {
+    try {
+      const match = document.cookie.match(
+        new RegExp("(?:^|;\\s*)" + name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "=([^;]*)")
+      );
+      return match ? decodeURIComponent(match[1]) : "";
+    } catch (error) {
+      return "";
+    }
+  };
+
+  /* `_ga` is `GA1.1.<client id>`, and the client id itself contains a dot. */
+  const ga4ClientId = () => {
+    const raw = readCookie("_ga");
+    const parts = raw.split(".");
+    return parts.length >= 4 ? parts.slice(2).join(".") : "";
+  };
+
+  /* `_ga_<stream>` has had two shapes: `GS1.1.<session id>.…` and the newer
+     `GS2.2.s<session id>$o…`. Read both rather than assuming the current one. */
+  const ga4SessionId = () => {
+    const raw = readCookie("_ga_" + GA4_MEASUREMENT_ID.replace(/^G-/, ""));
+    if (!raw) return "";
+    const segment = raw.split(".")[2] || "";
+    const modern = /^s(\d+)/.exec(segment);
+    if (modern) return modern[1];
+    return /^\d+$/.test(segment) ? segment : "";
+  };
+
   const createLeadId = () => {
     try {
       if (window.crypto && typeof window.crypto.randomUUID === "function") {
@@ -419,6 +462,7 @@
         if (window.localStorage.getItem(storageKey) === "1") {
           state.conversionFired = true;
           stopBookingStatusPolling();
+          reportConversionFired();
           setBookingStatus("Your demo is booked. Check your email for the Google Calendar confirmation.", true);
           return;
         }
@@ -440,10 +484,21 @@
       });
 
       try { window.localStorage.setItem(storageKey, "1"); } catch (error) { /* best-effort */ }
+      reportConversionFired();
       setBookingStatus("Your demo is booked. Check your email for the Google Calendar confirmation.", true);
     };
 
-    const registerBookingLead = () => {
+    /* The verifier already sent this conversion server-side, because this page
+       was not around to do it. Stop polling and show the booked state without
+       pushing anything, or the booking is counted twice. */
+    const acknowledgeServerDelivery = () => {
+      if (state.conversionFired) return;
+      state.conversionFired = true;
+      stopBookingStatusPolling();
+      setBookingStatus("Your demo is booked. Check your email for the Google Calendar confirmation.", true);
+    };
+
+    const postToVerifier = (payload) => {
       if (!BOOKING_ENDPOINT || !state.leadId || IS_LOCAL_PREVIEW) return;
       try {
         const request = window.fetch(BOOKING_ENDPOINT, {
@@ -451,17 +506,37 @@
           mode: "no-cors",
           keepalive: true,
           headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-          body: new URLSearchParams({
-            lead_id: state.leadId,
-            name: value("name"),
-            email: value("email"),
-            track: track
-          })
+          body: new URLSearchParams(Object.assign({ lead_id: state.leadId }, payload))
         });
         if (request && typeof request.catch === "function") {
-          request.catch(() => { /* The status poll will keep waiting if registration failed. */ });
+          request.catch(() => { /* opaque by design — the poll is the feedback channel */ });
         }
       } catch (error) { /* fetch unavailable — the Sheet submission still remains intact */ }
+    };
+
+    /* Registering is what makes a later Calendar event attributable to this
+       browser. The verifier no longer receives the name or email, because it
+       no longer matches on them. */
+    const registerBookingLead = () => {
+      postToVerifier({
+        track: track,
+        role: state.role,
+        client_id: ga4ClientId(),
+        session_id: ga4SessionId(),
+        fbp: readCookie("_fbp"),
+        fbc: readCookie("_fbc"),
+        /* The verifier's own request comes from a Google data centre, so
+           without this Meta would be told the booking came from there. */
+        user_agent: window.navigator ? window.navigator.userAgent : "",
+        page: window.location.href
+      });
+    };
+
+    /* Tells the verifier to stand down: this page has fired the conversion, so
+       the server must not send its own copy. Sent keepalive, because the
+       visitor is usually about to leave. */
+    const reportConversionFired = () => {
+      postToVerifier({ action: "conversion-reported" });
     };
 
     const requestBookingStatus = () => {
@@ -507,7 +582,9 @@
       state.bookingPollInFlight = true;
       requestBookingStatus()
         .then((result) => {
-          if (result && result.status === "confirmed") fireConfirmedLead(result);
+          if (!result) return;
+          if (result.status === "confirmed") fireConfirmedLead(result);
+          else if (result.status === "delivered") acknowledgeServerDelivery();
         })
         .catch(() => { /* Calendar confirmation is best-effort until the next poll. */ })
         .finally(() => {
