@@ -4,11 +4,11 @@
 > routine bookkeeping, prepares GST information and financial statements, and answers financial
 > questions from updated accounts. Operated by GeniusCFO, serving India.
 
-Last updated: 2026-08-18
+Last updated: 2026-08-31
 Canonical short version: https://geniuscfo.ai/llms.txt
 Contact: marketing@geniuscfo.ai
 
-This file restates the content of the three public pages in a single plain-text document so it can
+This file restates the product pages and links to the business stories in a single plain-text document so it can
 be retrieved and quoted accurately. Where this file and the website disagree, the website at
 https://geniuscfo.ai is authoritative.
 
@@ -188,3 +188,11 @@ Firm plans are priced by the client companies and team members included. Team co
 - Schedule III — the Companies Act, 2013 format for financial statements.
 - CA firm — a chartered accountancy practice. vCFO — virtual or fractional CFO practice.
 - Razorpay — the Indian payment gateway used to collect plan payments.
+
+## Business stories
+
+### Every Invoice Looked Fine. Together, They Told a Different Story.
+
+Canonical story: https://www.geniuscfo.ai/stories/every-invoice-looked-fine
+
+A fictional restaurant story about food-cost movement across ordinary supplier invoices. Current books connect the movement to posted purchase entries, so the owner can ask a specific question. The owner and Chartered Accountant retain commercial judgement, review and sign-off. Meera, Coastal House, its suppliers and every financial figure are fictional; this is not a customer result or a promise of savings. Read the canonical story for the full narrative and closing disclosure.

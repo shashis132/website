@@ -1,12 +1,13 @@
 # GeniusCFO Website V5
 
-Start here. This handover contains exactly three public website pages:
+Start here. This handover contains three product pages and one business story:
 
 | Public URL | Source document | Audience |
 |---|---|---|
 | `/business` | `business/index.html` | Business owners |
 | `/ca-firms` | `ca-firms/index.html` | CA and accounting firms |
 | `/pricing` | `pricing/index.html` | Shared pricing for both audiences |
+| `/stories/every-invoice-looked-fine` | `stories/every-invoice-looked-fine/index.html` | Business owners; a fictional restaurant story |
 
 These are separate, source-readable HTML documents. The Business and CA/Firm pages are not two states hidden inside one page. The Pricing page is shared and uses `audience=business` or `audience=ca-firms` only to retain audience context.
 
@@ -33,10 +34,10 @@ VERCEL-SETUP.md            Vercel, DNS, lead-sheet, Cal.com and GTM setup
 ## Deployment choice
 
 The host is Vercel. `vercel.json` is the routing file; the Netlify
-configuration has been removed. On another host, reproduce the same three
-rewrites and three redirects.
+configuration has been removed. On another host, reproduce the rewrites and
+redirects in the supplied configuration.
 
-The configuration permanently redirects `/` and `/index.html` to `/business`. It rewrites the three public URLs to their physical HTML documents without exposing `index.html` in public URLs.
+The configuration permanently redirects `/` and `/index.html` to `/business`. It rewrites the product and story URLs to their physical HTML documents without exposing `index.html` in public URLs.
 
 `VERCEL-SETUP.md` is the step-by-step: creating the project, pointing
 `geniuscfo.ai` at it, wiring the lead form to its Google Sheet and Cal.com,
@@ -51,6 +52,7 @@ Serve this folder over HTTP. With a basic static server, preview:
 - `/business/`
 - `/ca-firms/`
 - `/pricing/`
+- `/stories/every-invoice-looked-fine/`
 
 The trailing slash is a local static-server detail. Production canonical URLs do not use a trailing slash.
 
@@ -88,3 +90,7 @@ The trailing slash is a local static-server detail. Production canonical URLs do
 
 `VERCEL-SETUP.md` covers the lead Sheet, Cal.com, GTM and production hosting.
 `qa/` holds the rendered evidence for the current build.
+
+## Business story
+
+The story at `/stories/every-invoice-looked-fine` preserves the approved source article and the compositions of both supplied images. It serves responsive AVIF/WebP derivatives, with a compressed JPEG for social sharing; the master PNGs are untouched and are not shipped to the page. It uses the shared `site-v4.css` theme and `site.js` interactions, with only article layout in `assets/story.css`. The new page includes the existing `GTM-NPMFZCZG` loader and noscript fallback. Campaign parameters are preserved on links into the business demo flow. A click is not counted as a lead. The new URL is linked from the Business footer, sitemap, and the existing language-model reference files. No publication date is invented before release.

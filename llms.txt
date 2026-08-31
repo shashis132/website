@@ -2,7 +2,7 @@
 
 > GeniusCFO is accounting automation software for Indian businesses and CA firms. It automates routine bookkeeping, prepares GST information and financial statements, and answers financial questions from updated accounts.
 
-Last updated: 2026-08-18. Operated by GeniusCFO, serving India. Contact: marketing@geniuscfo.ai.
+Last updated: 2026-08-31. Operated by GeniusCFO, serving India. Contact: marketing@geniuscfo.ai.
 Full reference, including every published question and answer: [llms-full.txt](https://geniuscfo.ai/llms-full.txt).
 Where this file and the website disagree, https://geniuscfo.ai is authoritative.
 
@@ -42,3 +42,7 @@ Billing is monthly or every three months. The three-month option is billed once 
 Managed accounting services are optional and billed separately: Accountant+ at ₹999 per month and CA+ at ₹2,999 per month.
 
 The website does not sell plans directly. Every pricing action opens an access request with the GeniusCFO team; plans are chosen and paid for inside the product after the trial.
+
+## Business stories
+
+- [Every Invoice Looked Fine](https://www.geniuscfo.ai/stories/every-invoice-looked-fine): A fictional restaurant story about food-cost movement, current books, and reviewing posted purchase entries. The people and financial figures are fictional, not customer results.
