@@ -101,9 +101,10 @@
     } catch (error) { /* analytics is optional */ }
   };
 
-  /* First-party cookie read. Used only to hand the ad-click and browser ids
-     that the Meta pixel and LinkedIn Insight Tag stored on geniuscfo.ai to
-     the Cal.com booking frame, which lives on another origin. */
+  /* First-party cookie read. Used only to hand the ad-click, browser and
+     analytics ids that the Meta pixel, LinkedIn Insight Tag and Google tag
+     stored on geniuscfo.ai to the Cal.com booking frame, which lives on
+     another origin and cannot see them. */
   const readCookie = (name) => {
     try {
       const pattern = new RegExp("(?:^|; )" + name.replace(/[.$?*|{}()[\]\\/+^]/g, "\\$&") + "=([^;]*)");
@@ -111,6 +112,30 @@
       return match ? decodeURIComponent(match[1]) : "";
     } catch (error) {
       return "";
+    }
+  };
+
+  /* SHA-256 hex of a string, the form in which Meta and LinkedIn accept
+     customer identifiers. Nothing personal leaves the page in clear text. */
+  const sha256Hex = (text) => window.crypto.subtle
+    .digest("SHA-256", new TextEncoder().encode(text))
+    .then((buffer) => Array.prototype.map.call(
+      new Uint8Array(buffer), (byte) => ("0" + byte.toString(16)).slice(-2)
+    ).join(""));
+
+  /* Hash every non-empty field of `fields`. Resolves to {} when the browser
+     cannot hash, so tracking degrades instead of blocking the booking. */
+  const hashFields = (fields) => {
+    try {
+      if (!(window.crypto && window.crypto.subtle && typeof TextEncoder !== "undefined")) {
+        return Promise.resolve({});
+      }
+      const keys = Object.keys(fields).filter((key) => fields[key]);
+      return Promise.all(keys.map((key) => sha256Hex(fields[key]).then((hex) => [key, hex])))
+        .then((pairs) => pairs.reduce((acc, pair) => { acc[pair[0]] = pair[1]; return acc; }, {}))
+        .catch(() => ({}));
+    } catch (error) {
+      return Promise.resolve({});
     }
   };
 
@@ -448,28 +473,62 @@
       cal("on", { action: "bookingSuccessfulV2", callback: showCalBookingSuccess });
 
       /* Every config key becomes a query parameter of the embedded booking
-         page, where the same GTM container runs. `name` and `email` prefill
-         Cal's own form from Step 1; the click and browser ids let the
-         server-side Meta and LinkedIn tags attribute the booking to the ad
-         click that landed on geniuscfo.ai, which the third-party frame
-         cannot see on its own. Nothing here is a conversion event. */
+         page, where the same GTM container runs. Nothing personal travels in
+         clear text: the Step 1 email, phone and name go across as SHA-256
+         hashes (em, ph, fn, ln), which is the form Meta and LinkedIn match
+         on; the pseudonymous click, browser and analytics ids are copied
+         from the geniuscfo.ai cookies so the third-party frame can attribute
+         the booking to the ad click that landed here. Nothing here is a
+         conversion event. */
       const bookingConfig = { layout: "month_view", useSlotsViewOnSmallScreen: "true" };
-      const prefillName = value("name");
-      const prefillEmail = value("email");
-      const linkedInClickId = tracking.get("li_fat_id") || readCookie("li_fat_id");
-      const metaClickId = readCookie("_fbc");
+      const stored = storedTracking();
+      const linkedInClickId = tracking.get("li_fat_id") || stored.li_fat_id || readCookie("li_fat_id");
+      const metaClickParam = tracking.get("fbclid") || stored.fbclid;
+      const metaClickId = readCookie("_fbc") || (metaClickParam ? `fb.1.${Date.now()}.${metaClickParam}` : "");
       const metaBrowserId = readCookie("_fbp");
-      if (prefillName) bookingConfig.name = prefillName;
-      if (prefillEmail) bookingConfig.email = prefillEmail;
+      const gaClientId = (readCookie("_ga").match(/^GA\d+\.\d+\.(\d+\.\d+)$/) || [])[1] || "";
       if (linkedInClickId) bookingConfig.li_fat_id = linkedInClickId;
       if (metaClickId) bookingConfig.fbc = metaClickId;
       if (metaBrowserId) bookingConfig.fbp = metaBrowserId;
+      if (gaClientId) bookingConfig.ga_cid = gaClientId;
 
-      cal("inline", {
-        elementOrSelector: bookingFrame,
-        config: bookingConfig,
-        calLink: CAL_LINK
-      });
+      /* Normalised the way Meta and LinkedIn expect before hashing: lower
+         case and trimmed; phone as digits with the 91 country code; names
+         without punctuation. */
+      const digits = value("phone").replace(/\D/g, "");
+      const nameParts = value("name").toLowerCase()
+        .replace(/[.,'"`\-()\/\\!?@#$%^&*+=:;<>[\]{}|~_]/g, "")
+        .trim().split(/\s+/).filter(Boolean);
+      const identity = {
+        em: value("email").trim().toLowerCase(),
+        ph: digits.length === 10 ? `91${digits}` : digits,
+        fn: nameParts[0] || "",
+        ln: nameParts.length > 1 ? nameParts[nameParts.length - 1] : ""
+      };
+
+      const mountBooking = (hashes) => {
+        Object.assign(bookingConfig, hashes || {});
+
+        /* The new-tab fallback opens the same booking page on cal.com, where
+           the same container runs, so it carries the same ids. */
+        const fallbackLink = root.querySelector('.booking-fallback a[href^="https://cal.com/"]');
+        if (fallbackLink) {
+          const params = new URLSearchParams();
+          Object.keys(bookingConfig).forEach((key) => {
+            if (key !== "layout" && key !== "useSlotsViewOnSmallScreen") params.set(key, bookingConfig[key]);
+          });
+          const query = params.toString();
+          if (query) fallbackLink.href = `https://cal.com/${CAL_LINK}?${query}`;
+        }
+
+        cal("inline", {
+          elementOrSelector: bookingFrame,
+          config: bookingConfig,
+          calLink: CAL_LINK
+        });
+      };
+      hashFields(identity).then(mountBooking, () => mountBooking({}));
+
       cal("ui", {
         cssVarsPerTheme: {
           light: { "cal-brand": "#00674d" },

@@ -65,8 +65,10 @@ Fields posted are `name`, `phone`, `email`, `company`, `turnover`, `role`,
 `whatsapp_consent_timestamp`, `interested_plan`, `landing_audience`,
 `landing_path`, `page`, `referrer`, `timestamp`, `step`, `challenge`,
 `accounting_tool`, `client_accounting_tool`, `client_count`, `utm_source`,
-`utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `gclid`, `fbclid` and
-`msclkid`.
+`utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `gclid`, `fbclid`,
+`msclkid` and `li_fat_id`. `li_fat_id` is new; the bound Apps Script drops
+unknown fields, so redeploy `apps-script/Code.gs` (which now lists it) if the
+sheet should keep the LinkedIn click id.
 
 The browser uses `mode:"no-cors"`, so a real deployed test submission and a
 single completed Sheet row are the final proof that both writes succeeded.
@@ -99,16 +101,19 @@ Cal iframe from counting the same booking twice.
 
 When Step 3 opens, `site.js` hands a few values to the embed as config keys.
 Cal turns every config key into a query parameter of the booking page, where
-the same GTM container runs:
+the same GTM container runs. Nothing personal travels in clear text:
 
 | Key | Source | Why |
 |---|---|---|
-| `name`, `email` | Step 1 fields | Prefill Cal's form; the web container reads them from the frame URL to attach user data to the lead |
-| `li_fat_id` | URL parameter or the first-party cookie the LinkedIn Insight Tag sets | LinkedIn click attribution inside the third-party frame |
-| `fbc`, `fbp` | `_fbc` and `_fbp` cookies on geniuscfo.ai | Meta click and browser ids for the server-side Lead |
+| `em`, `ph`, `fn`, `ln` | SHA-256 of the Step 1 email, phone (`91` + 10 digits) and first / last name, hashed in the browser | Customer identifiers in the form Meta and LinkedIn match on |
+| `li_fat_id` | URL parameter, the session copy, or the first-party cookie the LinkedIn Insight Tag sets | LinkedIn click attribution inside the third-party frame |
+| `fbc`, `fbp` | `_fbc` and `_fbp` cookies on geniuscfo.ai (`fbc` is synthesised from a known `fbclid` when the cookie is absent) | Meta click and browser ids for the Lead |
+| `ga_cid` | Client id from the `_ga` cookie | Keeps the frame's GA4 hits on the same user as the parent page |
 
-None of these is a conversion event. `li_fat_id` is also preserved on internal
-links alongside the UTM and click-id parameters.
+Cal's form is not prefilled: the visitor's name and email would otherwise sit
+in a URL that every tag in the frame reports. The new-tab fallback link
+carries the same keys. None of these is a conversion event. `li_fat_id` is
+also preserved on internal links alongside the UTM and click-id parameters.
 
 Cal documents `bookingSuccessfulV2` as the current event and the old
 `bookingSuccessful` event as deprecated:
@@ -121,7 +126,8 @@ that fallback remains measurable.
 ## 5. Google Tag Manager
 
 Two containers. Both are edited through the GTM API (Stape MCP); this file is
-the contract they must satisfy.
+the contract they must satisfy. Rollback targets: web version 11 and server
+version 8 are the last versions before this lead flow.
 
 | Container | ID | Role |
 |---|---|---|
@@ -131,31 +137,38 @@ the contract they must satisfy.
 ### How a booking becomes one lead
 
 1. The visitor books inside the Cal.com frame. Cal's GTM app pushes
-   `{ event: "bookingSuccessfulV2", uid, title, startTime, endTime, eventTypeId,
-   status, paymentRequired, isRecurring }` to the frame's `dataLayer`. Cal does
-   not include the attendee's name or email; the web container reads those from
-   the frame URL, which `site.js` prefilled (section 4).
+   `{ event: "bookingSuccessfulV2", namespace, fullType, data: { uid, title,
+   startTime, endTime, eventTypeId, status, paymentRequired, isRecurring } }`
+   to the frame's `dataLayer`. Cal does not include the attendee's name or
+   email; the hashed identifiers come from the frame URL (section 4).
 2. Web trigger **Cal.com — bookingSuccessfulV2** fires three tags:
-   - **GA4 generate_lead** sends `generate_lead` to the server with
-     `event_id`, `user_data` (email, first and last name), `x-fb-ck-fbp`,
-     `x-fb-ck-fbc`, `booking_uid`, `booking_status` and `lead_source=cal.com`.
-   - **FB_CONVERSIONS_API-…-Pixel_Template** sends the browser pixel event,
-     which the **FBEventName** lookup maps to `Lead`, with the same `eventID`.
-   - **LinkedIn Browser Lead** calls `lintrk('track', { conversion_id, event_id })`.
+   - **GA4 generate_lead** sends `generate_lead` to the tagging server with
+     `event_id`, `user_data` (SHA-256 email, phone, first and last name),
+     `x-fb-ud-em/ph/fn/ln`, `x-fb-ck-fbp`, `x-fb-ck-fbc`, `li_fat_id`,
+     `booking_uid`, `booking_status` and `lead_source=cal.com`.
+   - **Meta Pixel — Cal.com booking Lead** sends the browser `Lead` with
+     advanced matching (the same hashes) and the same Event ID.
+   - **LinkedIn Browser Lead** calls
+     `lintrk('track', { conversion_id, event_id })`.
 3. Server container, on `generate_lead`:
    - **FB_CONVERSIONS_API-…-Server-Tag** (fires on every event) maps
      `generate_lead` to Meta `Lead`; Meta deduplicates it against the browser
      pixel by `event_id`.
    - **LinkedIn CAPI — Lead** posts the conversion with the SHA-256 email,
-     first and last name, and `li_fat_id` (read from the frame URL).
-   - **GA4 — forward to Google Analytics** sends `generate_lead` to
-     `G-89VFSF4RV7`. Without this tag nothing routed through the tagging server
-     reaches GA4.
+     `li_fat_id`, the visitor IP and `event_id`. It is paused until the
+     Conversions API conversion rule exists (see below).
+   - **GA4 — forward generate_lead to Google Analytics** sends the event to
+     `G-89VFSF4RV7`. Without a forwarding tag nothing routed through the
+     tagging server reaches GA4.
 
 The event id is `cal_<booking uid>` for booking events and GTM's per-event id
-otherwise (**Cal.com — event_id**). The raw `bookingSuccessfulV2` event is
-**not** forwarded to the server any more (exception on the generic GA4 event
-tag); `generate_lead` is the single canonical lead event.
+otherwise (**Cal.com — event_id**). The generic Meta tags have
+**Cal.com — bookingSuccessfulV2** and the deprecated
+**Cal.com — bookingSuccessful (deprecated v1)** as exceptions, so the raw
+booking event never reaches the server and `generate_lead` is the single lead
+event. Bookings with `status` PENDING or `paymentRequired` still count as
+leads; a repeat booking by the same person is a second lead (dedupe by email
+in the sheet or CRM).
 
 ### Web container contract
 
@@ -163,92 +176,125 @@ Variables added for the lead:
 
 | Variable | Type | Value |
 |---|---|---|
-| Cal.com — booking uid / booking status | Data Layer | `uid` / `status` from Cal's push |
-| URL — email, URL — name, URL — fbc, URL — fbp | URL query | Frame URL parameters set by `site.js` |
-| Cal.com — first name / last name | Custom JavaScript | Split of `URL — name` |
-| Cal.com — user_data | Custom JavaScript | `{ email, email_address, address: { first_name, last_name } }` or undefined |
+| URL — em, ph, fn, ln, fbc, fbp, li_fat_id, ga_cid | URL query | Frame URL parameters set by `site.js` |
+| Cal.com — data.uid / data.status | Data Layer | `data.uid` / `data.status` from Cal's push |
 | Cal.com — event_id | Custom JavaScript | `cal_<uid>` on `bookingSuccessfulV2`, else the existing Event_ID_Constant |
+| Cal.com — user_data (hashed) | Custom JavaScript | `{ sha256_email_address, sha256_phone_number, address: { sha256_first_name, sha256_last_name } }` or undefined |
 | FB — fbp (iframe-aware), FB — fbc (iframe-aware) | Custom JavaScript | Frame URL value, else the `_fbp` / `_fbc` cookie |
-| LinkedIn — Conversion ID | Constant | LinkedIn conversion rule used by the browser Insight Tag call |
+| LinkedIn — Conversion ID (browser Insight Tag) | Constant | `26235820`, the rule the Insight Tag call fires |
+
+Triggers added: **Cal.com — bookingSuccessful (deprecated v1)** (exception
+only) and **Initialization — Cal.com frame with parent client id**
+(hostname `app.cal.com` and a `ga_cid` parameter).
 
 Tag wiring:
 
 - **GA4 generate_lead** fires on **generate_lead_Custom Event** and
-  **Cal.com — bookingSuccessfulV2** and carries the parameters listed above.
-- **FB_CONVERSIONS_API-…-Web-Tag-GA4_Event** has
-  **Cal.com — bookingSuccessfulV2** as an exception and uses the iframe-aware
-  fbp/fbc variables.
-- **FB_CONVERSIONS_API-…-Web-Tag-Pixel_Template** uses **Cal.com — event_id**
-  as its Event ID; **FBEventName** maps `bookingSuccessfulV2 → Lead`.
-- **LinkedIn Browser Lead** fires on both triggers and passes `event_id`.
+  **Cal.com — bookingSuccessfulV2** with the parameters listed above.
+- **Meta Pixel — Cal.com booking Lead** (standard event `Lead`, advanced
+  matching em/ph/fn/ln, Event ID **Cal.com — event_id**) fires on
+  **Cal.com — bookingSuccessfulV2**.
+- **FB_CONVERSIONS_API-…-Web-Tag-GA4_Event** and
+  **FB_CONVERSIONS_API-…-Web-Tag-Pixel_Template** keep their triggers and
+  gain both Cal.com exceptions; the GA4 relay uses the iframe-aware fbp/fbc
+  variables and the pixel has pushState tracking disabled.
+- **LinkedIn Browser Lead** fires on both lead triggers and passes `event_id`.
+- **G-89VFSF4RV7 — Cal.com frame client_id** (priority 10, `client_id` =
+  `ga_cid`, `send_page_view` off) fires on the frame initialization trigger.
 
 Do not create a second GA4 lead tag, do not use the deprecated
-`bookingSuccessful` event, do not trigger on a success-page URL, and do not push
-`generate_lead` from the parent page.
+`bookingSuccessful` event, do not trigger on a success-page URL, and do not
+push `generate_lead` from the parent page.
 
 ### Server container contract
 
-- Template **LinkedIn Conversion API (Stape)** imported from
-  `github.com/stape-io/linkedin-tag`.
+- Built-in variable **Client Name** enabled.
+- Template **LinkedIn Conversion API (Stape, github.com/stape-io/linkedin-tag
+  @ 76bbbec)**, imported from that commit (tests omitted, code unchanged).
 - Constants **LinkedIn — CAPI access token** (the token lives only in GTM;
-  never commit it) and **LinkedIn — Conversion ID (Lead)**.
-- Triggers **GA4 — generate_lead**, **GA4 — page_view**, and
-  **GA4 — all events except gtm.dom and page_view**.
-- Tags **LinkedIn CAPI — Lead** (conversion, auto-mapping on),
-  **LinkedIn CAPI — PageView** (stores `li_fat_id` from the URL into a cookie;
-  no browser pixel), and **GA4 — forward to Google Analytics**.
+  never commit it) and **LinkedIn — Conversion ID (Lead, Conversions API)**
+  (placeholder until the rule exists).
+- Trigger **GA4 — generate_lead** (Event Name `generate_lead`, Client Name
+  `GA4`).
+- Tags **LinkedIn CAPI — Lead** (conversion, auto-mapping on, paused) and
+  **GA4 — forward generate_lead to Google Analytics**, both on that trigger.
 - **FB_CONVERSIONS_API-…-Server-Tag** is unchanged. Its template carries a
   local `bookingSuccessfulV2 → Lead` mapping; it is harmless because the web
   container no longer forwards that raw event.
 
 ### LinkedIn Campaign Manager
 
+LinkedIn binds a conversion rule to one data source and deduplicates browser
+and server events by `event_id` across rules. The Insight Tag rule
+`26235820` stays with the browser tag. For the server:
+
+1. **Analyze → Conversion tracking → Create conversion**: type **Lead**,
+   source **Conversions API**, name it "Lead — Cal.com booking (CAPI)".
+2. Copy the numeric Conversion ID from the rule's URL
+   (`…/conversions/<ID>`) into **LinkedIn — Conversion ID (Lead, Conversions
+   API)**, un-pause **LinkedIn CAPI — Lead**, publish the server container.
+3. Use only one of the two rules as the campaign key conversion.
+
 The access token comes from **Data → Sources → Google Tag Manager → Generate
-token** and expires; regenerate it there and update the constant when LinkedIn
-starts rejecting requests. The conversion rule referenced by
-**LinkedIn — Conversion ID (Lead)** must accept Conversions API events. If the
-existing Insight Tag rule does not, create a conversion of type **Lead** with
-**Conversions API** as its source under **Analyze → Conversion tracking** and
-put its numeric Conversion ID in the constant. LinkedIn deduplicates the
-browser and server events by `event_id`.
+token** and expires; regenerate it there and update the constant when the
+tag starts failing. The tag also sends the visitor's IP address as a LinkedIn
+identifier (template default); disable **Automap User IDs** and map only
+`email` and `linkedinFirstPartyId` if that is not wanted.
 
 ### Verify one real booking
 
-Tag Assistant cannot see inside the embedded frame from geniuscfo.ai, so
-preview the container on the booking page itself.
+Production must serve the new `site.js` first: merge this branch, wait for the
+Vercel deployment, and confirm
+`https://geniuscfo.ai/assets/site.js?v=20260902-v4-lead` contains
+`hashFields`. Tag Assistant cannot see inside the embedded frame, so use the
+booking page itself.
 
-1. In GTM, open Preview for `GTM-NPMFZCZG` and connect it to
-   `https://cal.com/geniuscfo/30min?name=Test%20Lead&email=you@example.com`.
-2. Complete one real booking. Preview must show `bookingSuccessfulV2` firing
-   **GA4 generate_lead**, the pixel tag and **LinkedIn Browser Lead** exactly
-   once, with `Cal.com — event_id` = `cal_<uid>` and `Cal.com — user_data`
-   populated.
-3. In the server container's Preview, the `generate_lead` request must fire
-   **FB_CONVERSIONS_API-…-Server-Tag**, **LinkedIn CAPI — Lead** and
-   **GA4 — forward to Google Analytics**.
-4. Meta Events Manager → dataset GCFO → Test Events: one `Lead` from the
-   browser and one from the server with the same event id, shown as
-   deduplicated.
-5. LinkedIn Campaign Manager → Analyze → Conversion tracking: the rule shows a
-   recent Conversions API event.
-6. GA4 DebugView: one `generate_lead` with `booking_uid`.
-7. Steps 1 and 2, opening the calendar, changing months, choosing a slot and
+1. Temporarily paste the Meta Test Events code into the server tag
+   **FB_CONVERSIONS_API-…-Server-Tag** (Test Event Code) and publish, so the
+   test Lead does not count in reporting; remove it afterwards.
+2. On the deployed `/business` page complete Steps 1 and 2 with a two-word
+   name, then use the "open the Cal.com booking page in a new tab" link. Its
+   URL carries `em`, `ph`, `fn`, `ln`, `fbp`, `ga_cid` (and `fbc`,
+   `li_fat_id` when known). Connect Tag Assistant to that URL and book.
+3. Web Preview must show `bookingSuccessfulV2` firing **GA4 generate_lead**,
+   **Meta Pixel — Cal.com booking Lead** and **LinkedIn Browser Lead** once
+   each, with `Cal.com — event_id` = `cal_<uid>` and
+   `Cal.com — user_data (hashed)` populated; the two FB_CONVERSIONS_API web
+   tags must not fire on that event.
+4. Server Preview: the `generate_lead` request fires
+   **FB_CONVERSIONS_API-…-Server-Tag**, **GA4 — forward generate_lead to
+   Google Analytics** and (once un-paused) **LinkedIn CAPI — Lead**; check
+   the incoming event shows `user_data.sha256_email_address` and
+   `event_id`.
+5. Meta Events Manager → GCFO → Test Events: one browser `Lead` and one
+   server `Lead` with the same event id, marked deduplicated, with em/ph/fn/ln
+   on the retained event.
+6. GA4 DebugView: one `generate_lead` with `booking_uid`, on the same client
+   id as the parent page's `page_view`.
+7. LinkedIn Campaign Manager: the Insight Tag rule shows the conversion; the
+   CAPI rule shows it once un-paused.
+8. Steps 1 and 2, opening the calendar, changing months, choosing a slot and
    rescheduling must not raise a lead.
 
-Delete or cancel the test booking after validation. Mark `generate_lead` as a
-key event in GA4 Admin → Events if it is not already.
+Cancel the test booking afterwards (the conversions already recorded stay).
+Mark `generate_lead` as a key event in GA4 Admin → Events, and add
+`geniuscfo.ai` to the GA4 data stream's unwanted-referrals list so the
+frame's session is not attributed to the site itself.
 
 ### Known follow-ups (not part of the lead flow)
 
 - Three Google tags configure `G-89VFSF4RV7` (**G-89VFSF4RV7** on
-  Initialization, **GA4 page_view** on All Pages, and the Meta-generated config
-  with `transport_url` on DOM Ready). GA4 page views are likely double counted
-  and Meta receives an extra server PageView per page. Consolidate to one
-  Google tag on Initialization that sets `transport_url`, then forward
-  `page_view` from the server.
+  Initialization, **GA4 page_view** on All Pages, and the Meta-generated
+  config with `transport_url` on DOM Ready). GA4 page views are likely double
+  counted and Meta receives an extra server PageView per page. Consolidate to
+  one Google tag on Initialization that sets `transport_url`, then forward
+  `page_view` (and the enhanced-measurement events) from the server.
 - The tagging server uses the default `*.in.stape.io` host, so cookies it sets
   (FPID, `li_fat_id`) are third-party. Map a `geniuscfo.ai` subdomain in Stape
   and update `transport_url`.
+- Tracking runs without consent gating (no CMP). Adding one means switching
+  the LinkedIn tag to "send data in case marketing consent given" and adding
+  consent checks to the Meta and GA4 tags.
 
 ## 6. Check the deployed site
 

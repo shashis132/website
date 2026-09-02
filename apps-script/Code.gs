@@ -63,7 +63,8 @@ var COLUMNS = [
   'utm_term',
   'gclid',
   'fbclid',
-  'msclkid'
+  'msclkid',
+  'li_fat_id'
 ];
 
 /* Filled in by step 2; everything else is written once by step 1. */

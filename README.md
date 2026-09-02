@@ -74,8 +74,10 @@ The trailing slash is a local static-server detail. Production canonical URLs do
   `bookingSuccessfulV2`, which the web container maps to GA4 `generate_lead`.
   The server container turns that one event into the Meta `Lead` and the
   LinkedIn Conversions API lead, deduplicated against the browser tags by
-  event id. The embed is prefilled with the Step 1 name and email and carries
-  the Meta and LinkedIn click ids into the booking frame.
+  event id. The embed URL carries SHA-256 hashes of the Step 1 email, phone
+  and name plus the Meta, LinkedIn and GA4 ids from geniuscfo.ai, so the
+  third-party booking frame can attribute the booking; nothing personal is
+  sent in clear text.
 - The consent checkbox is mandatory and reads "WhatsApp and/or email".
 - Every product screenshot was recaptured from the current
   `geniuscfo-launch-mockup` build.
