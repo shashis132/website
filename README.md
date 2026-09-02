@@ -72,6 +72,10 @@ The trailing slash is a local static-server detail. Production canonical URLs do
 - Steps 1 and 2 write to the linked lead Sheet and emit diagnostic events only.
   Step 3 is a Cal.com inline embed for `geniuscfo/30min`; Cal's GTM app sends
   `bookingSuccessfulV2`, which the web container maps to GA4 `generate_lead`.
+  The server container turns that one event into the Meta `Lead` and the
+  LinkedIn Conversions API lead, deduplicated against the browser tags by
+  event id. The embed is prefilled with the Step 1 name and email and carries
+  the Meta and LinkedIn click ids into the booking frame.
 - The consent checkbox is mandatory and reads "WhatsApp and/or email".
 - Every product screenshot was recaptured from the current
   `geniuscfo-launch-mockup` build.

@@ -31,7 +31,7 @@
 
   const TRACKING_KEYS = [
     "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term",
-    "gclid", "fbclid", "msclkid"
+    "gclid", "fbclid", "msclkid", "li_fat_id"
   ];
   const current = new URL(window.location.href);
   const tracking = new URLSearchParams();
@@ -99,6 +99,19 @@
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push(Object.assign({ event }, params || {}));
     } catch (error) { /* analytics is optional */ }
+  };
+
+  /* First-party cookie read. Used only to hand the ad-click and browser ids
+     that the Meta pixel and LinkedIn Insight Tag stored on geniuscfo.ai to
+     the Cal.com booking frame, which lives on another origin. */
+  const readCookie = (name) => {
+    try {
+      const pattern = new RegExp("(?:^|; )" + name.replace(/[.$?*|{}()[\]\\/+^]/g, "\\$&") + "=([^;]*)");
+      const match = document.cookie.match(pattern);
+      return match ? decodeURIComponent(match[1]) : "";
+    } catch (error) {
+      return "";
+    }
   };
 
   /* ====================================================================
@@ -278,7 +291,10 @@
      Step 1 — contact and role.  Step 2 — triage, branched by role.
      Step 3 — Cal.com inline booking. Each of steps 1 and 2 POSTs to the
      sheet. Cal.com's own GTM app sends bookingSuccessfulV2 to the web
-     container, where the GA4 tag maps it to `generate_lead`.
+     container inside the booking frame, where the GA4 tag maps it to
+     `generate_lead`; the server container then raises the Meta Lead and
+     LinkedIn lead conversions. The parent page never pushes generate_lead,
+     so a booking is counted exactly once.
      ==================================================================== */
 
   const FIRM_ROLES = ["ca_firm", "cfo_firm"];
@@ -430,9 +446,28 @@
       cal("on", { action: "bookerReady", callback: markReady });
       cal("on", { action: "linkFailed", callback: setBookingLoadError });
       cal("on", { action: "bookingSuccessfulV2", callback: showCalBookingSuccess });
+
+      /* Every config key becomes a query parameter of the embedded booking
+         page, where the same GTM container runs. `name` and `email` prefill
+         Cal's own form from Step 1; the click and browser ids let the
+         server-side Meta and LinkedIn tags attribute the booking to the ad
+         click that landed on geniuscfo.ai, which the third-party frame
+         cannot see on its own. Nothing here is a conversion event. */
+      const bookingConfig = { layout: "month_view", useSlotsViewOnSmallScreen: "true" };
+      const prefillName = value("name");
+      const prefillEmail = value("email");
+      const linkedInClickId = tracking.get("li_fat_id") || readCookie("li_fat_id");
+      const metaClickId = readCookie("_fbc");
+      const metaBrowserId = readCookie("_fbp");
+      if (prefillName) bookingConfig.name = prefillName;
+      if (prefillEmail) bookingConfig.email = prefillEmail;
+      if (linkedInClickId) bookingConfig.li_fat_id = linkedInClickId;
+      if (metaClickId) bookingConfig.fbc = metaClickId;
+      if (metaBrowserId) bookingConfig.fbp = metaBrowserId;
+
       cal("inline", {
         elementOrSelector: bookingFrame,
-        config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
+        config: bookingConfig,
         calLink: CAL_LINK
       });
       cal("ui", {
