@@ -185,7 +185,8 @@ Variables added for the lead:
 
 Triggers added: **Cal.com — bookingSuccessful (deprecated v1)** (exception
 only) and **Initialization — Cal.com frame with parent client id**
-(hostname `app.cal.com` and a `ga_cid` parameter).
+(hostname ending in `cal.com` and a `ga_cid` parameter, so the new-tab
+fallback qualifies too).
 
 Tag wiring:
 
@@ -196,8 +197,13 @@ Tag wiring:
   **Cal.com — bookingSuccessfulV2**.
 - **FB_CONVERSIONS_API-…-Web-Tag-GA4_Event** and
   **FB_CONVERSIONS_API-…-Web-Tag-Pixel_Template** keep their triggers and
-  gain both Cal.com exceptions; the GA4 relay uses the iframe-aware fbp/fbc
-  variables and the pixel has pushState tracking disabled.
+  gain both Cal.com exceptions; the GA4 relay also has the dormant
+  **generate_lead_Custom Event** trigger as an exception (so a future
+  parent-page `generate_lead` push is owned by **GA4 generate_lead** alone),
+  uses the iframe-aware fbp/fbc variables, and the pixel has pushState
+  tracking disabled site-wide (harmless on a static site). A Meta
+  partner-integration re-sync would overwrite these two tags; re-apply the
+  exceptions if that happens.
 - **LinkedIn Browser Lead** fires on both lead triggers and passes `event_id`.
 - **G-89VFSF4RV7 — Cal.com frame client_id** (priority 10, `client_id` =
   `ga_cid`, `send_page_view` off) fires on the frame initialization trigger.
