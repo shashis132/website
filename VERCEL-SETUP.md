@@ -209,8 +209,9 @@ push `generate_lead` from the parent page.
 ### Server container contract
 
 - Built-in variable **Client Name** enabled.
-- Template **LinkedIn Conversion API (Stape, github.com/stape-io/linkedin-tag
-  @ 76bbbec)**, imported from that commit (tests omitted, code unchanged).
+- Template **LinkedIn Conversion API** (Stape's `github.com/stape-io/linkedin-tag`,
+  imported from commit `76bbbec`; tests omitted, code unchanged, source noted
+  in the template notes).
 - Constants **LinkedIn — CAPI access token** (the token lives only in GTM;
   never commit it) and **LinkedIn — Conversion ID (Lead, Conversions API)**
   (placeholder until the rule exists).
