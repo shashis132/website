@@ -2,7 +2,7 @@
 
 > GeniusCFO is accounting automation software for Indian businesses and CA firms. It automates routine bookkeeping, prepares GST information and financial statements, and answers financial questions from updated accounts.
 
-Last updated: 2026-08-31. Operated by GeniusCFO, serving India. Contact: marketing@geniuscfo.ai.
+Last updated: 2026-09-03. Operated by GeniusCFO, serving India. Contact: marketing@geniuscfo.ai.
 Full reference, including every published question and answer: [llms-full.txt](https://geniuscfo.ai/llms-full.txt).
 Where this file and the website disagree, https://geniuscfo.ai is authoritative.
 
@@ -11,6 +11,7 @@ Where this file and the website disagree, https://geniuscfo.ai is authoritative.
 - [GeniusCFO for Business](https://geniuscfo.ai/business): An affordable AI CFO on phone and desktop for bookkeeping, GST information, bank reconciliation, financial answers, alerts and forecasts. Plans start at ₹999 per month and every plan begins with a 14-day free trial.
 - [GeniusCFO for CA and Accounting Firms](https://geniuscfo.ai/ca-firms): You bought software, then you staffed it. GeniusCFO does the preparation instead — journal entries with debits and credits, bank reconciliation, GST and Schedule III statements — and hands each one to the firm with its source document for review and sign-off.
 - [GeniusCFO Pricing](https://geniuscfo.ai/pricing): Plans for businesses (Light, Pro, Pro Max), plans for CA firms (Team, Enterprise), managed accounting services, optional add-ons and a 14-day free trial.
+- [Privacy Policy](https://geniuscfo.ai/privacy): What data GeniusCFO collects, how it is used, shared and secured, the payment providers used, and the rights users have over their data. Effective 3 September 2026.
 
 ## The AI Accounting Suite
 

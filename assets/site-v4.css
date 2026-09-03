@@ -1524,6 +1524,7 @@ main > .logo-band + .chapter.chapter-major {
 .footer-bottom {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
   gap: 14px;
   margin-top: 36px;
@@ -1533,6 +1534,16 @@ main > .logo-band + .chapter.chapter-major {
   font-size: 0.8125rem;
 }
 .trust-line { color: var(--text-subtle); font-size: 0.6875rem; letter-spacing: 0.13em; }
+.footer-legal { margin: 0; }
+.footer-legal a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--text-strong);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.footer-legal a:hover { color: var(--text-max); }
 
 /* ---------- 21. Image dialog ---------- */
 
