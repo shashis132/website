@@ -4,14 +4,17 @@
     { "source": "/business", "destination": "/business/index.html" },
     { "source": "/ca-firms", "destination": "/ca-firms/index.html" },
     { "source": "/pricing", "destination": "/pricing/index.html" },
-    { "source": "/stories/every-invoice-looked-fine", "destination": "/stories/every-invoice-looked-fine/index.html" }
+    { "source": "/stories/every-invoice-looked-fine", "destination": "/stories/every-invoice-looked-fine/index.html" },
+    { "source": "/stories/the-second-job", "destination": "/stories/the-second-job/index.html" }
   ],
   "redirects": [
     { "source": "/", "destination": "/business", "permanent": true },
     { "source": "/index.html", "destination": "/business", "permanent": true },
     { "source": "/pricing.html", "destination": "/pricing", "permanent": true },
     { "source": "/stories/every-invoice-looked-fine/", "destination": "/stories/every-invoice-looked-fine", "permanent": true },
-    { "source": "/stories/every-invoice-looked-fine/index.html", "destination": "/stories/every-invoice-looked-fine", "permanent": true }
+    { "source": "/stories/every-invoice-looked-fine/index.html", "destination": "/stories/every-invoice-looked-fine", "permanent": true },
+    { "source": "/stories/the-second-job/", "destination": "/stories/the-second-job", "permanent": true },
+    { "source": "/stories/the-second-job/index.html", "destination": "/stories/the-second-job", "permanent": true }
   ],
   "headers": [
     {

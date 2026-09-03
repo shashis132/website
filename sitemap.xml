@@ -20,5 +20,12 @@
   </url>
   <url>
     <loc>https://www.geniuscfo.ai/stories/every-invoice-looked-fine</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.geniuscfo.ai/stories/the-second-job</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

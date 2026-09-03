@@ -46,3 +46,4 @@ The website does not sell plans directly. Every pricing action opens an access r
 ## Business stories
 
 - [Every Invoice Looked Fine](https://www.geniuscfo.ai/stories/every-invoice-looked-fine): A fictional restaurant story about food-cost movement, current books, and reviewing posted purchase entries. The people and financial figures are fictional, not customer results.
+- [Nobody Warned You the Business Came With a Second Job](https://www.geniuscfo.ai/stories/the-second-job): A fictional garment-unit story about a supplier payment, a GST payment and payday colliding in one week, and a cash gap surfaced eighteen days out with the posted entries attached. The people and financial figures are fictional, not customer results.

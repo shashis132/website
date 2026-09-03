@@ -175,3 +175,79 @@
   .story-section h2 { font-size: 20pt; break-after: avoid; }
   .story-alert { max-width: 480px; break-inside: avoid; }
 }
+
+/* ------------------------------------------------------------------
+   Story additions introduced with /stories/the-second-job.
+   A standfirst under the headline, a landscape masthead variant,
+   inline illustrations, an end-of-story question block and a
+   read-next rule. Ruled hairlines only; no cards.
+   ------------------------------------------------------------------ */
+
+.story-deck {
+  max-width: 46ch;
+  margin: var(--story-space-md) 0 0;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--text-soft);
+}
+
+.story-banner--wide img { aspect-ratio: 3 / 2; }
+
+.story-figure { margin: var(--story-space-lg) 0; }
+.story-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--r-window);
+  box-shadow: var(--sh-window);
+}
+.story-figure figcaption {
+  margin-top: var(--story-space-sm);
+  padding-top: var(--story-space-xs);
+  border-top: var(--hairline);
+  color: var(--text-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.story-faq .story-faq-item { border-top: var(--hairline); padding-block: var(--story-space-md); }
+.story-faq .story-faq-item:last-child { border-bottom: var(--hairline); }
+.story-faq h3 { font-size: 1.25rem; line-height: 1.25; margin-bottom: var(--story-space-xs); color: var(--text-max); }
+.story-body .story-faq p { margin-bottom: 0; max-width: 72ch; }
+
+.story-body .story-kicker {
+  margin-top: var(--story-space-xl);
+  margin-bottom: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.story-next { margin-block: var(--story-space-xl); padding-block: var(--story-space-md); border-block: var(--hairline-strong); }
+.story-next .mono { color: var(--text-subtle); margin: 0; }
+.story-next > a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--story-space-xs);
+  min-height: 44px;
+  margin-top: var(--story-space-xs);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-max);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.story-body .story-next p:last-child { margin: var(--story-space-xs) 0 0; font-size: 1rem; color: var(--text-soft); }
+
+@media (max-width: 767px) {
+  .story-deck { margin-top: var(--story-space-sm); font-size: 1rem; }
+}
+
+@media print {
+  .story-figure { max-width: 420px; break-inside: avoid; }
+  .story-figure img { box-shadow: none; }
+  .story-next { display: none !important; }
+  .story-faq .story-faq-item { break-inside: avoid; }
+}
