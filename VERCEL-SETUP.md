@@ -127,8 +127,8 @@ that fallback remains measurable.
 
 Two containers. Both are edited through the GTM API (Stape MCP); this file is
 the contract they must satisfy. Rollback targets: web version 11 and server
-version 8 are the last versions before this lead flow; server version 10 is
-the first with the LinkedIn rule id in place.
+version 8 are the last versions before this lead flow; server version 11 is
+the current lead-flow version (rule id in place, duplicate LinkedIn tag removed).
 
 | Container | ID | Role |
 |---|---|---|
@@ -225,12 +225,11 @@ push `generate_lead` from the parent page.
   `GA4`).
 - Tags **LinkedIn CAPI — Lead** (conversion, auto-mapping on) and
   **GA4 — forward generate_lead to Google Analytics**, both on that trigger.
-- Server version 10 also carries a LinkedIn-generated pair, tag
-  **LI Tag Template - Website Lead CAPI 30642209** on trigger
-  **LI trigger - Website Lead CAPI 30642209** (event name
-  `li_conversion_30642209`). Nothing sends that event, so the pair is inert;
-  it must not be wired to `generate_lead`, or the same booking would be
-  posted twice to rule `30642209`.
+- LinkedIn's Campaign Manager integration can drop its own tag, trigger and
+  template into this container (named "LI … Website Lead CAPI 30642209",
+  listening for `li_conversion_30642209`). Version 11 removed that pair; if
+  it reappears, delete it again rather than wiring it to `generate_lead`, or
+  the same booking would be posted twice to rule `30642209`.
 - **FB_CONVERSIONS_API-…-Server-Tag** is unchanged. Its template carries a
   local `bookingSuccessfulV2 → Lead` mapping; it is harmless because the web
   container no longer forwards that raw event.
