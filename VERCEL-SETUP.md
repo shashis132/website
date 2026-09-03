@@ -127,7 +127,8 @@ that fallback remains measurable.
 
 Two containers. Both are edited through the GTM API (Stape MCP); this file is
 the contract they must satisfy. Rollback targets: web version 11 and server
-version 8 are the last versions before this lead flow.
+version 8 are the last versions before this lead flow; server version 10 is
+the first with the LinkedIn rule id in place.
 
 | Container | ID | Role |
 |---|---|---|
@@ -154,9 +155,8 @@ version 8 are the last versions before this lead flow.
    - **FB_CONVERSIONS_API-…-Server-Tag** (fires on every event) maps
      `generate_lead` to Meta `Lead`; Meta deduplicates it against the browser
      pixel by `event_id`.
-   - **LinkedIn CAPI — Lead** posts the conversion with the SHA-256 email,
-     `li_fat_id`, the visitor IP and `event_id`. It is paused until the
-     Conversions API conversion rule exists (see below).
+   - **LinkedIn CAPI — Lead** posts the conversion to rule `30642209` with
+     the SHA-256 email, `li_fat_id`, the visitor IP and `event_id`.
    - **GA4 — forward generate_lead to Google Analytics** sends the event to
      `G-89VFSF4RV7`. Without a forwarding tag nothing routed through the
      tagging server reaches GA4.
@@ -220,11 +220,17 @@ push `generate_lead` from the parent page.
   in the template notes).
 - Constants **LinkedIn — CAPI access token** (the token lives only in GTM;
   never commit it) and **LinkedIn — Conversion ID (Lead, Conversions API)**
-  (placeholder until the rule exists).
+  (`30642209`).
 - Trigger **GA4 — generate_lead** (Event Name `generate_lead`, Client Name
   `GA4`).
-- Tags **LinkedIn CAPI — Lead** (conversion, auto-mapping on, paused) and
+- Tags **LinkedIn CAPI — Lead** (conversion, auto-mapping on) and
   **GA4 — forward generate_lead to Google Analytics**, both on that trigger.
+- Server version 10 also carries a LinkedIn-generated pair, tag
+  **LI Tag Template - Website Lead CAPI 30642209** on trigger
+  **LI trigger - Website Lead CAPI 30642209** (event name
+  `li_conversion_30642209`). Nothing sends that event, so the pair is inert;
+  it must not be wired to `generate_lead`, or the same booking would be
+  posted twice to rule `30642209`.
 - **FB_CONVERSIONS_API-…-Server-Tag** is unchanged. Its template carries a
   local `bookingSuccessfulV2 → Lead` mapping; it is harmless because the web
   container no longer forwards that raw event.
@@ -233,14 +239,10 @@ push `generate_lead` from the parent page.
 
 LinkedIn binds a conversion rule to one data source and deduplicates browser
 and server events by `event_id` across rules. The Insight Tag rule
-`26235820` stays with the browser tag. For the server:
-
-1. **Analyze → Conversion tracking → Create conversion**: type **Lead**,
-   source **Conversions API**, name it "Lead — Cal.com booking (CAPI)".
-2. Copy the numeric Conversion ID from the rule's URL
-   (`…/conversions/<ID>`) into **LinkedIn — Conversion ID (Lead, Conversions
-   API)**, un-pause **LinkedIn CAPI — Lead**, publish the server container.
-3. Use only one of the two rules as the campaign key conversion.
+`26235820` stays with the browser tag; the Conversions API rule `30642209`
+receives the server event. Use only one of the two rules as the campaign key
+conversion. To point the server at a different rule, change the constant
+**LinkedIn — Conversion ID (Lead, Conversions API)** and publish.
 
 The access token comes from **Data → Sources → Google Tag Manager → Generate
 token** and expires; regenerate it there and update the constant when the
@@ -270,16 +272,16 @@ booking page itself.
    tags must not fire on that event.
 4. Server Preview: the `generate_lead` request fires
    **FB_CONVERSIONS_API-…-Server-Tag**, **GA4 — forward generate_lead to
-   Google Analytics** and (once un-paused) **LinkedIn CAPI — Lead**; check
-   the incoming event shows `user_data.sha256_email_address` and
-   `event_id`.
+   Google Analytics** and **LinkedIn CAPI — Lead**; check the incoming event
+   shows `user_data.sha256_email_address` and `event_id`, and that the
+   LinkedIn tag reports success (a 4xx means the token or rule id is wrong).
 5. Meta Events Manager → GCFO → Test Events: one browser `Lead` and one
    server `Lead` with the same event id, marked deduplicated, with em/ph/fn/ln
    on the retained event.
 6. GA4 DebugView: one `generate_lead` with `booking_uid`, on the same client
    id as the parent page's `page_view`.
-7. LinkedIn Campaign Manager: the Insight Tag rule shows the conversion; the
-   CAPI rule shows it once un-paused.
+7. LinkedIn Campaign Manager: rule `26235820` (Insight Tag) and rule
+   `30642209` (Conversions API) each show the conversion, counted once.
 8. Steps 1 and 2, opening the calendar, changing months, choosing a slot and
    rescheduling must not raise a lead.
 
@@ -330,7 +332,6 @@ explicit root and legacy redirects.
 - Run the local mobile checks at 360, 390 and 430px, then desktop.
 - Complete the real Cal.com booking test in GTM Preview, Meta Test Events,
   LinkedIn Campaign Manager and GA4 DebugView (section 5).
-- Confirm the LinkedIn conversion rule accepts Conversions API events.
 - Confirm the derived monthly equivalents for Pro, Pro Max and Enterprise.
 - Re-verify answer-engine crawler tokens in `robots.txt`.
 - Re-verify the competitor comparison table on `/business`.
