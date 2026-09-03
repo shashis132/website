@@ -249,6 +249,27 @@ tag starts failing. The tag also sends the visitor's IP address as a LinkedIn
 identifier (template default); disable **Automap User IDs** and map only
 `email` and `linkedinFirstPartyId` if that is not wanted.
 
+#### If the LinkedIn source stays "Unverified"
+
+Campaign Manager marks the Google Tag Manager source verified only after
+`api.linkedin.com` has accepted one conversion event sent with that source's
+token; the rule then shows activity within a few hours. Check in this order:
+
+1. The value of **LinkedIn — CAPI access token** was generated from that
+   exact source (Data → Sources → Google Tag Manager → Generate token). A
+   token from another source or app verifies that source instead.
+2. Server Preview for one booking (step 4 below) shows **LinkedIn CAPI —
+   Lead** as succeeded on the `generate_lead` request. "User IDs are
+   missing" means the hit carried neither `user_data.sha256_email_address`,
+   `li_fat_id` nor an IPv4 address: production must serve the current
+   `site.js` and the visitor must complete Step 2 before booking. A 401 or
+   403 response is the token; a 4xx naming `conversion` is the rule id.
+3. LinkedIn's own "Google Tag Manager" setup wizard must not be run against
+   these containers. It adds a `LI GA4 Event - …` web tag (measurement id
+   `G-1234`) plus a second server template and tag, so each booking would
+   reach LinkedIn twice without a shared event id. Those objects were removed;
+   the Stape tag is the only sender.
+
 ### Verify one real booking
 
 Production must serve the new `site.js` first: merge this branch, wait for the
