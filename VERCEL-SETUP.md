@@ -249,6 +249,14 @@ tag starts failing. The tag also sends the visitor's IP address as a LinkedIn
 identifier (template default); disable **Automap User IDs** and map only
 `email` and `linkedinFirstPartyId` if that is not wanted.
 
+The template **LinkedIn Conversion API** (custom template 16) is the Stape
+gallery template with two local changes, so "Update from gallery" would undo
+them: `userInfo` is sent only when both first and last name are known, as
+LinkedIn's own template does (this flow has names only as hashes, so the
+Stape original posted empty names, which LinkedIn may reject), and the
+outgoing request and LinkedIn's response are written to the Preview console.
+Server version 12 carries both.
+
 #### If the LinkedIn source stays "Unverified"
 
 Campaign Manager marks the Google Tag Manager source verified only after
@@ -259,11 +267,18 @@ token; the rule then shows activity within a few hours. Check in this order:
    exact source (Data → Sources → Google Tag Manager → Generate token). A
    token from another source or app verifies that source instead.
 2. Server Preview for one booking (step 4 below) shows **LinkedIn CAPI —
-   Lead** as succeeded on the `generate_lead` request. "User IDs are
-   missing" means the hit carried neither `user_data.sha256_email_address`,
+   Lead** as succeeded on the `generate_lead` request, and its Console tab
+   shows a `Response` entry with LinkedIn's status code and body. "User IDs
+   are missing" means the hit carried neither `user_data.sha256_email_address`,
    `li_fat_id` nor an IPv4 address: production must serve the current
    `site.js` and the visitor must complete Step 2 before booking. A 401 or
    403 response is the token; a 4xx naming `conversion` is the rule id.
+   If the server preview stays empty, the preview cookie on the Stape
+   domain is not reaching the server (third-party cookie blocking, or the
+   Cal frame). Either install the Chrome extension "sGTM - add
+   X-Gtm-Server-Preview Header" with the header value from the preview's
+   "Send requests manually" dialog, or send one `generate_lead` hit by hand
+   with that header (curl against `/g/collect?v=2&tid=G-89VFSF4RV7&en=generate_lead&ep.event_id=…&ep.email=<sha256>`).
 3. LinkedIn's own "Google Tag Manager" setup wizard must not be run against
    these containers. It adds a `LI GA4 Event - …` web tag (measurement id
    `G-1234`) plus a second server template and tag, so each booking would
