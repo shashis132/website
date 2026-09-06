@@ -16,18 +16,20 @@ import pillow_avif  # noqa: F401  (registers the AVIF plugin)
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# name -> (master file, role, widths)
+# name -> (master prefix, role, widths)
+# The master is found by numeric prefix, so any image format works:
+# 01-counting.png, 01-counting.jpg and 01-counting.webp are all accepted.
 # "banner"  the masthead image
 # "figure"  an inline story illustration
 # "screen"  a product capture; trimmed to its content box first
 PLAN = {
     "the-second-job": {
-        "the-second-job":      ("01-counting.png",        "banner", (360, 540, 768, 1080)),
-        "forty-five-machines": ("02-floor.png",           "figure", (450, 680, 900)),
-        "cash-gap-alert":      ("03-cash-gap-alert.png",  "screen", (450, 680, 900)),
-        "the-worst-hour":      ("04-awake.png",           "figure", (450, 680, 900)),
-        "payday-the-7th":      ("05-payday-calendar.png", "figure", (450, 680, 900)),
-        "forty-five-envelopes":("06-envelopes.png",       "figure", (450, 680, 900)),
+        "the-second-job":      ("01", "banner", (360, 540, 768, 1080)),
+        "forty-five-machines": ("02", "figure", (450, 680, 900)),
+        "cash-gap-alert":      ("03", "screen", (450, 680, 900)),
+        "the-worst-hour":      ("04", "figure", (450, 680, 900)),
+        "payday-the-7th":      ("05", "figure", (450, 680, 900)),
+        "forty-five-envelopes":("06", "figure", (450, 680, 900)),
     }
 }
 SOCIAL_OF = {"the-second-job": "the-second-job"}
@@ -81,15 +83,23 @@ def main():
     masters = ROOT / "assets" / "stories" / slug / "masters"
     out_dir = ROOT / "assets" / "stories" / slug / "v1"
 
-    missing = [f for _, (f, _, _) in plan.items() if not (masters / f).exists()]
+    def find(prefix):
+        hits = sorted(f for f in masters.glob(f"{prefix}-*")
+                      if f.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp", ".tif", ".tiff"})
+        return hits[0] if hits else None
+
+    resolved = {stem: find(prefix) for stem, (prefix, _, _) in plan.items()}
+    missing = [f"{p}-*" for stem, (p, _, _) in plan.items() if resolved[stem] is None]
     if missing:
         print(f"Missing masters in {masters}:")
         for f in missing:
             print(f"  - {f}")
         return 1
 
-    for stem, (fname, role, widths) in plan.items():
-        img = Image.open(masters / fname)
+    for stem, (prefix, role, widths) in plan.items():
+        src = resolved[stem]
+        print(f"{src.name} -> {stem}")
+        img = Image.open(src)
         if img.mode not in ("RGB", "RGBA"):
             img = img.convert("RGB")
         if role == "screen":
