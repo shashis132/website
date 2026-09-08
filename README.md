@@ -1,6 +1,6 @@
 # GeniusCFO Website V5
 
-Start here. This handover contains three product pages and one business story:
+Start here. This handover contains three product pages and two business stories:
 
 | Public URL | Source document | Audience |
 |---|---|---|
@@ -8,6 +8,7 @@ Start here. This handover contains three product pages and one business story:
 | `/ca-firms` | `ca-firms/index.html` | CA and accounting firms |
 | `/pricing` | `pricing/index.html` | Shared pricing for both audiences |
 | `/stories/every-invoice-looked-fine` | `stories/every-invoice-looked-fine/index.html` | Business owners; a fictional restaurant story |
+| `/stories/the-second-job` | `stories/the-second-job/index.html` | Business owners; a fictional garment-unit story |
 
 These are separate, source-readable HTML documents. The Business and CA/Firm pages are not two states hidden inside one page. The Pricing page is shared and uses `audience=business` or `audience=ca-firms` only to retain audience context.
 
