@@ -5,7 +5,8 @@
     { "source": "/ca-firms", "destination": "/ca-firms/index.html" },
     { "source": "/pricing", "destination": "/pricing/index.html" },
     { "source": "/stories/every-invoice-looked-fine", "destination": "/stories/every-invoice-looked-fine/index.html" },
-    { "source": "/stories/the-second-job", "destination": "/stories/the-second-job/index.html" }
+    { "source": "/stories/the-second-job", "destination": "/stories/the-second-job/index.html" },
+    { "source": "/privacy", "destination": "/privacy/index.html" }
   ],
   "redirects": [
     { "source": "/", "destination": "/business", "permanent": true },
@@ -14,7 +15,9 @@
     { "source": "/stories/every-invoice-looked-fine/", "destination": "/stories/every-invoice-looked-fine", "permanent": true },
     { "source": "/stories/every-invoice-looked-fine/index.html", "destination": "/stories/every-invoice-looked-fine", "permanent": true },
     { "source": "/stories/the-second-job/", "destination": "/stories/the-second-job", "permanent": true },
-    { "source": "/stories/the-second-job/index.html", "destination": "/stories/the-second-job", "permanent": true }
+    { "source": "/stories/the-second-job/index.html", "destination": "/stories/the-second-job", "permanent": true },
+    { "source": "/privacy/", "destination": "/privacy", "permanent": true },
+    { "source": "/privacy/index.html", "destination": "/privacy", "permanent": true }
   ],
   "headers": [
     {
@@ -44,7 +47,7 @@
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     },
     {
-      "source": "/assets/:file(site.css|story.css|site.js|site-v4.css|site-v4.js|logo-band.js|geniuscfo-logo-animation.js)",
+      "source": "/assets/:file(site.css|story.css|legal.css|site.js|site-v4.css|site-v4.js|logo-band.js|geniuscfo-logo-animation.js)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
     }
   ]

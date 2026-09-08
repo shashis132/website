@@ -1,6 +1,6 @@
 # GeniusCFO Website V5
 
-Start here. This handover contains three product pages and two business stories:
+Start here. This handover contains three product pages, two business stories and the privacy policy:
 
 | Public URL | Source document | Audience |
 |---|---|---|
@@ -9,6 +9,7 @@ Start here. This handover contains three product pages and two business stories:
 | `/pricing` | `pricing/index.html` | Shared pricing for both audiences |
 | `/stories/every-invoice-looked-fine` | `stories/every-invoice-looked-fine/index.html` | Business owners; a fictional restaurant story |
 | `/stories/the-second-job` | `stories/the-second-job/index.html` | Business owners; a fictional garment-unit story |
+| `/privacy` | `privacy/index.html` | Everyone; linked from the footer of every page |
 
 These are separate, source-readable HTML documents. The Business and CA/Firm pages are not two states hidden inside one page. The Pricing page is shared and uses `audience=business` or `audience=ca-firms` only to retain audience context.
 
@@ -18,7 +19,9 @@ These are separate, source-readable HTML documents. The Business and CA/Firm pag
 business/index.html       Business landing page
 ca-firms/index.html       CA/Firm landing page
 pricing/index.html        Shared Pricing page
+privacy/index.html        Privacy policy, linked from every footer
 assets/site-v4.css        Stylesheet for all three pages (V4 design language)
+assets/legal.css          Article layout for the privacy policy, layered over site-v4.css
 assets/site.css           V3 stylesheet, no longer linked by any page
 assets/site.js            Lead form, Cal.com embed/events, plan selector, UTM preservation, lightbox
 assets/site-v4.js         Presentation only: know-more, floating CTA, scroll-fade, word-rise, marquee
@@ -54,6 +57,7 @@ Serve this folder over HTTP. With a basic static server, preview:
 - `/ca-firms/`
 - `/pricing/`
 - `/stories/every-invoice-looked-fine/`
+- `/privacy/`
 
 The trailing slash is a local static-server detail. Production canonical URLs do not use a trailing slash.
 
