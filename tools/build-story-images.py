@@ -36,6 +36,43 @@ SOCIAL_OF = {"the-second-job": "the-second-job"}
 SOCIAL_WIDTH = 1200
 
 
+def crop_to_alert_card(img, pad=8):
+    """Crop a simulated-alert capture down to the alert card itself.
+
+    The supplied artwork wraps the card in its own window frame, chrome dots
+    and a label. The site draws that chrome itself (.screen-window::before),
+    so shipping the frame would render two of everything.
+
+    The card is found by row density rather than by a plain bounding box: its
+    warm border runs nearly the full width of the card, while the chrome dots
+    are only a few pixels across, so a minimum-run threshold separates them.
+    Falls back to trim_to_content when no such band is found.
+    """
+    rgb = img.convert("RGB")
+    px = rgb.load()
+    w, h = rgb.size
+
+    def warm(x, y):
+        p = px[x, y]
+        return p[0] > p[2] + 6 and p[0] > 20
+
+    row_counts = {y: sum(1 for x in range(0, w, 2) if warm(x, y)) for y in range(h)}
+    threshold = (w // 2) // 4                      # a quarter of the sampled width
+    band = [y for y, c in row_counts.items() if c > threshold]
+    if not band:
+        return trim_to_content(img)
+
+    top, bottom = min(band), max(band)
+    col_counts = {x: sum(1 for y in range(top, bottom + 1, 2) if warm(x, y))
+                  for x in range(w)}
+    cols = [x for x, c in col_counts.items() if c > 5]
+    if not cols:
+        return trim_to_content(img)
+
+    return rgb.crop((max(0, min(cols) - pad), max(0, top - pad),
+                     min(w, max(cols) + pad), min(h, bottom + pad)))
+
+
 def trim_to_content(img, tolerance=10):
     """Crop a dark product capture down to the box that actually has content."""
     rgb = img.convert("RGB")
@@ -103,7 +140,7 @@ def main():
         if img.mode not in ("RGB", "RGBA"):
             img = img.convert("RGB")
         if role == "screen":
-            img = trim_to_content(img)
+            img = crop_to_alert_card(img)
         for path, w, h in save_set(img, out_dir, stem, widths):
             print(f"  {path.relative_to(ROOT)}  {w}x{h}  {path.stat().st_size // 1024} KB")
 
