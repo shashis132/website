@@ -98,7 +98,31 @@ The trailing slash is a local static-server detail. Production canonical URLs do
 `VERCEL-SETUP.md` covers the lead Sheet, Cal.com, GTM and production hosting.
 `qa/` holds the rendered evidence for the current build.
 
-## Business story
+## Business stories
+
+### Before publishing the next story — decide these first
+
+Two choices were deliberately deferred at the second story. Settle them
+before adding a third, not after.
+
+1. **The footer pattern does not scale.** Every story currently adds one
+   line to the Business footer column on five pages (`/business`,
+   `/ca-firms`, `/pricing` and both story pages). Two stories is fine;
+   three starts to crowd the column and the first title already wraps to
+   two lines. The alternative is a `/stories` index page and a single
+   "Stories" link in each footer. Deciding at three is cheaper than
+   retrofitting at five.
+2. **Whether owner stories belong in the `/ca-firms` footer.** They are
+   listed there today because that page already carries a cross-audience
+   Business column. But the brand guidelines are explicit that firms have
+   a different villain — the drag, not the lag — and owner-register
+   narrative is not written for them. Keep, or drop from that one page.
+
+Also confirm at publish time: set a real `datePublished` in the article
+schema if the story is going live that day. The convention so far has
+been to omit it rather than invent one before release, so it is currently
+absent from both stories.
+
 
 Story artwork is shipped as derivatives only. The master illustrations stay with the campaign art and are not committed; `assets/stories/<slug>/masters/README.txt` records which master belongs to which position, and `tools/build-story-images.py <slug>` regenerates every AVIF/WebP derivative and the social JPEG from them.
 
