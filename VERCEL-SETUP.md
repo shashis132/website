@@ -212,6 +212,69 @@ Do not create a second GA4 lead tag, do not use the deprecated
 `bookingSuccessful` event, do not trigger on a success-page URL, and do not
 push `generate_lead` from the parent page.
 
+### Story engagement and content grouping (workspace 14, not yet published)
+
+Built in its own workspace, **Story engagement + content grouping**, so it can
+be published without also publishing the LinkedIn Campaign Manager entities
+that are sitting unpublished in the default workspace (see the warning below).
+
+Every page pushes its context to the dataLayer immediately before the container
+loader, so the values are already present when the container initialises:
+
+| Page | `page_type` | `content_id` | `content_group` |
+|---|---|---|---|
+| `/business` | `landing` | `business` | Business |
+| `/ca-firms` | `landing` | `ca-firms` | CA firms |
+| `/pricing` | `pricing` | `pricing` | Pricing |
+| `/stories/…` | `story` | the slug | Business stories |
+
+Built-in variables enabled: **Click Element**, **Click URL**.
+
+New variables:
+
+| Variable | Type | Value |
+|---|---|---|
+| Page context — page_type / content_id / content_group | Data Layer | The three keys above |
+| Story — CTA location | Custom JavaScript | `data-story-cta` from the clicked element's nearest ancestor carrying it (`header`, `menu`, `article`) |
+
+New trigger **Story — CTA click**: a Just Links click where Click Element
+matches `[data-story-cta], [data-story-cta] *`. The descendant part matters
+because the click usually lands on the arrow span inside the button. Wait for
+tags is off, so navigation is never delayed; GA4 sends with `sendBeacon`.
+
+New tag **GA4 — story_cta_click** fires on that trigger with `cta_location`,
+`content_id`, `content_group` and `link_url`.
+
+**A CTA click is not a lead.** `generate_lead` remains the single lead event,
+raised only by a confirmed Cal.com booking. Do not mark `story_cta_click` as a
+key event in GA4. It fires on `gtm.linkClick`, which the two
+FB_CONVERSIONS_API web tags already exclude, so it raises no browser Meta
+event; because the Google tag carries `transport_url`, the event does reach the
+tagging server, where the Meta server tag will forward it as a custom event of
+the same name. Add an exception there if that is not wanted.
+
+**GA4 page_view** gains `content_group`, `page_type` and `content_id` as event
+parameters. On any page that does not push them the variables are undefined and
+GA4 omits the parameters, so nothing changes there. `content_group` is a
+built-in GA4 dimension; register `page_type` and `content_id` as custom
+dimensions in GA4 Admin if they should appear in reports.
+
+Verify in Preview against the new workspace: loading a story page shows
+`page_view` carrying the three parameters, and clicking each of the three demo
+CTAs fires **GA4 — story_cta_click** once with the matching `cta_location`,
+without firing any lead tag.
+
+### Pending LinkedIn entities in the default workspace
+
+The default workspace currently holds thirteen unpublished changes added by
+LinkedIn's Campaign Manager integration: a tag **LI GA4 Event - Native Lead
+28324356** firing on `generate_lead_Custom Event`, plus twelve supporting
+variables. The tag carries `measurementIdOverride` `G-1234`, which is not a
+real measurement ID. This is the same class of automatic injection described
+under *Server container contract* below. Review it before publishing that
+workspace; publishing it as it stands would send a second lead-shaped event on
+every booking.
+
 ### Server container contract
 
 - Built-in variable **Client Name** enabled.

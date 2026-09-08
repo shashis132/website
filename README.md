@@ -1,6 +1,6 @@
 # GeniusCFO Website V5
 
-Start here. This handover contains three product pages, one business story and the privacy policy:
+Start here. This handover contains three product pages, two business stories and the privacy policy:
 
 | Public URL | Source document | Audience |
 |---|---|---|
@@ -8,6 +8,7 @@ Start here. This handover contains three product pages, one business story and t
 | `/ca-firms` | `ca-firms/index.html` | CA and accounting firms |
 | `/pricing` | `pricing/index.html` | Shared pricing for both audiences |
 | `/stories/every-invoice-looked-fine` | `stories/every-invoice-looked-fine/index.html` | Business owners; a fictional restaurant story |
+| `/stories/the-second-job` | `stories/the-second-job/index.html` | Business owners; a fictional garment-unit story |
 | `/privacy` | `privacy/index.html` | Everyone; linked from the footer of every page |
 
 These are separate, source-readable HTML documents. The Business and CA/Firm pages are not two states hidden inside one page. The Pricing page is shared and uses `audience=business` or `audience=ca-firms` only to retain audience context.
@@ -101,6 +102,32 @@ The trailing slash is a local static-server detail. Production canonical URLs do
 `VERCEL-SETUP.md` covers the lead Sheet, Cal.com, GTM and production hosting.
 `qa/` holds the rendered evidence for the current build.
 
-## Business story
+## Business stories
+
+### Before publishing the next story — decide these first
+
+Two choices were deliberately deferred at the second story. Settle them
+before adding a third, not after.
+
+1. **The footer pattern does not scale.** Every story currently adds one
+   line to the Business footer column on five pages (`/business`,
+   `/ca-firms`, `/pricing` and both story pages). Two stories is fine;
+   three starts to crowd the column and the first title already wraps to
+   two lines. The alternative is a `/stories` index page and a single
+   "Stories" link in each footer. Deciding at three is cheaper than
+   retrofitting at five.
+2. **Whether owner stories belong in the `/ca-firms` footer.** They are
+   listed there today because that page already carries a cross-audience
+   Business column. But the brand guidelines are explicit that firms have
+   a different villain — the drag, not the lag — and owner-register
+   narrative is not written for them. Keep, or drop from that one page.
+
+Also confirm at publish time: set a real `datePublished` in the article
+schema if the story is going live that day. The convention so far has
+been to omit it rather than invent one before release, so it is currently
+absent from both stories.
+
+
+Story artwork is shipped as derivatives only. The master illustrations stay with the campaign art and are not committed; `assets/stories/<slug>/masters/README.txt` records which master belongs to which position, and `tools/build-story-images.py <slug>` regenerates every AVIF/WebP derivative and the social JPEG from them.
 
 The story at `/stories/every-invoice-looked-fine` preserves the approved source article and the compositions of both supplied images. It serves responsive AVIF/WebP derivatives, with a compressed JPEG for social sharing; the master PNGs are untouched and are not shipped to the page. It uses the shared `site-v4.css` theme and `site.js` interactions, with only article layout in `assets/story.css`. The new page includes the existing `GTM-NPMFZCZG` loader and noscript fallback. Campaign parameters are preserved on links into the business demo flow. A click is not counted as a lead. The new URL is linked from the Business footer, sitemap, and the existing language-model reference files. No publication date is invented before release.

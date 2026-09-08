@@ -196,3 +196,11 @@ Firm plans are priced by the client companies and team members included. Team co
 Canonical story: https://www.geniuscfo.ai/stories/every-invoice-looked-fine
 
 A fictional restaurant story about food-cost movement across ordinary supplier invoices. Current books connect the movement to posted purchase entries, so the owner can ask a specific question. The owner and Chartered Accountant retain commercial judgement, review and sign-off. Meera, Coastal House, its suppliers and every financial figure are fictional; this is not a customer result or a promise of savings. Read the canonical story for the full narrative and closing disclosure.
+
+### Nobody Warned You the Business Came With a Second Job.
+
+Canonical story: https://www.geniuscfo.ai/stories/the-second-job
+
+A fictional garment-unit story about the unpaid finance job an owner inherits as the business grows. A supplier payment, a GST payment and payday fall in the same week while a customer invoice is uncleared. Because the books are kept current every day rather than caught up at month-end, the Intelligence Hub flags a cash gap eighteen days out — 6,40,000 rupees of supplier payment and GST landing before the customer invoice clears — with the posted entries attached to the alert. The alert makes the collision reviewable; it does not make the commercial decision. Professional review and sign-off stay with the Chartered Accountant. Harpreet Singh, the unit, its suppliers and every financial figure are fictional; this is not a customer result or a promise of savings.
+
+The lag, as defined in this story: the time between something happening in a business and the books being able to show it. It does not make the answer wrong; it makes the answer late.

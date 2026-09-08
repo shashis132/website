@@ -5,5 +5,6 @@
 # leads-sheet receiver, and the markdown is internal handover documentation.
 qa/
 apps-script/
+assets/stories/*/masters/
 *.md
 .gitignore
