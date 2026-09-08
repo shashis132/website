@@ -1,9 +1,22 @@
 Master images for /stories/the-second-job
 =========================================
 
-Drop the six supplied illustrations here, keeping the numeric prefix.
-Any format works (.png .jpg .jpeg .webp .tif) — the build script finds
-each master by its prefix, so 01-counting.jpg is as good as 01-counting.png.
+The masters are NOT kept in this repository. They live with the campaign
+art, which for this story is:
+
+  Documents\GCFO\GCFO Launch Plan\Ads Content\GeniusCFO - The Second Job\
+    advertorial-art\
+
+Only the derivatives in ../v1/ are committed and deployed. This folder
+exists to hold the masters temporarily while rebuilding, and to record
+which illustration belongs to which prefix.
+
+To rebuild the derivatives
+--------------------------
+
+Copy the six masters into this folder, keeping the numeric prefix. Any
+format works (.png .jpg .jpeg .webp .tif) — the build script finds each
+master by its prefix, so 01-counting.jpg is as good as 01-counting.png.
 
   01-*  Masthead. Desk under one lamp: two ruled ledger sheets, a hand
         resting on them, a pen and a closed book. 3:04 a.m.
@@ -24,9 +37,11 @@ Then, from the repository root:
   python3 tools/build-story-images.py the-second-job
 
 That writes every AVIF/WebP derivative and the social JPEG into ../v1/.
-Commit the regenerated v1/ folder together with the masters.
+Commit the regenerated v1/ folder — and delete the masters again, so
+they do not enter the repository.
 
-Original delivery names, for traceability against the art folder:
+Delivery names of the current v1 build, for traceability against the art
+folder:
 
   01-counting.png        <- ART-L1.png
   02-floor.png           <- ART-L2.png
@@ -35,5 +50,6 @@ Original delivery names, for traceability against the art folder:
   05-payday-calendar.png <- ART-M2.png
   06-envelopes.png       <- ART-M3.png
 
-Masters are excluded from the deployment by .vercelignore; they are kept
-in the repository so the derivatives can always be rebuilt.
+.vercelignore excludes this folder from the deployment, so a master left
+here by accident is never published — but it would still be committed,
+so remove it before committing.

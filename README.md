@@ -100,4 +100,6 @@ The trailing slash is a local static-server detail. Production canonical URLs do
 
 ## Business story
 
+Story artwork is shipped as derivatives only. The master illustrations stay with the campaign art and are not committed; `assets/stories/<slug>/masters/README.txt` records which master belongs to which position, and `tools/build-story-images.py <slug>` regenerates every AVIF/WebP derivative and the social JPEG from them.
+
 The story at `/stories/every-invoice-looked-fine` preserves the approved source article and the compositions of both supplied images. It serves responsive AVIF/WebP derivatives, with a compressed JPEG for social sharing; the master PNGs are untouched and are not shipped to the page. It uses the shared `site-v4.css` theme and `site.js` interactions, with only article layout in `assets/story.css`. The new page includes the existing `GTM-NPMFZCZG` loader and noscript fallback. Campaign parameters are preserved on links into the business demo flow. A click is not counted as a lead. The new URL is linked from the Business footer, sitemap, and the existing language-model reference files. No publication date is invented before release.
