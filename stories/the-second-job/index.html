@@ -39,8 +39,8 @@
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=20260819-v6">
   <link rel="preload" href="/assets/fonts/ibm-plex-sans-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/site-v4.css?v=20260827-v7-cal">
-  <link rel="stylesheet" href="/assets/story.css?v=20260903-v2">
+  <link rel="stylesheet" href="/assets/site-v4.css?v=20260911-v8-blog">
+  <link rel="stylesheet" href="/assets/story.css?v=20260911-v3-blog">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -86,7 +86,10 @@
       "hasPart": {
         "@id": "https://www.geniuscfo.ai/stories/the-second-job#faq"
       },
-      "relatedLink": "https://www.geniuscfo.ai/stories/every-invoice-looked-fine",
+      "relatedLink": [
+        "https://www.geniuscfo.ai/stories/every-invoice-looked-fine",
+        "https://www.geniuscfo.ai/blog/through-the-glass"
+      ],
       "inLanguage": "en-IN"
     },
     {
@@ -117,7 +120,7 @@
         "@id": "https://www.geniuscfo.ai/stories/the-second-job#webpage"
       },
       "isPartOf": {
-        "@id": "https://geniuscfo.ai/#website"
+        "@id": "https://www.geniuscfo.ai/stories#list"
       },
       "author": {
         "@id": "https://geniuscfo.ai/#organization"
@@ -194,6 +197,12 @@
         {
           "@type": "ListItem",
           "position": 2,
+          "name": "Stories",
+          "item": "https://www.geniuscfo.ai/stories"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
           "name": "The Second Job",
           "item": "https://www.geniuscfo.ai/stories/the-second-job"
         }
@@ -217,6 +226,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <a href="/business#how" data-preserve-query>How it works</a>
         <a href="/pricing?audience=business#business-plans" data-preserve-query>Pricing</a>
         <a href="/ca-firms" data-preserve-query>CA / Firm</a>
+        <a href="/stories" aria-current="page" data-preserve-query>Stories</a>
+        <a href="/blog" data-preserve-query>Blog</a>
       </nav>
       <a class="btn btn-primary header-cta" href="/business" data-preserve-query data-story-cta="header">Book a demo</a>
       <button class="menu-button" type="button" data-menu-button aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span class="menu-icon"></span></button>
@@ -228,6 +239,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <a href="/pricing?audience=business#business-plans" data-preserve-query>Pricing</a>
         <a href="/ca-firms" data-preserve-query>CA / Firm</a>
         <a href="/business#faq" data-preserve-query>FAQ</a>
+        <a href="/stories" data-preserve-query>Stories</a>
+        <a href="/blog" data-preserve-query>Blog</a>
         <a href="/business" data-preserve-query data-story-cta="menu">Book a demo</a>
       </nav>
     </div>
@@ -238,7 +251,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <header class="story-masthead">
         <div class="wrap story-masthead-inner">
           <div class="story-heading">
-            <nav class="story-breadcrumb" aria-label="Breadcrumb"><a href="/business" data-preserve-query>Home</a><span aria-hidden="true">/</span><span>Stories</span></nav>
+            <nav class="story-breadcrumb" aria-label="Breadcrumb"><a href="/business" data-preserve-query>Home</a><span aria-hidden="true">/</span><a href="/stories" data-preserve-query>Stories</a><span aria-hidden="true">/</span><span>This story</span></nav>
             <h1 id="story-title"><span>Nobody Warned You</span> <span class="story-title-rest">the Business Came With a Second Job.</span></h1>
             <p class="story-deck">It starts around three in the morning, it is unpaid, and the numbers you do it with are weeks old.</p>
             <div class="story-meta"><a href="/business" rel="author" data-preserve-query>GeniusCFO</a><span aria-hidden="true">·</span><span>4 min read</span></div>
@@ -420,7 +433,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <footer class="site-footer">
     <div class="wrap footer-grid">
       <div class="footer-brand"><a class="footer-logo-link" href="/business" aria-label="GeniusCFO home" data-preserve-query><img src="/assets/logo-lockup.svg?v=20260819-v6" width="752" height="256" alt="GeniusCFO"></a><p>Affordable accounting automation and financial answers for Indian businesses.</p></div>
-      <div class="footer-col"><h2>Business</h2><ul><li><a href="/business#product" data-preserve-query>Product</a></li><li><a href="/business#how" data-preserve-query>How it works</a></li><li><a href="/pricing?audience=business#business-plans" data-preserve-query>Business pricing</a></li><li><a href="/stories/every-invoice-looked-fine" data-preserve-query style="display:inline-flex;align-items:center;min-height:44px">Story: Every invoice looked fine</a></li><li><a href="/stories/the-second-job" data-preserve-query style="display:inline-flex;align-items:center;min-height:44px">Story: The second job</a></li></ul></div>
+      <div class="footer-col"><h2>Business</h2><ul><li><a href="/business#product" data-preserve-query>Product</a></li><li><a href="/business#how" data-preserve-query>How it works</a></li><li><a href="/pricing?audience=business#business-plans" data-preserve-query>Business pricing</a></li><li><a href="/stories" data-preserve-query style="display:inline-flex;align-items:center;min-height:44px">Stories</a></li><li><a href="/blog" data-preserve-query style="display:inline-flex;align-items:center;min-height:44px">Blog</a></li></ul></div>
       <div class="footer-col"><h2>CA firms</h2><ul><li><a href="/ca-firms" data-preserve-query>CA/Firm experience</a></li><li><a href="/pricing?audience=ca-firms#firm-plans" data-preserve-query>CA/Firm pricing</a></li></ul></div>
       <div class="footer-col"><h2>Access</h2><ul><li><a href="/business" data-preserve-query>Book a demo</a></li><li><a href="/business#faq" data-preserve-query>FAQ</a></li></ul></div>
       <div class="footer-col"><h2>Let's Connect</h2><ul><li><a href="https://www.linkedin.com/company/genius-cfo" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://www.facebook.com/profile.php?id=61574302727802" target="_blank" rel="noopener noreferrer">Facebook</a></li><li><a href="https://www.instagram.com/genius_cfo" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><a href="https://x.com/GeniusCFO" target="_blank" rel="noopener noreferrer">X</a></li><li><a href="mailto:marketing@geniuscfo.ai">marketing@geniuscfo.ai</a></li></ul></div>

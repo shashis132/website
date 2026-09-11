@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en-IN" data-audience="business">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>window.dataLayer = window.dataLayer || []; window.dataLayer.push({"page_type":"article","content_id":"through-the-glass","content_group":"Blog"});</script>
+  <!-- Google Tag Manager -->
+  <script>if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NPMFZCZG');}</script>
+  <!-- End Google Tag Manager -->
+  <title>Through the Glass: What an AI Agent Driving TallyPrime Costs | GeniusCFO</title>
+  <meta name="description" content="An AI agent posting a receipt in TallyPrime is impressive engineering. Costed at list price it is about ₹168 per entry, and it leaves the bookkeeping untouched. The workings, and the case for putting the accounting engine underneath the AI instead.">
+  <link rel="canonical" href="https://www.geniuscfo.ai/blog/through-the-glass">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="theme-color" content="#eef0f6">
+  <meta name="author" content="GeniusCFO">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="GeniusCFO">
+  <meta property="og:locale" content="en_IN">
+  <meta property="og:title" content="The AI Was Looking at Your Ledger Through a Screenshot.">
+  <meta property="og:description" content="What an agent driving TallyPrime actually costs per entry, and why cheaper tokens do not fix the part that matters.">
+  <meta property="og:url" content="https://www.geniuscfo.ai/blog/through-the-glass">
+  <!-- Interim social image: the site default. Replace with the campaign card
+       (og-through-the-glass) once the master lands in assets/blog/through-the-glass/masters/. -->
+  <meta property="og:image" content="https://www.geniuscfo.ai/assets/og-geniuscfo.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="GeniusCFO — the financial brain for growing businesses.">
+  <meta property="article:section" content="Analysis">
+  <meta property="article:published_time" content="2026-09-11">
+  <meta property="article:modified_time" content="2026-09-11">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The AI Was Looking at Your Ledger Through a Screenshot.">
+  <meta name="twitter:description" content="What an agent driving TallyPrime actually costs per entry, and why cheaper tokens do not fix the part that matters.">
+  <meta name="twitter:image" content="https://www.geniuscfo.ai/assets/og-geniuscfo.png">
+  <meta name="twitter:image:alt" content="GeniusCFO — the financial brain for growing businesses.">
+  <link rel="icon" href="/assets/favicon.ico?v=20260819-v6" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/assets/favicon.svg?v=20260819-v6" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=20260819-v6">
+  <link rel="preload" href="/assets/fonts/ibm-plex-sans-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/site-v4.css?v=20260911-v8-blog">
+  <link rel="stylesheet" href="/assets/story.css?v=20260911-v3-blog">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://geniuscfo.ai/#organization",
+      "name": "GeniusCFO",
+      "url": "https://www.geniuscfo.ai/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.geniuscfo.ai/assets/logo-lockup.svg"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://geniuscfo.ai/#website",
+      "url": "https://www.geniuscfo.ai/",
+      "name": "GeniusCFO",
+      "publisher": {
+        "@id": "https://geniuscfo.ai/#organization"
+      },
+      "inLanguage": "en-IN"
+    },
+    {
+      "@type": "Blog",
+      "@id": "https://www.geniuscfo.ai/blog#blog",
+      "url": "https://www.geniuscfo.ai/blog",
+      "name": "GeniusCFO Blog",
+      "description": "Analysis of accounting automation, AI agents and the economics of keeping a growing Indian business's books current.",
+      "publisher": {
+        "@id": "https://geniuscfo.ai/#organization"
+      },
+      "isPartOf": {
+        "@id": "https://geniuscfo.ai/#website"
+      },
+      "inLanguage": "en-IN"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.geniuscfo.ai/blog/through-the-glass#webpage",
+      "url": "https://www.geniuscfo.ai/blog/through-the-glass",
+      "name": "The AI Was Looking at Your Ledger Through a Screenshot.",
+      "description": "What an agent driving TallyPrime actually costs per entry, and why cheaper tokens do not fix the part that matters.",
+      "isPartOf": {
+        "@id": "https://geniuscfo.ai/#website"
+      },
+      "mainEntity": {
+        "@id": "https://www.geniuscfo.ai/blog/through-the-glass#article"
+      },
+      "breadcrumb": {
+        "@id": "https://www.geniuscfo.ai/blog/through-the-glass#breadcrumb"
+      },
+      "hasPart": {
+        "@id": "https://www.geniuscfo.ai/blog/through-the-glass#faq"
+      },
+      "relatedLink": [
+        "https://www.geniuscfo.ai/stories/the-second-job",
+        "https://www.geniuscfo.ai/stories/every-invoice-looked-fine"
+      ],
+      "inLanguage": "en-IN"
+    },
+    {
+      "@type": "DefinedTerm",
+      "@id": "https://www.geniuscfo.ai/blog/through-the-glass#computer-use-agent",
+      "name": "Computer-use agent",
+      "description": "A computer-use agent is a language model that operates existing software the way a person does, by capturing the screen as an image, reasoning about the pixels and sending keystrokes or clicks. Because every pass through that loop bills a fresh image, its cost scales with the number of entries recorded rather than with a subscription.",
+      "inDefinedTermSet": {
+        "@id": "https://geniuscfo.ai/#website"
+      }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://www.geniuscfo.ai/blog/through-the-glass#article",
+      "url": "https://www.geniuscfo.ai/blog/through-the-glass",
+      "headline": "The AI Was Looking at Your Ledger Through a Screenshot.",
+      "alternativeHeadline": "Through the Glass: what an AI agent driving TallyPrime actually costs",
+      "description": "An AI agent posting a receipt in TallyPrime is impressive engineering. Costed at list price it is about ₹168 per entry, and it leaves the bookkeeping untouched.",
+      "mainEntityOfPage": {
+        "@id": "https://www.geniuscfo.ai/blog/through-the-glass#webpage"
+      },
+      "isPartOf": {
+        "@id": "https://www.geniuscfo.ai/blog#blog"
+      },
+      "author": {
+        "@id": "https://geniuscfo.ai/#organization"
+      },
+      "publisher": {
+        "@id": "https://geniuscfo.ai/#organization"
+      },
+      "datePublished": "2026-09-11",
+      "dateModified": "2026-09-11",
+      "articleSection": "Analysis",
+      "wordCount": 1850,
+      "inLanguage": "en-IN",
+      "isAccessibleForFree": true,
+      "mentions": {
+        "@id": "https://www.geniuscfo.ai/blog/through-the-glass#computer-use-agent"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Cost of AI computer-use agents in accounting"
+        },
+        {
+          "@type": "Thing",
+          "name": "Accounting automation architecture"
+        },
+        {
+          "@type": "Thing",
+          "name": "Per-entry token cost versus subscription pricing"
+        },
+        {
+          "@type": "Thing",
+          "name": "Current books and accounting lag"
+        }
+      ],
+      "citation": [
+        {
+          "@type": "WebPage",
+          "name": "GPT-6 Astra on OpenRouter",
+          "url": "https://openrouter.ai/openai/gpt-6-astra"
+        },
+        {
+          "@type": "WebPage",
+          "name": "CloudZero — GPT-6 pricing breakdown",
+          "url": "https://www.cloudzero.com/blog/gpt-6-pricing/"
+        },
+        {
+          "@type": "WebPage",
+          "name": "OpenAI — images and vision guide",
+          "url": "https://developers.openai.com/api/docs/guides/images-vision"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Layer3 Labs — OpenAI realtime API pricing guide",
+          "url": "https://www.layer3labs.io/guides/openai-realtime-api-pricing"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Contra Collective — computer-use agents in production",
+          "url": "https://contracollective.com/blog/computer-use-agents-production-reliability-cost-2026"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Trading Economics — USD/INR",
+          "url": "https://tradingeconomics.com/india/currency"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.geniuscfo.ai/blog/through-the-glass#faq",
+      "inLanguage": "en-IN",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does an AI agent driving accounting software cost per entry?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "On the workings set out above, one receipt posted by an agent driving TallyPrime costs about $1.76, or ₹168, at list price on its first attempt — 193,750 tokens across 25 steps. Allowing for retries at 98% per-step reliability, the figure is nearer ₹278 per completed entry. These are modelled estimates from published list prices, not a measured bill."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is a screen-driving agent expensive to run?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An agent that drives a screen works in a loop: capture the screen, reason about the pixels, act, capture again. Every capture is an image, and every image is billed as input tokens. The cost therefore scales with the number of entries recorded, so a month with more invoices in it costs more to write down."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will cheaper AI models solve this?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cheaper tokens reduce the cost but not the architecture. An agent standing in front of the screen can only act on books somebody else has already written, and only at the moment it is asked. Neither of those is a pricing problem."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is GeniusCFO different from an AI agent that operates Tally?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "GeniusCFO does not drive accounting software through its screen. The accounting engine is the product, underneath the AI: real double-entry with sub-ledgers, and GST, TDS, TCS, reverse charge and import duty inside the posting itself. Documents go in and booked entries come out, at a fixed monthly price rather than a charge per action."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does GeniusCFO replace my Chartered Accountant?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. GeniusCFO prepares the work: entries booked with debits and credits, the bank reconciled, GST information prepared and Schedule III statements produced. Professional review, judgement and final sign-off stay with your Chartered Accountant."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.geniuscfo.ai/blog/through-the-glass#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.geniuscfo.ai/business"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://www.geniuscfo.ai/blog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Through the Glass",
+          "item": "https://www.geniuscfo.ai/blog/through-the-glass"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body class="story-page">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPMFZCZG"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="story-brand" href="/business" aria-label="GeniusCFO home" data-preserve-query><img src="/assets/logo-lockup.svg?v=20260819-v6" width="752" height="256" alt="GeniusCFO"></a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="/business#product" data-preserve-query>Product</a>
+        <a href="/business#how" data-preserve-query>How it works</a>
+        <a href="/pricing?audience=business#business-plans" data-preserve-query>Pricing</a>
+        <a href="/ca-firms" data-preserve-query>CA / Firm</a>
+        <a href="/stories" data-preserve-query>Stories</a>
+        <a href="/blog" aria-current="page" data-preserve-query>Blog</a>
+      </nav>
+      <a class="btn btn-primary header-cta" href="/business" data-preserve-query data-story-cta="header">Book a demo</a>
+      <button class="menu-button" type="button" data-menu-button aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span class="menu-icon"></span></button>
+    </div>
+    <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
+      <nav aria-label="Mobile navigation">
+        <a href="/business#product" data-preserve-query>Product</a>
+        <a href="/business#how" data-preserve-query>How it works</a>
+        <a href="/pricing?audience=business#business-plans" data-preserve-query>Pricing</a>
+        <a href="/ca-firms" data-preserve-query>CA / Firm</a>
+        <a href="/stories" data-preserve-query>Stories</a>
+        <a href="/blog" data-preserve-query>Blog</a>
+        <a href="/business#faq" data-preserve-query>FAQ</a>
+        <a href="/business" data-preserve-query data-story-cta="menu">Book a demo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <article aria-labelledby="story-title" data-story="through-the-glass">
+      <header class="story-masthead">
+        <div class="wrap story-masthead-inner story-masthead-inner--solo">
+          <div class="story-heading">
+            <nav class="story-breadcrumb" aria-label="Breadcrumb"><a href="/business" data-preserve-query>Home</a><span aria-hidden="true">/</span><a href="/blog" data-preserve-query>Blog</a><span aria-hidden="true">/</span><span>Through the glass</span></nav>
+            <h1 id="story-title"><span>The AI Was Looking at Your Ledger</span> <span class="story-title-rest">Through a Screenshot.</span></h1>
+            <p class="story-deck">A demonstration this week put GPT&#8209;6 Astra in front of TallyPrime and had it record a receipt by voice. It worked. It is also the most expensive place you could possibly put the intelligence, and it left the actual accounting untouched.</p>
+            <div class="story-meta"><a href="/business" rel="author" data-preserve-query>GeniusCFO</a><span aria-hidden="true">·</span><span>Analysis</span><span aria-hidden="true">·</span><time datetime="2026-09-11">11 September 2026</time><span aria-hidden="true">·</span><span>8 min read</span></div>
+            <a class="story-read-link" href="#story-start">Read the analysis <span aria-hidden="true">↓</span></a>
+          </div>
+          <!-- ARTWORK SLOT — masthead band.
+               Drop the supplied hero master (the lit figure at the glass) into
+               assets/blog/through-the-glass/masters/01-through-the-glass.png and run
+                 python3 tools/build-story-images.py through-the-glass
+               then delete this comment and restore the figure below.
+
+          <figure class="story-banner story-banner--wide">
+            <picture>
+              <source type="image/avif" srcset="/assets/blog/through-the-glass/v1/through-the-glass-360.avif 360w, /assets/blog/through-the-glass/v1/through-the-glass-540.avif 540w, /assets/blog/through-the-glass/v1/through-the-glass-768.avif 768w, /assets/blog/through-the-glass/v1/through-the-glass-1080.avif 1080w" sizes="(min-width: 1100px) 480px, (min-width: 768px) calc(48.8vw - 55px), calc(100vw - 40px)">
+              <source type="image/webp" srcset="/assets/blog/through-the-glass/v1/through-the-glass-360.webp 360w, /assets/blog/through-the-glass/v1/through-the-glass-540.webp 540w, /assets/blog/through-the-glass/v1/through-the-glass-768.webp 768w, /assets/blog/through-the-glass/v1/through-the-glass-1080.webp 1080w" sizes="(min-width: 1100px) 480px, (min-width: 768px) calc(48.8vw - 55px), calc(100vw - 40px)">
+              <img src="/assets/blog/through-the-glass/v1/through-the-glass-1080.webp" width="1080" height="720" fetchpriority="high" decoding="async" alt="A dark room seen through a wall of glass. A luminous figure of light presses its palms against the outside of the pane. Far inside, a single small terminal glows on a desk.">
+            </picture>
+          </figure>
+          -->
+        </div>
+      </header>
+
+      <div class="wrap story-layout">
+        <nav class="story-contents" aria-label="In this analysis">
+          <p class="mono">In this analysis</p>
+          <ol><li><a href="#the-demonstration">What the demonstration showed</a></li>
+<li><a href="#already-done">The part that was already done</a></li>
+<li><a href="#the-cost">The cost of working through the glass</a></li>
+<li><a href="#structural">What cheaper tokens will not fix</a></li>
+<li><a href="#underneath">The other place to put it</a></li>
+<li><a href="#side-by-side">The arithmetic, side by side</a></li>
+<li><a href="#counter-argument">The fair version of the counter-argument</a></li>
+<li><a href="#questions">Questions this analysis raises</a></li>
+<li><a href="#sources">Sources and workings</a></li></ol>
+        </nav>
+        <div class="story-body" id="story-start">
+<p data-story-prose class="story-lede">An AI agent that operates TallyPrime through its screen is real, and it works. Costed at published list prices, one receipt posted that way comes to roughly <strong>₹168</strong> on the first attempt, and nearer <strong>₹278</strong> once retries are allowed for. It is impressive engineering placed at the most expensive point in the system, and it leaves the bookkeeping itself untouched.</p>
+
+<p data-story-prose>Here are the workings, and the argument for putting the accounting engine underneath the AI instead of in front of it.</p>
+
+<section class="story-section" aria-labelledby="the-demonstration">
+<h2 id="the-demonstration">It is a good demo, and it is hard engineering</h2>
+
+<p data-story-prose>A two-minute-forty-nine-second clip went round this week: a phone call to an agent wired into TallyPrime. The caller asks how many overdue receivables he has. The agent reads the report back: three bills, from COURTS Singapore, Hipvan and Journey East, against a working date of 2 September 2026.</p>
+
+<p data-story-prose>He tells it the COURTS amount has already landed in the bank. It opens a receipt voucher, fills the account and the narration, walks the bank allocation and instrument screens, allocates the full 1,519.33 against bill SI&#8209;260246, saves, and reports the remaining overdue as 1,839.72.</p>
+
+<p data-story-prose>That deserves credit without qualification. TallyPrime is a keyboard-first interface with decades of accumulated menu depth, and driving it through nothing but pixels and keystrokes is genuinely difficult. The demonstration does what a demonstration should: it shows the ability plainly, and it does not oversell.</p>
+
+<p data-story-prose class="story-pivot">The disagreement is not with the engineering. It is with the architecture.</p>
+
+</section>
+
+<section class="story-section" aria-labelledby="already-done">
+<h2 id="already-done">Somebody had already typed in those three invoices</h2>
+
+<p data-story-prose>Look at what had to be true before the call started.</p>
+
+<p data-story-prose>COURTS, Hipvan and Journey East were sitting in that receivables report because a person had already created those sales invoices in Tally. The ledgers existed. The bills were outstanding. The due dates were set. <strong>The agent read a report that somebody had spent the month writing.</strong></p>
+
+<p data-story-prose>Then it posted one receipt.</p>
+
+<p data-story-prose>Recording a receipt against a bill you already know has been paid is the pleasant end of accounting. The unpleasant end is the ninety purchase bills, the courier invoice photographed on a phone, the bank statement lines nobody has matched, and the GST treatment on each one. None of that was touched. That is precisely the work that makes a growing business's books late.</p>
+
+<p data-story-prose class="story-definition">A demo is allowed to show one thing. But if you are choosing what to run your accounts on, the question is not whether an agent can post a receipt. It is who is doing everything else.</p>
+
+</section>
+
+<section class="story-section" aria-labelledby="the-cost">
+<h2 id="the-cost">Every screenshot is an image, and every image is billed</h2>
+
+<p data-story-prose>An agent that drives a screen works in a loop: capture the screen, reason about the pixels, act, capture again. Below is that loop costed at list price, with every assumption set generously in the agent's favour. Posting the single receipt in the video takes twenty-five passes through it.</p>
+
+<!-- ARTWORK SLOT — the 25-capture sheet.
+     Drop the supplied master into
+     assets/blog/through-the-glass/masters/02-the-loop-25-captures.png and run
+       python3 tools/build-story-images.py through-the-glass
+     then delete this comment and restore the figure below.
+
+<figure class="story-figure">
+  <picture>
+    <source type="image/avif" srcset="/assets/blog/through-the-glass/v1/the-loop-25-captures-450.avif 450w, /assets/blog/through-the-glass/v1/the-loop-25-captures-680.avif 680w, /assets/blog/through-the-glass/v1/the-loop-25-captures-900.avif 900w" sizes="(min-width: 1024px) 680px, (min-width: 768px) calc(100vw - 286px), calc(100vw - 40px)">
+    <source type="image/webp" srcset="/assets/blog/through-the-glass/v1/the-loop-25-captures-450.webp 450w, /assets/blog/through-the-glass/v1/the-loop-25-captures-680.webp 680w, /assets/blog/through-the-glass/v1/the-loop-25-captures-900.webp 900w" sizes="(min-width: 1024px) 680px, (min-width: 768px) calc(100vw - 286px), calc(100vw - 40px)">
+    <img src="/assets/blog/through-the-glass/v1/the-loop-25-captures-900.webp" width="900" height="675" loading="lazy" decoding="async" alt="Twenty-five small dark screen tiles in a five by five grid, labelled with the TallyPrime steps from Gateway of Tally through to Accept, ending at 168 rupees.">
+  </picture>
+  <figcaption>A reconstruction of the sequence, not a screen capture</figcaption>
+</figure>
+-->
+
+<div class="story-panel">
+  <div class="story-table-scroll">
+    <table class="story-ledger">
+      <caption>One receipt against one bill: the task in the video</caption>
+      <thead>
+        <tr><th scope="col">Component</th><th scope="col">Tokens</th><th scope="col">At list price</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Screen captures and working context<span class="sub">25 steps × 2 retained captures × ~1,500 tokens, plus history</span></td>
+          <td>125,000</td><td>$1.25</td>
+        </tr>
+        <tr>
+          <td>System prompt and tool definitions<span class="sub">Cached across steps at the discounted rate</span></td>
+          <td>62,500</td><td>$0.06</td>
+        </tr>
+        <tr>
+          <td>Reasoning and actions<span class="sub">250 output tokens per step, billed at the output rate</span></td>
+          <td>6,250</td><td>$0.31</td>
+        </tr>
+        <tr>
+          <td>The voice call itself<span class="sub">2 min 49 sec of realtime audio, both directions</span></td>
+          <td>n/a</td><td>$0.14</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr><td>One receipt, first attempt</td><td>193,750</td><td class="story-figure-em">$1.76 · ₹168</td></tr>
+      </tfoot>
+    </table>
+  </div>
+  <p class="mono story-scroll-hint">Scroll the table sideways for the price column</p>
+
+  <div class="story-assumptions">
+    <p class="mono">Assumptions, so you can argue with them</p>
+    <dl>
+      <dt>GPT-6 Astra, list price</dt><dd>$10 / $50 / $1 per M in · out · cached</dd>
+      <dt>Tally screen capture</dt><dd>~1,500 tokens each</dd>
+      <dt>Steps to post one receipt</dt><dd>25</dd>
+      <dt>Captures kept in context</dt><dd>Last 2 only</dd>
+      <dt>USD / INR, 9 September 2026</dt><dd>95.12</dd>
+    </dl>
+  </div>
+</div>
+
+<p data-story-prose><strong>Then add the retries.</strong> At 98% reliability on any single step, a twenty-five-step task lands first time about 60% of the time, and a run that fails on step nineteen still bills for nineteen steps. That puts the real figure nearer <strong>₹278 per completed entry</strong>.</p>
+
+<p data-story-prose>A growing business books somewhere between two hundred and eight hundred entries a month. At four hundred, that is <strong>₹67,000 to ₹1,11,000 a month</strong> in model cost alone.</p>
+
+<p data-story-prose class="story-pull">Assume every number above is wrong by a factor of ten, in the agent's favour. It is still ₹6,700 a month, and you are still the one typing in the invoices.</p>
+
+<p data-story-prose>None of this is a complaint about the price of the model. Ten dollars per million input tokens is remarkable, and it will fall further. It is a complaint about spending those tokens on photographs of a screen that is already sitting on top of a database.</p>
+
+</section>
+
+<section class="story-section" aria-labelledby="structural">
+<h2 id="structural">Three problems that are structural, not commercial</h2>
+
+<p data-story-prose>Cost is the part of this argument that will date fastest. These three will not, because none of them is fixed by a lower price per token.</p>
+
+<ol class="story-steps">
+  <li>
+    <span class="num">01</span>
+    <h3>The cost scales with your entries, not with your business</h3>
+    <p>Software you subscribe to serves a thousand entries the same as it serves ten. An agent billed per action does not: a good month, with more invoices in it, costs you more to record. The better your year, the larger the bill for writing it down.</p>
+  </li>
+  <li>
+    <span class="num">02</span>
+    <h3>It waits to be asked</h3>
+    <p>The demonstration begins with a person deciding, at that moment, to ask about receivables. Nothing in the loop notices at six on a Tuesday morning that a customer has crossed ninety days, that a GST mismatch has appeared, or that runway has shortened. You still have to think of the question, which means you still have to already suspect the answer.</p>
+  </li>
+  <li>
+    <span class="num">03</span>
+    <h3>It is a user, procedurally speaking</h3>
+    <p>An agent driving your accounting software has the same reach as anyone else holding the mouse, and what it leaves behind is a saved voucher rather than a proposal somebody reviewed before it was booked. For a business owner that is a governance question. For a Chartered Accountant signing off, it is the whole question.</p>
+  </li>
+</ol>
+
+</section>
+
+<section class="story-section" aria-labelledby="underneath">
+<h2 id="underneath">Not in front of the accounting software. Underneath it.</h2>
+
+<p data-story-prose>Nothing above is an argument against AI in accounting. It is an argument about where the AI sits relative to the ledger.</p>
+
+<figure class="story-diagram">
+  <svg viewBox="0 0 920 346" role="img" aria-labelledby="dgm-t dgm-d">
+    <title id="dgm-t">Two architectures compared</title>
+    <desc id="dgm-d">On the left, an agent outside the accounting software cycles between capturing the screen, reasoning and clicking, and every pass is billed, so one entry costs about 168 rupees. On the right, documents feed a posting engine that writes the books directly, and answers, alerts and statements are read out of those books for one monthly price.</desc>
+
+    <!-- LEFT: outside the glass -->
+    <text x="0" y="14" font-family="DM Mono, monospace" font-size="11" font-weight="500" letter-spacing="1.3" fill="#5b6377">OUTSIDE THE GLASS</text>
+    <rect x="0" y="34" width="400" height="210" rx="13" fill="#ffffff" stroke="#cfd5e4" stroke-width="0.8"/>
+
+    <rect x="34" y="84" width="332" height="112" rx="8" fill="#0b0f1a"/>
+    <path d="M34 92 a8 8 0 0 1 8-8 h316 a8 8 0 0 1 8 8 v16 h-332 z" fill="#141926"/>
+    <circle cx="50" cy="96" r="3" fill="#ff4b6e"/><circle cx="62" cy="96" r="3" fill="#ff9f1c"/><circle cx="74" cy="96" r="3" fill="#3d4459"/>
+    <text x="200" y="150" text-anchor="middle" font-family="DM Mono, monospace" font-size="10.5" letter-spacing="1.2" fill="rgba(255,255,255,.66)">ACCOUNTING SOFTWARE</text>
+    <text x="200" y="170" text-anchor="middle" font-family="DM Mono, monospace" font-size="10.5" letter-spacing="1.2" fill="rgba(255,255,255,.42)">THE DATA IS IN HERE</text>
+
+    <path d="M34 142 C 8 142, 8 64, 60 64 L 340 64" fill="none" stroke="#0b0f1a" stroke-width="1.4" stroke-dasharray="4 4"/>
+    <path d="M340 64 C 392 64, 392 142, 366 142" fill="none" stroke="#0b0f1a" stroke-width="1.4" stroke-dasharray="4 4"/>
+    <polygon points="366,143 359,134 373,134" fill="#0b0f1a"/>
+    <rect x="93" y="52" width="214" height="24" rx="4" fill="#ffffff" stroke="#cfd5e4" stroke-width="0.8"/>
+    <text x="200" y="68" text-anchor="middle" font-family="DM Mono, monospace" font-size="10.5" font-weight="500" letter-spacing="1.1" fill="#333a4d">CAPTURE &#183; REASON &#183; CLICK</text>
+
+    <line x1="34" y1="212" x2="366" y2="212" stroke="#cfd5e4" stroke-width="0.8"/>
+    <text x="34" y="230" font-family="DM Mono, monospace" font-size="10.5" font-weight="500" letter-spacing="1.1" fill="#5b6377">EVERY PASS IS BILLED</text>
+
+    <!-- RIGHT: underneath -->
+    <text x="520" y="14" font-family="DM Mono, monospace" font-size="11" font-weight="500" letter-spacing="1.3" fill="#5b6377">UNDERNEATH</text>
+    <rect x="520" y="34" width="400" height="210" rx="13" fill="#0b0f1a"/>
+
+    <text x="552" y="70" font-family="DM Mono, monospace" font-size="10.5" font-weight="500" letter-spacing="1.1" fill="rgba(255,255,255,.62)">DOCUMENTS IN</text>
+    <line x1="552" y1="80" x2="888" y2="80" stroke="rgba(255,255,255,.14)" stroke-width="0.8"/>
+
+    <rect x="552" y="94" width="336" height="38" rx="6" fill="#141926" stroke="rgba(255,255,255,.16)" stroke-width="0.8"/>
+    <text x="720" y="118" text-anchor="middle" font-family="DM Mono, monospace" font-size="10.5" font-weight="500" letter-spacing="1.1" fill="#fafaf8">POSTING ENGINE &#183; GST &#183; TDS &#183; TCS</text>
+
+    <path d="M720 132 L720 152" stroke="#00c896" stroke-width="1.4"/>
+    <polygon points="720,159 713,149 727,149" fill="#00c896"/>
+
+    <rect x="552" y="162" width="336" height="38" rx="6" fill="#141926" stroke="rgba(255,255,255,.16)" stroke-width="0.8"/>
+    <text x="720" y="186" text-anchor="middle" font-family="DM Mono, monospace" font-size="10.5" font-weight="500" letter-spacing="1.1" fill="#fafaf8">THE BOOKS, CURRENT TODAY</text>
+
+    <line x1="552" y1="212" x2="888" y2="212" stroke="rgba(255,255,255,.14)" stroke-width="0.8"/>
+    <text x="552" y="230" font-family="DM Mono, monospace" font-size="10.5" font-weight="500" letter-spacing="1.1" fill="rgba(255,255,255,.62)">ANSWERS &#183; ALERTS &#183; STATEMENTS</text>
+
+    <line x1="0" y1="284" x2="400" y2="284" stroke="#0b0f1a" stroke-width="1.6"/>
+    <line x1="520" y1="284" x2="920" y2="284" stroke="#0b0f1a" stroke-width="1.6"/>
+    <text x="0" y="306" font-family="DM Mono, monospace" font-size="10.5" font-weight="500" letter-spacing="1.1" fill="#5b6377">COST OF ONE ENTRY</text>
+    <text x="400" y="310" text-anchor="end" font-family="IBM Plex Sans Condensed, sans-serif" font-size="21" font-weight="700" fill="#0b0f1a">&#8377;168, every time</text>
+    <text x="520" y="306" font-family="DM Mono, monospace" font-size="10.5" font-weight="500" letter-spacing="1.1" fill="#5b6377">COST OF ALL OF THEM</text>
+    <text x="920" y="310" text-anchor="end" font-family="IBM Plex Sans Condensed, sans-serif" font-size="21" font-weight="700" fill="#0b0f1a">one monthly price</text>
+  </svg>
+  <figcaption>The same intelligence, moved to the other side of the database</figcaption>
+</figure>
+
+<p data-story-prose>GeniusCFO does not drive accounting software. The accounting engine <em>is</em> the product, underneath the AI: real double-entry with sub-ledgers, and GST, TDS, TCS, reverse charge and import duty inside the posting itself rather than applied to it afterwards.</p>
+
+<p data-story-prose>That single decision changes what the product can offer:</p>
+
+<dl class="story-caps">
+  <div>
+    <dt>Documents in, finished books out</dt>
+    <dd>Around fifteen Indian document types, including scans and phone photographs. Entries booked with their debits and credits, the bank reconciled, GST information prepared. This is the part the demonstration did not do, and it is the part that takes the month.</dd>
+  </div>
+  <div>
+    <dt>Because the books are current, the warning comes early</dt>
+    <dd>Books that are brought up to date every day, rather than caught up at month-end, can flag a GST mismatch, a customer drifting past their terms, or a shortening runway while there is still time to do something. You find out in October about something that happened in July only when the books are three months behind.</dd>
+  </div>
+  <div>
+    <dt>Ask GeniusCFO, in plain English</dt>
+    <dd>Type or speak a question about profit, cash, customers or GST and get the answer from your own updated books, with the source documents it came from attached, so you can check it. An entry created from a chat previews its debits and credits before it commits.</dd>
+  </div>
+  <div>
+    <dt>The work is automated. The judgement stays human.</dt>
+    <dd>Automated preparation, human review. Nothing here reduces what a Chartered Accountant does. The firm keeps professional judgement and final sign-off, and the point of preparing the work properly is that what reaches them is ready to be reviewed rather than rebuilt.</dd>
+  </div>
+  <div>
+    <dt>Statements that are already written</dt>
+    <dd>Statement of Profit and Loss, Balance Sheet, Cash Flow Statement and Notes to Accounts under Schedule III, with Ind AS engines for leases, borrowings, revenue, intangibles, investments, payroll and inventory. Not a report you commission at year end, but a report that is current because the books are.</dd>
+  </div>
+</dl>
+
+<p data-story-prose class="story-trust">The work is automated. The judgement stays human.</p>
+
+</section>
+
+<section class="story-section" aria-labelledby="side-by-side">
+<h2 id="side-by-side">What each approach actually asks of you</h2>
+
+<div class="story-compare">
+  <div class="story-compare-row head"><span>&nbsp;</span><span>Agent driving the screen</span><span>GeniusCFO</span></div>
+  <div class="story-compare-row"><span class="k">Cost behaviour</span><span class="a">Per action, per retry</span><span class="b">Per month, fixed</span></div>
+  <div class="story-compare-row"><span class="k">At 400 entries</span><span class="a">₹67,000 to ₹1,11,000 a month, modelled</span><span class="b">₹999 · ₹1,999 · ₹2,999 a month, excluding 18% GST</span></div>
+  <div class="story-compare-row"><span class="k">Who does the entry</span><span class="a">You, or your accountant, as before</span><span class="b">Documents in, entries booked</span></div>
+  <div class="story-compare-row"><span class="k">When you learn something</span><span class="a">When you think to ask</span><span class="b">When the books change</span></div>
+  <div class="story-compare-row"><span class="k">Where the answer comes from</span><span class="a">Whatever is on screen</span><span class="b">Your books, with the source document</span></div>
+  <div class="story-compare-row"><span class="k">Review</span><span class="a">A saved voucher</span><span class="b">Prepared for human review and sign-off</span></div>
+  <div class="story-compare-row"><span class="k">To try it</span><span class="a">API keys and a machine left running</span><span class="b">14 days, full access, no credit card or UPI mandate</span></div>
+</div>
+
+<p data-story-prose>Plans are ₹999, ₹1,999 and ₹2,999 per month for one company and one user, all excluding 18% GST. Firms work from Team at ₹3,999 and Enterprise at ₹6,999 per month, also excluding 18% GST. If you stop after the trial the AI stops. Your books, statements, GST screens and manual entry keep working, and nothing is deleted.</p>
+
+</section>
+
+<section class="story-section" aria-labelledby="counter-argument">
+<h2 id="counter-argument">Tokens get cheaper. The architecture does not change.</h2>
+
+<p data-story-prose>Models will get cheaper, captures will get cheaper, and the loop will get shorter. In two years this arithmetic will look different, and the people who built this demonstration will very likely be among those who make it look different sooner. That is worth saying plainly rather than pretending otherwise.</p>
+
+<p data-story-prose>But cost was always the smaller half of the argument. The larger half is that an agent standing in front of the screen can only act on books that somebody else has already written, and only at the moment it is asked. <strong>Neither of those is a pricing problem.</strong></p>
+
+<p data-story-prose class="story-definition">The interesting question was never whether AI can use accounting software. It is why the accounting software is still the thing in the middle.</p>
+
+</section>
+
+<section class="story-section story-faq" aria-labelledby="questions">
+<h2 id="questions">Questions this analysis raises</h2>
+
+<div class="story-faq-item">
+  <h3>What does an AI agent driving accounting software cost per entry?</h3>
+  <p>On the workings set out above, one receipt posted by an agent driving TallyPrime costs about $1.76, or ₹168, at list price on its first attempt — 193,750 tokens across 25 steps. Allowing for retries at 98% per-step reliability, the figure is nearer ₹278 per completed entry. These are modelled estimates from published list prices, not a measured bill.</p>
+</div>
+
+<div class="story-faq-item">
+  <h3>Why is a screen-driving agent expensive to run?</h3>
+  <p>An agent that drives a screen works in a loop: capture the screen, reason about the pixels, act, capture again. Every capture is an image, and every image is billed as input tokens. The cost therefore scales with the number of entries recorded, so a month with more invoices in it costs more to write down.</p>
+</div>
+
+<div class="story-faq-item">
+  <h3>Will cheaper AI models solve this?</h3>
+  <p>Cheaper tokens reduce the cost but not the architecture. An agent standing in front of the screen can only act on books somebody else has already written, and only at the moment it is asked. Neither of those is a pricing problem.</p>
+</div>
+
+<div class="story-faq-item">
+  <h3>How is GeniusCFO different from an AI agent that operates Tally?</h3>
+  <p>GeniusCFO does not drive accounting software through its screen. The accounting engine is the product, underneath the AI: real double-entry with sub-ledgers, and GST, TDS, TCS, reverse charge and import duty inside the posting itself. Documents go in and booked entries come out, at a fixed monthly price rather than a charge per action.</p>
+</div>
+
+<div class="story-faq-item">
+  <h3>Does GeniusCFO replace my Chartered Accountant?</h3>
+  <p>No. GeniusCFO prepares the work: entries booked with debits and credits, the bank reconciled, GST information prepared and Schedule III statements produced. Professional review, judgement and final sign-off stay with your Chartered Accountant.</p>
+</div>
+
+</section>
+
+<section class="story-notes" id="sources" aria-labelledby="sources-title">
+<h2 id="sources-title">Sources and workings</h2>
+<ol>
+  <li>Model pricing: <a href="https://openrouter.ai/openai/gpt-6-astra" rel="nofollow noopener" target="_blank">GPT-6 Astra on OpenRouter</a> and <a href="https://www.cloudzero.com/blog/gpt-6-pricing/" rel="nofollow noopener" target="_blank">CloudZero's pricing breakdown</a>: $10 per million input tokens, $50 output, $1 cached.</li>
+  <li>Capture token counts: <a href="https://developers.openai.com/api/docs/guides/images-vision" rel="nofollow noopener" target="_blank">OpenAI's images and vision guide</a>, patch-based calculation.</li>
+  <li>Realtime audio: <a href="https://www.layer3labs.io/guides/openai-realtime-api-pricing" rel="nofollow noopener" target="_blank">Layer3 Labs' realtime API pricing guide</a>, roughly $0.05 per minute of conversation.</li>
+  <li>Step reliability compounding: <a href="https://contracollective.com/blog/computer-use-agents-production-reliability-cost-2026" rel="nofollow noopener" target="_blank">Contra Collective on computer-use agents in production</a>.</li>
+  <li>Exchange rate: <a href="https://tradingeconomics.com/india/currency" rel="nofollow noopener" target="_blank">USD/INR at 95.12 on 9 September 2026</a>.</li>
+  <li>GeniusCFO plan pricing as published at <a href="/pricing" data-preserve-query>geniuscfo.ai/pricing</a>. All prices exclude 18% GST.</li>
+</ol>
+<p>The step count, the number of captures retained in context and the per-step output length are estimates, chosen to be generous to the agent. Change them and the total moves. The workings are laid out above so that you can.</p>
+</section>
+
+<p data-story-prose class="story-kicker">Fifteen minutes, one to one.</p>
+
+<div class="story-cta"><a class="btn btn-primary" href="/business" data-preserve-query data-story-cta="article">Book a demo<span aria-hidden="true">↗</span></a></div>
+
+<aside class="story-next" aria-labelledby="story-next-title">
+  <p class="mono" id="story-next-title">Read next</p>
+  <a href="/stories/the-second-job" data-preserve-query data-story-link="the-second-job">Nobody Warned You the Business Came With a Second Job. <span aria-hidden="true">↗</span></a>
+  <p>A garment-unit story about the same lag, seen from the owner's side of it: a supplier payment, a GST payment and payday colliding in one week.</p>
+</aside>
+
+<hr class="story-end-rule">
+
+<p class="story-disclosure">Analysis, not a customer result. The cost figures above are modelled from published list prices and the stated assumptions; they are an estimate of what the demonstrated approach would cost, not a bill anyone has received. Third-party products and models are named for comparison and remain the property of their owners. GeniusCFO plan pricing is as published on the pricing page and excludes 18% GST.</p>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div class="footer-brand"><a class="footer-logo-link" href="/business" aria-label="GeniusCFO home" data-preserve-query><img src="/assets/logo-lockup.svg?v=20260819-v6" width="752" height="256" alt="GeniusCFO"></a><p>Affordable accounting automation and financial answers for Indian businesses.</p></div>
+      <div class="footer-col"><h2>Business</h2><ul><li><a href="/business#product" data-preserve-query>Product</a></li><li><a href="/business#how" data-preserve-query>How it works</a></li><li><a href="/pricing?audience=business#business-plans" data-preserve-query>Business pricing</a></li><li><a href="/stories" data-preserve-query>Stories</a></li><li><a href="/blog" data-preserve-query>Blog</a></li></ul></div>
+      <div class="footer-col"><h2>CA firms</h2><ul><li><a href="/ca-firms" data-preserve-query>CA/Firm experience</a></li><li><a href="/pricing?audience=ca-firms#firm-plans" data-preserve-query>CA/Firm pricing</a></li></ul></div>
+      <div class="footer-col"><h2>Access</h2><ul><li><a href="/business" data-preserve-query>Book a demo</a></li><li><a href="/business#faq" data-preserve-query>FAQ</a></li></ul></div>
+      <div class="footer-col"><h2>Let's Connect</h2><ul><li><a href="https://www.linkedin.com/company/genius-cfo" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://www.facebook.com/profile.php?id=61574302727802" target="_blank" rel="noopener noreferrer">Facebook</a></li><li><a href="https://www.instagram.com/genius_cfo" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><a href="https://x.com/GeniusCFO" target="_blank" rel="noopener noreferrer">X</a></li><li><a href="mailto:marketing@geniuscfo.ai">marketing@geniuscfo.ai</a></li></ul></div>
+    </div>
+    <div class="wrap footer-bottom"><p class="mono trust-line">UPDATED ACCOUNTS · CLEAR ANSWERS · HUMAN REVIEW</p><p>© 2026 GeniusCFO. Prices exclude 18% GST.</p><p class="footer-legal"><a href="/privacy" data-preserve-query>Privacy Policy</a></p></div>
+  </footer>
+
+  <dialog class="image-dialog" data-image-dialog aria-labelledby="image-dialog-title">
+    <div class="image-dialog-shell"><div class="image-dialog-head"><p id="image-dialog-title" data-image-dialog-title></p><span class="image-dialog-actions"><button type="button" class="image-dialog-replay" data-image-dialog-replay hidden>Play again</button><button type="button" class="image-dialog-close" data-image-dialog-close>Close</button></span></div><div class="image-dialog-stage"><img data-image-dialog-image alt=""></div></div>
+  </dialog>
+
+  <script src="/assets/site.js?v=20260902-v4-lead" defer></script>
+</body>
+</html>

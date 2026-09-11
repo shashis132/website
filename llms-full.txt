@@ -4,11 +4,11 @@
 > routine bookkeeping, prepares GST information and financial statements, and answers financial
 > questions from updated accounts. Operated by GeniusCFO, serving India.
 
-Last updated: 2026-08-31
+Last updated: 2026-09-11
 Canonical short version: https://geniuscfo.ai/llms.txt
 Contact: marketing@geniuscfo.ai
 
-This file restates the product pages and links to the business stories in a single plain-text document so it can
+This file restates the product pages and links to the blog and the business stories in a single plain-text document so it can
 be retrieved and quoted accurately. Where this file and the website disagree, the website at
 https://geniuscfo.ai is authoritative.
 
@@ -17,6 +17,8 @@ https://geniuscfo.ai is authoritative.
 - https://geniuscfo.ai/business — GeniusCFO for business owners
 - https://geniuscfo.ai/ca-firms — GeniusCFO for CA and accounting firms
 - https://geniuscfo.ai/pricing — pricing for both audiences
+- https://www.geniuscfo.ai/blog — blog index: analysis of accounting automation
+- https://www.geniuscfo.ai/stories — stories index: short fictional narratives about the accounting lag
 
 ## What GeniusCFO is
 
@@ -189,7 +191,65 @@ Firm plans are priced by the client companies and team members included. Team co
 - CA firm — a chartered accountancy practice. vCFO — virtual or fractional CFO practice.
 - Razorpay — the Indian payment gateway used to collect plan payments.
 
+## Blog
+
+Index: https://www.geniuscfo.ai/blog
+
+### The AI Was Looking at Your Ledger Through a Screenshot.
+
+Canonical article: https://www.geniuscfo.ai/blog/through-the-glass
+Published 11 September 2026. Analysis, not narrative and not a customer result.
+
+The question: what does it cost to have an AI computer-use agent operate accounting software through its
+screen, and is that the right place to put the intelligence?
+
+A demonstration put a model in front of TallyPrime and had it record a receipt by voice — reading an overdue
+receivables report, then opening a receipt voucher and allocating a payment against a named bill. The
+engineering is real and is credited as such. Two objections follow.
+
+The cost. An agent driving a screen runs a loop: capture the screen, reason about the pixels, act, capture
+again. Every capture is an image and every image is billed as input tokens. Posting that one receipt takes
+about 25 passes. Costed at published list prices — $10 per million input tokens, $50 output, $1 cached, a
+Tally screen capture at roughly 1,500 tokens, the last two captures retained in context, and USD/INR at 95.12
+on 9 September 2026 — the components are: screen captures and working context 125,000 tokens at $1.25; system
+prompt and tool definitions 62,500 cached tokens at $0.06; reasoning and actions 6,250 output tokens at $0.31;
+and 2 min 49 sec of realtime voice audio at $0.14. Total 193,750 tokens, $1.76, or 168 rupees for one receipt
+on the first attempt. At 98% reliability per step a 25-step task lands first time about 60% of the time, and a
+failed run still bills for the steps it completed, which puts the figure nearer 278 rupees per completed
+entry. At 400 entries a month that models to 67,000-1,11,000 rupees in model cost alone. Every one of these
+numbers is a modelled estimate from published list prices under the stated assumptions, not a measured bill.
+
+The architecture, which is the larger half of the argument. Three problems are structural rather than
+commercial, so cheaper tokens do not remove them. First, cost scales with entries rather than with the
+business: a better month, with more invoices in it, costs more to record. Second, the agent waits to be asked,
+so nothing notices a customer crossing ninety days or a GST mismatch appearing unless somebody thinks of the
+question. Third, an agent driving accounting software is procedurally a user with the same reach as anyone
+holding the mouse, and it leaves a saved voucher rather than a proposal somebody reviewed before it was
+booked.
+
+The alternative put forward is to place the AI underneath the ledger rather than in front of it. GeniusCFO
+does not drive accounting software: the accounting engine is the product, with real double-entry and
+sub-ledgers, and GST, TDS, TCS, reverse charge and import duty inside the posting itself rather than applied
+afterwards. Documents go in — around fifteen Indian document types, including scans and phone photographs —
+and booked entries come out, at a fixed monthly price rather than a charge per action. The article concedes
+that models and captures will get cheaper and that this arithmetic will look different in two years, while
+holding that neither the waiting-to-be-asked problem nor the somebody-else-already-wrote-the-books problem is
+a pricing problem.
+
+Computer-use agent, as defined in this article: a language model that operates existing software the way a
+person does, by capturing the screen as an image, reasoning about the pixels and sending keystrokes or clicks.
+Because every pass through that loop bills a fresh image, its cost scales with the number of entries recorded
+rather than with a subscription.
+
+Sources cited on the page: GPT-6 Astra on OpenRouter; CloudZero's GPT-6 pricing breakdown; OpenAI's images and
+vision guide; Layer3 Labs' realtime API pricing guide; Contra Collective on computer-use agents in production;
+Trading Economics for USD/INR. GeniusCFO plan pricing is as published at https://geniuscfo.ai/pricing and
+excludes 18% GST. Third-party products and models are named for comparison and remain the property of their
+owners.
+
 ## Business stories
+
+Index: https://www.geniuscfo.ai/stories
 
 ### Every Invoice Looked Fine. Together, They Told a Different Story.
 

@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Build the responsive derivatives for a story from its master images.
+"""Build the responsive derivatives for a story or blog post from its masters.
 
-Masters live in   assets/stories/<slug>/masters/
-Derivatives go to assets/stories/<slug>/v1/
+Masters live in   assets/<section>/<slug>/masters/
+Derivatives go to assets/<section>/<slug>/v1/
+where <section> is "stories" or "blog", per SECTION below.
 
 Run:  python3 tools/build-story-images.py the-second-job
+      python3 tools/build-story-images.py through-the-glass
 The masters themselves are never modified and are not shipped to the page
 (.vercelignore keeps the masters/ folder off the deployment).
 """
@@ -22,6 +24,12 @@ ROOT = Path(__file__).resolve().parent.parent
 # "banner"  the masthead image
 # "figure"  an inline story illustration
 # "screen"  a product capture; trimmed to its content box first
+# "social"  a share card; emitted only as the 1200px JPEG, no responsive set
+SECTION = {
+    "every-invoice-looked-fine": "stories",
+    "the-second-job":            "stories",
+    "through-the-glass":         "blog",
+}
 PLAN = {
     "the-second-job": {
         "the-second-job":      ("01", "banner", (360, 540, 768, 1080)),
@@ -30,7 +38,14 @@ PLAN = {
         "the-worst-hour":      ("04", "figure", (450, 680, 900)),
         "payday-the-7th":      ("05", "figure", (450, 680, 900)),
         "forty-five-envelopes":("06", "figure", (450, 680, 900)),
-    }
+    },
+    # /blog/through-the-glass. 03 is the square share card, which is its own
+    # artwork rather than a crop of the masthead, so it carries role "social".
+    "through-the-glass": {
+        "through-the-glass":    ("01", "banner", (360, 540, 768, 1080)),
+        "the-loop-25-captures": ("02", "figure", (450, 680, 900)),
+        "og-through-the-glass": ("03", "social", ()),
+    },
 }
 SOCIAL_OF = {"the-second-job": "the-second-job"}
 SOCIAL_WIDTH = 1200
@@ -117,8 +132,9 @@ def save_set(img, out_dir, stem, widths):
 def main():
     slug = sys.argv[1] if len(sys.argv) > 1 else "the-second-job"
     plan = PLAN[slug]
-    masters = ROOT / "assets" / "stories" / slug / "masters"
-    out_dir = ROOT / "assets" / "stories" / slug / "v1"
+    section = SECTION.get(slug, "stories")
+    masters = ROOT / "assets" / section / slug / "masters"
+    out_dir = ROOT / "assets" / section / slug / "v1"
 
     def find(prefix):
         hits = sorted(f for f in masters.glob(f"{prefix}-*")
@@ -141,6 +157,15 @@ def main():
             img = img.convert("RGB")
         if role == "screen":
             img = crop_to_alert_card(img)
+        if role == "social":
+            out_dir.mkdir(parents=True, exist_ok=True)
+            height = round(img.height * SOCIAL_WIDTH / img.width)
+            card = img.convert("RGB").resize((SOCIAL_WIDTH, height), Image.LANCZOS)
+            path = out_dir / f"{stem}.jpg"
+            card.save(path, "JPEG", quality=84, optimize=True, progressive=True)
+            print(f"  {path.relative_to(ROOT)}  {SOCIAL_WIDTH}x{height}  "
+                  f"{path.stat().st_size // 1024} KB")
+            continue
         for path, w, h in save_set(img, out_dir, stem, widths):
             print(f"  {path.relative_to(ROOT)}  {w}x{h}  {path.stat().st_size // 1024} KB")
 
