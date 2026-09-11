@@ -32,7 +32,7 @@ A firm pays for a licence and then pays again in professional hours to run it. G
 
 ## Commercial notes
 
-Prices exclude 18% GST; the GST-inclusive total is shown against the selected plan. Every plan starts with a 14-day free trial and no credit card or UPI mandate is required to begin.
+Prices exclude 18% GST; the GST-inclusive total is shown against the selected plan. Business plans start with a 14-day free trial and CA/Firm plans with a 7-day free trial; no credit card or UPI mandate is required to begin.
 
 Plans for businesses cover one company with no extra members: Light at ₹999 per month, Pro at ₹1,999 per month and Pro Max at ₹2,999 per month. Plans for CA firms are priced by the client companies and team members included: Team at ₹3,999 per month covers three client companies and two extra members, and Enterprise at ₹6,999 per month covers ten client companies and five extra members. Additional client companies are ₹599 per month each and additional team members are ₹299 per month each.
 

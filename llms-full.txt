@@ -43,8 +43,9 @@ replace professional judgement: firms review prepared entries and retain final s
 
 All prices are in Indian rupees and exclude 18% GST. The GST-inclusive total is shown against the
 selected plan. Billing is monthly or every three months; the three-month option is billed once for
-three months of access and costs 20% less than the monthly rate. Every plan begins with a 14-day
-free trial with full access and no credit card or UPI mandate. After the trial the customer chooses
+three months of access and costs 20% less than the monthly rate. Every plan begins with a free
+trial (14 days for business plans, 7 days for CA/Firm plans) with full access and no credit card or
+UPI mandate. After the trial the customer chooses
 a plan and pays via Razorpay; if they do not, the AI stops while books, statements, GST screens and
 manual entry keep working and nothing is deleted.
 
@@ -151,9 +152,9 @@ Source: https://geniuscfo.ai/pricing
 
 ### How long is the free trial?
 
-Every plan starts with a 14-day free trial. No credit card is required, and you get full access to everything from day one.
+Business plans start with a 14-day free trial and CA/Firm plans with a 7-day free trial. No credit card is required, and you get full access to everything from day one.
 
-### What happens after the 14-day trial?
+### What happens after the free trial?
 
 You choose a plan and pay via Razorpay. If you do not, the AI stops - your books, statements, GST screens and manual entry all keep working, and nothing is ever deleted.
 
