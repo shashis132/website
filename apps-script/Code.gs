@@ -19,11 +19,12 @@
  * Captcha: step 1 carries a Google reCAPTCHA (v2 checkbox) token as
  * `captcha_token`. When the script property RECAPTCHA_SECRET is set
  * (Project Settings → Script Properties), the token is verified with Google
- * before a row is appended and a failed or missing token is rejected.
- * Step 2 only updates a row that step 1 already created, so it is not
- * re-verified (tokens are single use). Leave the property unset to skip
- * verification, e.g. while the site key is not yet configured in
- * assets/site.js.
+ * before a row is appended. A missing token, or one Google calls invalid,
+ * expired or reused, is rejected. A failure on our side (wrong secret,
+ * Google unreachable) still writes the row and records why in the
+ * `captcha` column, so a misconfiguration never loses a lead. Step 2 only
+ * updates a row that step 1 already created, so it is not re-verified
+ * (tokens are single use). Leave the property unset to skip verification.
  */
 
 /**
@@ -73,7 +74,8 @@ var COLUMNS = [
   'gclid',
   'fbclid',
   'msclkid',
-  'li_fat_id'
+  'li_fat_id',
+  'captcha'
 ];
 
 /* Filled in by step 2; everything else is written once by step 1. */
@@ -106,10 +108,14 @@ function doPost(e) {
     }
 
     var captcha = verifyCaptcha_(data.captcha_token);
-    if (!captcha.ok) {
-      console.warn('Rejected lead: captcha %s', captcha.reason);
+    if (captcha.reject) {
+      console.warn('Rejected lead (captcha %s) for phone %s', captcha.reason, phone);
       return respond_({ ok: false, error: 'captcha_' + captcha.reason });
     }
+    if (!captcha.ok) {
+      console.warn('Captcha could not be verified (%s); lead accepted anyway', captcha.reason);
+    }
+    data.captcha = captcha.ok ? captcha.reason : 'unverified: ' + captcha.reason;
 
     appendRow_(sheet, data);
     return respond_({ ok: true, action: 'appended' });
@@ -122,31 +128,44 @@ function doPost(e) {
 }
 
 /**
- * Checks a reCAPTCHA token with Google. Returns { ok, reason }.
+ * Checks a reCAPTCHA token with Google. Returns { ok, reject, reason }.
  *
- * Skipped (ok) when RECAPTCHA_SECRET is not set, so the receiver keeps
- * working before the captcha is configured. Fails closed on a missing,
- * already-used or expired token and on a Google error, since an
- * unverifiable submission is exactly what the check exists to stop.
+ *   ok      the token was verified (or verification is switched off)
+ *   reject  the submission should be dropped: no token, or Google says the
+ *           token is invalid, expired or already used — a bot, or a form
+ *           posted without the checkbox
+ *
+ * Anything else — secret key missing or wrong, Google unreachable, script
+ * not yet authorised to call external services — is our misconfiguration,
+ * not the visitor's fault. Those cases return ok:false, reject:false so the
+ * lead is still written, with the reason stamped in the `captcha` column
+ * and logged under Executions. Dropping real leads because of a typo in a
+ * script property is the one outcome this must never produce.
  */
 function verifyCaptcha_(token) {
   var secret = PropertiesService.getScriptProperties().getProperty('RECAPTCHA_SECRET');
-  if (!secret) return { ok: true, reason: 'not_configured' };
-  if (!token) return { ok: false, reason: 'missing' };
+  if (!secret) return { ok: true, reject: false, reason: 'not configured' };
+  if (!token) return { ok: false, reject: true, reason: 'missing token' };
+
+  var VISITOR_ERRORS = ['invalid-input-response', 'timeout-or-duplicate'];
 
   try {
     var response = UrlFetchApp.fetch('https://www.google.com/recaptcha/api/siteverify', {
       method: 'post',
-      payload: { secret: secret, response: String(token) },
+      payload: { secret: String(secret).trim(), response: String(token) },
       muteHttpExceptions: true
     });
     var result = JSON.parse(response.getContentText() || '{}');
-    if (result.success === true) return { ok: true, reason: 'verified' };
-    var codes = (result['error-codes'] || []).join(',');
-    return { ok: false, reason: codes || 'failed' };
+    if (result.success === true) return { ok: true, reject: false, reason: 'verified' };
+
+    var codes = result['error-codes'] || [];
+    var visitorFault = codes.length > 0 && codes.every(function (code) {
+      return VISITOR_ERRORS.indexOf(code) > -1;
+    });
+    return { ok: false, reject: visitorFault, reason: codes.join(',') || 'failed' };
   } catch (err) {
     console.error('reCAPTCHA verification error: %s', err);
-    return { ok: false, reason: 'unavailable' };
+    return { ok: false, reject: false, reason: 'unavailable: ' + String(err).slice(0, 120) };
   }
 }
 
@@ -190,8 +209,25 @@ function getSheet_() {
        numbers and reformat them. */
     sheet.getRange(1, COLUMNS.indexOf('phone') + 1, sheet.getMaxRows(), 1)
       .setNumberFormat('@');
+  } else {
+    ensureHeaders_(sheet);
   }
   return sheet;
+}
+
+/**
+ * Columns added to COLUMNS after the sheet was created get their header
+ * written at the end of row 1, so the values appendRow_ writes by position
+ * line up with a visible heading. Existing columns are never moved.
+ */
+function ensureHeaders_(sheet) {
+  var have = sheet.getRange(1, 1, 1, Math.max(sheet.getLastColumn(), 1)).getValues()[0];
+  if (have.length >= COLUMNS.length && have[COLUMNS.length - 1] === COLUMNS[COLUMNS.length - 1]) return;
+  for (var i = 0; i < COLUMNS.length; i++) {
+    if (have[i] !== COLUMNS[i]) {
+      sheet.getRange(1, i + 1).setValue(COLUMNS[i]).setFontWeight('bold');
+    }
+  }
 }
 
 function appendRow_(sheet, data) {

@@ -118,6 +118,18 @@ passes, for checking a preview deployment without real verification.
 reCAPTCHA tokens are single use, so the widget is reset after Step 1 posts.
 Step 2 only updates the row Step 1 created and is not verified again.
 
+Every new row records the outcome in the sheet's last column, `captcha`:
+`verified`, `not configured` (no secret set), or `unverified: <reason>`. A
+row is dropped only when the token is missing or Google reports it invalid,
+expired or reused; a wrong secret or an unreachable Google still writes the
+row, with the reason in that column and under **Executions** in Apps Script,
+so a misconfiguration never silently loses a lead.
+
+To ship a later change to `Code.gs` without minting a new URL: **Deploy →
+Manage deployments**, pencil icon on the active deployment, **Version: New
+version**, **Deploy**. The `/exec` URL stays the same and `LEAD_ENDPOINT`
+does not need touching.
+
 ## 4. Cal.com inline booking
 
 Step 3 on `/business` and `/ca-firms` uses one Cal.com event type:
