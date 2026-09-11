@@ -302,6 +302,7 @@
   box-shadow: var(--sh-window);
 }
 .index-link--no-thumb { grid-template-columns: 1fr; }
+.index-thumb--right img { object-position: right center; }
 .index-text { display: grid; gap: var(--story-space-xs); align-content: start; }
 .index-kind { margin: 0; color: var(--text-subtle); }
 .index-text h2 {
@@ -366,6 +367,22 @@
    ------------------------------------------------------------------ */
 
 .story-body .story-lede { color: var(--text-strong); }
+
+/* Full-bleed header band ------------------------------------------- */
+/* The through-the-glass artwork is 16:7. Cropped into the masthead's 3:2
+   side slot a centre crop would cut the figure in half, so it runs the
+   full width of the page instead, between the masthead and the article. */
+.story-band { margin: 0; background: var(--ink); }
+.story-band picture { display: block; line-height: 0; }
+.story-band img { display: block; width: 100%; height: auto; }
+.story-band figcaption {
+  padding-block: 14px 18px;
+  color: rgba(255,255,255,0.52);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
 
 /* Figures table --------------------------------------------------- */
 .story-table-scroll { overflow-x: auto; max-width: 100%; }
@@ -507,6 +524,9 @@
 }
 
 @media print {
+  .story-band { background: #fff; break-inside: avoid; }
+  .story-band img { max-width: 420px; }
+  .story-band figcaption { color: #444; }
   .story-panel { background: #fff; color: #111; box-shadow: none; border: 1px solid #aaa; }
   .story-panel .story-ledger th, .story-panel .story-ledger td, .story-panel .story-ledger td:first-child { color: #111; border-bottom-color: #ccc; }
   .story-panel .story-ledger thead th, .story-assumptions dt, .story-assumptions .mono { color: #444; }

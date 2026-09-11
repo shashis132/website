@@ -200,19 +200,25 @@ primary-domain setting is ever changed.
 
 Story and blog artwork is shipped as derivatives only. The master illustrations stay with the campaign art and are not committed; `assets/<section>/<slug>/masters/README.txt` records which master belongs to which position, and `tools/build-story-images.py <slug>` regenerates every AVIF/WebP derivative and the social JPEG from them. The `SECTION` map in that script decides whether a slug's artwork lives under `assets/stories/` or `assets/blog/`.
 
-### Outstanding: artwork for /blog/through-the-glass
+### Artwork for /blog/through-the-glass
 
-The article shipped without its three masters, which had not reached the
-repository at publication. The page renders correctly as it stands — its
-two-architecture diagram is inline SVG and needs no file — but two raster
-positions are commented out in `blog/through-the-glass/index.html`, each
-marked `ARTWORK SLOT`, and `og:image` points at the site default
-`/assets/og-geniuscfo.png` rather than the campaign share card.
+Delivered and live. The three masters are kept in
+`assets/blog/through-the-glass/masters/` rather than deleted after the
+build, because they arrived by GitHub upload and the repo is the only
+copy; `.vercelignore` keeps the folder off the deployment.
 
-`assets/blog/through-the-glass/masters/README.txt` lists the three
-masters by prefix and gives the exact restore steps: drop the files in,
-run `python3 tools/build-story-images.py through-the-glass`, uncomment
-the two figures, repoint the four social-image tags, and add an
-`ImageObject` to the JSON-LD `@graph` as the story pages do.
+- The 16:7 glass scene runs **full-bleed** between the masthead and the
+  article body, not in the masthead's side slot. A 3:2 centre crop would
+  have cut the figure in half, and the full-bleed band is what the
+  article's source file did with it originally.
+- The 25-capture sheet sits inside section 03. It ships with no
+  `figcaption`: the artwork carries its own caption and byline, and a
+  caption underneath printed the same sentence twice.
+- The 1200x627 card is the Open Graph and Twitter image. 1.91:1 fills a
+  link preview uncropped.
+
+Rebuild with `python3 tools/build-story-images.py through-the-glass`. The
+markup already points at these filenames, so nothing in the HTML needs
+touching unless the artwork changes shape.
 
 The story at `/stories/every-invoice-looked-fine` preserves the approved source article and the compositions of both supplied images. It serves responsive AVIF/WebP derivatives, with a compressed JPEG for social sharing; the master PNGs are untouched and are not shipped to the page. It uses the shared `site-v4.css` theme and `site.js` interactions, with only article layout in `assets/story.css`. The new page includes the existing `GTM-NPMFZCZG` loader and noscript fallback. Campaign parameters are preserved on links into the business demo flow. A click is not counted as a lead. The new URL is linked from the Business footer, sitemap, and the existing language-model reference files. No publication date is invented before release.

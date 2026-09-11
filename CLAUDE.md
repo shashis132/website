@@ -41,9 +41,16 @@ environment's network policy denies outbound HTTPS to `geniuscfo.ai`, and
 a general file host is an extra account they do not need.
 
 Build artwork derivatives with `python3 tools/build-story-images.py <slug>`.
-Masters are never committed — `.vercelignore` keeps them off the deployment
-and they are deleted after the build. `SECTION` in that script decides
-whether a slug's artwork lives under `assets/stories/` or `assets/blog/`.
+`SECTION` in that script decides whether a slug's artwork lives under
+`assets/stories/` or `assets/blog/`.
+
+**Masters uploaded through GitHub stay in the repo.** The older stories'
+masters were deleted after building, on the reasoning that they lived with
+the campaign art anyway. That does not hold for anything arriving by the
+upload route: the repo *is* the delivery mechanism, and deleting them means
+the next rebuild costs Shashi another upload round-trip. `.vercelignore`
+already keeps `masters/` off the deployment, so they are never served.
+A couple of megabytes is cheaper than that round-trip. Keep them.
 
 ### Banner masters do not have to match the declared ratio
 

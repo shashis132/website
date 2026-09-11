@@ -1,17 +1,15 @@
 Master images for /blog/through-the-glass
 =========================================
 
-The masters are NOT kept in this repository. Only the derivatives in
-../v1/ are committed and deployed. This folder exists to hold the
-masters temporarily while rebuilding, and to record which artwork
-belongs to which prefix.
+These masters ARE kept in this repository, unlike the older stories'.
+They arrived by GitHub upload rather than from a designer's machine, so
+the repo is the only copy; deleting them would mean another upload
+before any future rebuild. .vercelignore excludes masters/ from the
+deployment, so they are never served to anyone.
 
-STATUS AT PUBLICATION: the three masters below had not reached the
-repository when the article went live, so the page ships without them.
-Both raster slots are commented out in
-blog/through-the-glass/index.html and are marked "ARTWORK SLOT" — the
-page renders correctly without them, and the article's two-architecture
-diagram is inline SVG, so it needs no file at all.
+STATUS: built and live. The article renders the 16:7 band full-bleed
+between the masthead and the article body, the 25-capture sheet inside
+section 03, and the 1200x627 card as the Open Graph and Twitter image.
 
 To rebuild the derivatives
 --------------------------
@@ -54,19 +52,8 @@ Then, from the repository root:
 That writes the AVIF/WebP derivatives for 01 and 02, and the share-card
 JPEG for 03, into ../v1/.
 
-Finally, in blog/through-the-glass/index.html:
+The page markup is already wired to these filenames, so a rebuild alone
+is enough — nothing in the HTML needs touching unless the artwork itself
+changes shape.
 
-  - uncomment the two "ARTWORK SLOT" figures (masthead band, and the
-    25-capture sheet in section 03) and delete the surrounding notes;
-  - repoint og:image and twitter:image from the interim
-    /assets/og-geniuscfo.png to
-    /assets/blog/through-the-glass/v1/og-through-the-glass.jpg, set
-    og:image:width to 1200 and og:image:height to 627, og:image:type to
-    image/jpeg, and update the two image alt strings;
-  - add an ImageObject node to the JSON-LD @graph for the masthead and
-    point the Article's "image" at it, as the story pages do.
-
-Commit the regenerated v1/ folder — and delete the masters again, so
-they do not enter the repository. .vercelignore excludes this folder
-from the deployment, so a master left here by accident is never
-published, but it would still be committed.
+Commit the regenerated v1/ folder. Leave the masters in place.

@@ -25,6 +25,7 @@ ROOT = Path(__file__).resolve().parent.parent
 # "figure"  an inline story illustration
 # "screen"  a product capture; trimmed to its content box first
 # "social"  a share card; emitted only as the 1200px JPEG, no responsive set
+# "band"    a full-bleed header image; like "figure" but sized for full width
 SECTION = {
     "every-invoice-looked-fine": "stories",
     "the-second-job":            "stories",
@@ -42,7 +43,7 @@ PLAN = {
     # /blog/through-the-glass. 03 is the square share card, which is its own
     # artwork rather than a crop of the masthead, so it carries role "social".
     "through-the-glass": {
-        "through-the-glass":    ("01", "banner", (360, 540, 768, 1080)),
+        "through-the-glass":    ("01", "band",   (640, 960, 1280, 1600)),
         "the-loop-25-captures": ("02", "figure", (450, 680, 900)),
         "og-through-the-glass": ("03", "social", ()),
     },
