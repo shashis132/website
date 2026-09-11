@@ -37,7 +37,7 @@
      and every submit logs a console warning, so a missing key never blocks
      real leads.
      -------------------------------------------------------------------- */
-  const RECAPTCHA_SITE_KEY = "";
+  const RECAPTCHA_SITE_KEY = "6Lfl1rUtAAAAAIBWe8IfhzwCf4mGK3hUO-_W7FCw";
   const RECAPTCHA_SCRIPT = "https://www.google.com/recaptcha/api.js?render=explicit";
 
   /* Cal.com inline booking. The event type namespace comes from Cal.com's
