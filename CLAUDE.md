@@ -118,3 +118,54 @@ a pull request unless asked. Vercel serves the repository root; `vercel.json`
 holds every rewrite, redirect and header. Adding a page means adding its
 rewrite plus the trailing-slash and `index.html` redirects, or the URL
 404s in production while working fine locally.
+
+## Lead form captcha and the Apps Script receiver
+
+Step 1 of the lead form is gated by Google reCAPTCHA v2 (checkbox). The
+site key is `RECAPTCHA_SITE_KEY` in `assets/site.js`; the secret is the
+`RECAPTCHA_SECRET` script property in the Apps Script project. Cloudflare
+Turnstile was tried first and dropped: its dashboard steers a new account
+towards moving DNS, which Shashi rightly did not want.
+
+- Every row's last column, `captcha`, says `verified`, `not configured`
+  or `unverified: <reason>`. Rows are dropped only when the token is
+  missing or Google calls it invalid/expired/reused. A failure on our side
+  still writes the row. Never make the receiver fail closed on
+  configuration errors again — a real test lead was lost that way, and
+  its Step 2 then overwrote an older row with the same phone number.
+- **Editing a deployment to a new version does not re-prompt for
+  permissions.** Adding `UrlFetchApp` to a script whose owner only ever
+  authorised Sheets access leaves the web app unable to reach Google
+  (`unverified: unavailable ...`). The fix is to run `checkCaptchaSetup`
+  from the editor once, which triggers the consent screen and also
+  reports whether the secret is accepted.
+- To ship a `Code.gs` change without changing `LEAD_ENDPOINT`: Deploy →
+  Manage deployments → pencil → Version: New version → Deploy. Only a
+  brand-new deployment mints a new `/exec` URL.
+- Shashi cannot run the sandbox's browser tests and the sandbox cannot
+  reach `geniuscfo.ai`, `google.com` or `script.google.com`, so the live
+  captcha and the receiver are verified by Shashi doing one real
+  submission and reading the `captcha` column.
+
+## Host redirects belong to Vercel's Domains setting, not vercel.json
+
+A `has: [{type: "host", value: "www.geniuscfo.ai"}]` redirect in
+`vercel.json` took the whole site down with ERR_TOO_MANY_REDIRECTS on
+11 September 2026: the Vercel project had `www` as the primary domain and
+redirected the apex to it, while the config redirected `www` back. Do not
+add host-level redirects to `vercel.json`; the canonical host is chosen in
+Vercel → Settings → Domains and that setting alone decides the direction.
+
+## Section links stay out of the address bar
+
+`assets/site.js` intercepts same-page `#section` links and strips the
+fragment after scrolling (and on arrival from another page), so shared
+URLs read `/ca-firms` rather than `/ca-firms#product`. Links keep their
+`href="#…"`; only the address bar changes. A link to an id that does not
+exist on the page falls through to native behaviour and leaves the hash —
+that is how a stray `#how` in the CA-firms footer was caught.
+
+## Working style that has held
+
+Shashi asks for changes and then says "merge to main" or "push to main".
+Fast-forward `main` to the working branch and push both; no pull request.
