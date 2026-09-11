@@ -1,14 +1,17 @@
 # GeniusCFO Website V5
 
-Start here. This handover contains three product pages, two business stories and the privacy policy:
+Start here. This handover contains three product pages, two section indexes, two business stories, one blog article and the privacy policy:
 
 | Public URL | Source document | Audience |
 |---|---|---|
 | `/business` | `business/index.html` | Business owners |
 | `/ca-firms` | `ca-firms/index.html` | CA and accounting firms |
 | `/pricing` | `pricing/index.html` | Shared pricing for both audiences |
+| `/stories` | `stories/index.html` | Index of the fictional business stories |
 | `/stories/every-invoice-looked-fine` | `stories/every-invoice-looked-fine/index.html` | Business owners; a fictional restaurant story |
 | `/stories/the-second-job` | `stories/the-second-job/index.html` | Business owners; a fictional garment-unit story |
+| `/blog` | `blog/index.html` | Index of the analysis articles |
+| `/blog/through-the-glass` | `blog/through-the-glass/index.html` | Business owners and buyers; analysis, not fiction |
 | `/privacy` | `privacy/index.html` | Everyone; linked from the footer of every page |
 
 These are separate, source-readable HTML documents. The Business and CA/Firm pages are not two states hidden inside one page. The Pricing page is shared and uses `audience=business` or `audience=ca-firms` only to retain audience context.
@@ -20,18 +23,26 @@ business/index.html       Business landing page
 ca-firms/index.html       CA/Firm landing page
 pricing/index.html        Shared Pricing page
 privacy/index.html        Privacy policy, linked from every footer
+stories/index.html        Stories index; the only page that lists the stories
+stories/<slug>/index.html A fictional business story
+blog/index.html           Blog index; the only page that lists the articles
+blog/<slug>/index.html    An analysis article
 assets/site-v4.css        Stylesheet for all three pages (V4 design language)
+assets/story.css          Article and index layout for stories and blog, layered over site-v4.css
 assets/legal.css          Article layout for the privacy policy, layered over site-v4.css
 assets/site.css           V3 stylesheet, no longer linked by any page
 assets/site.js            Lead form, Cal.com embed/events, plan selector, UTM preservation, lightbox
 assets/site-v4.js         Presentation only: know-more, floating CTA, scroll-fade, word-rise, marquee
 assets/screens/           Product captures and the two animated screens used by the pages
 assets/fonts/             Self-hosted fonts
+assets/stories/<slug>/v1/ Story artwork derivatives (AVIF/WebP + social JPEG)
+assets/blog/<slug>/v1/    Blog artwork derivatives, same shape
+tools/build-story-images.py  Rebuilds those derivatives from uncommitted masters
 apps-script/Code.gs       Google Apps Script receiving the lead form into a sheet
 qa/                       Test reports and reference captures; not deployed content
 index.html                Fallback redirect only; not a content page
 vercel.json               Production routes and headers for Vercel
-.vercelignore             Keeps qa/, apps-script/ and the markdown off the site
+.vercelignore             Keeps qa/, apps-script/, artwork masters and the markdown off the site
 VERCEL-SETUP.md            Vercel, DNS, lead-sheet, Cal.com and GTM setup
 ```
 
@@ -41,7 +52,9 @@ The host is Vercel. `vercel.json` is the routing file; the Netlify
 configuration has been removed. On another host, reproduce the rewrites and
 redirects in the supplied configuration.
 
-The configuration permanently redirects `/` and `/index.html` to `/business`. It rewrites the product and story URLs to their physical HTML documents without exposing `index.html` in public URLs.
+The configuration permanently redirects `/` and `/index.html` to `/business`. It rewrites the product, index, story and blog URLs to their physical HTML documents without exposing `index.html` in public URLs.
+
+`/insights/through-the-glass` also redirects permanently to `/blog/through-the-glass`. The article's source file carried that canonical before the blog existed; the redirect exists so the URL is not dead if it was ever shared.
 
 `VERCEL-SETUP.md` is the step-by-step: creating the project, pointing
 `geniuscfo.ai` at it, wiring the lead form to its Google Sheet and Cal.com,
@@ -56,7 +69,11 @@ Serve this folder over HTTP. With a basic static server, preview:
 - `/business/`
 - `/ca-firms/`
 - `/pricing/`
+- `/stories/`
 - `/stories/every-invoice-looked-fine/`
+- `/stories/the-second-job/`
+- `/blog/`
+- `/blog/through-the-glass/`
 - `/privacy/`
 
 The trailing slash is a local static-server detail. Production canonical URLs do not use a trailing slash.
@@ -102,32 +119,106 @@ The trailing slash is a local static-server detail. Production canonical URLs do
 `VERCEL-SETUP.md` covers the lead Sheet, Cal.com, GTM and production hosting.
 `qa/` holds the rendered evidence for the current build.
 
-## Business stories
+## Stories and blog
 
-### Before publishing the next story — decide these first
+### The two deferred decisions, now settled
 
-Two choices were deliberately deferred at the second story. Settle them
-before adding a third, not after.
+Both choices flagged at the second story have been taken, at the third
+piece rather than the fifth.
 
-1. **The footer pattern does not scale.** Every story currently adds one
-   line to the Business footer column on five pages (`/business`,
-   `/ca-firms`, `/pricing` and both story pages). Two stories is fine;
-   three starts to crowd the column and the first title already wraps to
-   two lines. The alternative is a `/stories` index page and a single
-   "Stories" link in each footer. Deciding at three is cheaper than
-   retrofitting at five.
-2. **Whether owner stories belong in the `/ca-firms` footer.** They are
-   listed there today because that page already carries a cross-audience
-   Business column. But the brand guidelines are explicit that firms have
-   a different villain — the drag, not the lag — and owner-register
-   narrative is not written for them. Keep, or drop from that one page.
+1. **The footer pattern was replaced, not extended.** Per-story lines are
+   gone. Every page's Business footer column now carries two section
+   links, `Stories` and `Blog`, and the primary navigation carries the
+   same two. Adding a story or an article is now an edit to one index
+   page, not an edit to every page in the site. The desktop navigation
+   went from four items to six; `site-v4.css` steps the gap and size down
+   between 1024px and 1200px so the row still does not wrap.
+2. **Owner stories stay reachable from `/ca-firms`.** The question was
+   whether owner-register narrative belongs on a page written for firms,
+   whose villain is the drag rather than the lag. It is now a single
+   neutral `Stories` link in a footer column already labelled Business,
+   rather than two owner-voice headlines, so the objection that motivated
+   the question no longer applies. Revisit if the firm audience ever gets
+   its own stories.
 
-Also confirm at publish time: set a real `datePublished` in the article
-schema if the story is going live that day. The convention so far has
-been to omit it rather than invent one before release, so it is currently
-absent from both stories.
+**`datePublished`.** The convention was to omit it rather than invent one
+before release. `/blog/through-the-glass` went live on 11 September 2026
+and carries a real `datePublished` and `dateModified`. Both stories are
+still undated, which is correct — do not backfill a date neither of them
+had.
+
+### Content types
+
+The two sections are deliberately different and should stay so.
+
+- **`/stories`** is fiction. Each story carries a closing disclosure that
+  the people and every financial figure are invented, and the schema
+  marks it `"genre": "Fiction"`. It is `articleSection: Business stories`.
+- **`/blog`** is analysis, with named third parties, cited sources and
+  modelled figures. It is `articleSection: Analysis`, carries a
+  `citation` array in its `Article` node, and its closing disclosure says
+  the cost figures are modelled from published list prices under stated
+  assumptions rather than a bill anyone received. Nothing in it is
+  fiction, so it carries no `genre`.
+
+Keep an analysis piece out of `/stories` and a fictional narrative out of
+`/blog`; the disclosures and the schema are not interchangeable.
+
+### Adding the next piece
+
+1. Write `<section>/<slug>/index.html` from the nearest existing sibling.
+2. Add a row to `<section>/index.html`, and bump `numberOfItems` plus the
+   `itemListElement` array in that page's `ItemList` node. The visible
+   count above the list (`One article`, `Two stories`) is written out in
+   words — update it too.
+3. Add the rewrite and the two redirects (trailing slash, `index.html`)
+   to `vercel.json`, and the URL to `sitemap.xml`.
+4. Add it to `llms.txt` and, in full, to `llms-full.txt`. Bump the
+   `Last updated` line in both.
+5. For artwork, add a `PLAN` entry to `tools/build-story-images.py`; set
+   `SECTION` if the slug is not under `assets/stories/`.
+
+No footer or navigation edit is required. That was the point.
+
+**Use the bare apex in every absolute URL.** `geniuscfo.ai`, never
+`www.geniuscfo.ai`. This covers canonical tags, `og:url`, `sitemap.xml`,
+`llms.txt`, `llms-full.txt` and every `@id`, `url` and `item` in the
+JSON-LD. `VERCEL-SETUP.md` sets the apex as the primary domain and
+redirects `www` to it, so a `www` absolute URL is a canonical pointing at
+a redirect, and a `www` sitemap entry is excluded from indexing as "Page
+with redirect".
+
+The stories originally shipped on `www` and drifted from that rule; the
+whole site was normalised to the apex on 11 September 2026. The most
+damaging part was not the canonicals but the schema: the shared
+`https://geniuscfo.ai/#organization` node was declared with `url` set to
+the apex on the product pages and to `www` on the stories, so one `@id`
+carried two conflicting definitions. `vercel.json` now also carries a
+host redirect as `redirects[0]`, so the rule holds even if the Vercel
+primary-domain setting is ever changed.
 
 
-Story artwork is shipped as derivatives only. The master illustrations stay with the campaign art and are not committed; `assets/stories/<slug>/masters/README.txt` records which master belongs to which position, and `tools/build-story-images.py <slug>` regenerates every AVIF/WebP derivative and the social JPEG from them.
+Story and blog artwork is shipped as derivatives only. The master illustrations stay with the campaign art and are not committed; `assets/<section>/<slug>/masters/README.txt` records which master belongs to which position, and `tools/build-story-images.py <slug>` regenerates every AVIF/WebP derivative and the social JPEG from them. The `SECTION` map in that script decides whether a slug's artwork lives under `assets/stories/` or `assets/blog/`.
+
+### Artwork for /blog/through-the-glass
+
+Delivered and live. The three masters are kept in
+`assets/blog/through-the-glass/masters/` rather than deleted after the
+build, because they arrived by GitHub upload and the repo is the only
+copy; `.vercelignore` keeps the folder off the deployment.
+
+- The 16:7 glass scene runs **full-bleed** between the masthead and the
+  article body, not in the masthead's side slot. A 3:2 centre crop would
+  have cut the figure in half, and the full-bleed band is what the
+  article's source file did with it originally.
+- The 25-capture sheet sits inside section 03. It ships with no
+  `figcaption`: the artwork carries its own caption and byline, and a
+  caption underneath printed the same sentence twice.
+- The 1200x627 card is the Open Graph and Twitter image. 1.91:1 fills a
+  link preview uncropped.
+
+Rebuild with `python3 tools/build-story-images.py through-the-glass`. The
+markup already points at these filenames, so nothing in the HTML needs
+touching unless the artwork changes shape.
 
 The story at `/stories/every-invoice-looked-fine` preserves the approved source article and the compositions of both supplied images. It serves responsive AVIF/WebP derivatives, with a compressed JPEG for social sharing; the master PNGs are untouched and are not shipped to the page. It uses the shared `site-v4.css` theme and `site.js` interactions, with only article layout in `assets/story.css`. The new page includes the existing `GTM-NPMFZCZG` loader and noscript fallback. Campaign parameters are preserved on links into the business demo flow. A click is not counted as a lead. The new URL is linked from the Business footer, sitemap, and the existing language-model reference files. No publication date is invented before release.

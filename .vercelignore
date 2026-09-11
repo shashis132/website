@@ -6,5 +6,6 @@
 qa/
 apps-script/
 assets/stories/*/masters/
+assets/blog/*/masters/
 *.md
 .gitignore

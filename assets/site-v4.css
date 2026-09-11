@@ -2045,3 +2045,13 @@ main > .logo-band + .chapter.chapter-major {
 /* A closing section is left-aligned prose, not a centred hero. */
 .page-close .hero-actions { justify-content: flex-start; }
 .chapter .hero-actions { justify-content: flex-start; }
+
+/* ---------- Primary navigation at six items ----------
+   Adding the "Stories" and "Blog" section links takes the desktop nav from
+   four items to six. Between 1024px and 1200px that has to share the row
+   with the audience toggle and the CTA, so the gap and size step down
+   rather than letting the row wrap. */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .desktop-nav { gap: 17px; }
+  .desktop-nav a { font-size: 0.875rem; }
+}

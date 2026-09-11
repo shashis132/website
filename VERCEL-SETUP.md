@@ -41,6 +41,13 @@ They are typically:
 Set `geniuscfo.ai` as the primary domain and redirect `www` to it. Canonical
 tags, the sitemap and `llms.txt` all use the bare apex.
 
+`vercel.json` carries the same rule as its first redirect, matching on the
+`www.geniuscfo.ai` host, so the apex stays canonical even if this dashboard
+setting is changed. The domain-level redirect runs first and normally makes
+the config rule redundant; it is a fallback, not the primary mechanism.
+After DNS moves, confirm with `curl -sSI https://www.geniuscfo.ai/business`
+— expect `301` and `location: https://geniuscfo.ai/business`.
+
 ## 3. Lead form and Google Sheet
 
 `assets/site.js` has one Apps Script URL: `LEAD_ENDPOINT`. It belongs to the

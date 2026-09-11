@@ -80,6 +80,11 @@
   width: 100%;
   height: auto;
   aspect-ratio: 4 / 5;
+  /* The ratio above is enforced, so a master that is not exactly 4:5 (or 3:2
+     on --wide) would be stretched by the default object-fit: fill. Both
+     existing story masters happen to match their declared ratio exactly;
+     cover means the next one does not have to. */
+  object-fit: cover;
   border-radius: var(--r-window);
   box-shadow: var(--sh-window);
 }
@@ -134,6 +139,10 @@
 
 @media (min-width: 768px) {
   .story-masthead-inner { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: center; gap: var(--story-space-xl); padding-block: var(--story-space-xl); }
+  /* Until the banner artwork lands, the heading is the only child. */
+  .story-masthead-inner--solo { grid-template-columns: 1fr; }
+  .story-masthead-inner--solo .story-heading h1 { max-width: 24ch; }
+  .story-masthead-inner--solo .story-deck { max-width: 62ch; }
   .story-banner { max-width: 480px; justify-self: end; }
   .story-layout { grid-template-columns: 190px minmax(0, 680px); justify-content: center; gap: var(--story-space-lg); padding-top: var(--story-space-2xl); }
   .story-contents { position: sticky; top: var(--story-space-lg); align-self: start; }
@@ -250,4 +259,279 @@
   .story-figure img { box-shadow: none; }
   .story-next { display: none !important; }
   .story-faq .story-faq-item { break-inside: avoid; }
+}
+
+/* ------------------------------------------------------------------
+   Section index pages: /stories and /blog.
+   A ruled list of posts, no cards, matching the story register.
+   Introduced when the per-story footer links were replaced by two
+   section links (see README, "Before publishing the next story").
+   ------------------------------------------------------------------ */
+
+.index-masthead-inner {
+  padding-top: var(--story-space-lg);
+  padding-bottom: var(--story-space-xl);
+  max-width: var(--max-page);
+}
+.index-masthead-inner h1 { max-width: 16ch; font-size: clamp(2.5rem, 4.8vw, 4rem); line-height: 1.04; }
+.index-masthead-inner .story-deck { max-width: 54ch; }
+
+.index-layout { padding-top: var(--story-space-xl); padding-bottom: var(--story-space-2xl); }
+
+.index-count { margin: 0 0 var(--story-space-md); color: var(--text-subtle); }
+
+.index-list { list-style: none; margin: 0; padding: 0; border-top: var(--hairline-strong); }
+.index-item { border-bottom: var(--hairline); }
+
+.index-link {
+  display: grid;
+  gap: var(--story-space-md);
+  padding-block: var(--story-space-lg);
+  color: inherit;
+  text-decoration: none;
+}
+.index-thumb { margin: 0; }
+.index-thumb img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: var(--r-window);
+  box-shadow: var(--sh-window);
+}
+.index-link--no-thumb { grid-template-columns: 1fr; }
+.index-thumb--right img { object-position: right center; }
+.index-text { display: grid; gap: var(--story-space-xs); align-content: start; }
+.index-kind { margin: 0; color: var(--text-subtle); }
+.index-text h2 {
+  margin: 0;
+  max-width: 22ch;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  line-height: 1.14;
+}
+.index-text p { margin: 0; max-width: 56ch; color: var(--text-soft); font-size: 1rem; line-height: 1.65; }
+.index-more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--story-space-xs);
+  min-height: 44px;
+  font-weight: 600;
+  color: var(--text-max);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.index-link:hover .index-text h2 { text-decoration: underline; text-underline-offset: 5px; }
+
+.index-crosslink { margin-top: var(--story-space-xl); padding-top: var(--story-space-md); border-top: var(--hairline-strong); }
+.index-crosslink .mono { margin: 0 0 var(--story-space-xs); color: var(--text-subtle); }
+.index-crosslink a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--story-space-xs);
+  min-height: 44px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-max);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.index-crosslink p:last-child { margin: var(--story-space-xs) 0 0; max-width: 56ch; color: var(--text-soft); }
+
+@media (min-width: 768px) {
+  .index-layout { max-width: 940px; }
+  .index-link { grid-template-columns: 260px minmax(0, 1fr); gap: var(--story-space-lg); align-items: start; }
+  .index-link--no-thumb { grid-template-columns: 1fr; }
+  .index-masthead-inner { padding-block: var(--story-space-xl); }
+}
+
+@media (min-width: 1024px) {
+  .index-masthead-inner { padding-block: var(--story-space-2xl); }
+  .index-link { grid-template-columns: 300px minmax(0, 1fr); gap: var(--story-space-xl); }
+  .index-link--no-thumb { grid-template-columns: 1fr; }
+}
+
+@media print {
+  .index-thumb, .index-crosslink { display: none !important; }
+  .index-item { break-inside: avoid; }
+}
+
+/* ------------------------------------------------------------------
+   Analysis components, introduced with /blog/through-the-glass.
+   A costed argument needs instruments the narrative stories do not:
+   a figures table, a dark cost panel, numbered claims, a capability
+   list, a two-column comparison, a pull quote and a sources block.
+   Namespaced under story- because site-v4.css already owns .steps,
+   .chapter and .eyebrow.
+   ------------------------------------------------------------------ */
+
+.story-body .story-lede { color: var(--text-strong); }
+
+/* Full-bleed header band ------------------------------------------- */
+/* The through-the-glass artwork is 16:7. Cropped into the masthead's 3:2
+   side slot a centre crop would cut the figure in half, so it runs the
+   full width of the page instead, between the masthead and the article. */
+.story-band { margin: 0; background: var(--ink); }
+.story-band picture { display: block; line-height: 0; }
+.story-band img { display: block; width: 100%; height: auto; }
+.story-band figcaption {
+  padding-block: 14px 18px;
+  color: rgba(255,255,255,0.52);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Figures table --------------------------------------------------- */
+.story-table-scroll { overflow-x: auto; max-width: 100%; }
+.story-scroll-hint { display: none; margin: var(--story-space-xs) 0 0; color: rgba(255,255,255,0.5); }
+.story-ledger { width: 100%; min-width: 420px; border-collapse: collapse; font-size: 0.9375rem; }
+.story-ledger caption {
+  padding-bottom: var(--story-space-sm);
+  color: var(--text-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: left;
+}
+.story-ledger th, .story-ledger td { padding: 11px 14px; text-align: left; border-bottom: var(--hairline); }
+.story-ledger thead th {
+  border-bottom: var(--hairline-strong);
+  color: var(--text-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.story-ledger td:last-child, .story-ledger th:last-child { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.story-ledger td:first-child { color: var(--text-strong); }
+.story-ledger .sub { display: block; margin-top: 3px; color: var(--text-subtle); font-size: 0.8125rem; letter-spacing: 0; }
+.story-ledger tfoot td {
+  border-top: 2px solid var(--ink);
+  border-bottom: none;
+  padding-top: 14px;
+  color: var(--text-max);
+  font-weight: 600;
+  font-size: 1.0625rem;
+}
+
+/* Dark cost panel -------------------------------------------------- */
+.story-panel {
+  margin: var(--story-space-lg) 0;
+  padding: clamp(20px, 4vw, 32px);
+  border-radius: var(--r-window);
+  background: var(--ink);
+  box-shadow: var(--sh-window);
+  color: var(--text-on-dark-2);
+}
+.story-panel .story-ledger th, .story-panel .story-ledger td { border-bottom-color: rgba(255,255,255,0.14); color: var(--text-on-dark-2); }
+.story-panel .story-ledger thead th { color: rgba(255,255,255,0.62); border-bottom-color: rgba(255,255,255,0.28); }
+.story-panel .story-ledger td:first-child { color: var(--text-on-dark); }
+.story-panel .story-ledger tfoot td { border-top: 2px solid var(--emerald); color: var(--text-on-dark); }
+.story-panel .story-ledger tfoot td.story-figure-em { color: var(--emerald); }
+.story-panel .story-ledger .sub, .story-panel .story-ledger caption { color: rgba(255,255,255,0.6); }
+.story-figure-em { color: var(--emerald); }
+
+.story-assumptions { margin-top: var(--story-space-md); padding-top: var(--story-space-md); border-top: 0.8px solid rgba(255,255,255,0.14); }
+.story-assumptions .mono { margin: 0 0 var(--story-space-sm); color: rgba(255,255,255,0.62); }
+.story-assumptions dl { display: grid; grid-template-columns: 1fr auto; margin: 0; }
+.story-assumptions dt, .story-assumptions dd { margin: 0; padding: 9px 0; border-bottom: 0.8px solid rgba(255,255,255,0.09); font-size: 0.875rem; line-height: 1.5; }
+.story-assumptions dt { color: rgba(255,255,255,0.72); }
+.story-assumptions dd { padding-left: var(--story-space-sm); text-align: right; color: var(--text-on-dark); font-variant-numeric: tabular-nums; }
+.story-assumptions dl > :nth-last-child(-n+2) { border-bottom: none; }
+
+/* Numbered claims -------------------------------------------------- */
+.story-body .story-steps { list-style: none; margin: var(--story-space-lg) 0; padding: 0; border-top: var(--hairline-strong); }
+.story-steps > li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px var(--story-space-md);
+  padding-block: var(--story-space-md);
+  border-bottom: var(--hairline);
+}
+.story-steps .num { padding-top: 6px; color: var(--text-subtle); font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.12em; }
+.story-steps h3 { grid-column: 2; margin: 0; font-size: 1.1875rem; line-height: 1.25; color: var(--text-max); }
+.story-body .story-steps p { grid-column: 2; margin: 0; max-width: 56ch; color: var(--text-soft); font-size: 1rem; line-height: 1.7; }
+
+/* Capability list --------------------------------------------------- */
+.story-caps { margin: var(--story-space-lg) 0; padding: 0; border-top: var(--hairline-strong); }
+.story-caps > div { display: grid; gap: 6px; padding-block: var(--story-space-md); border-bottom: var(--hairline); }
+.story-caps dt { font-family: var(--font-display); font-weight: 600; font-size: 1.0625rem; letter-spacing: -0.01em; color: var(--text-max); }
+.story-caps dd { margin: 0; max-width: 62ch; color: var(--text-soft); font-size: 1rem; line-height: 1.7; }
+
+/* Comparison -------------------------------------------------------- */
+.story-compare { margin: var(--story-space-lg) 0; border-top: 2px solid var(--ink); }
+.story-compare-row { display: grid; grid-template-columns: minmax(120px, 0.9fr) 1fr 1fr; gap: var(--story-space-sm); padding-block: var(--story-space-sm); border-bottom: var(--hairline); align-items: start; font-size: 0.9375rem; line-height: 1.55; }
+.story-compare-row.head { border-bottom: var(--hairline-strong); }
+.story-compare-row.head span { color: var(--text-subtle); font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; }
+.story-compare-row .k { color: var(--text-subtle); font-size: 0.875rem; }
+.story-compare-row .a { color: var(--text-body); }
+.story-compare-row .b { color: var(--text-max); font-weight: 500; }
+
+/* Pull quote --------------------------------------------------------- */
+.story-body .story-pull {
+  margin: var(--story-space-lg) 0;
+  padding-block: var(--story-space-md);
+  border-top: 2px solid var(--emerald);
+  border-bottom: var(--hairline-strong);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.3125rem, 2.8vw, 1.75rem);
+  line-height: 1.18;
+  letter-spacing: -0.018em;
+  color: var(--text-max);
+}
+
+/* Two-architecture diagram -------------------------------------------- */
+.story-diagram { margin: var(--story-space-lg) 0; }
+.story-diagram svg { display: block; width: 100%; height: auto; }
+.story-diagram figcaption {
+  margin-top: var(--story-space-sm);
+  padding-top: var(--story-space-xs);
+  border-top: var(--hairline);
+  color: var(--text-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Sources and workings -------------------------------------------------- */
+.story-notes { margin-top: var(--story-space-xl); padding-top: var(--story-space-md); border-top: var(--hairline-strong); }
+.story-notes h2 { font-size: 1.25rem; line-height: 1.25; margin-bottom: var(--story-space-sm); }
+.story-body .story-notes ol { margin: 0 0 var(--story-space-md); padding-left: 1.3em; display: grid; gap: 10px; }
+.story-body .story-notes li { color: var(--text-subtle); font-size: 0.9375rem; line-height: 1.65; }
+.story-notes a { color: var(--emerald-text); text-underline-offset: 2px; }
+.story-body .story-notes p { margin: 0; color: var(--text-subtle); font-size: 0.9375rem; line-height: 1.65; }
+
+@media (max-width: 640px) {
+  .story-scroll-hint { display: block; }
+  .story-ledger th, .story-ledger td { padding: 11px 10px; }
+  .story-ledger th:first-child, .story-ledger td:first-child { padding-left: 0; }
+  .story-ledger th:last-child, .story-ledger td:last-child { padding-right: 0; }
+  .story-compare-row { grid-template-columns: 1fr; gap: 4px; padding-block: var(--story-space-md); }
+  .story-compare-row.head { display: none; }
+  .story-compare-row .a::before { content: "Agent driving the screen: "; color: var(--text-subtle); font-size: 0.8125rem; }
+  .story-compare-row .b::before { content: "GeniusCFO: "; color: var(--text-subtle); font-size: 0.8125rem; font-weight: 400; }
+  .story-assumptions dl { grid-template-columns: 1fr; }
+  .story-assumptions dt { padding-bottom: 0; border-bottom: none; }
+  .story-assumptions dd { padding: 2px 0 9px; text-align: left; }
+  .story-assumptions dl > :nth-last-child(2) { border-bottom: none; }
+}
+
+@media print {
+  .story-band { background: #fff; break-inside: avoid; }
+  .story-band img { max-width: 420px; }
+  .story-band figcaption { color: #444; }
+  .story-panel { background: #fff; color: #111; box-shadow: none; border: 1px solid #aaa; }
+  .story-panel .story-ledger th, .story-panel .story-ledger td, .story-panel .story-ledger td:first-child { color: #111; border-bottom-color: #ccc; }
+  .story-panel .story-ledger thead th, .story-assumptions dt, .story-assumptions .mono { color: #444; }
+  .story-assumptions dd, .story-panel .story-ledger tfoot td { color: #111; }
+  .story-figure-em { color: #111; }
+  .story-steps > li, .story-caps > div, .story-compare-row, .story-diagram { break-inside: avoid; }
+  .story-notes a { color: #111; }
 }
