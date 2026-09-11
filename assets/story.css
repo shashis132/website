@@ -80,6 +80,11 @@
   width: 100%;
   height: auto;
   aspect-ratio: 4 / 5;
+  /* The ratio above is enforced, so a master that is not exactly 4:5 (or 3:2
+     on --wide) would be stretched by the default object-fit: fill. Both
+     existing story masters happen to match their declared ratio exactly;
+     cover means the next one does not have to. */
+  object-fit: cover;
   border-radius: var(--r-window);
   box-shadow: var(--sh-window);
 }
