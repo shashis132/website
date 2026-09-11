@@ -174,6 +174,45 @@ function doGet() {
   return respond_({ ok: true, service: 'geniuscfo-leads' });
 }
 
+/**
+ * Run this once from the editor after adding RECAPTCHA_SECRET, and again
+ * whenever the sheet's `captcha` column shows "unverified".
+ *
+ * Its first job is to trigger Google's permission screen: calling
+ * UrlFetchApp from the editor is what asks the owner to allow "Connect to an
+ * external service", and until that is allowed the deployed web app cannot
+ * reach Google either (the column reads "unverified: unavailable ...").
+ *
+ * Its second job is to test the secret. It sends a deliberately bad token,
+ * so Google's answer distinguishes a good secret ("invalid-input-response")
+ * from a wrong one ("invalid-input-secret"). The verdict is printed in the
+ * execution log under the editor.
+ */
+function checkCaptchaSetup() {
+  var secret = PropertiesService.getScriptProperties().getProperty('RECAPTCHA_SECRET');
+  if (!secret) {
+    console.log('NOT CONFIGURED: no RECAPTCHA_SECRET script property. Add it under Project Settings → Script Properties.');
+    return 'not configured';
+  }
+  var response = UrlFetchApp.fetch('https://www.google.com/recaptcha/api/siteverify', {
+    method: 'post',
+    payload: { secret: String(secret).trim(), response: 'setup-check' },
+    muteHttpExceptions: true
+  });
+  var result = JSON.parse(response.getContentText() || '{}');
+  var codes = result['error-codes'] || [];
+  var verdict;
+  if (codes.indexOf('invalid-input-secret') > -1 || codes.indexOf('missing-input-secret') > -1) {
+    verdict = 'SECRET WRONG: Google rejected RECAPTCHA_SECRET. Copy the Secret key again from https://www.google.com/recaptcha/admin and replace the property value.';
+  } else if (codes.indexOf('invalid-input-response') > -1) {
+    verdict = 'OK: Google reached and the secret is accepted. Real submissions will now show "verified".';
+  } else {
+    verdict = 'UNEXPECTED: ' + JSON.stringify(result);
+  }
+  console.log(verdict);
+  return verdict;
+}
+
 /** Logs the spreadsheet this script writes to. Run it from the editor. */
 function showSheetUrl() {
   var book = getBook_();

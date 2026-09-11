@@ -125,6 +125,12 @@ expired or reused; a wrong secret or an unreachable Google still writes the
 row, with the reason in that column and under **Executions** in Apps Script,
 so a misconfiguration never silently loses a lead.
 
+If the column reads `unverified: unavailable ...`, the script has not been
+allowed to contact outside services. In the Apps Script editor choose
+`checkCaptchaSetup` in the function dropdown and press **Run**; approve the
+permission screen that appears. The log then reports either `OK` or
+`SECRET WRONG`. This is only needed once per script.
+
 To ship a later change to `Code.gs` without minting a new URL: **Deploy →
 Manage deployments**, pencil icon on the active deployment, **Version: New
 version**, **Deploy**. The `/exec` URL stays the same and `LEAD_ENDPOINT`
