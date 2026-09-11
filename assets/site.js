@@ -20,7 +20,7 @@
      If this is ever blanked, nothing is posted, the form still advances and
      each submit logs a console warning.
      -------------------------------------------------------------------- */
-  const LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbyggslRlgh1LopVaK_88gms4MgePKgBTfChm1kl2ClIRTdmKVGZV5YsahpAdbjHPAp-Aw/exec";
+  const LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbxlbnweC6na-RrVrtoObw2wIgKc7zsQq7mwTwR41wC__ZGAGacqErS_2m3pz9lO7hWm/exec";
   const IS_LOCAL_PREVIEW = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
 
   /* --------------------------------------------------------------------
