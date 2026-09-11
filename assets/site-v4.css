@@ -1350,6 +1350,7 @@ main > .logo-band + .chapter.chapter-major {
 .lead-step[hidden] { display: none; }
 .lead-step h3 { font-size: 1.5rem; }
 .lead-step h3[tabindex="-1"]:focus { outline: none; }
+[data-section-focus]:focus { outline: none; }
 .lead-step > p { color: var(--text-soft); font-size: 0.9375rem; }
 
 .field { display: grid; gap: 6px; }
@@ -1409,6 +1410,8 @@ main > .logo-band + .chapter.chapter-major {
 .consent { display: flex; gap: 10px; align-items: flex-start; color: var(--text-soft); font-size: 0.9375rem; }
 .consent input { margin-top: 3px; accent-color: var(--emerald-deep); }
 
+.captcha { min-height: 65px; }
+.captcha[hidden] { display: none; }
 .lead-error { color: #b4232f; font-size: 0.8125rem; }
 .lead-error[hidden] { display: none; }
 .form-meta { display: none; }
