@@ -34,7 +34,7 @@
   <link rel="preload" href="../assets/fonts/ibm-plex-sans-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/ibm-plex-sans-condensed-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/site-v4.css?v=20260827-v7-cal">
+  <link rel="stylesheet" href="../assets/site-v4.css?v=20260911-v8-captcha">
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -810,19 +810,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                         <div class="field">
                           <label for="firm-name">Your name</label>
-                          <input id="firm-name" name="name" type="text" autocomplete="name">
+                          <input id="firm-name" name="name" type="text" autocomplete="name" required aria-required="true">
                           <p class="lead-error" data-lead-error="name" hidden></p>
                         </div>
                         <div class="field">
                           <label for="firm-company">Firm name</label>
-                          <input id="firm-company" name="company" type="text" autocomplete="organization">
+                          <input id="firm-company" name="company" type="text" autocomplete="organization" required aria-required="true">
                           <p class="lead-error" data-lead-error="company" hidden></p>
                         </div>
                         <div class="field">
                           <label for="firm-phone">Mobile number (WhatsApp)</label>
                           <div class="phone-field">
                             <span class="phone-prefix">+91</span>
-                            <input id="firm-phone" name="phone" type="text" inputmode="numeric" autocomplete="tel-national" maxlength="10" aria-describedby="firm-phone-help">
+                            <input id="firm-phone" name="phone" type="text" inputmode="numeric" autocomplete="tel-national" maxlength="10" required aria-required="true" aria-describedby="firm-phone-help">
                           </div>
                           <small id="firm-phone-help">Enter a valid 10-digit Indian mobile number.</small>
                           <p class="lead-error" data-lead-error="phone" hidden></p>
@@ -846,10 +846,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                         <div class="field" data-turnover-field hidden>
                           <label for="firm-turnover">Annual turnover</label>
-                          <select id="firm-turnover" name="turnover">
+                          <select id="firm-turnover" name="turnover" required aria-required="true">
                             <option value="">Select range</option>
                             <option>Less than ₹50 Lakhs</option><option>₹50 L – ₹1 Cr</option><option>₹1 Cr – ₹5 Cr</option><option>₹5 Cr – ₹10 Cr</option><option>₹10 Cr – ₹20 Cr</option><option>₹20 Cr +</option>
                           </select>
+                          <p class="lead-error" data-lead-error="turnover" hidden></p>
                         </div>
 
                         <label class="consent">
@@ -857,6 +858,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                           <span>I agree to be contacted about my access request on WhatsApp and/or email.</span>
                         </label>
                         <p class="lead-error" data-lead-error="consent" hidden></p>
+
+                        <div class="captcha" data-captcha aria-label="Verification"></div>
+                        <p class="lead-error" data-lead-error="captcha" hidden></p>
 
                         <div class="form-meta">
                           <input name="role" type="hidden" value="ca_firm">
@@ -998,7 +1002,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <footer class="site-footer">
     <div class="wrap footer-grid">
       <div class="footer-brand"><a class="footer-logo-link" href="/business" aria-label="GeniusCFO home" data-preserve-query><img src="../assets/logo-lockup.svg?v=20260819-v6" width="752" height="256" alt="GeniusCFO"></a><p>Affordable accounting automation and financial answers for Indian businesses.</p></div>
-      <div class="footer-col"><h2>Business</h2><ul><li><a href="#product">Product</a></li><li><a href="#how">How it works</a></li><li><a href="/pricing?audience=business#business-plans" data-preserve-query>Business pricing</a></li><li><a href="/stories/every-invoice-looked-fine" data-preserve-query style="display:inline-flex;align-items:center;min-height:44px">Story: Every invoice looked fine</a></li><li><a href="/stories/the-second-job" data-preserve-query style="display:inline-flex;align-items:center;min-height:44px">Story: The second job</a></li></ul></div>
+      <div class="footer-col"><h2>Business</h2><ul><li><a href="/business#product" data-preserve-query>Product</a></li><li><a href="/business#how" data-preserve-query>How it works</a></li><li><a href="/pricing?audience=business#business-plans" data-preserve-query>Business pricing</a></li><li><a href="/stories/every-invoice-looked-fine" data-preserve-query style="display:inline-flex;align-items:center;min-height:44px">Story: Every invoice looked fine</a></li><li><a href="/stories/the-second-job" data-preserve-query style="display:inline-flex;align-items:center;min-height:44px">Story: The second job</a></li></ul></div>
       <div class="footer-col"><h2>CA firms</h2><ul><li><a href="/ca-firms" data-preserve-query>CA/Firm experience</a></li><li><a href="/pricing?audience=ca-firms#firm-plans" data-preserve-query>CA/Firm pricing</a></li></ul></div>
       <div class="footer-col"><h2>Access</h2><ul><li><a href="#demo">Request Access</a></li><li><a href="#faq">FAQ</a></li></ul></div>
       <div class="footer-col"><h2>Let's Connect</h2><ul><li><a href="https://www.linkedin.com/company/genius-cfo" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://www.facebook.com/profile.php?id=61574302727802" target="_blank" rel="noopener noreferrer">Facebook</a></li><li><a href="https://www.instagram.com/genius_cfo" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><a href="https://x.com/GeniusCFO" target="_blank" rel="noopener noreferrer">X</a></li><li><a href="mailto:marketing@geniuscfo.ai">marketing@geniuscfo.ai</a></li></ul></div>
@@ -1010,7 +1014,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="image-dialog-shell"><div class="image-dialog-head"><p id="image-dialog-title" data-image-dialog-title></p><span class="image-dialog-actions"><button type="button" class="image-dialog-replay" data-image-dialog-replay hidden>Play again</button><button type="button" class="image-dialog-close" data-image-dialog-close>Close</button></span></div><div class="image-dialog-stage"><img data-image-dialog-image alt=""></div></div>
   </dialog>
 
-  <script src="../assets/site.js?v=20260902-v4-lead" defer></script>
+  <script src="../assets/site.js?v=20260911-v5-captcha" defer></script>
   <script src="../assets/site-v4.js?v=20260819-v6" defer></script>
   <script type="module" src="../assets/logo-band.js?v=20260819-v6"></script>
 </body>

@@ -15,6 +15,14 @@
  * mode:"no-cors", so the response is never read. Step 1 appends a row.
  * Step 2 finds that row by phone number and fills in the triage answers,
  * rather than writing a second row.
+ *
+ * Captcha: step 1 carries a Cloudflare Turnstile token as `captcha_token`.
+ * When the script property TURNSTILE_SECRET is set (Project Settings →
+ * Script Properties), the token is verified with Cloudflare before a row is
+ * appended and a failed or missing token is rejected. Step 2 only updates a
+ * row that step 1 already created, so it is not re-verified (tokens are
+ * single use). Leave the property unset to skip verification, e.g. while the
+ * site key is not yet configured in assets/site.js.
  */
 
 /**
@@ -92,6 +100,14 @@ function doPost(e) {
         updateRow_(sheet, row, data);
         return respond_({ ok: true, action: 'updated', row: row });
       }
+      /* No step 1 row to update: fall through and treat it as a fresh
+         submission, which means it must pass the captcha like step 1. */
+    }
+
+    var captcha = verifyCaptcha_(data.captcha_token);
+    if (!captcha.ok) {
+      console.warn('Rejected lead: captcha %s', captcha.reason);
+      return respond_({ ok: false, error: 'captcha_' + captcha.reason });
     }
 
     appendRow_(sheet, data);
@@ -101,6 +117,35 @@ function doPost(e) {
     return respond_({ ok: false, error: String(err) });
   } finally {
     lock.releaseLock();
+  }
+}
+
+/**
+ * Checks a Turnstile token with Cloudflare. Returns { ok, reason }.
+ *
+ * Skipped (ok) when TURNSTILE_SECRET is not set, so the receiver keeps
+ * working before the captcha is configured. Fails closed on a missing,
+ * already-used or expired token and on a Cloudflare error, since an
+ * unverifiable submission is exactly what the check exists to stop.
+ */
+function verifyCaptcha_(token) {
+  var secret = PropertiesService.getScriptProperties().getProperty('TURNSTILE_SECRET');
+  if (!secret) return { ok: true, reason: 'not_configured' };
+  if (!token) return { ok: false, reason: 'missing' };
+
+  try {
+    var response = UrlFetchApp.fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'post',
+      payload: { secret: secret, response: String(token) },
+      muteHttpExceptions: true
+    });
+    var result = JSON.parse(response.getContentText() || '{}');
+    if (result.success === true) return { ok: true, reason: 'verified' };
+    var codes = (result['error-codes'] || []).join(',');
+    return { ok: false, reason: codes || 'failed' };
+  } catch (err) {
+    console.error('Turnstile verification error: %s', err);
+    return { ok: false, reason: 'unavailable' };
   }
 }
 

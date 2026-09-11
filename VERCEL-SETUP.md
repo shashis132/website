@@ -10,7 +10,7 @@ serves the repository root as static files.
 |---|---|
 | `vercel.json` | Routes, redirects, security and cache headers |
 | `.vercelignore` | Keeps `qa/`, `apps-script/` and markdown off the public site |
-| `apps-script/Code.gs` | Google Apps Script receiver for form steps 1 and 2 only |
+| `apps-script/Code.gs` | Google Apps Script receiver for form steps 1 and 2, with Turnstile verification |
 | `assets/site.js` | Lead form, Cal.com inline embed, Cal event UI and shared behaviour |
 | `assets/site-v4.css` | Shared visual system, including responsive embed sizing |
 
@@ -72,6 +72,39 @@ sheet should keep the LinkedIn click id.
 
 The browser uses `mode:"no-cors"`, so a real deployed test submission and a
 single completed Sheet row are the final proof that both writes succeeded.
+
+Every Step 1 field is compulsory: name, business/firm name, mobile number,
+email, role, annual turnover (business owners only — it is hidden for CA and
+CFO firms) and the contact consent. Validation runs in `assets/site.js`; the
+inputs also carry `required` so assistive tech announces them as such.
+
+### Captcha (Cloudflare Turnstile)
+
+Step 1 is protected by a [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)
+widget. It is free, needs no Cloudflare DNS, and rarely shows a puzzle. The
+form will not advance until the widget issues a token, and the receiver
+rejects any Step 1 POST whose token Cloudflare does not accept.
+
+1. In the Cloudflare dashboard open **Turnstile → Add widget**. Name it
+   `geniuscfo.ai leads`, add the hostnames `geniuscfo.ai`, `www.geniuscfo.ai`
+   and the `*.vercel.app` preview domain, and choose the **Managed** mode.
+2. Copy the **Site key** into `TURNSTILE_SITE_KEY` at the top of
+   `assets/site.js` and deploy. The widget renders above the **Next** button
+   on `/business` and `/ca-firms`.
+3. In the Apps Script project open **Project Settings → Script Properties**
+   and add `TURNSTILE_SECRET` with the widget's **Secret key**. Then create a
+   new web-app deployment of `apps-script/Code.gs` and copy its `/exec` URL
+   into `LEAD_ENDPOINT`.
+
+Until both keys are in place nothing breaks: with an empty site key the widget
+is not rendered and the browser check is skipped with a console warning; with
+no `TURNSTILE_SECRET` property the receiver accepts rows without a token. Set
+both, or the captcha is decorative. Cloudflare's test keys
+(`1x00000000000000000000AA` / `1x0000000000000000000000000000000AA`) can be
+used on a preview deployment to see the widget without real verification.
+
+Turnstile tokens are single use, so the widget is reset after Step 1 posts.
+Step 2 only updates the row Step 1 created and is not verified again.
 
 ## 4. Cal.com inline booking
 

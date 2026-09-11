@@ -23,6 +23,22 @@
   const LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbyggslRlgh1LopVaK_88gms4MgePKgBTfChm1kl2ClIRTdmKVGZV5YsahpAdbjHPAp-Aw/exec";
   const IS_LOCAL_PREVIEW = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
 
+  /* --------------------------------------------------------------------
+     Captcha (Cloudflare Turnstile).
+
+     Step 1 of the lead form cannot be submitted until the Turnstile widget
+     has issued a token. The token is posted as `captcha_token` and checked
+     server-side in apps-script/Code.gs, so a bot skipping the browser gets
+     no row. The site key is public; the matching secret lives only in the
+     Apps Script project's script properties — see VERCEL-SETUP.md.
+
+     Leave this blank and the widget is not rendered, the check is skipped
+     and every submit logs a console warning, so a missing key never blocks
+     real leads.
+     -------------------------------------------------------------------- */
+  const TURNSTILE_SITE_KEY = "";
+  const TURNSTILE_SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+
   /* Cal.com inline booking. The event type namespace comes from Cal.com's
      embed generator for https://cal.com/geniuscfo/30min. */
   const CAL_ORIGIN = "https://app.cal.com";
@@ -372,6 +388,7 @@
     };
     const progress = Array.from(root.querySelectorAll("[data-lead-progress] span"));
     const turnoverField = root.querySelector("[data-turnover-field]");
+    const captchaMount = root.querySelector("[data-captcha]");
     const bookingFrame = root.querySelector("[data-cal-inline]");
     const bookingLoading = root.querySelector("[data-booking-loading]");
     const bookingStatus = root.querySelector("[data-booking-status]");
@@ -387,7 +404,9 @@
       tool: "",
       clientTool: "",
       clientCount: "",
-      bookingShown: false
+      bookingShown: false,
+      captchaToken: "",
+      captchaWidget: null
     };
 
     const field = (name) => root.querySelector(`[name="${name}"]`);
@@ -593,6 +612,55 @@
 
     syncRole();
 
+    const turnoverSelect = field("turnover");
+    if (turnoverSelect) turnoverSelect.addEventListener("change", () => showError("turnover", ""));
+
+    /* Turnstile is rendered explicitly so the widget can be reset after each
+       submit (tokens are single use) and follow the page theme. The api.js
+       loader is shared between forms and only added once. */
+    const captchaEnabled = () => Boolean(TURNSTILE_SITE_KEY && captchaMount);
+
+    const renderCaptcha = () => {
+      if (!captchaEnabled() || state.captchaWidget !== null || !window.turnstile) return;
+      const theme = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+      state.captchaWidget = window.turnstile.render(captchaMount, {
+        sitekey: TURNSTILE_SITE_KEY,
+        theme: theme,
+        action: "lead_step1",
+        callback: (token) => { state.captchaToken = token || ""; showError("captcha", ""); },
+        "expired-callback": () => { state.captchaToken = ""; },
+        "error-callback": () => { state.captchaToken = ""; }
+      });
+    };
+
+    const resetCaptcha = () => {
+      state.captchaToken = "";
+      if (state.captchaWidget !== null && window.turnstile) {
+        try { window.turnstile.reset(state.captchaWidget); } catch (error) { /* widget gone */ }
+      }
+    };
+
+    if (captchaEnabled()) {
+      if (window.turnstile) {
+        renderCaptcha();
+      } else {
+        const pending = window.__gcTurnstileReady || (window.__gcTurnstileReady = []);
+        pending.push(renderCaptcha);
+        if (!document.querySelector(`script[src^="${TURNSTILE_SCRIPT.split("?")[0]}"]`)) {
+          window.onTurnstileReady = () => {
+            (window.__gcTurnstileReady || []).splice(0).forEach((fn) => fn());
+          };
+          const loader = document.createElement("script");
+          loader.src = `${TURNSTILE_SCRIPT}&onload=onTurnstileReady`;
+          loader.async = true;
+          loader.defer = true;
+          document.head.appendChild(loader);
+        }
+      }
+    } else if (captchaMount) {
+      captchaMount.hidden = true;
+    }
+
     const send = (extra) => {
       const payload = Object.assign({
         name: value("name"),
@@ -605,6 +673,7 @@
         whatsapp_optin: field("consent") && field("consent").checked ? "yes" : "no",
         whatsapp_consent_source: window.location.href,
         whatsapp_consent_timestamp: new Date().toISOString(),
+        captcha_token: state.captchaToken,
         interested_plan: value("interested_plan"),
         landing_audience: audience,
         landing_path: window.location.pathname,
@@ -670,10 +739,23 @@
         ok = false;
       }
       if (!state.role) { showError("role", "Please choose the option that describes you."); ok = false; }
+      /* Turnover is hidden for firms, so it is only required when shown. */
+      if (!isFirm() && !value("turnover")) {
+        showError("turnover", "Please select your annual turnover.");
+        ok = false;
+      }
       const consent = field("consent");
       if (consent && !consent.checked) {
         showError("consent", "Please confirm we may contact you about your access request.");
         ok = false;
+      }
+      if (captchaEnabled()) {
+        if (!state.captchaToken) {
+          showError("captcha", "Please complete the verification so we know you're not a robot.");
+          ok = false;
+        }
+      } else if (TURNSTILE_SITE_KEY === "") {
+        window.console && console.warn("GeniusCFO: TURNSTILE_SITE_KEY is not set in assets/site.js — captcha check skipped.");
       }
       if (!ok) {
         /* Move the caret to the first field that needs attention rather than
@@ -703,6 +785,7 @@
         whatsapp_optin: consent && consent.checked ? "yes" : "no"
       });
       send({ step: "1" });
+      resetCaptcha();
       setStep(2);
     };
 
@@ -1072,6 +1155,74 @@
       dialogImage.removeAttribute("src");
       if (lastImageTrigger) lastImageTrigger.focus();
     });
+  }
+
+  /* ====================================================================
+     Clean section links
+
+     In-page links (`href="#product"`) and cross-page links (`/business#how`)
+     still scroll to their section, but the fragment never lands in the
+     address bar, so shared and bookmarked URLs stay as `/ca-firms` rather
+     than `/ca-firms#product`. Scrolling uses the stylesheet's smooth
+     behaviour and scroll-padding, so the fixed header is accounted for.
+     ==================================================================== */
+  const stripHash = () => {
+    if (!window.location.hash || !window.history || typeof window.history.replaceState !== "function") return;
+    try {
+      window.history.replaceState(window.history.state, "", window.location.pathname + window.location.search);
+    } catch (error) { /* history unavailable — the fragment stays */ }
+  };
+
+  const sectionFromHash = (hash) => {
+    const id = (hash || "").replace(/^#/, "");
+    if (!id) return null;
+    try {
+      return document.getElementById(decodeURIComponent(id));
+    } catch (error) {
+      return document.getElementById(id);
+    }
+  };
+
+  const focusSection = (section) => {
+    if (!section || typeof section.focus !== "function") return;
+    if (!section.hasAttribute("tabindex")) {
+      section.setAttribute("tabindex", "-1");
+      section.setAttribute("data-section-focus", "");
+    }
+    section.focus({ preventScroll: true });
+  };
+
+  document.addEventListener("click", (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target.closest ? event.target.closest("a[href]") : null;
+    if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
+
+    let url;
+    try { url = new URL(link.getAttribute("href"), window.location.href); } catch (error) { return; }
+    if (!url.hash || url.origin !== window.location.origin || url.pathname !== window.location.pathname || url.search !== window.location.search) return;
+
+    const section = sectionFromHash(url.hash);
+    if (!section) return;
+
+    event.preventDefault();
+    section.scrollIntoView({ block: "start" });
+    focusSection(section);
+    stripHash();
+  });
+
+  /* Arrived from another page with a fragment: the browser has already
+     jumped to the section, so only the address bar needs tidying. */
+  if (window.location.hash) {
+    const landing = sectionFromHash(window.location.hash);
+    if (landing) {
+      window.requestAnimationFrame(() => {
+        landing.scrollIntoView({ block: "start" });
+        focusSection(landing);
+        stripHash();
+      });
+    } else {
+      stripHash();
+    }
   }
 
   if (window.location.pathname.toLowerCase().includes("pricing")) {

@@ -33,7 +33,7 @@
   <link rel="preload" href="../assets/fonts/ibm-plex-sans-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/ibm-plex-sans-condensed-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/site-v4.css?v=20260827-v7-cal">
+  <link rel="stylesheet" href="../assets/site-v4.css?v=20260911-v8-captcha">
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -915,19 +915,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
               <div class="field">
                 <label for="business-name">Your name</label>
-                <input id="business-name" name="name" type="text" autocomplete="name">
+                <input id="business-name" name="name" type="text" autocomplete="name" required aria-required="true">
                 <p class="lead-error" data-lead-error="name" hidden></p>
               </div>
               <div class="field">
                 <label for="business-company">Business name</label>
-                <input id="business-company" name="company" type="text" autocomplete="organization">
+                <input id="business-company" name="company" type="text" autocomplete="organization" required aria-required="true">
                 <p class="lead-error" data-lead-error="company" hidden></p>
               </div>
               <div class="field">
                 <label for="business-phone">Mobile number (WhatsApp)</label>
                 <div class="phone-field">
                   <span class="phone-prefix">+91</span>
-                  <input id="business-phone" name="phone" type="text" inputmode="numeric" autocomplete="tel-national" maxlength="10" aria-describedby="business-phone-help">
+                  <input id="business-phone" name="phone" type="text" inputmode="numeric" autocomplete="tel-national" maxlength="10" required aria-required="true" aria-describedby="business-phone-help">
                 </div>
                 <small id="business-phone-help">Enter a valid 10-digit Indian mobile number.</small>
                 <p class="lead-error" data-lead-error="phone" hidden></p>
@@ -951,10 +951,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
               <div class="field" data-turnover-field>
                 <label for="business-turnover">Annual turnover</label>
-                <select id="business-turnover" name="turnover">
+                <select id="business-turnover" name="turnover" required aria-required="true">
                   <option value="">Select range</option>
                   <option>Less than ₹50 Lakhs</option><option>₹50 L – ₹1 Cr</option><option>₹1 Cr – ₹5 Cr</option><option>₹5 Cr – ₹10 Cr</option><option>₹10 Cr – ₹20 Cr</option><option>₹20 Cr +</option>
                 </select>
+                <p class="lead-error" data-lead-error="turnover" hidden></p>
               </div>
 
               <label class="consent">
@@ -962,6 +963,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <span>I agree to be contacted about my access request on WhatsApp and/or email.</span>
               </label>
               <p class="lead-error" data-lead-error="consent" hidden></p>
+
+              <div class="captcha" data-captcha aria-label="Verification"></div>
+              <p class="lead-error" data-lead-error="captcha" hidden></p>
 
               <div class="form-meta">
                 <input name="role" type="hidden" value="business_owner">
@@ -1089,7 +1093,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="image-dialog-shell"><div class="image-dialog-head"><p id="image-dialog-title" data-image-dialog-title></p><span class="image-dialog-actions"><button type="button" class="image-dialog-replay" data-image-dialog-replay hidden>Play again</button><button type="button" class="image-dialog-close" data-image-dialog-close>Close</button></span></div><div class="image-dialog-stage"><img data-image-dialog-image alt=""></div></div>
   </dialog>
 
-  <script src="../assets/site.js?v=20260902-v4-lead" defer></script>
+  <script src="../assets/site.js?v=20260911-v5-captcha" defer></script>
   <script src="../assets/site-v4.js?v=20260819-v6" defer></script>
   <script type="module" src="../assets/logo-band.js?v=20260819-v6"></script>
 </body>
