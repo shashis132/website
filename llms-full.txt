@@ -43,9 +43,12 @@ replace professional judgement: firms review prepared entries and retain final s
 
 All prices are in Indian rupees and exclude 18% GST. The GST-inclusive total is shown against the
 selected plan. Billing is monthly or every three months; the three-month option is billed once for
-three months of access and costs 20% less than the monthly rate. Every plan begins with a free
-trial (14 days for business plans, 7 days for CA/Firm plans) with full access and no credit card or
-UPI mandate. After the trial the customer chooses
+three months of access and costs 20% less than the monthly rate. Every plan begins with a 7-day
+trial with full access. Business plans start with a one-time ₹99 payment on Razorpay, after which
+the visitor signs up and the 7 days begin; CA/Firm plans start with a free trial arranged through an
+access request and a walkthrough with the GeniusCFO team. No UPI mandate is set up and nothing is
+charged automatically after the trial. The ₹99 charge exists because a free trial attracted fake
+sign-ups that used up the AI credits meant for trials. After the trial the customer chooses
 a plan and pays via Razorpay; if they do not, the AI stops while books, statements, GST screens and
 manual entry keep working and nothing is deleted.
 
@@ -76,8 +79,9 @@ Every plan carries the full product — books, GST, TDS, ITR, unlimited workflow
 Intelligence Hub. Plans differ in the AI allowance, the level of support, and how many companies
 and members are covered.
 
-The website does not sell plans directly. Every pricing action opens an access request with the
-GeniusCFO team; plans are chosen and paid for inside the product after the trial.
+The website does not sell plans directly. Business pricing actions lead to the ₹99 trial payment on
+Razorpay and then to sign-up; CA/Firm pricing actions open an access request with the GeniusCFO
+team. Plans are chosen and paid for inside the product after the trial.
 
 ## Questions and answers — GeniusCFO for business owners
 Source: https://geniuscfo.ai/business
@@ -106,9 +110,13 @@ Yes. GeniusCFO works on phone and desktop, so you can check business numbers, al
 
 Yes. Your accountant or CA can review the entries, source records, reports and GST information in the same accounting workspace.
 
-### What does the free trial include?
+### What does the ₹99 trial include?
 
-Every plan starts with a 14-day free trial with full access to everything from day one. No credit card or UPI mandate is required to begin.
+Seven days of full access to everything - bookkeeping, GST information, bank matching, alerts and Ask GeniusCFO - on your own books. You pay ₹99 once on Razorpay, sign up, and start the same day. There is no UPI mandate and nothing is charged automatically afterwards: at the end of the 7 days you choose a plan, and if you do not, the AI stops while your books, statements and GST screens keep working.
+
+### Why does the trial cost ₹99?
+
+Because a free trial brought in fake sign-ups and people who worked through the AI credits meant for trials without any intention of using the product. A small payment keeps the trial for real businesses and keeps the AI allowance available to them.
 
 
 ## Questions and answers — GeniusCFO for CA and accounting firms
@@ -150,11 +158,15 @@ No. Those managed accounting services are for business customers. CA/Firm plans 
 ## Questions and answers — GeniusCFO pricing
 Source: https://geniuscfo.ai/pricing
 
-### How long is the free trial?
+### How long is the trial?
 
-Business plans start with a 14-day free trial and CA/Firm plans with a 7-day free trial. No credit card is required, and you get full access to everything from day one.
+Every plan starts with a 7-day trial with full access from day one. Businesses pay ₹99 once on Razorpay to start and sign up straight after; CA/Firm plans start with a free trial arranged through an access request. No UPI mandate is set up and nothing is charged automatically after the trial.
 
-### What happens after the free trial?
+### Why does the business trial cost ₹99?
+
+Because a free trial brought in fake sign-ups and people who worked through the AI credits meant for trials without any intention of using the product. A small payment keeps the trial for real businesses and keeps the AI allowance available to them. CA/Firm trials are arranged through an access request, so they stay free.
+
+### What happens after the trial?
 
 You choose a plan and pay via Razorpay. If you do not, the AI stops - your books, statements, GST screens and manual entry all keep working, and nothing is ever deleted.
 

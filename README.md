@@ -78,6 +78,29 @@ Serve this folder over HTTP. With a basic static server, preview:
 
 The trailing slash is a local static-server detail. Production canonical URLs do not use a trailing slash.
 
+## Try for ₹99: the business route
+
+Since 11 September 2026 the business audience is not offered a demo. Every
+business-facing CTA reads "Try for ₹99" and leads to the lead form on
+`/business`. Steps 1 and 2 are unchanged and still write to the lead Sheet;
+Step 3 sends the visitor to the Razorpay payment page
+`https://rzp.io/rzp/tryfor99`, which forwards them to the app sign-up after
+payment, where the 7-day trial starts. There is no slot booking for
+businesses any more. The reason for the ₹99, stated in the FAQ on
+`/business` and `/pricing`: a free trial attracted fake sign-ups that used
+up the AI credits meant for trials.
+
+CA and vCFO firms keep the request-access route: `/ca-firms` is unchanged
+(Step 3 is the Cal.com booking; the trial is 7 days and free), and a
+visitor on `/business` who picks a firm role in Step 1 is routed to the
+booking as well. The third progress label and the Step 2 button change
+with the role, so nobody is surprised by where they land.
+
+`/pricing` is shared: its business CTAs read "Try for ₹99", and its header,
+menu and floating CTA switch to "Request firm access" when the page is
+opened with `?audience=ca-firms`. The trial section and FAQ explain both
+routes.
+
 ## What is new in V5
 
 - All three pages now run the V4 design language (`assets/site-v4.css`). V4 only ever
@@ -92,7 +115,8 @@ The trailing slash is a local static-server detail. Production canonical URLs do
   *Review and trust* behind a Know more control.
 - Plan cards carry check-marked feature lists on every page.
 - Steps 1 and 2 write to the linked lead Sheet and emit diagnostic events only.
-  Step 3 is a Cal.com inline embed for `geniuscfo/30min`; Cal's GTM app sends
+  On the firm route, Step 3 is a Cal.com inline embed for `geniuscfo/30min`
+  (the business route now goes to Razorpay instead, see above); Cal's GTM app sends
   `bookingSuccessfulV2`, which the web container maps to GA4 `generate_lead`.
   The server container turns that one event into the Meta `Lead` and the
   LinkedIn Conversions API lead, deduplicated against the browser tags by
@@ -114,7 +138,8 @@ The trailing slash is a local static-server detail. Production canonical URLs do
 - The placeholder demo form became a live three-step lead form. Steps 1 and 2
   post to the existing Google Apps Script lead Sheet receiver; Step 3 books on
   Cal.com.
-- Every pricing CTA books a demo. The website does not sell a plan directly.
+- Every pricing CTA booked a demo (since superseded for businesses by the ₹99
+  route above). The website does not sell a plan directly.
 
 `VERCEL-SETUP.md` covers the lead Sheet, Cal.com, GTM and production hosting.
 `qa/` holds the rendered evidence for the current build.

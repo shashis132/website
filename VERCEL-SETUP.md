@@ -138,7 +138,20 @@ does not need touching.
 
 ## 4. Cal.com inline booking
 
-Step 3 on `/business` and `/ca-firms` uses one Cal.com event type:
+**Business visitors no longer reach this step.** Since 11 September 2026,
+Step 3 on `/business` sends a business visitor to the Razorpay Payment Page
+`https://rzp.io/rzp/tryfor99` (`TRIAL_PAYMENT_URL` in `assets/site.js`),
+where the ₹99 trial is paid; Razorpay then forwards them to the app
+sign-up. The page pushes `lead_payment_redirect` to the data layer just
+before it leaves. That event is not wired to any tag: `generate_lead` is
+still raised only by a Cal.com booking, so business trials are not counted
+as leads by this container until a tag is added for them, ideally on the
+app's sign-up rather than on the redirect, which happens before any money
+changes hands. Everything below still applies to firms, on `/ca-firms`
+and for a firm role chosen on `/business`.
+
+Step 3 on `/ca-firms`, and on `/business` for firm roles, uses one Cal.com
+event type:
 
 | Setting | Value |
 |---|---|

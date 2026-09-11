@@ -46,6 +46,19 @@
   const CAL_LINK = "geniuscfo/30min";
   const CAL_NAMESPACE = "30min";
 
+  /* --------------------------------------------------------------------
+     "Try for ₹99" — the business route out of the lead form.
+
+     After Step 2, a business visitor is sent to this Razorpay Payment Page
+     instead of the Cal.com booking. Razorpay forwards them to the GeniusCFO
+     sign-up after payment, where the 7-day trial starts. The route exists
+     only where the markup carries a [data-lead-payment] panel (the business
+     page); on that page a visitor who picks a CA or vCFO firm role keeps the
+     booking route, and the CA/Firm page never offers the payment route at
+     all. Blank this and the business form falls back to the booking step.
+     -------------------------------------------------------------------- */
+  const TRIAL_PAYMENT_URL = "https://rzp.io/rzp/tryfor99";
+
   const TRACKING_KEYS = [
     "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term",
     "gclid", "fbclid", "msclkid", "li_fat_id"
@@ -331,12 +344,19 @@
   /* ====================================================================
      Multi-step lead form
      Step 1 — contact and role.  Step 2 — triage, branched by role.
-     Step 3 — Cal.com inline booking. Each of steps 1 and 2 POSTs to the
-     sheet. Cal.com's own GTM app sends bookingSuccessfulV2 to the web
-     container inside the booking frame, where the GA4 tag maps it to
-     `generate_lead`; the server container then raises the Meta Lead and
-     LinkedIn lead conversions. The parent page never pushes generate_lead,
-     so a booking is counted exactly once.
+     Step 3 — one of two routes, decided by the role chosen in Step 1:
+       payment  business visitors on the business page go to the ₹99
+                Razorpay page (TRIAL_PAYMENT_URL), then to sign-up;
+       booking  CA and vCFO firms, and everyone on the CA/Firm page, get
+                the Cal.com inline booking.
+     Each of steps 1 and 2 POSTs to the sheet. On the booking route,
+     Cal.com's own GTM app sends bookingSuccessfulV2 to the web container
+     inside the booking frame, where the GA4 tag maps it to `generate_lead`;
+     the server container then raises the Meta Lead and LinkedIn lead
+     conversions. The parent page never pushes generate_lead, so a booking
+     is counted exactly once. The payment route pushes
+     `lead_payment_redirect` just before leaving the page; the payment
+     itself completes on Razorpay, outside this site.
      ==================================================================== */
 
   const FIRM_ROLES = ["ca_firm", "cfo_firm"];
@@ -382,11 +402,12 @@
 
   document.querySelectorAll("[data-lead-form]").forEach((root) => {
     const track = root.dataset.leadTrack === "practice" ? "practice" : "business";
-    const steps = {
-      1: root.querySelector('[data-lead-step="1"]'),
-      2: root.querySelector('[data-lead-step="2"]'),
-      3: root.querySelector('[data-lead-step="3"]')
-    };
+    /* Step 3 can have two panels, one per route, told apart by
+       data-lead-route. A panel without that attribute belongs to every
+       route, which is how the CA/Firm page's single booking panel works. */
+    const stepPanels = Array.from(root.querySelectorAll("[data-lead-step]"));
+    const panelFor = (number) => stepPanels.find((panel) => Number(panel.dataset.leadStep) === number) || null;
+    const paymentStep = root.querySelector("[data-lead-payment]");
     const progress = Array.from(root.querySelectorAll("[data-lead-progress] span"));
     const turnoverField = root.querySelector("[data-turnover-field]");
     const captchaMount = root.querySelector("[data-captcha]");
@@ -565,25 +586,75 @@
       }
     };
 
+    const isFirm = () => FIRM_ROLES.indexOf(state.role) > -1;
+
+    /* Which way Step 3 goes. The markup decides where the ₹99 route is
+       offered at all; the role decides who takes it. */
+    const route = () => (paymentStep && TRIAL_PAYMENT_URL && !isFirm()) ? "payment" : "booking";
+
+    /* Labels that read differently per route — the third progress step and
+       the Step 2 button — carry both texts as data attributes. */
+    const syncRouteLabels = () => {
+      const current = route();
+      root.querySelectorAll("[data-route-label]").forEach((node) => {
+        const label = current === "payment" ? node.dataset.routeLabelPayment : node.dataset.routeLabelBooking;
+        if (label) node.textContent = label;
+      });
+      root.querySelectorAll("[data-firm-note]").forEach((node) => {
+        node.hidden = !(paymentStep && isFirm());
+      });
+    };
+
+    let paymentTimer = null;
+
+    /* Leave for Razorpay. The short pause lets the "taking you to the
+       payment page" panel paint and gives the Step 2 POST and the data layer
+       push a moment to leave before the page unloads; the POST itself is
+       sent with keepalive, so it completes even if the pause is cut short.
+       The panel's own button is the fallback if navigation is blocked. */
+    const goToPayment = () => {
+      const link = paymentStep ? paymentStep.querySelector("[data-payment-link]") : null;
+      const target = (link && link.href) || TRIAL_PAYMENT_URL;
+      pushDataLayer("lead_payment_redirect", {
+        role: state.role,
+        track: track,
+        trial_amount: 99,
+        currency: "INR"
+      });
+      if (paymentTimer) window.clearTimeout(paymentTimer);
+      paymentTimer = window.setTimeout(() => {
+        paymentTimer = null;
+        window.location.assign(target);
+      }, 500);
+    };
+
     const setStep = (next) => {
       state.step = next;
-      document.documentElement.classList.toggle("lead-booking-visible", next === 3);
-      Object.keys(steps).forEach((key) => {
-        if (steps[key]) steps[key].hidden = Number(key) !== next;
+      const current = route();
+      if (paymentTimer && next !== 3) {
+        window.clearTimeout(paymentTimer);
+        paymentTimer = null;
+      }
+      document.documentElement.classList.toggle("lead-booking-visible", next === 3 && current === "booking");
+      stepPanels.forEach((panel) => {
+        const own = panel.dataset.leadRoute;
+        panel.hidden = !(Number(panel.dataset.leadStep) === next && (!own || own === current));
       });
       progress.forEach((node, index) => {
         if (index + 1 === next) node.setAttribute("aria-current", "step");
         else node.removeAttribute("aria-current");
       });
-      const heading = steps[next] ? steps[next].querySelector("h3") : null;
+      const shown = stepPanels.find((panel) => !panel.hidden) || panelFor(next);
+      const heading = shown ? shown.querySelector("h3") : null;
       if (heading) {
         heading.setAttribute("tabindex", "-1");
         heading.focus({ preventScroll: true });
       }
-      if (next === 3) initBooking();
+      if (next === 3) {
+        if (current === "payment") goToPayment();
+        else initBooking();
+      }
     };
-
-    const isFirm = () => FIRM_ROLES.indexOf(state.role) > -1;
 
     const syncRole = () => {
       if (turnoverField) turnoverField.hidden = isFirm();
@@ -591,6 +662,7 @@
       if (branches.firm) branches.firm.hidden = !isFirm();
       const roleInput = field("role");
       if (roleInput) roleInput.value = state.role;
+      syncRouteLabels();
     };
 
     /* Chip groups write into `state` and mirror to a hidden input. */
@@ -705,11 +777,13 @@
 
       /* The response is opaque, so success cannot be read. The .catch is not
          optional: without it a blocked or offline POST rejects unhandled and
-         surfaces as an uncaught "Failed to fetch" page error. */
+         surfaces as an uncaught "Failed to fetch" page error. keepalive lets
+         the Step 2 POST finish after the page has left for Razorpay. */
       try {
         const request = window.fetch(LEAD_ENDPOINT, {
           method: "POST",
           mode: "no-cors",
+          keepalive: true,
           body: new URLSearchParams(payload)
         });
         if (request && typeof request.catch === "function") {
@@ -749,7 +823,7 @@
       }
       const consent = field("consent");
       if (consent && !consent.checked) {
-        showError("consent", "Please confirm we may contact you about your access request.");
+        showError("consent", "Please confirm we may contact you about your request.");
         ok = false;
       }
       if (captchaEnabled()) {
@@ -794,8 +868,10 @@
 
     const submitStepTwo = (event) => {
       event.preventDefault();
-      /* Step 2 saves the triage answers and opens Cal.com. It is not a booked
-         appointment, so no conversion event fires here. */
+      /* Step 2 saves the triage answers and opens Step 3 — Cal.com or the
+         ₹99 payment page, by route. Neither a booked appointment nor a
+         completed payment has happened yet, so no conversion event fires
+         here. */
       const consentField = field("consent");
       const leadParams = {
         role: state.role,
@@ -1232,5 +1308,19 @@
     document.documentElement.dataset.pricingAudience = audience;
     const selected = document.querySelector(`[data-pricing-choice="${audience}"]`);
     if (selected) selected.setAttribute("aria-current", "true");
+
+    /* The shared pricing page ships its header, menu and floating CTA as
+       the business route ("Try for ₹99"). A visitor who arrived as
+       ?audience=ca-firms is offered the firm route instead, with the same
+       campaign parameters carried over. */
+    if (audience === "ca-firms") {
+      document.querySelectorAll("[data-audience-cta]").forEach((link) => {
+        if (link.dataset.firmLabel) link.textContent = link.dataset.firmLabel;
+        if (link.dataset.firmHref) {
+          link.setAttribute("href", link.dataset.firmHref);
+          preserveTracking(link);
+        }
+      });
+    }
   }
 })();
