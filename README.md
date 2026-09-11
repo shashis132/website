@@ -180,6 +180,23 @@ Keep an analysis piece out of `/stories` and a fictional narrative out of
 
 No footer or navigation edit is required. That was the point.
 
+**Use the bare apex in every absolute URL.** `geniuscfo.ai`, never
+`www.geniuscfo.ai`. This covers canonical tags, `og:url`, `sitemap.xml`,
+`llms.txt`, `llms-full.txt` and every `@id`, `url` and `item` in the
+JSON-LD. `VERCEL-SETUP.md` sets the apex as the primary domain and
+redirects `www` to it, so a `www` absolute URL is a canonical pointing at
+a redirect, and a `www` sitemap entry is excluded from indexing as "Page
+with redirect".
+
+The stories originally shipped on `www` and drifted from that rule; the
+whole site was normalised to the apex on 11 September 2026. The most
+damaging part was not the canonicals but the schema: the shared
+`https://geniuscfo.ai/#organization` node was declared with `url` set to
+the apex on the product pages and to `www` on the stories, so one `@id`
+carried two conflicting definitions. `vercel.json` now also carries a
+host redirect as `redirects[0]`, so the rule holds even if the Vercel
+primary-domain setting is ever changed.
+
 
 Story and blog artwork is shipped as derivatives only. The master illustrations stay with the campaign art and are not committed; `assets/<section>/<slug>/masters/README.txt` records which master belongs to which position, and `tools/build-story-images.py <slug>` regenerates every AVIF/WebP derivative and the social JPEG from them. The `SECTION` map in that script decides whether a slug's artwork lives under `assets/stories/` or `assets/blog/`.
 

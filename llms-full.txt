@@ -17,8 +17,8 @@ https://geniuscfo.ai is authoritative.
 - https://geniuscfo.ai/business — GeniusCFO for business owners
 - https://geniuscfo.ai/ca-firms — GeniusCFO for CA and accounting firms
 - https://geniuscfo.ai/pricing — pricing for both audiences
-- https://www.geniuscfo.ai/blog — blog index: analysis of accounting automation
-- https://www.geniuscfo.ai/stories — stories index: short fictional narratives about the accounting lag
+- https://geniuscfo.ai/blog — blog index: analysis of accounting automation
+- https://geniuscfo.ai/stories — stories index: short fictional narratives about the accounting lag
 
 ## What GeniusCFO is
 
@@ -193,11 +193,11 @@ Firm plans are priced by the client companies and team members included. Team co
 
 ## Blog
 
-Index: https://www.geniuscfo.ai/blog
+Index: https://geniuscfo.ai/blog
 
 ### The AI Was Looking at Your Ledger Through a Screenshot.
 
-Canonical article: https://www.geniuscfo.ai/blog/through-the-glass
+Canonical article: https://geniuscfo.ai/blog/through-the-glass
 Published 11 September 2026. Analysis, not narrative and not a customer result.
 
 The question: what does it cost to have an AI computer-use agent operate accounting software through its
@@ -249,17 +249,17 @@ owners.
 
 ## Business stories
 
-Index: https://www.geniuscfo.ai/stories
+Index: https://geniuscfo.ai/stories
 
 ### Every Invoice Looked Fine. Together, They Told a Different Story.
 
-Canonical story: https://www.geniuscfo.ai/stories/every-invoice-looked-fine
+Canonical story: https://geniuscfo.ai/stories/every-invoice-looked-fine
 
 A fictional restaurant story about food-cost movement across ordinary supplier invoices. Current books connect the movement to posted purchase entries, so the owner can ask a specific question. The owner and Chartered Accountant retain commercial judgement, review and sign-off. Meera, Coastal House, its suppliers and every financial figure are fictional; this is not a customer result or a promise of savings. Read the canonical story for the full narrative and closing disclosure.
 
 ### Nobody Warned You the Business Came With a Second Job.
 
-Canonical story: https://www.geniuscfo.ai/stories/the-second-job
+Canonical story: https://geniuscfo.ai/stories/the-second-job
 
 A fictional garment-unit story about the unpaid finance job an owner inherits as the business grows. A supplier payment, a GST payment and payday fall in the same week while a customer invoice is uncleared. Because the books are kept current every day rather than caught up at month-end, the Intelligence Hub flags a cash gap eighteen days out — 6,40,000 rupees of supplier payment and GST landing before the customer invoice clears — with the posted entries attached to the alert. The alert makes the collision reviewable; it does not make the commercial decision. Professional review and sign-off stay with the Chartered Accountant. Harpreet Singh, the unit, its suppliers and every financial figure are fictional; this is not a customer result or a promise of savings.
 

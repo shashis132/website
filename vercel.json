@@ -40,6 +40,17 @@
   ],
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.geniuscfo.ai"
+        }
+      ],
+      "destination": "https://geniuscfo.ai/:path*",
+      "permanent": true
+    },
+    {
       "source": "/",
       "destination": "/business",
       "permanent": true
