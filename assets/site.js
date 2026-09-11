@@ -24,20 +24,21 @@
   const IS_LOCAL_PREVIEW = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
 
   /* --------------------------------------------------------------------
-     Captcha (Cloudflare Turnstile).
+     Captcha (Google reCAPTCHA v2, "I'm not a robot" checkbox).
 
-     Step 1 of the lead form cannot be submitted until the Turnstile widget
-     has issued a token. The token is posted as `captcha_token` and checked
-     server-side in apps-script/Code.gs, so a bot skipping the browser gets
-     no row. The site key is public; the matching secret lives only in the
-     Apps Script project's script properties — see VERCEL-SETUP.md.
+     Step 1 of the lead form cannot be submitted until the visitor has
+     ticked the reCAPTCHA box. The token is posted as `captcha_token` and
+     checked server-side in apps-script/Code.gs, so a bot skipping the
+     browser gets no row. The site key is public; the matching secret lives
+     only in the Apps Script project's script properties — see
+     VERCEL-SETUP.md.
 
      Leave this blank and the widget is not rendered, the check is skipped
      and every submit logs a console warning, so a missing key never blocks
      real leads.
      -------------------------------------------------------------------- */
-  const TURNSTILE_SITE_KEY = "";
-  const TURNSTILE_SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+  const RECAPTCHA_SITE_KEY = "";
+  const RECAPTCHA_SCRIPT = "https://www.google.com/recaptcha/api.js?render=explicit";
 
   /* Cal.com inline booking. The event type namespace comes from Cal.com's
      embed generator for https://cal.com/geniuscfo/30min. */
@@ -615,18 +616,19 @@
     const turnoverSelect = field("turnover");
     if (turnoverSelect) turnoverSelect.addEventListener("change", () => showError("turnover", ""));
 
-    /* Turnstile is rendered explicitly so the widget can be reset after each
+    /* reCAPTCHA is rendered explicitly so the widget can be reset after each
        submit (tokens are single use) and follow the page theme. The api.js
        loader is shared between forms and only added once. */
-    const captchaEnabled = () => Boolean(TURNSTILE_SITE_KEY && captchaMount);
+    const captchaEnabled = () => Boolean(RECAPTCHA_SITE_KEY && captchaMount);
+    const captchaApi = () => (window.grecaptcha && typeof window.grecaptcha.render === "function") ? window.grecaptcha : null;
 
     const renderCaptcha = () => {
-      if (!captchaEnabled() || state.captchaWidget !== null || !window.turnstile) return;
+      const api = captchaApi();
+      if (!captchaEnabled() || state.captchaWidget !== null || !api) return;
       const theme = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
-      state.captchaWidget = window.turnstile.render(captchaMount, {
-        sitekey: TURNSTILE_SITE_KEY,
+      state.captchaWidget = api.render(captchaMount, {
+        sitekey: RECAPTCHA_SITE_KEY,
         theme: theme,
-        action: "lead_step1",
         callback: (token) => { state.captchaToken = token || ""; showError("captcha", ""); },
         "expired-callback": () => { state.captchaToken = ""; },
         "error-callback": () => { state.captchaToken = ""; }
@@ -635,23 +637,24 @@
 
     const resetCaptcha = () => {
       state.captchaToken = "";
-      if (state.captchaWidget !== null && window.turnstile) {
-        try { window.turnstile.reset(state.captchaWidget); } catch (error) { /* widget gone */ }
+      const api = captchaApi();
+      if (state.captchaWidget !== null && api) {
+        try { api.reset(state.captchaWidget); } catch (error) { /* widget gone */ }
       }
     };
 
     if (captchaEnabled()) {
-      if (window.turnstile) {
+      if (captchaApi()) {
         renderCaptcha();
       } else {
-        const pending = window.__gcTurnstileReady || (window.__gcTurnstileReady = []);
+        const pending = window.__gcRecaptchaReady || (window.__gcRecaptchaReady = []);
         pending.push(renderCaptcha);
-        if (!document.querySelector(`script[src^="${TURNSTILE_SCRIPT.split("?")[0]}"]`)) {
-          window.onTurnstileReady = () => {
-            (window.__gcTurnstileReady || []).splice(0).forEach((fn) => fn());
+        if (!document.querySelector(`script[src^="${RECAPTCHA_SCRIPT.split("?")[0]}"]`)) {
+          window.onRecaptchaReady = () => {
+            (window.__gcRecaptchaReady || []).splice(0).forEach((fn) => fn());
           };
           const loader = document.createElement("script");
-          loader.src = `${TURNSTILE_SCRIPT}&onload=onTurnstileReady`;
+          loader.src = `${RECAPTCHA_SCRIPT}&onload=onRecaptchaReady`;
           loader.async = true;
           loader.defer = true;
           document.head.appendChild(loader);
@@ -751,11 +754,11 @@
       }
       if (captchaEnabled()) {
         if (!state.captchaToken) {
-          showError("captcha", "Please complete the verification so we know you're not a robot.");
+          showError("captcha", "Please tick the \u201cI\u2019m not a robot\u201d box.");
           ok = false;
         }
-      } else if (TURNSTILE_SITE_KEY === "") {
-        window.console && console.warn("GeniusCFO: TURNSTILE_SITE_KEY is not set in assets/site.js — captcha check skipped.");
+      } else if (RECAPTCHA_SITE_KEY === "") {
+        window.console && console.warn("GeniusCFO: RECAPTCHA_SITE_KEY is not set in assets/site.js — captcha check skipped.");
       }
       if (!ok) {
         /* Move the caret to the first field that needs attention rather than

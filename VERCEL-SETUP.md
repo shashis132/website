@@ -10,7 +10,7 @@ serves the repository root as static files.
 |---|---|
 | `vercel.json` | Routes, redirects, security and cache headers |
 | `.vercelignore` | Keeps `qa/`, `apps-script/` and markdown off the public site |
-| `apps-script/Code.gs` | Google Apps Script receiver for form steps 1 and 2, with Turnstile verification |
+| `apps-script/Code.gs` | Google Apps Script receiver for form steps 1 and 2, with reCAPTCHA verification |
 | `assets/site.js` | Lead form, Cal.com inline embed, Cal event UI and shared behaviour |
 | `assets/site-v4.css` | Shared visual system, including responsive embed sizing |
 
@@ -85,32 +85,37 @@ email, role, annual turnover (business owners only — it is hidden for CA and
 CFO firms) and the contact consent. Validation runs in `assets/site.js`; the
 inputs also carry `required` so assistive tech announces them as such.
 
-### Captcha (Cloudflare Turnstile)
+### Captcha (Google reCAPTCHA v2 checkbox)
 
-Step 1 is protected by a [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)
-widget. It is free, needs no Cloudflare DNS, and rarely shows a puzzle. The
-form will not advance until the widget issues a token, and the receiver
-rejects any Step 1 POST whose token Cloudflare does not accept.
+Step 1 is protected by Google reCAPTCHA's "I'm not a robot" checkbox. It
+needs only the Google account that already owns the leads sheet: no DNS
+change and no new hosting account. The form will not advance until the box
+is ticked, and the receiver rejects any Step 1 POST whose token Google does
+not accept.
 
-1. In the Cloudflare dashboard open **Turnstile → Add widget**. Name it
-   `geniuscfo.ai leads`, add the hostnames `geniuscfo.ai`, `www.geniuscfo.ai`
-   and the `*.vercel.app` preview domain, and choose the **Managed** mode.
-2. Copy the **Site key** into `TURNSTILE_SITE_KEY` at the top of
-   `assets/site.js` and deploy. The widget renders above the **Next** button
-   on `/business` and `/ca-firms`.
+1. Open <https://www.google.com/recaptcha/admin/create> signed in as the
+   Google account that owns the leads sheet. Label it `geniuscfo.ai leads`,
+   choose **Challenge (v2)** → **"I'm not a robot" Checkbox**, and add the
+   domains `geniuscfo.ai` and `vercel.app` (the latter covers preview
+   deployments). Accept the terms and press **Submit**. Google may create a
+   Google Cloud project for the key automatically; that is expected.
+2. Copy the **Site key** into `RECAPTCHA_SITE_KEY` at the top of
+   `assets/site.js` and deploy. The checkbox renders above the **Next**
+   button on `/business` and `/ca-firms`.
 3. In the Apps Script project open **Project Settings → Script Properties**
-   and add `TURNSTILE_SECRET` with the widget's **Secret key**. Then create a
-   new web-app deployment of `apps-script/Code.gs` and copy its `/exec` URL
-   into `LEAD_ENDPOINT`.
+   and add `RECAPTCHA_SECRET` with the **Secret key** from the same page.
+   Then create a new web-app deployment of `apps-script/Code.gs` and copy its
+   `/exec` URL into `LEAD_ENDPOINT`.
 
 Until both keys are in place nothing breaks: with an empty site key the widget
 is not rendered and the browser check is skipped with a console warning; with
-no `TURNSTILE_SECRET` property the receiver accepts rows without a token. Set
-both, or the captcha is decorative. Cloudflare's test keys
-(`1x00000000000000000000AA` / `1x0000000000000000000000000000000AA`) can be
-used on a preview deployment to see the widget without real verification.
+no `RECAPTCHA_SECRET` property the receiver accepts rows without a token. Set
+both, or the captcha is decorative. Google's test keys (site
+`6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI`, secret
+`6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe`) render a checkbox that always
+passes, for checking a preview deployment without real verification.
 
-Turnstile tokens are single use, so the widget is reset after Step 1 posts.
+reCAPTCHA tokens are single use, so the widget is reset after Step 1 posts.
 Step 2 only updates the row Step 1 created and is not verified again.
 
 ## 4. Cal.com inline booking

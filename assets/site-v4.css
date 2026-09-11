@@ -1410,7 +1410,7 @@ main > .logo-band + .chapter.chapter-major {
 .consent { display: flex; gap: 10px; align-items: flex-start; color: var(--text-soft); font-size: 0.9375rem; }
 .consent input { margin-top: 3px; accent-color: var(--emerald-deep); }
 
-.captcha { min-height: 65px; }
+.captcha { min-height: 78px; }
 .captcha[hidden] { display: none; }
 .lead-error { color: #b4232f; font-size: 0.8125rem; }
 .lead-error[hidden] { display: none; }

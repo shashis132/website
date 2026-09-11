@@ -16,13 +16,14 @@
  * Step 2 finds that row by phone number and fills in the triage answers,
  * rather than writing a second row.
  *
- * Captcha: step 1 carries a Cloudflare Turnstile token as `captcha_token`.
- * When the script property TURNSTILE_SECRET is set (Project Settings →
- * Script Properties), the token is verified with Cloudflare before a row is
- * appended and a failed or missing token is rejected. Step 2 only updates a
- * row that step 1 already created, so it is not re-verified (tokens are
- * single use). Leave the property unset to skip verification, e.g. while the
- * site key is not yet configured in assets/site.js.
+ * Captcha: step 1 carries a Google reCAPTCHA (v2 checkbox) token as
+ * `captcha_token`. When the script property RECAPTCHA_SECRET is set
+ * (Project Settings → Script Properties), the token is verified with Google
+ * before a row is appended and a failed or missing token is rejected.
+ * Step 2 only updates a row that step 1 already created, so it is not
+ * re-verified (tokens are single use). Leave the property unset to skip
+ * verification, e.g. while the site key is not yet configured in
+ * assets/site.js.
  */
 
 /**
@@ -121,20 +122,20 @@ function doPost(e) {
 }
 
 /**
- * Checks a Turnstile token with Cloudflare. Returns { ok, reason }.
+ * Checks a reCAPTCHA token with Google. Returns { ok, reason }.
  *
- * Skipped (ok) when TURNSTILE_SECRET is not set, so the receiver keeps
+ * Skipped (ok) when RECAPTCHA_SECRET is not set, so the receiver keeps
  * working before the captcha is configured. Fails closed on a missing,
- * already-used or expired token and on a Cloudflare error, since an
+ * already-used or expired token and on a Google error, since an
  * unverifiable submission is exactly what the check exists to stop.
  */
 function verifyCaptcha_(token) {
-  var secret = PropertiesService.getScriptProperties().getProperty('TURNSTILE_SECRET');
+  var secret = PropertiesService.getScriptProperties().getProperty('RECAPTCHA_SECRET');
   if (!secret) return { ok: true, reason: 'not_configured' };
   if (!token) return { ok: false, reason: 'missing' };
 
   try {
-    var response = UrlFetchApp.fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    var response = UrlFetchApp.fetch('https://www.google.com/recaptcha/api/siteverify', {
       method: 'post',
       payload: { secret: secret, response: String(token) },
       muteHttpExceptions: true
@@ -144,7 +145,7 @@ function verifyCaptcha_(token) {
     var codes = (result['error-codes'] || []).join(',');
     return { ok: false, reason: codes || 'failed' };
   } catch (err) {
-    console.error('Turnstile verification error: %s', err);
+    console.error('reCAPTCHA verification error: %s', err);
     return { ok: false, reason: 'unavailable' };
   }
 }
