@@ -139,7 +139,8 @@ does not need touching.
 ## 4. Cal.com inline booking
 
 **Business visitors no longer reach this step.** Since 11 September 2026,
-Step 3 on `/business` sends a business visitor to the Razorpay Payment Page
+the form on `/business` is a single step whose button sends a business
+visitor to the Razorpay Payment Page
 `https://rzp.io/rzp/tryfor9` (`TRIAL_PAYMENT_URL` in `assets/site.js`),
 where the ₹9 trial is paid; Razorpay then forwards them to the app
 sign-up. The page pushes `lead_payment_redirect` to the data layer just

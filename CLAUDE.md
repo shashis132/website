@@ -167,20 +167,23 @@ that is how a stray `#how` in the CA-firms footer was caught.
 
 ## Two routes out of the lead form
 
-Business visitors do not book a demo. On `/business`, Step 3 of the lead
-form sends them to the Razorpay page `https://rzp.io/rzp/tryfor9`
-(`TRIAL_PAYMENT_URL` in `assets/site.js`); Razorpay forwards them to the
-app sign-up and the 7-day trial starts there. CA and vCFO firms keep the
-Cal.com booking: on `/ca-firms` always, and on `/business` whenever the
-role chip is a firm. The markup decides where the payment route exists
-(the `[data-lead-payment]` panel is only on `/business`); the role decides
-who takes it. Every business-facing CTA reads exactly "Try for ₹9";
-"Request Access" and "Book a demo" survive only for firms.
+Business visitors do not book a demo. The form on `/business` is one step:
+the details, then a button that sends them to the Razorpay page
+`https://rzp.io/rzp/tryfor9` (`TRIAL_PAYMENT_URL` in `assets/site.js`);
+Razorpay forwards them to the app sign-up and the 7-day trial starts
+there. CA and vCFO firms keep the Cal.com booking: on `/ca-firms` always
+(that form keeps its three steps), and on `/business` whenever the role
+chip is a firm. The markup decides where the payment route exists (the
+`[data-lead-payment]` panel is only on `/business`) and whether a Step 2
+exists at all (`setStep(panelFor(2) ? 2 : 3)`); the role decides which
+route is taken. Every business-facing CTA reads exactly "Try for ₹9" and
+every firm-facing CTA exactly "Book a Demo"; the business form's button
+switches between the two with the role chip.
 
 Consequences:
 
-- The Step 2 POST is sent with `keepalive` because the page leaves for
-  Razorpay half a second later. Do not remove that flag.
+- The lead POST is sent with `keepalive` because the page leaves for
+  Razorpay half a second after Step 1. Do not remove that flag.
 - `generate_lead` still comes only from a Cal.com booking, so business
   leads no longer raise it. The page pushes `lead_payment_redirect` just
   before leaving; the payment completes on Razorpay and the sign-up on the

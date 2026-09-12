@@ -32,7 +32,7 @@ A firm pays for a licence and then pays again in professional hours to run it. G
 
 ## Commercial notes
 
-Prices exclude 18% GST; the GST-inclusive total is shown against the selected plan. Every plan starts with a 7-day trial with full access. Business plans start with a one-time ₹9 payment on Razorpay, after which the visitor signs up; CA/Firm plans start with a free trial arranged through an access request and a walkthrough with the GeniusCFO team. No UPI mandate is set up and nothing is charged automatically after the trial. The ₹9 charge exists because a free trial attracted fake sign-ups that used up the AI credits meant for trials.
+Prices exclude 18% GST; the GST-inclusive total is shown against the selected plan. Every plan starts with a 7-day trial with full access. Business plans start with a one-time ₹9 payment on Razorpay, after which the visitor signs up; CA/Firm plans start with a free trial after a demo booked with the GeniusCFO team. No UPI mandate is set up and nothing is charged automatically after the trial. The ₹9 charge exists because a free trial attracted fake sign-ups that used up the AI credits meant for trials.
 
 Plans for businesses cover one company with no extra members: Light at ₹999 per month, Pro at ₹1,999 per month and Pro Max at ₹2,999 per month. Plans for CA firms are priced by the client companies and team members included: Team at ₹3,999 per month covers three client companies and two extra members, and Enterprise at ₹6,999 per month covers ten client companies and five extra members. Additional client companies are ₹599 per month each and additional team members are ₹299 per month each.
 
@@ -42,7 +42,7 @@ Billing is monthly or every three months. The three-month option is billed once 
 
 Managed accounting services are optional and billed separately: Accountant+ at ₹999 per month and CA+ at ₹2,999 per month.
 
-The website does not sell plans directly. Business pricing actions lead to the ₹9 trial payment on Razorpay and then to sign-up; CA/Firm pricing actions open an access request with the GeniusCFO team. Plans are chosen and paid for inside the product after the trial.
+The website does not sell plans directly. Business pricing actions lead to the ₹9 trial payment on Razorpay and then to sign-up; CA/Firm pricing actions book a demo with the GeniusCFO team. Plans are chosen and paid for inside the product after the trial.
 
 ## Blog
 

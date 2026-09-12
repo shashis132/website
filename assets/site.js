@@ -343,13 +343,15 @@
 
   /* ====================================================================
      Multi-step lead form
-     Step 1 — contact and role.  Step 2 — triage, branched by role.
+     Step 1 — contact and role.  Step 2 — triage, branched by role (the
+     CA/Firm page only; the business page has no Step 2 and its Step 1
+     button reads "Try for ₹9", or "Book a Demo" for a firm role).
      Step 3 — one of two routes, decided by the role chosen in Step 1:
        payment  business visitors on the business page go to the ₹9
                 Razorpay page (TRIAL_PAYMENT_URL), then to sign-up;
        booking  CA and vCFO firms, and everyone on the CA/Firm page, get
                 the Cal.com inline booking.
-     Each of steps 1 and 2 POSTs to the sheet. On the booking route,
+     Each step that exists POSTs to the sheet. On the booking route,
      Cal.com's own GTM app sends bookingSuccessfulV2 to the web container
      inside the booking frame, where the GA4 tag maps it to `generate_lead`;
      the server container then raises the Meta Lead and LinkedIn lead
@@ -592,8 +594,9 @@
        offered at all; the role decides who takes it. */
     const route = () => (paymentStep && TRIAL_PAYMENT_URL && !isFirm()) ? "payment" : "booking";
 
-    /* Labels that read differently per route — the third progress step and
-       the Step 2 button — carry both texts as data attributes. */
+    /* Labels that read differently per route — the submit button, and a
+       progress step where there is one — carry both texts as data
+       attributes. */
     const syncRouteLabels = () => {
       const current = route();
       root.querySelectorAll("[data-route-label]").forEach((node) => {
@@ -863,7 +866,10 @@
       });
       send({ step: "1" });
       resetCaptcha();
-      setStep(2);
+      /* The business form has no Step 2: its button goes straight to the
+         route (payment, or the booking for a firm role). The CA/Firm form
+         keeps its two questions in between. */
+      setStep(panelFor(2) ? 2 : 3);
     };
 
     const submitStepTwo = (event) => {

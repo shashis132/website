@@ -82,24 +82,26 @@ The trailing slash is a local static-server detail. Production canonical URLs do
 
 Since 11 September 2026 the business audience is not offered a demo. Every
 business-facing CTA reads "Try for ₹9" and leads to the lead form on
-`/business`. Steps 1 and 2 are unchanged and still write to the lead Sheet;
-Step 3 sends the visitor to the Razorpay payment page
-`https://rzp.io/rzp/tryfor9`, which forwards them to the app sign-up after
-payment, where the 7-day trial starts. There is no slot booking for
-businesses any more. The reason for the ₹9, stated in the FAQ on
-`/business` and `/pricing`: a free trial attracted fake sign-ups that used
-up the AI credits meant for trials.
+`/business`, which is a single step: the contact details, written to the
+lead Sheet as before, and a "Try for ₹9" button that sends the visitor to
+the Razorpay payment page `https://rzp.io/rzp/tryfor9`. Razorpay forwards
+them to the app sign-up after payment, where the 7-day trial starts. The
+two triage questions and the slot booking are gone for businesses. The
+reason for the ₹9, stated in the FAQ on `/business` and `/pricing`: a
+free trial attracted fake sign-ups that used up the AI credits meant for
+trials.
 
-CA and vCFO firms keep the request-access route: `/ca-firms` is unchanged
-(Step 3 is the Cal.com booking; the trial is 7 days and free), and a
-visitor on `/business` who picks a firm role in Step 1 is routed to the
-booking as well. The third progress label and the Step 2 button change
-with the role, so nobody is surprised by where they land.
+CA and vCFO firms keep the demo route. Every firm-facing CTA reads
+"Book a Demo"; the form on `/ca-firms` is unchanged (details, two
+questions, then the Cal.com booking; the trial is 7 days and free). A
+visitor on `/business` who picks a firm role sees the button change to
+"Book a Demo" and lands on the booking instead of the payment, so firms
+are never sent to the ₹9 page.
 
-`/pricing` is shared: its business CTAs read "Try for ₹9", and its header,
-menu and floating CTA switch to "Request firm access" when the page is
-opened with `?audience=ca-firms`. The trial section and FAQ explain both
-routes.
+`/pricing` is shared: its business CTAs read "Try for ₹9" and its firm
+CTAs "Book a Demo"; the header, menu and floating CTA switch to the firm
+wording when the page is opened with `?audience=ca-firms`. The trial
+section and FAQ explain both routes.
 
 ## What is new in V5
 

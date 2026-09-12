@@ -920,10 +920,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div>
           <div class="lead-form" data-lead-form data-lead-track="business">
-            <p class="lead-progress" data-lead-progress><span aria-current="step">1 · Your details</span><span>2 · Two questions</span><span data-route-label data-route-label-payment="3 · Pay ₹9" data-route-label-booking="3 · Book a time">3 · Pay ₹9</span></p>
             <form class="lead-step" data-lead-step="1" data-lead-submit-step1 novalidate autocomplete="off">
               <h3>Try GeniusCFO for ₹9</h3>
-              <p>Tell us a bit about your business. Next come two quick questions, then the ₹9 payment and your sign-up.</p>
+              <p>Tell us a bit about your business, then pay ₹9 on Razorpay and sign up. Your 7 days start the same day.</p>
 
               <div class="field">
                 <label for="business-name">Your name</label>
@@ -959,7 +958,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <button class="chip" type="button" data-chip-value="other" aria-pressed="false">Other</button>
                 </div>
                 <p class="lead-error" data-lead-error="role" hidden></p>
-                <p class="lead-skip" data-firm-note hidden>CA and vCFO firms start their 7-day trial after a walkthrough with the team, so you will book a time instead of paying ₹9.</p>
+                <p class="lead-skip" data-firm-note hidden>CA and vCFO firms start their 7-day trial after a walkthrough with the team, so you will book a demo instead of paying ₹9.</p>
               </div>
 
               <div class="field" data-turnover-field>
@@ -973,7 +972,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
               <label class="consent">
                 <input type="checkbox" name="consent" required aria-required="true">
-                <span>I agree to be contacted on WhatsApp and/or email about my GeniusCFO trial or access request.</span>
+                <span>I agree to be contacted on WhatsApp and/or email about my GeniusCFO trial or demo.</span>
               </label>
               <p class="lead-error" data-lead-error="consent" hidden></p>
 
@@ -982,76 +981,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
               <div class="form-meta">
                 <input name="role" type="hidden" value="business_owner">
-                <input name="challenge" type="hidden">
-                <input name="tool" type="hidden">
-                <input name="clientTool" type="hidden">
-                <input name="clientCount" type="hidden">
                 <input name="interested_plan" type="hidden">
               </div>
 
-              <button class="btn btn-primary" type="submit">Next</button>
-            </form>
-
-            <form class="lead-step" data-lead-step="2" data-lead-submit-step2 novalidate hidden>
-              <h3>Two quick questions.</h3>
-              <p>Nobody sees a question that doesn&rsquo;t apply. This just tells us where to start.</p>
-
-              <div data-lead-branch="owner">
-                <div class="chip-group" data-chip-group="challenge">
-                  <p class="chip-group-label" id="business-challenge-label">Your biggest accounting challenge right now</p>
-                  <div class="chip-set" role="group" aria-labelledby="business-challenge-label">
-                <button class="chip" type="button" data-chip-value="Cash flow visibility" aria-pressed="false">Cash flow visibility</button>
-                <button class="chip" type="button" data-chip-value="GST compliance" aria-pressed="false">GST compliance</button>
-                <button class="chip" type="button" data-chip-value="Managing invoices" aria-pressed="false">Managing invoices</button>
-                <button class="chip" type="button" data-chip-value="Expense tracking" aria-pressed="false">Expense tracking</button>
-                <button class="chip" type="button" data-chip-value="Financial reporting" aria-pressed="false">Financial reporting</button>
-                <button class="chip" type="button" data-chip-value="Decision-making based on numbers" aria-pressed="false">Decision-making based on numbers</button>
-                <button class="chip" type="button" data-chip-value="Fundraising readiness" aria-pressed="false">Fundraising readiness</button>
-                <button class="chip" type="button" data-chip-value="None of the above" aria-pressed="false">None of the above</button>
-                  </div>
-                </div>
-                <div class="chip-group" data-chip-group="tool">
-                  <p class="chip-group-label" id="business-tool-label">What do you use for your accounting?</p>
-                  <div class="chip-set" role="group" aria-labelledby="business-tool-label">
-                <button class="chip" type="button" data-chip-value="Excel" aria-pressed="false">Excel</button>
-                <button class="chip" type="button" data-chip-value="Accountant/CA" aria-pressed="false">Accountant/CA</button>
-                <button class="chip" type="button" data-chip-value="Tally" aria-pressed="false">Tally</button>
-                <button class="chip" type="button" data-chip-value="Zoho" aria-pressed="false">Zoho</button>
-                <button class="chip" type="button" data-chip-value="Diary" aria-pressed="false">Diary</button>
-                <button class="chip" type="button" data-chip-value="QuickBooks" aria-pressed="false">QuickBooks</button>
-                <button class="chip" type="button" data-chip-value="Other" aria-pressed="false">Other</button>
-                <button class="chip" type="button" data-chip-value="None" aria-pressed="false">None</button>
-                  </div>
-                </div>
-              </div>
-
-              <div data-lead-branch="firm" hidden>
-                <div class="chip-group" data-chip-group="clientTool">
-                  <p class="chip-group-label" id="business-clienttool-label">What do you use for client accounting?</p>
-                  <div class="chip-set" role="group" aria-labelledby="business-clienttool-label">
-                <button class="chip" type="button" data-chip-value="Tally" aria-pressed="false">Tally</button>
-                <button class="chip" type="button" data-chip-value="Zoho" aria-pressed="false">Zoho</button>
-                <button class="chip" type="button" data-chip-value="QuickBooks" aria-pressed="false">QuickBooks</button>
-                <button class="chip" type="button" data-chip-value="Other" aria-pressed="false">Other</button>
-                  </div>
-                </div>
-                <div class="chip-group" data-chip-group="clientCount">
-                  <p class="chip-group-label" id="business-clientcount-label">How many clients do you serve?</p>
-                  <div class="chip-set" role="group" aria-labelledby="business-clientcount-label">
-                <button class="chip" type="button" data-chip-value="1-5" aria-pressed="false">1-5</button>
-                <button class="chip" type="button" data-chip-value="6-10" aria-pressed="false">6-10</button>
-                <button class="chip" type="button" data-chip-value="11-25" aria-pressed="false">11-25</button>
-                <button class="chip" type="button" data-chip-value="26-50" aria-pressed="false">26-50</button>
-                <button class="chip" type="button" data-chip-value="More than 50" aria-pressed="false">More than 50</button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="lead-actions">
-                <button class="btn btn-primary" type="submit" data-route-label data-route-label-payment="Continue to pay ₹9" data-route-label-booking="Next">Continue to pay ₹9</button>
-                <button class="lead-back" type="button" data-lead-back>Back</button>
-              </div>
-              <p class="lead-skip">Your details are already with us &mdash; these answers only tell us where to start.</p>
+              <button class="btn btn-primary" type="submit" data-route-label data-route-label-payment="Try for ₹9" data-route-label-booking="Book a Demo">Try for ₹9</button>
             </form>
 
             <div class="lead-step payment-step" data-lead-step="3" data-lead-route="payment" data-lead-payment hidden>

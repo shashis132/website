@@ -45,8 +45,7 @@ All prices are in Indian rupees and exclude 18% GST. The GST-inclusive total is 
 selected plan. Billing is monthly or every three months; the three-month option is billed once for
 three months of access and costs 20% less than the monthly rate. Every plan begins with a 7-day
 trial with full access. Business plans start with a one-time ₹9 payment on Razorpay, after which
-the visitor signs up and the 7 days begin; CA/Firm plans start with a free trial arranged through an
-access request and a walkthrough with the GeniusCFO team. No UPI mandate is set up and nothing is
+the visitor signs up and the 7 days begin; CA/Firm plans start with a free trial after a demo booked with the GeniusCFO team. No UPI mandate is set up and nothing is
 charged automatically after the trial. The ₹9 charge exists because a free trial attracted fake
 sign-ups that used up the AI credits meant for trials. After the trial the customer chooses
 a plan and pays via Razorpay; if they do not, the AI stops while books, statements, GST screens and
@@ -80,8 +79,7 @@ Intelligence Hub. Plans differ in the AI allowance, the level of support, and ho
 and members are covered.
 
 The website does not sell plans directly. Business pricing actions lead to the ₹9 trial payment on
-Razorpay and then to sign-up; CA/Firm pricing actions open an access request with the GeniusCFO
-team. Plans are chosen and paid for inside the product after the trial.
+Razorpay and then to sign-up; CA/Firm pricing actions book a demo with the GeniusCFO team. Plans are chosen and paid for inside the product after the trial.
 
 ## Questions and answers — GeniusCFO for business owners
 Source: https://geniuscfo.ai/business
@@ -160,11 +158,11 @@ Source: https://geniuscfo.ai/pricing
 
 ### How long is the trial?
 
-Every plan starts with a 7-day trial with full access from day one. Businesses pay ₹9 once on Razorpay to start and sign up straight after; CA/Firm plans start with a free trial arranged through an access request. No UPI mandate is set up and nothing is charged automatically after the trial.
+Every plan starts with a 7-day trial with full access from day one. Businesses pay ₹9 once on Razorpay to start and sign up straight after; CA/Firm plans start with a free trial after a demo booked with the GeniusCFO team. No UPI mandate is set up and nothing is charged automatically after the trial.
 
 ### Why does the business trial cost ₹9?
 
-Because a free trial brought in fake sign-ups and people who worked through the AI credits meant for trials without any intention of using the product. A small payment keeps the trial for real businesses and keeps the AI allowance available to them. CA/Firm trials are arranged through an access request, so they stay free.
+Because a free trial brought in fake sign-ups and people who worked through the AI credits meant for trials without any intention of using the product. A small payment keeps the trial for real businesses and keeps the AI allowance available to them. CA/Firm trials begin with a booked demo, so they stay free.
 
 ### What happens after the trial?
 
