@@ -168,13 +168,13 @@ that is how a stray `#how` in the CA-firms footer was caught.
 ## Two routes out of the lead form
 
 Business visitors do not book a demo. On `/business`, Step 3 of the lead
-form sends them to the Razorpay page `https://rzp.io/rzp/tryfor99`
+form sends them to the Razorpay page `https://rzp.io/rzp/tryfor9`
 (`TRIAL_PAYMENT_URL` in `assets/site.js`); Razorpay forwards them to the
 app sign-up and the 7-day trial starts there. CA and vCFO firms keep the
 Cal.com booking: on `/ca-firms` always, and on `/business` whenever the
 role chip is a firm. The markup decides where the payment route exists
 (the `[data-lead-payment]` panel is only on `/business`); the role decides
-who takes it. Every business-facing CTA reads exactly "Try for ₹99";
+who takes it. Every business-facing CTA reads exactly "Try for ₹9";
 "Request Access" and "Book a demo" survive only for firms.
 
 Consequences:
@@ -186,8 +186,8 @@ Consequences:
   before leaving; the payment completes on Razorpay and the sign-up on the
   app, neither of which this site can see. Counting a paid trial as a
   conversion is a GTM change, not a website change.
-- The trial is 7 days for both audiences: ₹99 for businesses, free on
-  request for firms. The FAQ explaining the ₹99 (fake sign-ups burning the
+- The trial is 7 days for both audiences: ₹9 for businesses, free on
+  request for firms. The FAQ explaining the ₹9 (fake sign-ups burning the
   trial AI credits) is on `/business` and `/pricing`, in the visible text
   and the JSON-LD, and in both llms files. Keep all four in step.
 - The sandbox cannot reach `rzp.io`, so the redirect is verified by

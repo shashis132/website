@@ -140,8 +140,8 @@ does not need touching.
 
 **Business visitors no longer reach this step.** Since 11 September 2026,
 Step 3 on `/business` sends a business visitor to the Razorpay Payment Page
-`https://rzp.io/rzp/tryfor99` (`TRIAL_PAYMENT_URL` in `assets/site.js`),
-where the ₹99 trial is paid; Razorpay then forwards them to the app
+`https://rzp.io/rzp/tryfor9` (`TRIAL_PAYMENT_URL` in `assets/site.js`),
+where the ₹9 trial is paid; Razorpay then forwards them to the app
 sign-up. The page pushes `lead_payment_redirect` to the data layer just
 before it leaves. That event is not wired to any tag: `generate_lead` is
 still raised only by a Cal.com booking, so business trials are not counted

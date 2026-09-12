@@ -47,7 +47,7 @@
   const CAL_NAMESPACE = "30min";
 
   /* --------------------------------------------------------------------
-     "Try for ₹99" — the business route out of the lead form.
+     "Try for ₹9" — the business route out of the lead form.
 
      After Step 2, a business visitor is sent to this Razorpay Payment Page
      instead of the Cal.com booking. Razorpay forwards them to the GeniusCFO
@@ -57,7 +57,7 @@
      booking route, and the CA/Firm page never offers the payment route at
      all. Blank this and the business form falls back to the booking step.
      -------------------------------------------------------------------- */
-  const TRIAL_PAYMENT_URL = "https://rzp.io/rzp/tryfor99";
+  const TRIAL_PAYMENT_URL = "https://rzp.io/rzp/tryfor9";
 
   const TRACKING_KEYS = [
     "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term",
@@ -345,7 +345,7 @@
      Multi-step lead form
      Step 1 — contact and role.  Step 2 — triage, branched by role.
      Step 3 — one of two routes, decided by the role chosen in Step 1:
-       payment  business visitors on the business page go to the ₹99
+       payment  business visitors on the business page go to the ₹9
                 Razorpay page (TRIAL_PAYMENT_URL), then to sign-up;
        booking  CA and vCFO firms, and everyone on the CA/Firm page, get
                 the Cal.com inline booking.
@@ -588,7 +588,7 @@
 
     const isFirm = () => FIRM_ROLES.indexOf(state.role) > -1;
 
-    /* Which way Step 3 goes. The markup decides where the ₹99 route is
+    /* Which way Step 3 goes. The markup decides where the ₹9 route is
        offered at all; the role decides who takes it. */
     const route = () => (paymentStep && TRIAL_PAYMENT_URL && !isFirm()) ? "payment" : "booking";
 
@@ -618,7 +618,7 @@
       pushDataLayer("lead_payment_redirect", {
         role: state.role,
         track: track,
-        trial_amount: 99,
+        trial_amount: 9,
         currency: "INR"
       });
       if (paymentTimer) window.clearTimeout(paymentTimer);
@@ -869,7 +869,7 @@
     const submitStepTwo = (event) => {
       event.preventDefault();
       /* Step 2 saves the triage answers and opens Step 3 — Cal.com or the
-         ₹99 payment page, by route. Neither a booked appointment nor a
+         ₹9 payment page, by route. Neither a booked appointment nor a
          completed payment has happened yet, so no conversion event fires
          here. */
       const consentField = field("consent");
@@ -1310,7 +1310,7 @@
     if (selected) selected.setAttribute("aria-current", "true");
 
     /* The shared pricing page ships its header, menu and floating CTA as
-       the business route ("Try for ₹99"). A visitor who arrived as
+       the business route ("Try for ₹9"). A visitor who arrived as
        ?audience=ca-firms is offered the firm route instead, with the same
        campaign parameters carried over. */
     if (audience === "ca-firms") {

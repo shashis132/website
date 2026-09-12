@@ -78,15 +78,15 @@ Serve this folder over HTTP. With a basic static server, preview:
 
 The trailing slash is a local static-server detail. Production canonical URLs do not use a trailing slash.
 
-## Try for ₹99: the business route
+## Try for ₹9: the business route
 
 Since 11 September 2026 the business audience is not offered a demo. Every
-business-facing CTA reads "Try for ₹99" and leads to the lead form on
+business-facing CTA reads "Try for ₹9" and leads to the lead form on
 `/business`. Steps 1 and 2 are unchanged and still write to the lead Sheet;
 Step 3 sends the visitor to the Razorpay payment page
-`https://rzp.io/rzp/tryfor99`, which forwards them to the app sign-up after
+`https://rzp.io/rzp/tryfor9`, which forwards them to the app sign-up after
 payment, where the 7-day trial starts. There is no slot booking for
-businesses any more. The reason for the ₹99, stated in the FAQ on
+businesses any more. The reason for the ₹9, stated in the FAQ on
 `/business` and `/pricing`: a free trial attracted fake sign-ups that used
 up the AI credits meant for trials.
 
@@ -96,7 +96,7 @@ visitor on `/business` who picks a firm role in Step 1 is routed to the
 booking as well. The third progress label and the Step 2 button change
 with the role, so nobody is surprised by where they land.
 
-`/pricing` is shared: its business CTAs read "Try for ₹99", and its header,
+`/pricing` is shared: its business CTAs read "Try for ₹9", and its header,
 menu and floating CTA switch to "Request firm access" when the page is
 opened with `?audience=ca-firms`. The trial section and FAQ explain both
 routes.
@@ -138,7 +138,7 @@ routes.
 - The placeholder demo form became a live three-step lead form. Steps 1 and 2
   post to the existing Google Apps Script lead Sheet receiver; Step 3 books on
   Cal.com.
-- Every pricing CTA booked a demo (since superseded for businesses by the ₹99
+- Every pricing CTA booked a demo (since superseded for businesses by the ₹9
   route above). The website does not sell a plan directly.
 
 `VERCEL-SETUP.md` covers the lead Sheet, Cal.com, GTM and production hosting.
