@@ -1520,8 +1520,19 @@ main > .logo-band + .chapter.chapter-major {
   letter-spacing: 0.13em;
   text-transform: uppercase;
 }
-.footer-col ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 9px; }
-.footer-col a { color: var(--text-strong); font-size: 0.9375rem; text-decoration: none; }
+/* Every footer link is a 44px tap target. This used to be an inline style on
+   whichever links someone remembered, which left the Business column mixing
+   20px and 44px rows and reading as a gap. The target supplies the spacing, so
+   the list gap goes to zero. */
+.footer-col ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 0; }
+.footer-col a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--text-strong);
+  font-size: 0.9375rem;
+  text-decoration: none;
+}
 .footer-col a:hover { color: var(--text-max); text-decoration: underline; text-underline-offset: 3px; }
 
 .footer-bottom {
