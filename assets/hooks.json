@@ -1,0 +1,53 @@
+{
+  "default": "P1-A01-F12",
+  "routes": {
+    "P1-A01-F12": {
+      "l1": "You already download these files.",
+      "l2": "Nobody turns them into books."
+    },
+    "P1-A01-F10": {
+      "l1": "The dashboard said one number.",
+      "l2": "The bank said a smaller one."
+    },
+    "P1-A01-F07": {
+      "l1": "The payout landed.",
+      "l2": "It was not the number on the screen."
+    },
+    "P1-A02-F09": {
+      "l1": "The sale went well.",
+      "l2": "Then the payouts started."
+    },
+    "P1-A02-F01": {
+      "l1": "The Sunday table.",
+      "l2": null
+    },
+    "P1-A02-F12": {
+      "l1": "It is the 20th.",
+      "l2": "Your CA wants the files."
+    },
+    "P1-A03-F04": {
+      "l1": "Your CA files.",
+      "l2": "Nobody tells you what you made."
+    },
+    "P1-A04-F08": {
+      "l1": "Sunday. Monday.",
+      "l2": "The same file, one day later."
+    },
+    "P1-A05-F05": {
+      "l1": "This is the file you downloaded.",
+      "l2": "This is what it becomes."
+    },
+    "P1-A06-F06": {
+      "l1": "Where your profit figure comes from today.",
+      "l2": null
+    },
+    "P1-A12-F07": {
+      "l1": "Your CA files.",
+      "l2": "Nobody tells you what you made."
+    },
+    "P1-A12-F03": {
+      "l1": "The dashboard said one number.",
+      "l2": "The bank said a smaller one."
+    }
+  }
+}

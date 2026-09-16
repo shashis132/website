@@ -4,7 +4,7 @@
 > routine bookkeeping, prepares GST information and financial statements, and answers financial
 > questions from updated accounts. Operated by GeniusCFO, serving India.
 
-Last updated: 2026-09-11
+Last updated: 2026-09-16
 Canonical short version: https://geniuscfo.ai/llms.txt
 Contact: marketing@geniuscfo.ai
 
@@ -15,6 +15,7 @@ https://geniuscfo.ai is authoritative.
 ## Pages
 
 - https://geniuscfo.ai/business — GeniusCFO for business owners
+- https://geniuscfo.ai/business/sellers — GeniusCFO for marketplace and D2C sellers
 - https://geniuscfo.ai/ca-firms — GeniusCFO for CA and accounting firms
 - https://geniuscfo.ai/pricing — pricing for both audiences
 - https://geniuscfo.ai/blog — blog index: analysis of accounting automation
@@ -116,6 +117,34 @@ Seven days of full access to everything - bookkeeping, GST information, bank mat
 
 Because a free trial brought in fake sign-ups and people who worked through the AI credits meant for trials without any intention of using the product. A small payment keeps the trial for real businesses and keeps the AI allowance available to them.
 
+
+## Questions and answers — GeniusCFO for marketplace and D2C sellers
+Source: https://geniuscfo.ai/business/sellers
+
+A seller sells on marketplaces such as Amazon, Flipkart and Meesho, or direct to consumers, and
+downloads a settlement report, a payout statement and a TCS report from each platform every month.
+GeniusCFO books every line in those exports. There is no marketplace connector: the exports are
+uploaded as files, as are purchase bills and the bank statement.
+
+### Does GeniusCFO connect to Amazon, Flipkart or Meesho?
+
+No. There is no marketplace connector. You upload the settlement, payout and TCS exports you already download, with your bank statement and bills, and GeniusCFO books every line in them. Documents of any kind go in; current books come out.
+
+### Which files do I need each month?
+
+The settlement report, payout statement and TCS report from each marketplace, the returns file if you have one, your purchase bills and your bank statement. CSV, Excel, PDF, scans and photos are all read.
+
+### Does my CA still file my GST?
+
+Yes. GeniusCFO prepares the GST information from your books: output GST, input tax credit, net payable, return status and mismatches. Your CA reviews the same books in the same workspace and files the returns. Nothing here replaces your CA.
+
+### How are returns, reversals and TCS handled?
+
+They are booked from the lines in your exports as entries with debits and credits, each carrying its source line, and matched against the payout that landed in the bank. Your profit figure is read off those books, not off a dashboard tile.
+
+### Why do the marketplace dashboard and the bank never agree?
+
+The dashboard tile shows sales less the fees it knows about. The bank shows what landed after commission, TCS, returns and reversals, on each platform's own cycle. Neither figure is profit. The books, current every day, are where the two meet.
 
 ## Questions and answers — GeniusCFO for CA and accounting firms
 Source: https://geniuscfo.ai/ca-firms

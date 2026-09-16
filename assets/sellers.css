@@ -1,0 +1,234 @@
+/* ==========================================================================
+   sellers.css — components unique to /business/sellers
+
+   Everything here sits on top of site-v4.css and uses its tokens. The page
+   reuses the site's chapters, buttons, screen windows, steps, pricing block,
+   lead form and comparison table as they are; only the five objects below are
+   new, and each one is the ledger system applied to a seller's own paperwork:
+   the file list, the honest note, the month ledger, the fact strip and the
+   closing CTA row.
+   ========================================================================== */
+
+/* ---------- The swappable hook ---------- *
+   Twelve ads land here and each sets its own two headline lines. The measure
+   and the reserved two-line height are fixed so a shorter hook replacing the
+   default cannot shift the page. `balance` keeps each line whole. */
+
+/* The brand book sets an 11ch measure for display type. At the site's 80px
+   h1 that stacks the default hook into six lines, a 470px headline that
+   pushes the hero CTA to y=1004 on a 900px viewport. On an ad landing page
+   the CTA has to be above the fold, so the measure here is the site's own
+   --max-head and the type steps down one notch: the default hook sets in
+   four lines and the CTA lands around y=810. `.sellers-hero` is needed to
+   outrank `.hero h1`, which would otherwise win on specificity. */
+.sellers-hero .hook-h1 {
+  max-width: var(--max-head);
+  font-size: clamp(2.375rem, 5.2vw, 4.25rem);
+  text-wrap: balance;
+}
+.hook-h1 .hook-line { display: block; }
+.hook-h1 .hook-line-2 { color: var(--text-muted); }
+
+.sellers-hero .hero-copy { max-width: var(--max-head); }
+.sellers-hero .hero-proof { max-width: 34rem; }
+
+@media (min-width: 900px) {
+  .sellers-hero .hero-grid {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    justify-items: start;
+    align-items: center;
+    text-align: left;
+  }
+  .sellers-hero .hero-copy { justify-items: start; }
+  .sellers-hero .hero-actions { justify-content: flex-start; }
+  .sellers-hero .hero-product { margin-bottom: 0; }
+}
+
+/* ---------- 01 · The files ---------- *
+   The seller's own download folder, set as a ledger: one ruled row per
+   document, the filename on the left and what became of it on the right. */
+
+.file-list {
+  margin: 0;
+  max-width: 44rem;
+  padding: 0;
+  list-style: none;
+  border-top: var(--hairline-strong);
+}
+.file-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 20px;
+  padding: 15px 2px;
+  border-bottom: var(--hairline);
+}
+.file-name {
+  color: var(--text-strong);
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+.file-status {
+  color: var(--text-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ---------- The honest note ---------- *
+   The one emerald on its surface: a 2px rule above the sentence that says
+   what the product does not do. */
+
+.note-honest {
+  max-width: var(--max-read);
+  margin-top: clamp(32px, 4vw, 48px);
+  padding-top: 18px;
+  border-top: 2px solid var(--emerald);
+  color: var(--text-soft);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+}
+.note-honest strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text-max);
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- 03 · The month ---------- *
+   Six dated rows, no figures. The last row is the seller's Sunday, and its
+   label is the one emerald on the surface. */
+
+.month-ledger {
+  margin: 0;
+  max-width: 44rem;
+  border-top: var(--hairline-strong);
+}
+.month-ledger > div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px 28px;
+  padding: 15px 2px;
+  border-bottom: var(--hairline);
+}
+@media (min-width: 640px) {
+  .month-ledger > div { grid-template-columns: 120px minmax(0, 1fr); align-items: baseline; gap: 28px; }
+}
+.month-ledger dt {
+  color: var(--text-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.month-ledger dd {
+  margin: 0;
+  color: var(--text-body);
+  font-size: 1.0625rem;
+  line-height: 1.45;
+}
+.month-ledger .is-turn dt { color: var(--emerald-text); }
+
+.month-close {
+  max-width: var(--max-read);
+  margin-top: clamp(28px, 3.5vw, 40px);
+  color: var(--text-muted);
+  font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
+  line-height: 1.42;
+  letter-spacing: -0.012em;
+}
+
+/* ---------- 04 · Your CA ---------- *
+   The R3 line: the CA still files. Emerald rule above it, nothing else. */
+
+.review-close {
+  max-width: var(--max-read);
+  margin-top: clamp(40px, 5vw, 56px);
+  padding-top: 18px;
+  border-top: 2px solid var(--emerald);
+  color: var(--text-max);
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+/* ---------- 05 · Today ---------- *
+   The site's comparison table, with the GeniusCFO column named rather than
+   set in the mono uppercase the other column heads use. */
+
+/* Stacked on phones, each cell prints its column name from data-label in
+   mono uppercase. That would set the wordmark as GENIUSCFO, which R21
+   forbids, so this one label reverts to DM Sans with its casing intact. */
+@media (max-width: 700px) {
+  .seller-table td.gcfo-mark::before {
+    color: var(--text-max);
+    font-family: var(--font-body);
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+}
+
+.seller-table .gcfo-head {
+  color: var(--text-max);
+  border-top: 2px solid var(--emerald);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* ---------- 08 · The trial ---------- */
+
+.fact-strip {
+  margin-top: 20px;
+  color: var(--text-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1.7;
+  text-transform: uppercase;
+}
+.after-trial {
+  max-width: var(--max-body);
+  margin-top: 14px;
+  color: var(--text-soft);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+/* ---------- 09 · The closing CTA ---------- */
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 24px;
+  margin-top: clamp(40px, 5vw, 56px);
+  padding-top: clamp(28px, 3.5vw, 40px);
+  border-top: var(--hairline-strong);
+}
+.cta-row .mono { color: var(--text-subtle); }
+
+/* ---------- A CTA closing a chapter ---------- */
+
+.chapter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: clamp(36px, 4.5vw, 48px);
+}
