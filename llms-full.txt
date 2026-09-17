@@ -134,9 +134,9 @@ No. There is no marketplace connector. You upload the settlement, payout and TCS
 
 The settlement report, payout statement and TCS report from each marketplace, the returns file if you have one, your purchase bills and your bank statement. CSV, Excel, PDF, scans and photos are all read.
 
-### Does my CA still file my GST?
+### Does my accountant still file my GST?
 
-Yes. GeniusCFO prepares the GST information from your books: output GST, input tax credit, net payable, return status and mismatches. Your CA reviews the same books in the same workspace and files the returns. Nothing here replaces your CA.
+Yes. GeniusCFO prepares the GST information from your books: output GST, input tax credit, net payable, return status and mismatches. Your accountant reviews the same books in the same workspace and files the returns. Nothing here replaces your accountant.
 
 ### How are returns, reversals and TCS handled?
 

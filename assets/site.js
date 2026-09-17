@@ -590,9 +590,11 @@
 
     const isFirm = () => FIRM_ROLES.indexOf(state.role) > -1;
 
-    /* Which way Step 3 goes. The markup decides where the ₹9 route is
-       offered at all; the role decides who takes it. */
-    const route = () => (paymentStep && TRIAL_PAYMENT_URL && !isFirm()) ? "payment" : "booking";
+    /* A form carrying data-lead-payment-only has no booking panel at all, so
+       every role takes the ₹9 route. Without it the markup decides where the
+       ₹9 route is offered and the role decides who takes it. */
+    const paymentOnly = root.hasAttribute("data-lead-payment-only");
+    const route = () => (paymentStep && TRIAL_PAYMENT_URL && (paymentOnly || !isFirm())) ? "payment" : "booking";
 
     /* Labels that read differently per route — the submit button, and a
        progress step where there is one — carry both texts as data
@@ -801,7 +803,7 @@
 
       let ok = true;
       if (!value("name")) { showError("name", "Please enter your name."); ok = false; }
-      if (!value("company")) {
+      if (field("company") && !value("company")) {
         showError("company", track === "practice" ? "Please enter your firm name." : "Please enter your business name.");
         ok = false;
       }
@@ -811,16 +813,19 @@
         ok = false;
       }
       const email = value("email");
-      if (!email) {
-        showError("email", "Please enter your email address.");
-        ok = false;
-      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
-        showError("email", "That email doesn't look right.");
-        ok = false;
+      if (field("email")) {
+        if (!email) {
+          showError("email", "Please enter your email address.");
+          ok = false;
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+          showError("email", "That email doesn't look right.");
+          ok = false;
+        }
       }
       if (!state.role) { showError("role", "Please choose the option that describes you."); ok = false; }
-      /* Turnover is hidden for firms, so it is only required when shown. */
-      if (!isFirm() && !value("turnover")) {
+      /* Turnover is hidden for firms and absent on the sellers form, so it is
+         only required when the markup carries it and the role is not a firm. */
+      if (field("turnover") && !isFirm() && !value("turnover")) {
         showError("turnover", "Please select your annual turnover.");
         ok = false;
       }

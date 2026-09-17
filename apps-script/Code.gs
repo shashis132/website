@@ -20,7 +20,8 @@
  * `captcha_token`. When the script property RECAPTCHA_SECRET is set
  * (Project Settings → Script Properties), the token is verified with Google
  * before a row is appended. A missing token, or one Google calls invalid,
- * expired or reused, is rejected. A failure on our side (wrong secret,
+ * expired or reused, is rejected -- unless the lead came from a page in
+ * CAPTCHA_EXEMPT_PATHS, whose form has no captcha to tick. A failure on our side (wrong secret,
  * Google unreachable) still writes the row and records why in the
  * `captcha` column, so a misconfiguration never loses a lead. Step 2 only
  * updates a row that step 1 already created, so it is not re-verified
@@ -42,6 +43,30 @@
  */
 var SPREADSHEET_ID = '';
 var SHEET_NAME = 'Leads';
+
+/**
+ * Landing pages whose form carries no captcha, so a missing token is expected
+ * rather than a bot. /business/sellers is the P1 seller experiment: its form
+ * is four fields and one click through to Razorpay, with no checkbox to tick.
+ *
+ * Without this list verifyCaptcha_ would see no token, call it a bot and drop
+ * every lead the page ever takes, silently. Rows that arrive this way are
+ * still written and still stamped in the `captcha` column ('not required'),
+ * so it stays visible in the sheet which rows were never challenged.
+ *
+ * Matching is on the path the page reports, which the visitor's browser
+ * supplies, so this is a convenience for a page we control and not a security
+ * boundary. Keep the list to pages that genuinely have no captcha.
+ */
+var CAPTCHA_EXEMPT_PATHS = ['/business/sellers'];
+
+function captchaExempt_(path) {
+  var clean = String(path || '').split('?')[0].replace(/\/+$/, '');
+  for (var i = 0; i < CAPTCHA_EXEMPT_PATHS.length; i++) {
+    if (clean === CAPTCHA_EXEMPT_PATHS[i]) return true;
+  }
+  return false;
+}
 
 var COLUMNS = [
   'received_at',
@@ -107,7 +132,9 @@ function doPost(e) {
          submission, which means it must pass the captcha like step 1. */
     }
 
-    var captcha = verifyCaptcha_(data.captcha_token);
+    var captcha = captchaExempt_(data.landing_path)
+      ? { ok: true, reject: false, reason: 'not required' }
+      : verifyCaptcha_(data.captcha_token);
     if (captcha.reject) {
       console.warn('Rejected lead (captcha %s) for phone %s', captcha.reason, phone);
       return respond_({ ok: false, error: 'captcha_' + captcha.reason });

@@ -23,10 +23,10 @@
     },
     "P1-A02-F12": {
       "l1": "It is the 20th.",
-      "l2": "Your CA wants the files."
+      "l2": "Your accountant wants the files."
     },
     "P1-A03-F04": {
-      "l1": "Your CA files.",
+      "l1": "Your accountant files.",
       "l2": "Nobody tells you what you made."
     },
     "P1-A04-F08": {
@@ -42,7 +42,7 @@
       "l2": null
     },
     "P1-A12-F07": {
-      "l1": "Your CA files.",
+      "l1": "Your accountant files.",
       "l2": "Nobody tells you what you made."
     },
     "P1-A12-F03": {
