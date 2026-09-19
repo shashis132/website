@@ -1,2 +1,10 @@
 # Local Vercel CLI state.
 .vercel/
+
+# Video pipeline: dependencies, renders and staging are never committed.
+video/project/node_modules/
+video/project/out/
+video/project/.remotion/
+video/renders/
+video/inbox/*
+!video/inbox/README.txt

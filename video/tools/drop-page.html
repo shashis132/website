@@ -1,0 +1,453 @@
+<title>GCFO Video Assets</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --ground: #f3f4f8;
+    --surface: #ffffff;
+    --surface-2: #e9ecf3;
+    --ink: #0b0f1a;
+    --ink-2: #2a3142;
+    --ink-3: #5b6478;
+    --hairline: #dfe2ea;
+    --hairline-strong: #c5cad8;
+    --emerald: #00c896;
+    --emerald-text: #00674d;
+    --emerald-wash: rgba(0, 200, 150, 0.12);
+    --amber: #b86a00;
+    --amber-wash: rgba(255, 159, 28, 0.16);
+    --coral: #c8264a;
+    --coral-wash: rgba(255, 75, 110, 0.14);
+    --focus: #0b0f1a;
+    --font-body: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-display: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+    --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0b0f1a;
+      --surface: #141926;
+      --surface-2: #1c2233;
+      --ink: #eef1f7;
+      --ink-2: #c7cddb;
+      --ink-3: #8b94a9;
+      --hairline: #273047;
+      --hairline-strong: #3a4460;
+      --emerald: #00d9a3;
+      --emerald-text: #2ee3b5;
+      --emerald-wash: rgba(0, 217, 163, 0.14);
+      --amber: #ffb547;
+      --amber-wash: rgba(255, 159, 28, 0.18);
+      --coral: #ff6f8c;
+      --coral-wash: rgba(255, 75, 110, 0.18);
+      --focus: #eef1f7;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0b0f1a;
+    --surface: #141926;
+    --surface-2: #1c2233;
+    --ink: #eef1f7;
+    --ink-2: #c7cddb;
+    --ink-3: #8b94a9;
+    --hairline: #273047;
+    --hairline-strong: #3a4460;
+    --emerald: #00d9a3;
+    --emerald-text: #2ee3b5;
+    --emerald-wash: rgba(0, 217, 163, 0.14);
+    --amber: #ffb547;
+    --amber-wash: rgba(255, 159, 28, 0.18);
+    --coral: #ff6f8c;
+    --coral-wash: rgba(255, 75, 110, 0.18);
+    --focus: #eef1f7;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.5;
+    padding-inline: 20px;
+    padding-block: 28px 48px;
+  }
+  main { max-width: 760px; margin: 0 auto; display: grid; gap: 24px; }
+
+  header { display: grid; gap: 6px; }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .lede { margin: 0; color: var(--ink-3); max-width: 62ch; }
+
+  .banner {
+    border: 1px solid var(--hairline-strong);
+    background: var(--surface);
+    padding: 12px 14px;
+    border-radius: 6px;
+    color: var(--ink-2);
+  }
+  .banner strong { color: var(--ink); }
+
+  .fields { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 12px; }
+  @media (max-width: 560px) { .fields { grid-template-columns: 1fr; } }
+  .field { display: grid; gap: 4px; }
+  .field label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .field input {
+    font: inherit;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--hairline-strong);
+    border-radius: 6px;
+    padding: 9px 11px;
+    min-width: 0;
+  }
+  .field input:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+  .hint { font-size: 12.5px; color: var(--ink-3); margin: 0; }
+
+  .drop {
+    display: grid;
+    place-items: center;
+    gap: 6px;
+    text-align: center;
+    padding: 40px 20px;
+    border: 1.5px dashed var(--hairline-strong);
+    border-radius: 8px;
+    background: var(--surface);
+    cursor: pointer;
+    transition: border-color 200ms, background 200ms;
+  }
+  .drop:hover, .drop:focus-within { border-color: var(--emerald); }
+  .drop.over { border-color: var(--emerald); background: var(--emerald-wash); }
+  .drop[aria-disabled="true"] { cursor: not-allowed; opacity: 0.6; }
+  .drop .big { font-family: var(--font-display); font-weight: 600; font-size: 22px; }
+  .drop .small { color: var(--ink-3); font-size: 13.5px; }
+  .drop input { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
+  .drop:focus-within { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  section.list { display: grid; gap: 10px; }
+  .list-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .list-head h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0;
+  }
+  .meter { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+
+  .ledger { display: grid; border-top: 1px solid var(--hairline-strong); }
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4px 14px;
+    padding: 12px 2px;
+    border-bottom: 1px solid var(--hairline);
+    align-items: start;
+  }
+  .row .name { font-weight: 500; overflow-wrap: anywhere; }
+  .row .meta {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+    display: flex; flex-wrap: wrap; gap: 4px 14px;
+  }
+  .row .note { grid-column: 1 / -1; font-size: 13.5px; color: var(--ink-2); }
+  .right { display: grid; justify-items: end; gap: 6px; }
+  .chip {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 3px 8px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .chip.ok { background: var(--emerald-wash); color: var(--emerald-text); }
+  .chip.busy { background: var(--amber-wash); color: var(--amber); }
+  .chip.bad { background: var(--coral-wash); color: var(--coral); }
+  .chip.wait { background: var(--surface-2); color: var(--ink-2); }
+  .row .err { grid-column: 1 / -1; font-size: 13px; color: var(--coral); }
+  .row button {
+    font: inherit;
+    font-size: 12.5px;
+    color: var(--ink-3);
+    background: none;
+    border: 1px solid var(--hairline-strong);
+    border-radius: 6px;
+    padding: 3px 9px;
+    cursor: pointer;
+  }
+  .row button:hover { color: var(--coral); border-color: var(--coral); }
+  .row button:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+  .empty { padding: 18px 2px; color: var(--ink-3); border-bottom: 1px solid var(--hairline); }
+
+  .how { display: grid; gap: 4px; padding: 14px 16px; border-left: 3px solid var(--emerald); background: var(--surface); }
+  .how p { margin: 0; color: var(--ink-2); font-size: 13.5px; }
+  .how p strong { color: var(--ink); font-weight: 600; }
+  @media (prefers-reduced-motion: reduce) { .drop { transition: none; } }
+</style>
+
+<main>
+  <header>
+    <h1>GCFO Video Assets</h1>
+    <p class="lede">Drop scripts, screenshots, screen recordings, voice files and reference material here. Claude pulls them straight into the video production workspace.</p>
+  </header>
+
+  <div class="banner" id="banner" hidden></div>
+
+  <div class="fields">
+    <div class="field">
+      <label for="project">Project</label>
+      <input id="project" type="text" placeholder="e.g. trial-signup-demo" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="note">Note for Claude (optional)</label>
+      <input id="note" type="text" placeholder="e.g. reference ad, copy its pacing" autocomplete="off">
+    </div>
+  </div>
+  <p class="hint">Project and note are attached to the files you drop next. Any file type works; big files are split automatically.</p>
+
+  <label class="drop" id="drop" tabindex="0">
+    <span class="big">Drop files here</span>
+    <span class="small">or click to choose. Several at once is fine.</span>
+    <input id="picker" type="file" multiple>
+  </label>
+
+  <section class="list">
+    <div class="list-head">
+      <h2>Dropped so far</h2>
+      <span class="meter" id="meter"></span>
+    </div>
+    <div class="ledger" id="ledger">
+      <div class="empty">Nothing dropped yet.</div>
+    </div>
+  </section>
+
+  <div class="how">
+    <p><strong>Uploaded</strong> means the file is stored on this page.</p>
+    <p><strong>Received by Claude</strong> means Claude has pulled it into the workspace. Tell Claude in chat when a batch is ready.</p>
+    <p><strong>Remove</strong> deletes a file from this page for good. Use it for a wrong drop.</p>
+  </div>
+</main>
+
+<script>
+(() => {
+  const DIRECT = {
+    png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', gif: 'image/gif', webp: 'image/webp',
+    svg: 'image/svg+xml', mp4: 'video/mp4', webm: 'video/webm', pdf: 'application/pdf',
+    woff2: 'font/woff2', woff: 'font/woff', ttf: 'font/ttf', otf: 'font/otf',
+    csv: 'text/csv', md: 'text/markdown', json: 'application/json', txt: 'text/plain',
+    css: 'text/css', js: 'text/javascript'
+  };
+  const MiB = 1024 * 1024;
+  const CHUNK_RAW = 14 * MiB; // base64 of this stays under the 20 MiB per-asset cap
+  const WRAP = 'gcfo-drop/1';
+
+  const $ = (id) => document.getElementById(id);
+  const banner = $('banner'), drop = $('drop'), picker = $('picker'), ledger = $('ledger'), meter = $('meter');
+  const projectEl = $('project'), noteEl = $('note');
+
+  let assets = null, db = null;
+  const local = new Map(); // in-flight rows, keyed by temp id
+  let remote = [];
+
+  try { projectEl.value = localStorage.getItem('gcfo-drop-project') || ''; } catch (e) {}
+  projectEl.addEventListener('input', () => { try { localStorage.setItem('gcfo-drop-project', projectEl.value); } catch (e) {} });
+
+  function limitFor(mime) {
+    if (mime === 'image/svg+xml') return 2 * MiB;
+    if (mime === 'text/css' || mime === 'text/javascript') return 16 * MiB;
+    return 20 * MiB;
+  }
+  function extOf(name) { const m = /\.([a-z0-9]+)$/i.exec(name || ''); return m ? m[1].toLowerCase() : ''; }
+  function fmtBytes(n) {
+    if (!(n >= 0)) return '';
+    if (n < 1024) return n + ' B';
+    if (n < MiB) return (n / 1024).toFixed(0) + ' KB';
+    if (n < 1024 * MiB) return (n / MiB).toFixed(1) + ' MB';
+    return (n / (1024 * MiB)).toFixed(2) + ' GB';
+  }
+  function fmtWhen(iso) {
+    const d = new Date(iso); if (isNaN(d)) return '';
+    return d.toLocaleString(undefined, { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+  }
+  function slug(s) { return (s || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60); }
+
+  function readBase64(blob) {
+    return new Promise((resolve, reject) => {
+      const r = new FileReader();
+      r.onload = () => resolve(String(r.result).split(',')[1] || '');
+      r.onerror = () => reject(r.error);
+      r.readAsDataURL(blob);
+    });
+  }
+
+  async function uploadWrapped(file, row) {
+    const parts = Math.max(1, Math.ceil(file.size / CHUNK_RAW));
+    const ids = [];
+    for (let i = 0; i < parts; i++) {
+      row.progress = 'Uploading part ' + (i + 1) + ' of ' + parts; render();
+      const start = i * CHUNK_RAW, end = Math.min(file.size, start + CHUNK_RAW);
+      const data = await readBase64(file.slice(start, end));
+      const body = JSON.stringify({ wrap: WRAP, name: file.name, type: file.type || '', size: file.size, part: i + 1, parts, offset: start, bytes: end - start, data });
+      const res = await assets.upload(new Blob([body], { type: 'application/json' }), { type: 'application/json' });
+      ids.push(res.id);
+    }
+    return { mode: 'wrapped', ids, parts };
+  }
+
+  async function uploadOne(file, row) {
+    const ext = extOf(file.name);
+    const mime = DIRECT[ext];
+    if (mime && file.size <= limitFor(mime)) {
+      row.progress = 'Uploading'; render();
+      try {
+        const res = await assets.upload(file, { type: mime });
+        return { mode: 'direct', ids: [res.id], parts: 1, stored: mime };
+      } catch (e) {
+        const code = e && e.code;
+        if (code !== 'unsupported_type' && code !== 'invalid_request' && code !== 'too_large') throw e;
+        // fall through: wrap it instead
+      }
+    }
+    return await uploadWrapped(file, row);
+  }
+
+  async function handleFiles(files) {
+    if (!assets || !db) return;
+    const project = slug(projectEl.value) || 'unsorted';
+    const note = noteEl.value.trim();
+    noteEl.value = '';
+    for (const file of files) {
+      const key = 'local-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+      const row = { key, name: file.name, size: file.size, project, note, progress: 'Queued', error: '' };
+      local.set(key, row); render();
+      try {
+        const up = await uploadOne(file, row);
+        row.progress = 'Saving'; render();
+        await db.collection('uploads').add({
+          name: file.name, size: file.size, type: file.type || '', ext: extOf(file.name),
+          project, note, mode: up.mode, assets: up.ids, parts: up.parts, stored: up.stored || 'application/json',
+          createdAt: new Date().toISOString(), pulled: false
+        });
+        local.delete(key);
+      } catch (e) {
+        row.error = explain(e); row.progress = ''; render();
+      }
+    }
+    render();
+    refreshMeter();
+  }
+
+  function explain(e) {
+    const code = e && e.code;
+    switch (code) {
+      case 'too_large': return 'Too large for one part. Try again; if it repeats, tell Claude.';
+      case 'quota_or_state': return 'Storage on this page is full. Remove old files or tell Claude.';
+      case 'rate_limited': return 'Too many uploads at once. Wait a moment and drop it again.';
+      case 'upstream_auth': return 'Sign-in expired. Reload the page and drop it again.';
+      case 'store_unavailable': return 'Storage hiccup. Drop it again in a minute.';
+      case 'not_granted': case 'capability_disabled': case 'capability_removed':
+        return 'Uploads are not available in this view. Open the page signed in with edit access.';
+      case 'quota_exceeded': return 'The file list is full. Remove old entries or tell Claude.';
+      default: return 'Upload failed' + (e && e.message ? ': ' + e.message : '') + '. Drop it again, or tell Claude.';
+    }
+  }
+
+  function chip(cls, text) { const s = document.createElement('span'); s.className = 'chip ' + cls; s.textContent = text; return s; }
+
+  function render() {
+    ledger.textContent = '';
+    const rows = [];
+    for (const r of local.values()) rows.push({ local: true, ...r });
+    for (const d of remote) rows.push({ local: false, ...d });
+    if (!rows.length) {
+      const e = document.createElement('div'); e.className = 'empty'; e.textContent = 'Nothing dropped yet.'; ledger.appendChild(e); return;
+    }
+    for (const r of rows) {
+      const row = document.createElement('div'); row.className = 'row';
+      const left = document.createElement('div');
+      const name = document.createElement('div'); name.className = 'name'; name.textContent = r.name; left.appendChild(name);
+      const meta = document.createElement('div'); meta.className = 'meta';
+      const bits = [r.project ? 'project ' + r.project : '', fmtBytes(r.size), r.createdAt ? fmtWhen(r.createdAt) : '', r.mode === 'wrapped' && r.parts > 1 ? r.parts + ' parts' : ''];
+      for (const b of bits) if (b) { const s = document.createElement('span'); s.textContent = b; meta.appendChild(s); }
+      left.appendChild(meta);
+      row.appendChild(left);
+
+      const right = document.createElement('div'); right.className = 'right';
+      if (r.local) {
+        right.appendChild(r.error ? chip('bad', 'Failed') : chip('busy', r.progress || 'Uploading'));
+      } else {
+        right.appendChild(r.pulled ? chip('ok', 'Received by Claude') : chip('wait', 'Uploaded'));
+        if (assets && db) {
+          const b = document.createElement('button'); b.type = 'button'; b.textContent = 'Remove';
+          b.addEventListener('click', () => removeRow(r));
+          right.appendChild(b);
+        }
+      }
+      row.appendChild(right);
+      if (r.note) { const n = document.createElement('div'); n.className = 'note'; n.textContent = r.note; row.appendChild(n); }
+      if (r.error) { const e = document.createElement('div'); e.className = 'err'; e.textContent = r.error; row.appendChild(e); }
+      ledger.appendChild(row);
+    }
+  }
+
+  async function removeRow(r) {
+    if (!confirm('Remove "' + r.name + '" from this page? This cannot be undone.')) return;
+    try {
+      for (const id of (r.assets || [])) { try { await assets.delete(id); } catch (e) {} }
+      await db.doc('uploads/' + r.id).delete();
+      refreshMeter();
+    } catch (e) { alert(explain(e)); }
+  }
+
+  async function refreshMeter() {
+    if (!assets) return;
+    try {
+      const { usage } = await assets.list();
+      meter.textContent = fmtBytes(usage.bytes) + ' of ' + fmtBytes(usage.maxBytes) + ' used · ' + usage.files + ' of ' + usage.maxFiles + ' files';
+    } catch (e) { meter.textContent = ''; }
+  }
+
+  function disable(msg) {
+    banner.hidden = false; banner.innerHTML = ''; const s = document.createElement('strong'); s.textContent = 'Uploads are off in this view. '; banner.appendChild(s); banner.appendChild(document.createTextNode(msg));
+    drop.setAttribute('aria-disabled', 'true'); picker.disabled = true;
+  }
+
+  // Drop zone wiring
+  ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); if (!picker.disabled) drop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+  drop.addEventListener('drop', e => { if (picker.disabled) return; const fs = Array.from(e.dataTransfer.files || []); if (fs.length) handleFiles(fs); });
+  drop.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && !picker.disabled) { e.preventDefault(); picker.click(); } });
+  picker.addEventListener('change', () => { const fs = Array.from(picker.files || []); picker.value = ''; if (fs.length) handleFiles(fs); });
+  // Stop the browser from opening a file dropped outside the zone
+  window.addEventListener('dragover', e => e.preventDefault());
+  window.addEventListener('drop', e => e.preventDefault());
+
+  // Capabilities arrive later; the page is already usable to read.
+  (async () => {
+    if (!window.claude || typeof window.claude.use !== 'function') { disable('Open it from claude.ai.'); return; }
+    const [a, d] = await Promise.all([window.claude.use('assets'), window.claude.use('db')]);
+    assets = a; db = d;
+    if (!db) { disable('Open the page signed in to claude.ai.'); return; }
+    db.collection('uploads').orderBy('createdAt', 'desc').limit(300).onSnapshot(
+      snap => { remote = snap.docs.map(s => ({ id: s.id, ...s.data() })); render(); },
+      err => { banner.hidden = false; banner.textContent = 'The file list could not load' + (err && err.message ? ': ' + err.message : '') + '. Reload the page.'; }
+    );
+    if (!assets) { disable('Open the page signed in with edit access to upload.'); return; }
+    refreshMeter();
+  })();
+})();
+</script>

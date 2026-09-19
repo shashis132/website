@@ -201,3 +201,14 @@ Consequences:
 
 Shashi asks for changes and then says "merge to main" or "push to main".
 Fast-forward `main` to the working branch and push both; no pull request.
+
+## The video pipeline lives in `video/`
+
+Product videos (Remotion, ElevenLabs, multi-agent) are built under
+`video/`, with the procedure in `.claude/skills/video-production/`, the
+agents in `.claude/agents/` and the environment gotchas in
+`video/CLAUDE.md`. Read that file before touching anything there. The
+short version: attachments still do not reach disk; small documents come
+through the Google Drive connector, media through the private drop page;
+ElevenLabs is blocked until the key is stored on the cloud environment;
+renders use the headless-shell Chromium and never go into git.
