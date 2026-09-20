@@ -1,0 +1,7 @@
+# Generated images, run logs and the local Codex CLI install never belong
+# in the repository. Credentials live in %USERPROFILE%\.codex and are not
+# written here at all.
+output/
+node_modules/
+package-lock.json
+package.json
