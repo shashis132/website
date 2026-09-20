@@ -201,3 +201,26 @@ Consequences:
 
 Shashi asks for changes and then says "merge to main" or "push to main".
 Fast-forward `main` to the working branch and push both; no pull request.
+
+## Remotion skills live in the repo, not as a plugin
+
+`.claude/skills/` holds the twelve official Remotion Agent Skills, copied
+from `remotion-dev/claude-code-plugin` at 4.0.526. They load automatically
+in every session on this repo, which is the point: the container is wiped
+between sessions, so anything installed into `/root/.claude` is gone next
+time.
+
+The tidier-looking route does not work here. Declaring the marketplace in
+`extraKnownMarketplaces` plus `enabledPlugins` installs a third-party
+plugin only after an interactive trust prompt, and a Claude Code web
+session has nobody to answer it — a headless start silently installs
+nothing. Verified on 20 September 2026: outside the repo the plugin read
+`disabled`, and a fresh start with the cache wiped left
+`installed_plugins.json` empty. Files under `.claude/skills/` need no
+fetch and no prompt.
+
+Do not also enable the plugin: both sources register the same twelve skill
+names. `.vercelignore` excludes `.claude/` so none of it is served.
+
+To update, re-copy `skills/` from that repository at the tag you want and
+check the internal links still resolve (176 of them, all relative).
