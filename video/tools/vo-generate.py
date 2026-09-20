@@ -50,7 +50,11 @@ def request(method, path, body=None, timeout=120):
 def check():
     status, body = request("GET", "/user/subscription")
     if status != 200:
-        print(f"ElevenLabs not reachable or key rejected (HTTP {status}): {body[:300].decode('utf8','replace')}")
+        msg = body[:300].decode("utf8", "replace")
+        print(f"ElevenLabs not reachable or key rejected (HTTP {status}): {msg}")
+        if status == 0 and "403" in msg:
+            print("The environment's network policy refused api.elevenlabs.io. Check that the API credential's "
+                  "website field reads exactly api.elevenlabs.io, then start a new session.")
         sys.exit(1)
     s = json.loads(body)
     used, limit = s.get("character_count", 0), s.get("character_limit", 0)

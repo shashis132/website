@@ -42,6 +42,18 @@ next to it is the plain-language handover for Shashi.
   variables. Either way a **new session** is needed afterwards.
 - `python3 video/tools/vo-generate.py --check` proves the key and shows the
   character balance. `--probe "text"` makes one short test line.
+- Seen 20 September 2026: the credential had been saved with the website
+  `api.elevlabs.io`, one letter short. The proxy then injected the key into
+  a parked domain and still answered 403 to `api.elevenlabs.io`; `--check`
+  reported `Tunnel connection failed: 403` and
+  `curl "$HTTPS_PROXY/__agentproxy/status"` listed the refused host under
+  `recentRelayFailures`. The fix is editing the credential's website field,
+  not a new key, followed by a new session. The session prompt's
+  "Proxy-injected credentials" line shows the host the proxy actually
+  covers; read it before running anything that needs ElevenLabs.
+- The key does not belong in a Google Doc either. One titled "Elevenlabs
+  key" appeared in the Drive folder on 19 September; do not open it, and
+  ask for it to be deleted. The environment credential is the only place.
 - Generation is cached by (text, voice, model, settings); unchanged lines
   are never re-sent. `gates.json` must say `"brief": "approved"` or the
   scripts refuse. Word timestamps come from the `with-timestamps` endpoint
