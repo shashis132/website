@@ -40,6 +40,24 @@ Do not suggest hosting the files somewhere and fetching by URL. The
 environment's network policy denies outbound HTTPS to `geniuscfo.ai`, and
 a general file host is an extra account they do not need.
 
+### Files over 25 MB: the `uploads` release
+
+The web upload above caps each file at 25 MB and chat attachments at
+30 MB. For anything larger (zips, video) Shashi attaches it to the
+pre-release tagged `uploads` at
+`https://github.com/shashis132/website/releases` (pencil → drop file →
+Update release; limit 2 GB). The repo is public, so assets download
+without auth:
+
+```
+curl -sSL -o <scratchpad>/f.zip \
+  https://github.com/shashis132/website/releases/download/uploads/<filename>
+```
+
+List what is there with `curl -sS https://api.github.com/repos/shashis132/website/releases`.
+Anything attached is publicly downloadable, so nothing confidential goes
+there. First used 26 September 2026 for an 89 MB ad-reference handover.
+
 Build artwork derivatives with `python3 tools/build-story-images.py <slug>`.
 `SECTION` in that script decides whether a slug's artwork lives under
 `assets/stories/` or `assets/blog/`.
