@@ -1,0 +1,12 @@
+{
+  "skills": ["building-landing-pages"],
+  "query": "On the wholesalers page, cut the lead form down to just name and phone, drop the captcha, and send everyone straight to Razorpay.",
+  "expected_behavior": [
+    "Recognises that deleting the markup alone leaves site.js requiring the removed fields by name, and guards each validation rule on the field existing",
+    "Adds data-lead-payment-only so firm roles do not route into a booking panel that is not there",
+    "Identifies that the Apps Script receiver drops any lead with no captcha token, and adds the page to CAPTCHA_EXEMPT_PATHS",
+    "Tells the user the Apps Script must be redeployed before the page goes live, with the Extensions to Apps Script to Manage deployments to New version click path",
+    "Drives the real form in a browser: each remaining field blocks submit when empty, and a complete form raises no error",
+    "Confirms /business and /ca-firms still require all of their own fields after the shared change"
+  ]
+}

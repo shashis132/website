@@ -1,0 +1,12 @@
+{
+  "skills": ["building-landing-pages"],
+  "query": "On the sellers page only, replace every mention of GST with indirect tax. Do not change any other page.",
+  "expected_behavior": [
+    "Performs the replacement as an explicit list of strings with expected counts, not a blanket regex over the file",
+    "Leaves the shared Organization, WebSite and SoftwareApplication JSON-LD nodes untouched, and says why",
+    "Updates the visible copy, the page-specific FAQPage and WebPage schema, the meta and og descriptions together so they stay in step",
+    "Checks that the FAQ schema still matches the visible answers word for word",
+    "Runs check-shared-schema.js and confirms no new drift",
+    "Does not edit /business, /ca-firms or /pricing"
+  ]
+}

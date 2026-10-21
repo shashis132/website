@@ -1,0 +1,52 @@
+{
+  "note": "Shared @id nodes that already differ between pages. Each one is a bug to fix, not an approved pattern: one @id must have one definition. The check fails on drift that is not listed here, so a new page cannot add more. Re-record with --update-baseline after fixing one.",
+  "recorded": "2026-10-21",
+  "drift": {
+    "https://geniuscfo.ai/#organization": {
+      "keys": [
+        "areaServed",
+        "contactPoint",
+        "description",
+        "knowsAbout",
+        "logo",
+        "sameAs"
+      ],
+      "variants": {
+        "blog/index.html": "603eb61666d2",
+        "blog/through-the-glass/index.html": "603eb61666d2",
+        "business/index.html": "6f2b1efd27e2",
+        "business/sellers/index.html": "6f2b1efd27e2",
+        "ca-firms/index.html": "6f2b1efd27e2",
+        "pricing/index.html": "6f2b1efd27e2",
+        "privacy/index.html": "eeb0f8c620d6",
+        "stories/every-invoice-looked-fine/index.html": "603eb61666d2",
+        "stories/index.html": "603eb61666d2",
+        "stories/the-second-job/index.html": "603eb61666d2"
+      }
+    },
+    "https://geniuscfo.ai/#software": {
+      "keys": [
+        "description",
+        "featureList",
+        "offers",
+        "url"
+      ],
+      "variants": {
+        "business/index.html": "2688ed264687",
+        "business/sellers/index.html": "2688ed264687",
+        "ca-firms/index.html": "e4a0007dcf00",
+        "pricing/index.html": "b751d2742821"
+      }
+    },
+    "https://geniuscfo.ai/blog#blog": {
+      "keys": [
+        "blogPost",
+        "mainEntityOfPage"
+      ],
+      "variants": {
+        "blog/index.html": "fa463538b5c4",
+        "blog/through-the-glass/index.html": "4390cc321599"
+      }
+    }
+  }
+}

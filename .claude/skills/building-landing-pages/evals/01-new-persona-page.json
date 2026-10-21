@@ -1,0 +1,16 @@
+{
+  "skills": [
+    "building-landing-pages"
+  ],
+  "query": "Build the P2 landing page from the brief below at /business/wholesalers. It is a modification of /business with the middle rewritten, a hook swap over eight ad routes, and the same pricing block, trial form and footer. [paste a real P-series brief here when running this evaluation]",
+  "expected_behavior": [
+    "Creates business/wholesalers/index.html using root-absolute /assets/ paths, not ../assets/",
+    "Copies the pricing block, lead form and footer verbatim from /business rather than retyping them",
+    "Puts page-specific CSS in its own stylesheet, not in assets/site-v4.css",
+    "Splits the hook-swap script: resolution in <head>, application immediately after the </h1>",
+    "Does not put data-word-rise on the hook headline",
+    "Adds the vercel.json rewrite plus the trailing-slash and /index.html redirects, the sitemap entry, and the llms.txt and llms-full.txt entries",
+    "Runs check-routing.js, check-shared-schema.js and qa-page.js --hooks, and reports the results",
+    "Screenshots the page and confirms the hero CTA is above the fold for the longest hook"
+  ]
+}

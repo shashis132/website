@@ -2,7 +2,9 @@
 #
 # Vercel serves the repository root, so anything left here is publicly
 # fetchable. qa/ is verification evidence, apps-script/ is only the
-# leads-sheet receiver, and the markdown is internal handover documentation.
+# leads-sheet receiver, .claude/ holds the repository's skills, and the
+# markdown is internal handover documentation.
+.claude/
 qa/
 apps-script/
 assets/stories/*/masters/
