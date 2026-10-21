@@ -19,6 +19,10 @@ they specify. If there is no brief yet, that skill comes first.
 
 - **New page from a persona brief** (a P-series brief naming a path, hooks and
   chapter copy) → the full workflow below.
+- **Adding or changing an ad route on a page that already has a hook swap** →
+  [reference/hook-swap.md](reference/hook-swap.md), "Keeping the copies in
+  step". The lines live in more than one file and nothing but the gate notices
+  when you update only one. Then run step 7 with `--hooks`.
 - **Editing an existing page's copy or layout** → skip to step 4, then run the
   gate in step 7.
 - **Changing the lead form, the captcha or the Razorpay flow** → read
@@ -60,17 +64,22 @@ they specify. If there is no brief yet, that skill comes first.
    node .claude/skills/building-landing-pages/scripts/check-routing.js
    node .claude/skills/building-landing-pages/scripts/check-shared-schema.js
 
-   python3 -m http.server 8099 &
+   # Only start a server if nothing is serving the root already; a second one
+   # exits "Address already in use" and looks like a failed gate.
+   curl -sf -o /dev/null http://127.0.0.1:8099/ || python3 -m http.server 8099 &
+
    NODE_PATH=/opt/node22/lib/node_modules \
      node .claude/skills/building-landing-pages/scripts/qa-page.js \
-     http://127.0.0.1:8099/<path>/ --hooks assets/hooks.json
+     http://127.0.0.1:8099/<path>/ --hooks assets/hooks.json --shots <scratchpad>/shots
    ```
 
    Fix and re-run until all three pass. `--hooks` is only for a page with a
-   hook swap. See [reference/qa.md](reference/qa.md) for what each covers, what
+   hook swap, and is the one check that proves the two copies of the hook map
+   agree. See [reference/qa.md](reference/qa.md) for what each covers, what
    this sandbox cannot reach, and what still needs Shashi.
 
-8. **Look at it.** Screenshot the page and read the screenshots. The gate
+8. **Look at it.** `--shots <dir>` above writes one screenshot per hook route;
+   otherwise drive Playwright yourself. Read them. The gate
    cannot see that a headline pushed the button off the screen, that a phone
    screenshot got crop-mangled into a 16:9 card, or that a column's rhythm
    broke. Every visual defect this session produced was found this way and none

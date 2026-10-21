@@ -61,6 +61,11 @@ NODE_PATH=/opt/node22/lib/node_modules \
   http://127.0.0.1:8099/business/sellers/ --hooks assets/hooks.json
 ```
 
+If `python3 -m http.server 8099` reports "Address already in use", something is
+already serving the repository root; check with
+`curl -sf -o /dev/null http://127.0.0.1:8099/` and reuse it rather than reading
+the error as a failed gate.
+
 Needs Playwright and Chromium. In this sandbox Chromium is at
 `/opt/pw-browsers/chromium` and the script finds it automatically; Playwright
 needs `NODE_PATH=/opt/node22/lib/node_modules`. Never run `playwright install`.
@@ -70,10 +75,19 @@ JSON-LD parses, the canonical equals `og:url`, the FAQ schema matches the
 visible answers word for word, the brand copy rules, no `aggregateRating`, the
 hero CTA sits above a 900px fold, and no sideways scroll at 360 and 390px.
 
-With `--hooks <file>` it also drives every route in the map, checks the
-`utm_content` fallback, checks that a junk, hostile or absent parameter leaves
-the default standing without rendering anything from the URL, and measures CLS
-on the shortest and longest hooks.
+With `--hooks <file>` it also drives every route in the map and measures where
+each one leaves the hero CTA, failing any route that pushes it below the fold;
+checks that `utm_content` alone is honoured and that `r` wins when both are
+present; checks that a junk, hostile or absent parameter leaves the default
+standing without rendering anything from the URL; and measures CLS on the
+shortest and longest hooks.
+
+Because it reads the hooks file and drives the page, it is the only check that
+proves the inlined map and `assets/hooks.json` still agree.
+
+`--shots <dir>` writes one screenshot per route, which is what makes the "look
+at it" step of the workflow cheap. Point it at the session scratchpad, never at
+the repository: Vercel serves the root.
 
 **The brand copy rules are real findings on old pages, not false positives.**
 `/business` and `/blog/through-the-glass` both carry em dashes. Fixing them is

@@ -2,7 +2,7 @@
 /**
  * qa-page.js — the browser pass for one page.
  *
- *   node .claude/skills/building-landing-pages/scripts/qa-page.js <url> [--hooks <file>]
+ *   node .claude/skills/building-landing-pages/scripts/qa-page.js <url> [--hooks <file>] [--shots <dir>]
  *
  * Example:
  *   python3 -m http.server 8099 &
@@ -39,11 +39,23 @@ try {
 const args = process.argv.slice(2);
 const url = args.find((a) => /^https?:\/\//.test(a));
 if (!url) {
-  console.error("Usage: qa-page.js <url> [--hooks <hooks.json>]\nThe URL must be absolute, e.g. http://127.0.0.1:8099/business/sellers/");
+  console.error("Usage: qa-page.js <url> [--hooks <hooks.json>] [--shots <dir>]\nThe URL must be absolute, e.g. http://127.0.0.1:8099/business/sellers/");
   process.exit(1);
 }
 const hooksArg = args[args.indexOf("--hooks") + 1];
 const hooksFile = args.includes("--hooks") ? hooksArg : null;
+
+/* --shots <dir> saves one screenshot per hook route. The browser is already on
+   every route, so this makes the "look at it" step of the workflow cheap. */
+const shotDir = args.includes("--shots") ? args[args.indexOf("--shots") + 1] : null;
+if (shotDir) {
+  try {
+    fs.mkdirSync(shotDir, { recursive: true });
+  } catch (err) {
+    console.error(`Cannot create --shots directory ${shotDir}: ${err.message}`);
+    process.exit(1);
+  }
+}
 
 /* Hosts this sandbox cannot reach by policy. Their failures are expected and
    are verified live instead, so they must not mask a real console error. */
@@ -122,7 +134,7 @@ const browserOpts = fs.existsSync("/opt/pw-browsers/chromium")
   const cta = page.locator(".hero-actions .btn, .hero .btn-primary").first();
   if (await cta.count()) {
     const top = await cta.evaluate((el) => Math.round(el.getBoundingClientRect().top));
-    note(top > 0 && top < FOLD, `hero CTA sits at y=${top}, above the ${FOLD}px fold`);
+    note(top > 0 && top < FOLD, `hero CTA sits at y=${top}, above the ${FOLD}px fold (default hook; every route is measured in the hook-swap pass)`);
   }
   await page.close();
 
@@ -157,15 +169,46 @@ const browserOpts = fs.existsSync("/opt/pw-browsers/chromium")
       console.log(`\n--- hook swap (${Object.keys(routes).length} routes) ---`);
 
       for (const [key, lines] of Object.entries(routes)) {
-        const p = await browser.newPage();
-        await p.goto(`${base}?r=${encodeURIComponent(key)}`, { waitUntil: "domcontentloaded" });
+        /* Laptop viewport and a settled layout, because this loop also measures
+           where each hook leaves the CTA. A long hook is exactly what pushes it
+           below the fold, so measuring only the default misses the ones that
+           matter. */
+        const p = await browser.newPage({ viewport: { width: 1440, height: FOLD } });
+        await p.goto(`${base}?r=${encodeURIComponent(key)}`, { waitUntil: "networkidle" });
         const got1 = await p.textContent("#hook-l1");
         const two = p.locator("#hook-l2");
         const got2 = (await two.evaluate((n) => n.hidden)) ? null : await two.textContent();
         const route = await p.getAttribute("main", "data-route");
         const dl = await p.evaluate(() => (window.dataLayer || []).find((e) => e.event === "p1_hook_view"));
-        note(got1 === lines.l1 && got2 === lines.l2 && route === key && dl && dl.route_id === key,
-             `${key} -> "${got1}"${got2 ? ` / "${got2}"` : " (one line)"}`);
+
+        const ctaTop = await p.evaluate(() => {
+          const el = document.querySelector(".hero-actions .btn, .hero .btn-primary");
+          return el ? Math.round(el.getBoundingClientRect().top) : null;
+        });
+        const textOk = got1 === lines.l1 && got2 === lines.l2 && route === key && dl && dl.route_id === key;
+        const ctaOk = ctaTop === null || (ctaTop > 0 && ctaTop < FOLD);
+        note(textOk && ctaOk,
+             `${key} -> "${got1}"${got2 ? ` / "${got2}"` : " (one line)"}` +
+             (ctaTop === null ? "" : ` · CTA y=${ctaTop}${ctaOk ? "" : ` BELOW THE ${FOLD}px FOLD`}`));
+
+        if (shotDir) await p.screenshot({ path: path.join(shotDir, `hook-${key}.png`) });
+        await p.close();
+      }
+
+      /* The fallback that carries real traffic. Ad platforms strip parameters
+         they do not recognise, so utm_content is often the only id that
+         arrives; r must still win when both are present. */
+      console.log("\n--- utm_content fallback ---");
+      const [firstKey, firstLines] = Object.entries(routes)[0];
+      const [otherKey, otherLines] = Object.entries(routes)[1] || [firstKey, firstLines];
+      for (const [query, expect, why] of [
+        [`?utm_content=${encodeURIComponent(firstKey)}`, firstLines, "utm_content alone is honoured"],
+        [`?r=${encodeURIComponent(otherKey)}&utm_content=${encodeURIComponent(firstKey)}`, otherLines, "r wins when both are present"],
+      ]) {
+        const p = await browser.newPage();
+        await p.goto(base + query, { waitUntil: "domcontentloaded" });
+        const got = await p.textContent("#hook-l1");
+        note(got === expect.l1, `${why} -> "${got}"`);
         await p.close();
       }
 

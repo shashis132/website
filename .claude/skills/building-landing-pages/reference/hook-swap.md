@@ -20,8 +20,10 @@ Everything below the headline is identical for every visitor.
   written, and only with `textContent`.
 - **Canonical, `og:title` and `<title>` never change** with the parameter. One
   URL, one canonical, one share card.
-- The map lives in `assets/hooks.json` as the record, and is **inlined into the
-  page** at build time so there is no fetch and no flash of the default.
+- The map lives in `assets/hooks.json` as the record, and a copy is **inlined
+  into the page** so there is no fetch and no flash of the default. There is no
+  build step: the two are kept in step by hand. See "Keeping the copies in
+  step".
 
 ## Where the script goes
 
@@ -97,8 +99,9 @@ Use the site's own `--max-head` measure and step the type down one notch:
 }
 ```
 
-Then check every route, not just the default. `qa-page.js --hooks` reports the
-CTA's y position and the CLS on the shortest and longest hooks.
+Then check every route, not just the default. `qa-page.js --hooks` measures the
+CTA's y position on each route and fails any that falls below the fold, and
+measures CLS on the shortest and longest hooks.
 
 ## Ad URLs
 
@@ -114,10 +117,30 @@ A typo there sends an ad to the wrong headline and nothing complains.
 
 ## Keeping the copies in step
 
-The hook lines exist in four places. Change one, change all four:
+There is no build step. The map is transcribed by hand into two files, and
+their shapes differ, so copy-paste between them does not work:
 
-1. the inlined map in the page
-2. `assets/hooks.json`
-3. the ad-link spreadsheet
-4. the ad creative itself — which lives outside this repository, so say so in
-   the hand-back
+| | Shape |
+|---|---|
+| `assets/hooks.json` | strict JSON, wrapped in `{ "default": …, "routes": { … } }`, keys quoted |
+| the page's inlined `var HOOKS` | a plain object literal, no wrapper, bare `l1:` / `l2:` keys |
+
+Keep routes in ascending route-id order in both, matching the campaign's route
+sheet, so a missing one is visible by eye.
+
+`qa-page.js --hooks` is what proves they agree: it reads `hooks.json` and
+drives the page, so a route added to one and not the other fails the gate.
+This is the single failure this task produces, so never skip it.
+
+Two more copies live outside this repository, and both need naming in the
+hand-back because nothing here can check them:
+
+- the ad-link spreadsheet handed to Shashi — give him the new row
+- the ad creative itself, which must say what the page says
+
+Do not write a route count into the page's comment above the map. One is there
+today ("Twelve P1 ads land here") and it goes stale the moment a route is
+added.
+
+Whether a new route id needs anything on the GTM side is outside this
+repository. Flag it in the hand-back rather than assuming either way.
