@@ -1,0 +1,79 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://geniuscfo.ai/business/restaurants#faq",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does GeniusCFO connect to my POS or to the delivery platforms?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. There is no connector. You upload the POS day-end report and each delivery platform's payout statement as files, with your purchase bills and bank statement, and GeniusCFO books every line in them. Documents of any kind go in; current books come out."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which papers do I need each month?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The day-end report from the POS, the partner payout statement from each delivery platform, the card machine's settlement, your purchase bills including the handwritten ones, the gas, rent and salary records, and your bank statement. PDF, Excel, scans and photos are all read."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does my accountant still do my GST?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. GeniusCFO prepares the GST information from your books: output GST, input tax credit, net payable, return status and mismatches. Your accountant reviews the same books in the same workspace and files the returns. Nothing here replaces your accountant, and the POS stays."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How are the delivery platform's deductions handled?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each line on the payout statement, commission, GST on the commission, discount share, ads, order fees, TDS and refunds, is booked as its own entry with debits and credits, carrying the statement it came from. The net payout is then matched to the credit in your bank."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where does the food cost figure come from?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "From the purchase bills you upload, cash or not. The vegetable, meat, dairy and packaging bills are booked as purchases from the bills themselves, so the month's cost of materials is a figure from documents, not an estimate from the POS. Your accountant reviews the entries."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the ₹9 trial include?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Seven days of full access to everything, bookkeeping, GST information, bank matching, alerts and Ask GeniusCFO, on your own books. You pay ₹9 once on Razorpay, sign up, and start the same day. There is no UPI mandate and nothing is charged automatically afterwards."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens after the seven days?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nothing is charged automatically. You choose a plan inside the product. If you don't, the AI stops while your books, statements and GST screens keep working, and nothing is deleted."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does the trial cost ₹9?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because a free trial brought in fake sign-ups and people who worked through the AI credits meant for trials without any intention of using the product. A small payment keeps the trial for real businesses and keeps the AI allowance available to them."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use GeniusCFO on my phone?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. GeniusCFO works on phone and desktop, so you can check business numbers, alerts and answers wherever you are, and ask questions by voice."
+      }
+    }
+  ]
+}

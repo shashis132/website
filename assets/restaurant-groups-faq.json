@@ -1,0 +1,71 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://geniuscfo.ai/business/restaurant-groups#faq",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does GeniusCFO show all my outlets in one set of books?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Each outlet has its own company profile with its own books, current every day from its own documents. There is no outlet column inside one set of books and no consolidated group screen. Your accountant consolidates the group from the current books of each profile, and your CA signs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which papers does each outlet need each month?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Its day-end report from the POS, the partner payout statement from each delivery platform, its purchase bills, the central kitchen's challans, its rent and salary records, and its bank statement. PDF, Excel, scans and photos are all read."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who consolidates the group?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Your accountant, from books that are current rather than month-old files. Each outlet's entries, source records, reports and GST information are reviewed in the same workspace you use, and your CA keeps sign-off. Nothing here replaces your accountant or your CA."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the central kitchen handled?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The kitchen's challan is a document. It is booked in the receiving outlet's profile as that outlet's purchase, with the challan attached, so the outlet's cost of materials includes what the kitchen sent it. Your accountant reviews the entries."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does each outlet cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A plan covers one company profile and one user; each further outlet is an extra company profile at ₹599 a month. Prices exclude 18% GST. The full price list, managed services and add-ons are on the pricing page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the ₹9 trial include?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Seven days of full access to everything, bookkeeping, GST information, bank matching, alerts and Ask GeniusCFO, on your own books. You pay ₹9 once on Razorpay, sign up, and start the same day. There is no UPI mandate and nothing is charged automatically afterwards."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens after the seven days?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nothing is charged automatically. You choose a plan inside the product. If you don't, the AI stops while your books, statements and GST screens keep working, and nothing is deleted."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does the trial cost ₹9?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because a free trial brought in fake sign-ups and people who worked through the AI credits meant for trials without any intention of using the product. A small payment keeps the trial for real businesses and keeps the AI allowance available to them."
+      }
+    }
+  ]
+}

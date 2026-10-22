@@ -4,7 +4,7 @@
 > routine bookkeeping, prepares GST information and financial statements, and answers financial
 > questions from updated accounts. Operated by GeniusCFO, serving India.
 
-Last updated: 2026-09-16
+Last updated: 2026-10-22
 Canonical short version: https://geniuscfo.ai/llms.txt
 Contact: marketing@geniuscfo.ai
 
@@ -16,6 +16,8 @@ https://geniuscfo.ai is authoritative.
 
 - https://geniuscfo.ai/business — GeniusCFO for business owners
 - https://geniuscfo.ai/business/sellers — GeniusCFO for marketplace and D2C sellers
+- https://geniuscfo.ai/business/restaurants — GeniusCFO for restaurants, cafes and cloud kitchens
+- https://geniuscfo.ai/business/restaurant-groups — GeniusCFO for restaurant groups with more than one outlet
 - https://geniuscfo.ai/ca-firms — GeniusCFO for CA and accounting firms
 - https://geniuscfo.ai/pricing — pricing for both audiences
 - https://geniuscfo.ai/blog — blog index: analysis of accounting automation
@@ -145,6 +147,64 @@ They are booked from the lines in your exports as entries with debits and credit
 ### Why do the marketplace dashboard and the bank never agree?
 
 The dashboard tile shows sales less the fees it knows about. The bank shows what landed after commission, TCS, returns and reversals, on each platform's own cycle. Neither figure is profit. The books, current every day, are where the two meet.
+
+## Questions and answers — GeniusCFO for restaurants, cafes and cloud kitchens
+Source: https://geniuscfo.ai/business/restaurants
+
+A restaurant's money arrives in three places on three timelines: cash in the drawer, cards through the
+card machine, and delivery platform orders paid out weekly net of commission, GST on the commission,
+discount share, ads, order fees, TDS and refunds. The purchase side (vegetables, gas, rent, salaries)
+never passes through the POS. GeniusCFO books the POS day-end report, the payout statement, the purchase
+bills and the bank statement every day into one set of books, so the month's profit is known this month.
+There is no POS or delivery platform connector; the reports are uploaded as files.
+
+### Does GeniusCFO connect to my POS or to the delivery platforms?
+
+No. There is no connector. You upload the POS day-end report and each delivery platform's payout statement as files, with your purchase bills and bank statement, and GeniusCFO books every line in them. Documents of any kind go in; current books come out.
+
+### Which papers do I need each month?
+
+The day-end report from the POS, the partner payout statement from each delivery platform, the card machine's settlement, your purchase bills including the handwritten ones, the gas, rent and salary records, and your bank statement. PDF, Excel, scans and photos are all read.
+
+### Does my accountant still do my GST?
+
+Yes. GeniusCFO prepares the GST information from your books: output GST, input tax credit, net payable, return status and mismatches. Your accountant reviews the same books in the same workspace and files the returns. Nothing here replaces your accountant, and the POS stays.
+
+### How are the delivery platform's deductions handled?
+
+Each line on the payout statement, commission, GST on the commission, discount share, ads, order fees, TDS and refunds, is booked as its own entry with debits and credits, carrying the statement it came from. The net payout is then matched to the credit in your bank.
+
+### Where does the food cost figure come from?
+
+From the purchase bills you upload, cash or not. The vegetable, meat, dairy and packaging bills are booked as purchases from the bills themselves, so the month's cost of materials is a figure from documents, not an estimate from the POS. Your accountant reviews the entries.
+
+## Questions and answers — GeniusCFO for restaurant groups
+Source: https://geniuscfo.ai/business/restaurant-groups
+
+A group with more than one outlet runs one company profile per outlet. Each outlet's books are current
+every day from its own documents, including the central kitchen's challans, so each outlet answers what
+it made this month. There is no consolidated group screen and no outlet column inside one set of books:
+the group's accountant consolidates from current books and the CA signs.
+
+### Does GeniusCFO show all my outlets in one set of books?
+
+No. Each outlet has its own company profile with its own books, current every day from its own documents. There is no outlet column inside one set of books and no consolidated group screen. Your accountant consolidates the group from the current books of each profile, and your CA signs.
+
+### Which papers does each outlet need each month?
+
+Its day-end report from the POS, the partner payout statement from each delivery platform, its purchase bills, the central kitchen's challans, its rent and salary records, and its bank statement. PDF, Excel, scans and photos are all read.
+
+### Who consolidates the group?
+
+Your accountant, from books that are current rather than month-old files. Each outlet's entries, source records, reports and GST information are reviewed in the same workspace you use, and your CA keeps sign-off. Nothing here replaces your accountant or your CA.
+
+### How is the central kitchen handled?
+
+The kitchen's challan is a document. It is booked in the receiving outlet's profile as that outlet's purchase, with the challan attached, so the outlet's cost of materials includes what the kitchen sent it. Your accountant reviews the entries.
+
+### What does each outlet cost?
+
+A plan covers one company profile and one user; each further outlet is an extra company profile at ₹599 a month. Prices exclude 18% GST. The full price list, managed services and add-ons are on the pricing page.
 
 ## Questions and answers — GeniusCFO for CA and accounting firms
 Source: https://geniuscfo.ai/ca-firms

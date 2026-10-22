@@ -1,0 +1,41 @@
+{
+  "default": "P9-A01-F12",
+  "routes": {
+    "P9-A01-F12": {
+      "l1": "Three outlets.",
+      "l2": "Three shapes of the same number."
+    },
+    "P9-A01-F07": {
+      "l1": "Three outlets send three numbers.",
+      "l2": "The boss gets one answer, a month later."
+    },
+    "P9-A01-F10": {
+      "l1": "Which outlet is losing money?",
+      "l2": "The answer is a month old."
+    },
+    "P9-A02-F01": {
+      "l1": "Month-end for three outlets.",
+      "l2": null
+    },
+    "P9-A12-F07": {
+      "l1": "Your accountant is not behind.",
+      "l2": "He is consolidating three companies by hand."
+    },
+    "P9-A02-F12": {
+      "l1": "Outlet 4.",
+      "l2": "Decided on which number?"
+    },
+    "P9-A03-F12": {
+      "l1": "Your accountant is not behind.",
+      "l2": "He is consolidating three companies by hand."
+    },
+    "P9-A03-F06": {
+      "l1": "The POS shows each outlet's sales.",
+      "l2": "Not each outlet's profit."
+    },
+    "P9-A05-F05": {
+      "l1": "Every entry's outlet.",
+      "l2": "Every outlet's answer."
+    }
+  }
+}

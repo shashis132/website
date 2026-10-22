@@ -1,0 +1,57 @@
+{
+  "default": "P8-A01-F12",
+  "routes": {
+    "P8-A01-F12": {
+      "l1": "Delivery platform ne kitna kaata, yeh pata hai.",
+      "l2": "Mahine mein kitna bacha, yeh nahi."
+    },
+    "P8-A01-F07": {
+      "l1": "Cash, card, delivery platform.",
+      "l2": "Teen jagah paisa aata hai. Profit kahin nahi dikhta."
+    },
+    "P8-A01-F11": {
+      "l1": "Delivery platform ne kitna kaata, yeh pata hai.",
+      "l2": "Mahine mein kitna bacha, yeh nahi."
+    },
+    "P8-A02-F09": {
+      "l1": "Ek din ki service.",
+      "l2": "Ek mahine ka hisaab."
+    },
+    "P8-A02-F12": {
+      "l1": "Thursday ka 60% offer.",
+      "l2": "Approve kisne kiya?"
+    },
+    "P8-A03-F06": {
+      "l1": "POS bill banata hai.",
+      "l2": "Hisaab kaun rakhta hai?"
+    },
+    "P8-A12-F07": {
+      "l1": "POS aapka cashier hai.",
+      "l2": "Accountant nahi."
+    },
+    "P8-A01-F10": {
+      "l1": "Aaj ka pata hai.",
+      "l2": "Mahine ka nahi."
+    },
+    "P8-A04-F08": {
+      "l1": "Raat ki service.",
+      "l2": "Subah ka hisaab."
+    },
+    "P8-A05-F05": {
+      "l1": "POS report submit karo.",
+      "l2": "Mahine ka hisaab dekho."
+    },
+    "P8-A10-F07": {
+      "l1": "One-time mein bill milta hai.",
+      "l2": "Mahina nahi."
+    },
+    "P8-A12-F12": {
+      "l1": "Statement mein sab likha hai.",
+      "l2": "Bas ek cheez nahi."
+    },
+    "P8-A12-F03": {
+      "l1": "POS: full house. Payout: processing.",
+      "l2": "Sabziwala: cash please."
+    }
+  }
+}

@@ -1,0 +1,55 @@
+/* ==========================================================================
+   restaurants.css — components unique to /business/restaurants and
+   /business/restaurant-groups
+
+   Both pages sit on site-v4.css plus sellers.css and reuse every seller
+   component by class (the hook H1, the file list, the honest note, the month
+   ledger, the fact strip, the CTA row). Only the two comparison tables differ:
+   the restaurant table has seven rows against four columns, the group table
+   has three long column names and one row whose cells carry a text qualifier
+   beside the glyph. That is all this file holds.
+   ========================================================================== */
+
+/* ---------- 05 · Today ---------- *
+   The group table's column names are sentences ("One Tally company per
+   outlet, plus Excel"), so the site's nowrap heads would push the table
+   sideways on a laptop. Let them wrap, and give the row labels room. */
+
+.group-table thead th { white-space: normal; }
+.group-table thead th:first-child { min-width: 12rem; }
+.restaurant-table thead th:first-child { min-width: 12rem; }
+
+/* A glyph with a qualifier: "◐ a month later", "◐ your accountant, from
+   current books". The glyph keeps the meaning; the note says when or who. */
+
+.comparison-table .cell-note {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-subtle);
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.35;
+}
+.comparison-table .gcfo-mark .cell-note { color: var(--text-strong); }
+
+@media (max-width: 700px) {
+  .comparison-table .cell-note { display: inline; margin: 0 0 0 8px; }
+}
+
+/* ---------- 09 · The sister page ---------- *
+   One line under the closing CTA row pointing at the other restaurant page. */
+
+.sister-page {
+  margin-top: 20px;
+  color: var(--text-soft);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+/* ---------- The hook, one notch smaller ---------- *
+   The Hinglish hooks run to eleven words ("Delivery platform ne kitna kaata,
+   yeh pata hai." over "Mahine mein kitna bacha, yeh nahi."). At the sellers
+   size that is seven lines and the hero CTA lands at y=1008 on a 900px
+   viewport. One notch down sets the default in five lines and puts the CTA
+   back above the fold, on both restaurant pages. */
+.sellers-hero.restaurant-hero .hook-h1 { font-size: clamp(2.125rem, 4.2vw, 3.5rem); }
