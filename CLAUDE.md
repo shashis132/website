@@ -127,6 +127,13 @@ site key is `RECAPTCHA_SITE_KEY` in `assets/site.js`; the secret is the
 Turnstile was tried first and dropped: its dashboard steers a new account
 towards moving DNS, which Shashi rightly did not want.
 
+- **A landing page whose form has no captcha must be listed in
+  `CAPTCHA_EXEMPT_PATHS` in `apps-script/Code.gs`, and the script redeployed
+  as a new version, before its ads run.** Otherwise the receiver sees no
+  token, calls every submission a bot and drops it silently; nothing reaches
+  the sheet and nothing says so. `/business/sellers`, `/business/restaurants`
+  and `/business/restaurant-groups` are listed; the restaurant pages were
+  caught missing on 23 October 2026, the day after they went live.
 - Every row's last column, `captcha`, says `verified`, `not configured`
   or `unverified: <reason>`. Rows are dropped only when the token is
   missing or Google calls it invalid/expired/reused. A failure on our side

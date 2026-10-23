@@ -48,6 +48,10 @@ var SHEET_NAME = 'Leads';
  * Landing pages whose form carries no captcha, so a missing token is expected
  * rather than a bot. /business/sellers is the P1 seller experiment: its form
  * is four fields and one click through to Razorpay, with no checkbox to tick.
+ * /business/restaurants and /business/restaurant-groups (P8 and P9, 22 Oct
+ * 2026) copy that form, so they are exempt the same way. Every ad landing
+ * page built from the sellers form must be added here, or its leads are
+ * dropped as bots and nobody sees them.
  *
  * Without this list verifyCaptcha_ would see no token, call it a bot and drop
  * every lead the page ever takes, silently. Rows that arrive this way are
@@ -58,7 +62,11 @@ var SHEET_NAME = 'Leads';
  * supplies, so this is a convenience for a page we control and not a security
  * boundary. Keep the list to pages that genuinely have no captcha.
  */
-var CAPTCHA_EXEMPT_PATHS = ['/business/sellers'];
+var CAPTCHA_EXEMPT_PATHS = [
+  '/business/sellers',
+  '/business/restaurants',
+  '/business/restaurant-groups'
+];
 
 function captchaExempt_(path) {
   var clean = String(path || '').split('?')[0].replace(/\/+$/, '');
