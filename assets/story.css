@@ -122,6 +122,9 @@
 .story-section h2 { font-size: clamp(1.875rem, 3vw, 2.5rem); line-height: 1.12; max-width: 25ch; margin-bottom: var(--story-space-md); scroll-margin-top: var(--story-space-lg); }
 .story-body .story-definition { padding-left: var(--story-space-md); border-left: 2px solid var(--emerald-deep); color: var(--text-strong); }
 .story-body .story-trust { padding-block: var(--story-space-sm); border-block: var(--hairline); font-size: 1.25rem; font-weight: 600; color: var(--text-max); }
+/* Spoken lines in Hinglish, each followed by its meaning in English. */
+.story-body .story-say q { font-weight: 600; color: var(--text-strong); quotes: "\201C" "\201D" "\2018" "\2019"; }
+.story-body .story-say .story-gloss { display: block; margin-top: 2px; font-size: 0.9375rem; color: var(--text-soft); }
 
 .story-alert { margin: var(--story-space-lg) 0; }
 .story-alert .screen-caption { gap: var(--story-space-sm); padding: var(--story-space-sm); letter-spacing: 0.06em; }

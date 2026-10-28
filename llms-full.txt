@@ -4,7 +4,7 @@
 > routine bookkeeping, prepares GST information and financial statements, and answers financial
 > questions from updated accounts. Operated by GeniusCFO, serving India.
 
-Last updated: 2026-10-22
+Last updated: 2026-10-28
 Canonical short version: https://geniuscfo.ai/llms.txt
 Contact: marketing@geniuscfo.ai
 
@@ -364,3 +364,11 @@ Canonical story: https://geniuscfo.ai/stories/the-second-job
 A fictional garment-unit story about the unpaid finance job an owner inherits as the business grows. A supplier payment, a GST payment and payday fall in the same week while a customer invoice is uncleared. Because the books are kept current every day rather than caught up at month-end, the Intelligence Hub flags a cash gap eighteen days out — 6,40,000 rupees of supplier payment and GST landing before the customer invoice clears — with the posted entries attached to the alert. The alert makes the collision reviewable; it does not make the commercial decision. Professional review and sign-off stay with the Chartered Accountant. Harpreet Singh, the unit, its suppliers and every financial figure are fictional; this is not a customer result or a promise of savings.
 
 The lag, as defined in this story: the time between something happening in a business and the books being able to show it. It does not make the answer wrong; it makes the answer late.
+
+### Your Accountant Is Not Behind. He Is Consolidating Three Companies by Hand.
+
+Canonical story: https://geniuscfo.ai/stories/your-accountant-is-not-behind
+
+A fictional story, written in simple English with a few Hinglish lines, about Vikram, who runs Pepper Lane, a family restaurant with three outlets in Pune and a central kitchen. Each outlet is run as a separate company with its own books. Every month his accountant, Mohan, says the group accounts will be ready by the 15th. One night Vikram watches him work: bills arrive late on WhatsApp, every bill is entered by hand into the right outlet's books, each bank statement is checked, the central kitchen's challans are matched, and only then can the three sets of books be consolidated. To consolidate means to join the books of several companies into one picture of the whole group. The lag is the time between when something happens in your business and when your books show it; with three outlets there are three lags, and the group answer waits for the slowest.
+
+With GeniusCFO they keep one company profile per outlet. Managers upload the POS day-end report, purchase bills, the kitchen challan and the delivery platform's payout statement on the day they arrive; GeniusCFO books each entry with debit and credit in that outlet's books and keeps the source document with it. The accountant reviews and corrects entries. Each outlet can answer for itself through Ask GeniusCFO, with the documents behind the answer. GeniusCFO does not consolidate the three outlets into one group report: the accountant still does that, starting from books that are already current, and the Chartered Accountant checks and signs. Vikram, Mohan, Pepper Lane, its outlets, its suppliers and every figure are fictional; this is not a customer result.

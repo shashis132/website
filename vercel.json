@@ -42,6 +42,10 @@
       "destination": "/stories/the-second-job/index.html"
     },
     {
+      "source": "/stories/your-accountant-is-not-behind",
+      "destination": "/stories/your-accountant-is-not-behind/index.html"
+    },
+    {
       "source": "/blog/through-the-glass",
       "destination": "/blog/through-the-glass/index.html"
     },
@@ -114,6 +118,16 @@
     {
       "source": "/stories/the-second-job/index.html",
       "destination": "/stories/the-second-job",
+      "permanent": true
+    },
+    {
+      "source": "/stories/your-accountant-is-not-behind/",
+      "destination": "/stories/your-accountant-is-not-behind",
+      "permanent": true
+    },
+    {
+      "source": "/stories/your-accountant-is-not-behind/index.html",
+      "destination": "/stories/your-accountant-is-not-behind",
       "permanent": true
     },
     {

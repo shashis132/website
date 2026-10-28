@@ -30,6 +30,7 @@ SECTION = {
     "every-invoice-looked-fine": "stories",
     "the-second-job":            "stories",
     "through-the-glass":         "blog",
+    "your-accountant-is-not-behind": "stories",
 }
 PLAN = {
     "the-second-job": {
@@ -47,6 +48,16 @@ PLAN = {
         "the-loop-25-captures": ("02", "figure", (450, 680, 900)),
         "og-through-the-glass": ("03", "social", ()),
     },
+}
+PLAN["your-accountant-is-not-behind"] = {
+    "your-accountant-is-not-behind": ("01", "banner", (360, 540, 768, 1080)),
+    "the-door":                      ("02", "figure", (450, 680, 900)),
+    "the-night":                     ("03", "figure", (450, 680, 900)),
+    "the-upload":                    ("04", "figure", (450, 680, 900)),
+    "outlet-2-books":                ("05", "screen", (450, 680, 900)),
+    "ask-outlet-2":                  ("06", "screen", (450, 680, 900)),
+    "your-accountant-is-not-behind-social": ("07", "social", ()),
+    "the-question":                  ("08", "figure", (450, 680, 900)),
 }
 SOCIAL_OF = {"the-second-job": "the-second-job"}
 SOCIAL_WIDTH = 1200

@@ -2,7 +2,7 @@
 
 > GeniusCFO is accounting automation software for Indian businesses and CA firms. It automates routine bookkeeping, prepares GST information and financial statements, and answers financial questions from updated accounts.
 
-Last updated: 2026-10-22. Operated by GeniusCFO, serving India. Contact: marketing@geniuscfo.ai.
+Last updated: 2026-10-28. Operated by GeniusCFO, serving India. Contact: marketing@geniuscfo.ai.
 Full reference, including every published question and answer: [llms-full.txt](https://geniuscfo.ai/llms-full.txt).
 Where this file and the website disagree, https://geniuscfo.ai is authoritative.
 
@@ -59,3 +59,4 @@ Short fictional narratives about the accounting lag. Index: [GeniusCFO Stories](
 
 - [Every Invoice Looked Fine](https://geniuscfo.ai/stories/every-invoice-looked-fine): A fictional restaurant story about food-cost movement, current books, and reviewing posted purchase entries. The people and financial figures are fictional, not customer results.
 - [Nobody Warned You the Business Came With a Second Job](https://geniuscfo.ai/stories/the-second-job): A fictional garment-unit story about a supplier payment, a GST payment and payday colliding in one week, and a cash gap surfaced eighteen days out with the posted entries attached. The people and financial figures are fictional, not customer results.
+- [Your Accountant Is Not Behind](https://geniuscfo.ai/stories/your-accountant-is-not-behind): A fictional story about a restaurant group with three outlets, each run as a separate company, whose accountant consolidates the group by hand from bills that arrive late. GeniusCFO keeps each outlet's books current in its own company profile; it does not consolidate the group. The accountant consolidates and the Chartered Accountant signs. The people and financial figures are fictional, not customer results.
