@@ -2,6 +2,10 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
+      "source": "/diwali",
+      "destination": "/diwali/index.html"
+    },
+    {
       "source": "/business/sellers",
       "destination": "/business/sellers/index.html"
     },
@@ -173,6 +177,16 @@
     {
       "source": "/insights/through-the-glass",
       "destination": "/blog/through-the-glass",
+      "permanent": true
+    },
+    {
+      "source": "/diwali/",
+      "destination": "/diwali",
+      "permanent": true
+    },
+    {
+      "source": "/diwali/index.html",
+      "destination": "/diwali",
       "permanent": true
     }
   ],
