@@ -102,9 +102,8 @@
     if (audience === "firm") {
       return { label: "Book a Demo", href: path === "/ca-firms" ? "#demo" : "/ca-firms#demo", firm: true };
     }
-    if (path === "/pricing" && document.getElementById("book-demo")) return { label: "Try for ₹9", href: "#book-demo" };
-    if (path.indexOf("/business") === 0 && document.getElementById("demo")) return { label: "Try for ₹9", href: "#demo" };
-    return { label: "Try for ₹9", href: "/business#demo" };
+    // Business pages: no button in the strip (removed 3 Nov 2026 at Shashi's request).
+    return null;
   }
 
   function mountBanner() {
@@ -133,7 +132,7 @@
           '<span class="dw-short">' + short + "</span>" +
           (count ? '<span class="dw-count">' + count + "</span>" : "") +
         "</p>" +
-        '<a class="dw-banner-btn" href="' + cta.href + '">' + cta.label + "</a>" +
+        (cta ? '<a class="dw-banner-btn" href="' + cta.href + '">' + cta.label + "</a>" : "") +
         '<button type="button" class="dw-banner-close" aria-label="Close the Diwali offer">' +
           '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>' +
         "</button>" +
@@ -145,7 +144,8 @@
       document.documentElement.classList.remove("dw-banner-on");
       pushDataLayer("diwali_banner_close", { banner_audience: audience });
     });
-    bar.querySelector(".dw-banner-btn").addEventListener("click", function () {
+    var ctaLink = bar.querySelector(".dw-banner-btn");
+    if (ctaLink) ctaLink.addEventListener("click", function () {
       pushDataLayer("diwali_banner_click", { banner_audience: audience });
     });
 
