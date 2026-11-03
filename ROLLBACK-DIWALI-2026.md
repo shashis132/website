@@ -40,7 +40,7 @@ Change `END` in `assets/diwali-2026.js` and the dates in the copy strings in the
 
 ## To roll back
 
-The tag `pre-diwali-2026` marks `main` exactly as it was before this deployment (commit `0a26c73`).
+The branch `pre-diwali-2026` (commit `0a26c73`) is `main` exactly as it was before this deployment. Leave it in place until the rollback is done.
 
 1. Delete `assets/diwali-2026.js` and `assets/diwali-2026.css`.
 2. Remove every `DIWALI-2026 start` to `DIWALI-2026 end` block: `grep -rln "DIWALI-2026" --include=*.html .` should then print nothing.
@@ -50,7 +50,7 @@ The tag `pre-diwali-2026` marks `main` exactly as it was before this deployment 
 
 Equivalent shortcut when nothing else has touched those files since: `git revert` the Diwali commits on `main`.
 
-Check afterwards: `git diff pre-diwali-2026 -- . ':!ROLLBACK-DIWALI-2026.md'` should list only changes made after the offer for other reasons.
+Check afterwards: `git diff origin/pre-diwali-2026 -- . ':!ROLLBACK-DIWALI-2026.md'` should list only changes made after the offer for other reasons.
 
 ## Testing hooks
 
