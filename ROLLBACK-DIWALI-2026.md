@@ -30,6 +30,14 @@ stories/your-accountant-is-not-behind/index.html
 
 `vercel.json`: `diwali-2026.css|diwali-2026.js` added to the must-revalidate cache header list.
 
+### Added 3 November 2026: festive hero on four pages
+
+`/business`, `/business/restaurants`, `/business/sellers` and `/ca-firms` show a night-sky hero with blinking light strings, lanterns, sparkles and diyas. Page content is unchanged. On those four pages only, the head `DIWALI-2026` block also holds a one-line script that adds the `dw-night-page` class until the deadline (so the dark hero paints with no flash); `diwali-2026.css` styles it and `diwali-2026.js` adds the decorations. Asset versions moved to `?v=20261103-v2`.
+
+### Added 3 November 2026: the /diwali campaign page (Flow 2)
+
+`diwali/index.html`, plus a rewrite for `/diwali` and redirects for `/diwali/` and `/diwali/index.html` in `vercel.json`. Standalone: noindex, not in the sitemap or llms files, and linked from no other page (keep it that way). Its lead form sends business visitors to `https://app.geniuscfo.ai/login` instead of Razorpay ₹9; firm roles still book a demo. After the deadline the page sends visitors to `/pricing` by itself.
+
 ## It switches itself off
 
 `assets/diwali-2026.js` does nothing after 11:59 pm IST on 9 November 2026 (`END` near the top). From then on every page looks exactly as it did before, with the trial strip back, even if nobody rolls anything back. Rollback is housekeeping, not urgent.
@@ -45,7 +53,7 @@ The branch `pre-diwali-2026` (commit `0a26c73`) is `main` exactly as it was befo
 1. Delete `assets/diwali-2026.js` and `assets/diwali-2026.css`.
 2. Remove every `DIWALI-2026 start` to `DIWALI-2026 end` block: `grep -rln "DIWALI-2026" --include=*.html .` should then print nothing.
 3. Remove `|diwali-2026.css|diwali-2026.js` from the cache header in `vercel.json`.
-4. If `/diwali` was published: delete `diwali/`, its rewrite and its two redirects in `vercel.json`, and any sitemap or `CAPTCHA_EXEMPT_PATHS` entry added for it. Better still, replace it with a permanent redirect from `/diwali` to `/pricing` so old ad links still land.
+4. `/diwali` was published (3 Nov): delete `diwali/`, its rewrite and its two redirects in `vercel.json`, and any sitemap or `CAPTCHA_EXEMPT_PATHS` entry added for it. Better still, replace it with a permanent redirect from `/diwali` to `/pricing` so old ad links still land.
 5. Commit, fast-forward `main`, push.
 
 Equivalent shortcut when nothing else has touched those files since: `git revert` the Diwali commits on `main`.
