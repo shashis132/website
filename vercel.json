@@ -257,7 +257,7 @@
       ]
     },
     {
-      "source": "/assets/:file(site.css|sellers.css|restaurants.css|story.css|legal.css|site.js|site-v4.css|site-v4.js|logo-band.js|geniuscfo-logo-animation.js)",
+      "source": "/assets/:file(site.css|sellers.css|restaurants.css|story.css|legal.css|site.js|site-v4.css|site-v4.js|logo-band.js|geniuscfo-logo-animation.js|diwali-2026.css|diwali-2026.js)",
       "headers": [
         {
           "key": "Cache-Control",
