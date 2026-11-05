@@ -11,6 +11,35 @@
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-NPMFZCZG');}</script>
   <!-- End Google Tag Manager -->
+  <!-- The hook swap. The Diwali 2026 Meta ads land here; each carries its creative key in
+       ?r= (or ?utm_content= when the ad platform strips custom parameters).
+       The map below is assets/diwali-hooks.json, inlined so there is no fetch and no
+       flash of the default hook. Only values from the map are ever written to
+       the page: the parameter itself is never printed. An unknown value, or
+       none, leaves the default hook that is already in the HTML. -->
+  <script>
+  (function () {
+    var HOOKS = {
+      "DW-DEFAULT": { l1: "More invoices. Same evenings.", l2: null, lang: "en-IN" },
+      "DW-P8-D1": { l1: "Shaadi season mein kitchen full.", l2: "Books khaali.", lang: "hi-Latn" },
+      "DW-P8-D2": { l1: "Diwali se March tak.", l2: "Documents badhtey jayengay.", lang: "hi-Latn" },
+      "DW-P9-D2": { l1: "Three outlets. Five months.", l2: "One March close.", lang: "en-IN" },
+      "DW-P9-D4": { l1: "Three company files.", l2: "One spreadsheet.", lang: "en-IN" }
+    };
+    var DEFAULT = "DW-DEFAULT";
+    var asked = "";
+    try {
+      var params = new URLSearchParams(window.location.search);
+      asked = params.get("r") || params.get("utm_content") || "";
+    } catch (error) { /* no URLSearchParams: the default hook stands */ }
+
+    var matched = Object.prototype.hasOwnProperty.call(HOOKS, asked) && asked !== DEFAULT ? asked : null;
+    window.__gcHook = { route: matched || "default", lines: HOOKS[matched || DEFAULT] };
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: "diwali_hook_view", route_id: matched || "default" });
+  })();
+  </script>
   <title>Diwali 2026: ₹30,000 of AI credits on 3-month plans | GeniusCFO</title>
   <meta name="description" content="Subscribe by 9 November and your GeniusCFO plan carries extra AI credits: ₹30,000 with 3 months, ₹5,000 with monthly. Unused credits carry over.">
   <link rel="canonical" href="https://geniuscfo.ai/diwali">
@@ -237,7 +266,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="hero-copy">
           <div class="dw-diyas fade-up" aria-hidden="true"><svg class="dw-diya-svg s" viewBox="0 0 64 56" aria-hidden="true" focusable="false"><ellipse cx="32" cy="22" rx="10" ry="14" class="dw-flame-glow"></ellipse><path class="dw-flame" d="M32 4c4.6 6 7 10.5 7 14.2a7 7 0 0 1-14 0C25 14.5 27.4 10 32 4z"></path><path class="dw-flame-core" d="M32 11c1.8 2.6 2.7 4.4 2.7 5.8a2.7 2.7 0 0 1-5.4 0c0-1.4.9-3.2 2.7-5.8z"></path><path class="dw-bowl" d="M4 30h56c-1.8 11-12 19-28 19S5.8 41 4 30z"></path><path class="dw-bowl-rim" d="M4 30h56"></path><path class="dw-bowl-dots" d="M16 38h.1M24 40.5h.1M32 41.3h.1M40 40.5h.1M48 38h.1"></path></svg><svg class="dw-diya-svg " viewBox="0 0 64 56" aria-hidden="true" focusable="false"><ellipse cx="32" cy="22" rx="10" ry="14" class="dw-flame-glow"></ellipse><path class="dw-flame" d="M32 4c4.6 6 7 10.5 7 14.2a7 7 0 0 1-14 0C25 14.5 27.4 10 32 4z"></path><path class="dw-flame-core" d="M32 11c1.8 2.6 2.7 4.4 2.7 5.8a2.7 2.7 0 0 1-5.4 0c0-1.4.9-3.2 2.7-5.8z"></path><path class="dw-bowl" d="M4 30h56c-1.8 11-12 19-28 19S5.8 41 4 30z"></path><path class="dw-bowl-rim" d="M4 30h56"></path><path class="dw-bowl-dots" d="M16 38h.1M24 40.5h.1M32 41.3h.1M40 40.5h.1M48 38h.1"></path></svg><svg class="dw-diya-svg s" viewBox="0 0 64 56" aria-hidden="true" focusable="false"><ellipse cx="32" cy="22" rx="10" ry="14" class="dw-flame-glow"></ellipse><path class="dw-flame" d="M32 4c4.6 6 7 10.5 7 14.2a7 7 0 0 1-14 0C25 14.5 27.4 10 32 4z"></path><path class="dw-flame-core" d="M32 11c1.8 2.6 2.7 4.4 2.7 5.8a2.7 2.7 0 0 1-5.4 0c0-1.4.9-3.2 2.7-5.8z"></path><path class="dw-bowl" d="M4 30h56c-1.8 11-12 19-28 19S5.8 41 4 30z"></path><path class="dw-bowl-rim" d="M4 30h56"></path><path class="dw-bowl-dots" d="M16 38h.1M24 40.5h.1M32 41.3h.1M40 40.5h.1M48 38h.1"></path></svg></div>
           <p class="status-line fade-up">DIWALI 2026 · UNTIL 9 NOVEMBER</p>
-          <h1 data-word-rise>More invoices. Same evenings.</h1>
+          <h1 data-word-rise id="hook-h1">More invoices. Same evenings.</h1>
+          <script>
+          /* Applied here, where the H1 exists and nothing has painted yet, so the
+             swapped hook never shifts the page; site-v4.js animates whatever text
+             is in the H1 when it runs later. Only map values are written. */
+          (function () {
+            var hook = window.__gcHook;
+            if (!hook || !hook.lines || hook.route === "default") return;
+            var h1 = document.getElementById("hook-h1");
+            var main = document.getElementById("main");
+            if (h1) {
+              h1.textContent = hook.lines.l2 ? hook.lines.l1 + " " + hook.lines.l2 : hook.lines.l1;
+              if (hook.lines.lang) h1.setAttribute("lang", hook.lines.lang);
+            }
+            if (main) main.setAttribute("data-route", hook.route);
+          })();
+          </script>
           <p class="hero-lead fade-up">From Diwali to the March close, more documents reach your books every week. Subscribe by 9 November and your plan&rsquo;s AI allowance is topped up for the season.</p>
           <p class="business-hero-price fade-up"><span class="dw-hero-offer">₹30,000 of AI credits with any 3-month plan</span> · ₹5,000 with monthly · Unused credits carry over</p>
           <div class="hero-actions fade-up">

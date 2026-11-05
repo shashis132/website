@@ -1,0 +1,25 @@
+{
+  "default": "DW-DEFAULT",
+  "routes": {
+    "DW-DEFAULT": {
+      "l1": "More invoices. Same evenings.",
+      "l2": null
+    },
+    "DW-P8-D1": {
+      "l1": "Shaadi season mein kitchen full.",
+      "l2": "Books khaali."
+    },
+    "DW-P8-D2": {
+      "l1": "Diwali se March tak.",
+      "l2": "Documents badhtey jayengay."
+    },
+    "DW-P9-D2": {
+      "l1": "Three outlets. Five months.",
+      "l2": "One March close."
+    },
+    "DW-P9-D4": {
+      "l1": "Three company files.",
+      "l2": "One spreadsheet."
+    }
+  }
+}
