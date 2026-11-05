@@ -32,7 +32,7 @@ stories/your-accountant-is-not-behind/index.html
 
 ### Added 3 November 2026: festive hero on four pages
 
-`/business`, `/business/restaurants`, `/business/sellers` and `/ca-firms` show a night-sky hero with blinking light strings, lanterns, sparkles and diyas. Page content is unchanged. On those four pages only, the head `DIWALI-2026` block also holds a one-line script that adds the `dw-night-page` class until the deadline (so the dark hero paints with no flash); `diwali-2026.css` styles it and `diwali-2026.js` adds the decorations. Asset versions moved to `?v=20261103-v2`.
+`/business`, `/business/restaurants`, `/business/sellers` and `/ca-firms` show a night-sky hero with blinking light strings, lanterns, sparkles and diyas. Page content is unchanged. On those four pages only, the head `DIWALI-2026` block also holds a one-line script that adds the `dw-night-page` class until the deadline (so the dark hero paints with no flash); `diwali-2026.css` styles it and `diwali-2026.js` adds the decorations. Asset versions moved to `?v=20261103-v2`, then `?v=20261105-v3` when the banner text was centred (5 Nov 2026).
 
 ### Added 3 November 2026: the /diwali campaign page (Flow 2)
 
