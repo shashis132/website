@@ -169,6 +169,78 @@
     }
   };
 
+  /* --------------------------------------------------------------------
+     Subscription tracking beacon (Diwali 2026, Flow 1 and Flow 2).
+
+     Plan subscriptions are paid inside the app on Razorpay, which this site
+     cannot see. Razorpay reports each paid subscription to the server
+     container with the payer's mobile and email. To join that payment back
+     to the ad visit, Step 1 of the lead form sends the server container the
+     SHA-256 of the mobile (91 + 10 digits) and of the email, with the GA4
+     and Meta browser ids and the campaign tags. Nothing personal leaves the
+     page in clear text, and nothing here touches the dataLayer, so GA4
+     never receives the hashes. The server stores them in Stape Store keyed
+     by the hashes. Fire-and-forget: a failure never blocks the form.
+     -------------------------------------------------------------------- */
+  const SGTM_URL = "https://kfepwkvy.in.stape.io";
+
+  const gaSessionId = () => {
+    const raw = readCookie("_ga_89VFSF4RV7");
+    const v2 = raw.match(/[.$]s(\d+)/);
+    if (v2) return v2[1];
+    const v1 = raw.match(/^GS\d+\.\d+\.(\d+)\./);
+    return v1 ? v1[1] : "";
+  };
+
+  const flowFromPath = () => {
+    const path = window.location.pathname.replace(/\/+$/, "");
+    if (path === "/diwali") return "f2";
+    if (path === "/business/restaurants" || path === "/business/restaurant-groups") return "f1";
+    return "other";
+  };
+
+  const sendLeadIdentity = (phoneDigits, email, plan) => {
+    if (IS_LOCAL_PREVIEW || !SGTM_URL) return;
+    const stored = storedTracking();
+    const fromUrlOrStore = (key) => tracking.get(key) || stored[key] || "";
+    const fbclid = fromUrlOrStore("fbclid");
+    const base = {
+      event_name: "lead_identity",
+      ga_client_id: (readCookie("_ga").match(/^GA\d+\.\d+\.(\d+\.\d+)$/) || [])[1] || "",
+      ga_session_id: gaSessionId(),
+      fbp: readCookie("_fbp"),
+      fbc: readCookie("_fbc") || (fbclid ? `fb.1.${Date.now()}.${fbclid}` : ""),
+      gclid: fromUrlOrStore("gclid"),
+      utm_source: fromUrlOrStore("utm_source"),
+      utm_medium: fromUrlOrStore("utm_medium"),
+      utm_campaign: fromUrlOrStore("utm_campaign"),
+      utm_content: fromUrlOrStore("utm_content"),
+      utm_term: fromUrlOrStore("utm_term"),
+      route_key: current.searchParams.get("r") || fromUrlOrStore("utm_content"),
+      flow: flowFromPath(),
+      landing_path: window.location.pathname,
+      page_location: window.location.href,
+      interested_plan: plan || "",
+      lead_ts: new Date().toISOString()
+    };
+    const identity = { ph: phoneDigits ? `91${phoneDigits}` : "" };
+    if (email) identity.em = email.trim().toLowerCase();
+    hashFields(identity).then((hashed) => {
+      if (!hashed.ph) return;
+      const body = Object.assign(base, { ph_sha256: hashed.ph, em_sha256: hashed.em || "" });
+      try {
+        const request = window.fetch(`${SGTM_URL}/data?event_name=lead_identity`, {
+          method: "POST",
+          mode: "no-cors",
+          keepalive: true,
+          headers: { "content-type": "text/plain" },
+          body: JSON.stringify(body)
+        });
+        if (request && typeof request.catch === "function") request.catch(() => {});
+      } catch (error) { /* fetch unavailable: tracking is best-effort */ }
+    });
+  };
+
   /* ====================================================================
      Header, menu, access strip
      ==================================================================== */
@@ -870,6 +942,7 @@
         whatsapp_optin: consent && consent.checked ? "yes" : "no"
       });
       send({ step: "1" });
+      if (track === "business") sendLeadIdentity(phone, field("email") ? email : "", value("interested_plan"));
       resetCaptcha();
       /* The business form has no Step 2: its button goes straight to the
          route (payment, or the booking for a firm role). The CA/Firm form
