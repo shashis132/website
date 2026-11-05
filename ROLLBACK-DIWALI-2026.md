@@ -68,3 +68,8 @@ Check afterwards: `git diff origin/pre-diwali-2026 -- . ':!ROLLBACK-DIWALI-2026.
 ## Keep on rollback: Instagram link (5 Nov 2026)
 
 Commit 52b4ced changed every footer and schema Instagram link from `instagram.com/genius_cfo` (dead handle) to `instagram.com/genius.cfo`. This is not part of the offer. The `pre-diwali-2026` branch still has the old link, so do not restore pages wholesale from it without re-applying this.
+
+
+## 5 Nov 2026 · hook swap for the Diwali Meta ads (commit 207b5b0)
+
+/diwali gained the inline `?r=` hook swap (map inlined from `assets/diwali-hooks.json`, event `diwali_hook_view`); /business/restaurants and /business/restaurant-groups gained the DW-P8 and DW-P9 keys in their maps and JSON files. On rollback these keys can stay: an unknown or missing key always renders the default. The ad images live on branch `ads-media-diwali-2026` (folder `ads-media/`), never on main; delete that branch after 9 November.
