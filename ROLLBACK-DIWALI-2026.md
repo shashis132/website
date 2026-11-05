@@ -63,3 +63,8 @@ Check afterwards: `git diff origin/pre-diwali-2026 -- . ':!ROLLBACK-DIWALI-2026.
 ## Testing hooks
 
 `?diwali_now=2026-11-08` pretends it is that date (IST). `?diwali_reset=1` forgets a closed banner.
+
+
+## Keep on rollback: Instagram link (5 Nov 2026)
+
+Commit 52b4ced changed every footer and schema Instagram link from `instagram.com/genius_cfo` (dead handle) to `instagram.com/genius.cfo`. This is not part of the offer. The `pre-diwali-2026` branch still has the old link, so do not restore pages wholesale from it without re-applying this.
