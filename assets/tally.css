@@ -1,0 +1,82 @@
+/* /tally: the Tally Connect guide. Builds on site-v4.css and sellers.css. */
+
+.guide-page { --guide-gap: clamp(56px, 8vw, 112px); }
+.guide-page main > .chapter,
+.guide-page main > .chapter.chapter-major { margin-top: var(--guide-gap); }
+.guide-page .chapter.wash-tint { padding-block: calc(var(--guide-gap) / 2); }
+.guide-page .chapter.wash-tint::before { inset: 0; }
+.guide-hero { padding-bottom: clamp(56px, 7vw, 96px); }
+.guide-page .chapter > .wrap { max-width: 980px; }
+.guide-page .chapter h2 { margin-bottom: 14px; }
+.guide-page .chapter h3 { margin: 40px 0 14px; font-size: clamp(1.25rem, 2.2vw, 1.5rem); }
+.guide-page .chapter p,
+.guide-page .chapter li { color: var(--text-body); line-height: 1.6; }
+.guide-page .chapter > .wrap > p { max-width: 70ch; margin-top: 14px; }
+.guide-page .chapter ul { padding-left: 1.2em; display: grid; gap: 8px; margin-top: 12px; }
+
+.guide-hero .hero-copy { max-width: 760px; margin-inline: auto; text-align: center; }
+.guide-hero h1 { max-width: 16ch; margin-inline: auto; }
+.guide-hero .hero-actions { justify-content: center; }
+
+/* Contents */
+.toc ol { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 0; border-top: var(--hairline); }
+.toc li { border-bottom: var(--hairline); }
+.toc a { display: flex; gap: 16px; align-items: baseline; min-height: 48px; padding: 12px 0; color: var(--text-strong); text-decoration: none; font-weight: 500; }
+.toc a:hover { color: var(--emerald-text); }
+.toc .n { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-subtle); min-width: 2ch; }
+
+/* Two ways */
+.ways { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 20px; margin: 28px 0; }
+.ways > div { padding: clamp(22px, 2.6vw, 32px); border-radius: var(--r-panel); background: var(--grad-wash); border: var(--hairline-soft); box-shadow: var(--sh-hairline); }
+.ways > div.first { background: var(--surface); border: 0.8px solid rgba(0, 168, 124, 0.45); }
+.ways .label { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-subtle); }
+.ways .first .label { color: var(--emerald-text); }
+.ways h3 { margin: 8px 0 10px !important; }
+
+/* Numbered steps */
+.guide-steps { list-style: none; counter-reset: gstep; padding: 0; margin: 18px 0 0; display: grid; gap: 0; border-top: var(--hairline); }
+.guide-steps > li { counter-increment: gstep; position: relative; padding: 22px 0 22px 52px; border-bottom: var(--hairline); }
+.guide-steps > li::before { content: counter(gstep); position: absolute; left: 0; top: 20px; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-strong); background: var(--tint-1); border: var(--hairline); }
+.guide-steps h4 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; color: var(--text-max); margin: 0 0 6px; }
+.guide-steps p + p { margin-top: 8px; }
+
+/* Screens */
+.guide-page figure.shot { margin: 18px 0 4px; }
+.guide-page figure.shot .screen-window { display: block; }
+.guide-page figure.shot img { display: block; width: 100%; height: auto; }
+.guide-page figure.shot figcaption { margin-top: 10px; font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-subtle); }
+.guide-page .appicon { display: inline-block; width: 20px; height: 20px; vertical-align: -4px; }
+
+/* What each look does */
+.flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px; margin: 26px 0 8px; }
+.flow span { padding: 16px 18px; border-radius: var(--r-card); background: var(--surface); border: var(--hairline); font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-subtle); }
+.flow b { display: block; margin-top: 6px; font-family: var(--font-body); font-size: 0.98rem; font-weight: 600; color: var(--text-strong); }
+
+/* Tables: stack on phones */
+.guide-table-wrap { margin-top: 16px; overflow-x: auto; }
+.guide-table { width: 100%; border-collapse: collapse; font-size: 0.98rem; }
+.guide-table th { text-align: left; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-subtle); padding: 10px 14px 10px 0; border-bottom: var(--hairline-strong); }
+.guide-table td { vertical-align: top; padding: 14px 14px 14px 0; border-bottom: var(--hairline); color: var(--text-body); line-height: 1.55; }
+.guide-table td:first-child { width: 34%; font-weight: 600; color: var(--text-strong); }
+@media (max-width: 640px) {
+  .guide-table thead { display: none; }
+  .guide-table, .guide-table tbody, .guide-table tr, .guide-table td { display: block; width: 100%; }
+  .guide-table tr { padding: 12px 0; border-bottom: var(--hairline); }
+  .guide-table td { border: 0; padding: 4px 0; }
+  .guide-table td:first-child { width: 100%; }
+}
+
+/* Interface words and messages */
+.ui { font-weight: 600; color: var(--text-strong); white-space: nowrap; }
+.msg { font-style: italic; color: var(--text-strong); }
+td.msg { font-style: italic; }
+
+/* Notes */
+.note { margin-top: 22px !important; padding: 16px 18px; border-radius: var(--r-card); background: var(--surface); border: var(--hairline); max-width: 70ch; }
+.note.key { border-color: rgba(0, 168, 124, 0.45); }
+
+/* FAQ */
+.guide-faq summary { min-height: 44px; }
+.guide-faq > div p { max-width: 70ch; }
+
+.guide-cta { justify-content: center; margin-top: 22px; }

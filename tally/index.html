@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>window.dataLayer = window.dataLayer || []; window.dataLayer.push({"page_type":"landing","content_id":"tally","content_group":"Guide"});</script>
+  <!-- Google Tag Manager -->
+  <script>if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NPMFZCZG');}</script>
+  <!-- End Google Tag Manager -->
+  <title>Tally Connect: bring your Tally books into GeniusCFO | GeniusCFO</title>
+  <meta name="description" content="How to connect TallyPrime to GeniusCFO, or upload Tally XML files, step by step. GeniusCFO only reads from Tally, checks it every 15 minutes while it is open, and books nothing until you approve.">
+  <link rel="canonical" href="https://geniuscfo.ai/tally">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="theme-color" content="#0B0F1A">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GeniusCFO">
+  <meta property="og:title" content="Your Tally books, kept current in GeniusCFO">
+  <meta property="og:description" content="How to connect TallyPrime to GeniusCFO, or upload Tally XML files, step by step. GeniusCFO only reads from Tally, checks it every 15 minutes while it is open, and books nothing until you approve.">
+  <meta property="og:url" content="https://geniuscfo.ai/tally">
+  <meta property="og:image" content="https://geniuscfo.ai/assets/og-geniuscfo.png?v=20260819-v6">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="GeniusCFO: the CFO your business never had">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Your Tally books, kept current in GeniusCFO">
+  <meta name="twitter:description" content="How to connect TallyPrime to GeniusCFO, or upload Tally XML files, step by step. GeniusCFO only reads from Tally, checks it every 15 minutes while it is open, and books nothing until you approve.">
+  <meta name="twitter:image" content="https://geniuscfo.ai/assets/og-geniuscfo.png?v=20260819-v6">
+  <link rel="icon" href="/assets/favicon.ico?v=20260819-v6" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/assets/favicon.svg?v=20260819-v6" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=20260819-v6">
+  <link rel="preload" href="/assets/fonts/ibm-plex-sans-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/ibm-plex-sans-condensed-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/site-v4.css?v=20260916-v10">
+  <link rel="stylesheet" href="/assets/sellers.css?v=20260916-v1">
+  <link rel="stylesheet" href="/assets/tally.css?v=20261127">
+
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://geniuscfo.ai/#organization",
+        "name": "GeniusCFO",
+        "url": "https://geniuscfo.ai/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://geniuscfo.ai/assets/logo-on-paper.png"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://geniuscfo.ai/tally#webpage",
+        "url": "https://geniuscfo.ai/tally",
+        "name": "Tally Connect: bring your Tally books into GeniusCFO | GeniusCFO",
+        "description": "How to connect TallyPrime to GeniusCFO, or upload Tally XML files, step by step. GeniusCFO only reads from Tally, checks it every 15 minutes while it is open, and books nothing until you approve.",
+        "inLanguage": "en-IN",
+        "isPartOf": {
+          "@type": "WebSite",
+          "@id": "https://geniuscfo.ai/#website",
+          "url": "https://geniuscfo.ai/",
+          "name": "GeniusCFO"
+        },
+        "about": {
+          "@type": "SoftwareApplication",
+          "name": "GeniusCFO",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web, Windows (Tally program)"
+        },
+        "breadcrumb": {
+          "@id": "https://geniuscfo.ai/tally#breadcrumb"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://geniuscfo.ai/tally#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Business",
+            "item": "https://geniuscfo.ai/business"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tally Connect",
+            "item": "https://geniuscfo.ai/tally"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://geniuscfo.ai/tally#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Does GeniusCFO change anything in Tally?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The program only reads from Tally, using a fixed set of export requests. It has no way to write to Tally."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is my data safe on the way to GeniusCFO?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The program only makes outgoing connections to GeniusCFO, over encrypted HTTPS. It opens nothing on your network for others to reach. It talks to Tally only on the same computer."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can an entry be booked twice?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Each Tally voucher carries its own ID, and GeniusCFO keeps exactly one entry for each one. Uploading the same files again, or uploading files for a period the program already brought across, finds the vouchers already in your books and does not book them again."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use both ways?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, though not at the same moment. The sync waits while an upload is being reviewed, and carries on once it is finished or discarded."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What if I filed a GST return for a month, and a voucher in it changes in Tally?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "GeniusCFO does not change a filed period on its own. It holds the change and lists it for you, with the reason, so you can correct it deliberately."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is stock brought across?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Your vouchers and ledgers are. Stock values that Tally works out from its inventory are not, and they are left out of the daily Trial Balance check so they do not show as a difference."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does the Tally program work on a Mac?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. TallyPrime runs on Windows, so the program is for Windows. If your Tally runs elsewhere, upload the XML files instead."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does my CA still review the books?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. GeniusCFO prepares the entries; nothing is booked until a person approves the import, and drafts wait for review. Your CA keeps final sign-off."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="business-page guide-page">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPMFZCZG"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="access-strip" data-access-strip role="region" aria-label="Trial and pricing notice">
+    <div class="wrap access-inner">
+      <span class="mono">TRY FOR ₹9 · 7 DAYS OF FULL ACCESS · PLANS FROM ₹999 PER MONTH</span>
+      <button class="strip-close" type="button" data-dismiss-strip aria-label="Dismiss access notice">×</button>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#choose">Which way</a>
+        <a href="#connect">Connect Tally</a>
+        <a href="#upload">Upload files</a>
+        <a href="#messages">Messages</a>
+        <a href="#faq">FAQ</a>
+        <a href="/blog" data-preserve-query>Blog</a>
+      </nav>
+      <nav class="route-toggle" aria-label="Choose audience experience">
+        <a href="/business" data-preserve-query>Business</a>
+        <a href="/ca-firms" data-preserve-query>CA / Firm</a>
+      </nav>
+      <a class="btn btn-primary header-cta" href="/business#demo" data-preserve-query>Try for ₹9</a>
+      <button class="menu-button" type="button" data-menu-button aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span class="menu-icon"></span></button>
+    </div>
+    <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
+      <nav aria-label="Mobile navigation">
+        <a href="#choose">Which way</a>
+        <a href="#connect">Connect Tally</a>
+        <a href="#upload">Upload files</a>
+        <a href="#messages">Messages</a>
+        <a href="#faq">FAQ</a>
+        <a href="/blog" data-preserve-query>Blog</a>
+        <a href="/business#demo" data-preserve-query>Try for ₹9</a>
+      </nav>
+    </div>
+  </header>
+
+  <a class="btn btn-primary floating-cta" href="/business#demo" data-preserve-query data-floating-cta>Try for ₹9</a>
+
+  <main id="main">
+
+    <section class="hero business-hero guide-hero">
+      <div class="wrap">
+        <div class="hero-copy">
+          <p class="status-line fade-up">GUIDE · TALLY CONNECT</p>
+          <h1>Your Tally books, kept current in GeniusCFO.</h1>
+          <p class="hero-lead fade-up">There are two ways to bring your books across from TallyPrime: connect Tally once and let GeniusCFO keep up with it, or upload Tally's XML files yourself. This guide explains both, step by step, and what happens to your books at every stage.</p>
+          <p class="business-hero-price fade-up">GeniusCFO only reads from Tally · Nothing is booked until you approve it · You can always see where an entry came from</p>
+          <div class="hero-actions fade-up">
+            <a class="btn btn-primary" href="/business#demo" data-preserve-query>Try for ₹9</a>
+            <a class="btn btn-quiet" href="#connect">Connect Tally, step by step</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+<section class="chapter guide-toc-chapter">
+  <div class="wrap">
+    <p class="chapter-marker">00 · In this guide</p>
+    <nav class="toc" aria-label="Contents">
+      <ol>
+        <li><a href="#choose"><span class="n">01</span>Which way should you use?</a></li>
+        <li><a href="#before"><span class="n">02</span>Before you start</a></li>
+        <li><a href="#connect"><span class="n">03</span>Connect Tally, step by step</a></li>
+        <li><a href="#after"><span class="n">04</span>After you connect: how your books stay in step</a></li>
+        <li><a href="#daily"><span class="n">05</span>The Tally program in everyday use</a></li>
+        <li><a href="#upload"><span class="n">06</span>Upload Tally XML files, step by step</a></li>
+        <li><a href="#review"><span class="n">07</span>Reviewing an import: what each step means</a></li>
+        <li><a href="#messages"><span class="n">08</span>Messages you may see, and what to do</a></li>
+        <li><a href="#faq"><span class="n">09</span>Questions</a></li>
+      </ol>
+    </nav>
+  </div>
+</section>
+
+<section class="chapter" id="choose">
+  <div class="wrap">
+    <p class="chapter-marker">01 · Which way should you use?</p>
+    <h2>Connect once, or upload files yourself.</h2>
+    <p class="lead">Both ways put the same entries in your books, and both let you check everything before it is booked. The difference is what happens after the first time.</p>
+    <div class="ways">
+      <div class="first">
+        <span class="label">Recommended</span>
+        <h3>Connect Tally</h3>
+        <p>You install a small GeniusCFO program on the Windows computer where TallyPrime runs. It reads your books from Tally, and then checks Tally every 15 minutes while Tally is open. New, edited and deleted vouchers come across without you exporting anything again.</p>
+        <ul>
+          <li>Best when you keep working in Tally day to day.</li>
+          <li>Needs a Windows computer with TallyPrime on it.</li>
+          <li>Your books in GeniusCFO stay current with Tally.</li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">One time</span>
+        <h3>Upload XML files</h3>
+        <p>You export your Masters, Day Book and Trial Balance from TallyPrime as XML files, and upload them in GeniusCFO. This brings your books across once, up to the day you exported them.</p>
+        <ul>
+          <li>Best when you are moving from Tally to GeniusCFO.</li>
+          <li>Works from any computer that has the files.</li>
+          <li>Later changes in Tally need a fresh export.</li>
+        </ul>
+      </div>
+    </div>
+    <p>Both start from <span class="ui">Settings</span> › <span class="ui">Imports &amp; Backup</span>. On a new company, the Home page also shows this line; <span class="ui">Import my books</span> takes you there.</p>
+        <figure class="shot wide"><a class="screen-link" href="/assets/screens/tally/01-home-import-my-books.png?v=20261127" data-lightbox data-image-label="On the Home page · Import my books" aria-haspopup="dialog"><span class="screen-window"><picture><source srcset="/assets/screens/tally/01-home-import-my-books.webp?v=20261127" type="image/webp"><img src="/assets/screens/tally/01-home-import-my-books.png?v=20261127" width="1538" height="69" loading="lazy" decoding="async" alt="Home page line: Already keeping books in Tally or Zoho? with the Import my books button"></picture></span></a><figcaption>On the Home page · Import my books</figcaption></figure>
+  </div>
+</section>
+
+<section class="chapter wash-tint" id="before">
+  <div class="wrap">
+    <p class="chapter-marker">02 · Before you start</p>
+    <h2>A few things to check first.</h2>
+    <ol class="guide-steps">
+      <li>
+        <h4>Sign in as the owner or an executive</h4>
+        <p>Connecting Tally, and approving an import, are open to the company's owner or executive. A team member with the accountant role can upload files and review the account mapping, and the owner or an executive then approves.</p>
+      </li>
+      <li>
+        <h4>Make sure you are in the right company</h4>
+        <p>If you have more than one company in GeniusCFO, switch to the one these books belong to. GeniusCFO compares the Tally company's name with this company before it lets the books in, so another business's books cannot land here by mistake.</p>
+      </li>
+      <li>
+        <h4>Complete your company profile</h4>
+        <p>GeniusCFO asks for your legal address, pincode and the other required details before most screens open. Finish them in <span class="ui">Settings</span> › <span class="ui">Company</span>.</p>
+      </li>
+      <li>
+        <h4>Find the right screen</h4>
+        <p>Everything in this guide starts from <span class="ui">Settings</span> › <span class="ui">Imports &amp; Backup</span>. You will see three tiles: <span class="ui">Connect Tally</span>, <span class="ui">Upload files</span> and <span class="ui">Export &amp; backup</span>.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="chapter" id="connect">
+  <div class="wrap">
+    <p class="chapter-marker">03 · Connect Tally</p>
+    <h2>Connect Tally, step by step.</h2>
+    <p class="lead">Do these steps on the Windows computer where TallyPrime is installed. It takes about five minutes, plus the time Tally needs to send your books.</p>
+
+    <h3>Get TallyPrime ready</h3>
+    <ol class="guide-steps">
+      <li>
+        <h4>Open TallyPrime and load your company</h4>
+        <p>The program can only read a company that is open in Tally.</p>
+      </li>
+      <li>
+        <h4>Let TallyPrime answer on this computer</h4>
+        <p>In TallyPrime press <strong>F1 (Help)</strong> › <strong>Settings</strong> › <strong>Connectivity</strong>, and set TallyPrime to act as a server on port <strong>9000</strong> (this is TallyPrime's usual setting). This lets the GeniusCFO program ask Tally for your books on this same computer. Nothing outside the computer can reach Tally through it.</p>
+      </li>
+    </ol>
+
+    <h3>Install the GeniusCFO program</h3>
+    <ol class="guide-steps">
+      <li>
+        <h4>Download it</h4>
+        <p>In GeniusCFO, open <span class="ui">Settings</span> › <span class="ui">Imports &amp; Backup</span> › <span class="ui">Connect Tally</span> and press <span class="ui">Download for Windows</span>. The file is called <strong>GeniusCFO-Tally.exe</strong>.</p>
+        <figure class="shot"><a class="screen-link" href="/assets/screens/tally/02-connect-tally-card.png?v=20261127" data-lightbox data-image-label="Settings › Imports &amp; Backup › Connect Tally" aria-haspopup="dialog"><span class="screen-window"><picture><source srcset="/assets/screens/tally/02-connect-tally-card.webp?v=20261127" type="image/webp"><img src="/assets/screens/tally/02-connect-tally-card.png?v=20261127" width="1494" height="521" loading="lazy" decoding="async" alt="The Connect Tally card with Download for Windows and the code box"></picture></span></a><figcaption>Settings › Imports &amp; Backup › Connect Tally</figcaption></figure>
+      </li>
+      <li>
+        <h4>Run it</h4>
+        <p>Double-click the file. If Windows shows <span class="msg">“Windows protected your PC”</span>, click <strong>More info</strong>, then <strong>Run anyway</strong>. Windows shows this for programs it has not seen many times before.</p>
+        <p>The program installs itself for your Windows user only. It does not need administrator rights, and it starts by itself each time you sign in to Windows.</p>
+      </li>
+      <li>
+        <h4>Look for the GeniusCFO icon <img class="appicon" src="/assets/screens/tally/03-tray-icon.png?v=20261127" width="32" height="32" alt="GeniusCFO icon"> near the clock</h4>
+        <p>The program runs quietly in the system tray, at the bottom-right of the screen. If you cannot see it, click the small <strong>^</strong> arrow there. Hovering over it shows its status, for example <span class="msg">“GeniusCFO Tally: Connected to Tally”</span>.</p>
+      </li>
+    </ol>
+
+    <h3>Link it to your GeniusCFO company</h3>
+    <ol class="guide-steps">
+      <li>
+        <h4>Enter the code the program shows</h4>
+        <p>The program shows a short code, such as <strong>ABCD-2345</strong>. Under <span class="ui">Enter the code it shows</span>, enter it and press <span class="ui">Connect</span>.</p>
+        <p>If the GeniusCFO page is open in a browser on the same computer, the code fills in by itself. A code works for a short while; if it runs out, the program shows a new one.</p>
+        <figure class="shot"><a class="screen-link" href="/assets/screens/tally/04-code-connect.png?v=20261127" data-lightbox data-image-label="The code filled in by itself · press Connect" aria-haspopup="dialog"><span class="screen-window"><picture><source srcset="/assets/screens/tally/04-code-connect.webp?v=20261127" type="image/webp"><img src="/assets/screens/tally/04-code-connect.png?v=20261127" width="1170" height="513" loading="lazy" decoding="async" alt="The code filled in by the program, with the Connect button"></picture></span></a><figcaption>The code filled in by itself · press Connect</figcaption></figure>
+      </li>
+      <li>
+        <h4>Choose which Tally company this is</h4>
+        <p>The card now says <span class="msg">“Connected. Choose which Tally company this is”</span> and lists the companies open in Tally, each with the date its books start. Pick the one that holds this company's books. The button then shows its name, for example <span class="ui">Use Sws</span>. Press it.</p>
+        <p>If your company is not in the list, open it in TallyPrime (F3, Select Company). The list updates by itself.</p>
+        <figure class="shot"><a class="screen-link" href="/assets/screens/tally/05-choose-company.png?v=20261127" data-lightbox data-image-label="Pick your company · press Use and its name" aria-haspopup="dialog"><span class="screen-window"><picture><source srcset="/assets/screens/tally/05-choose-company.webp?v=20261127" type="image/webp"><img src="/assets/screens/tally/05-choose-company.png?v=20261127" width="1170" height="490" loading="lazy" decoding="async" alt="Connected. Choose which Tally company this is, with the company Sws picked and the Use Sws button"></picture></span></a><figcaption>Pick your company · press Use and its name</figcaption></figure>
+      </li>
+      <li>
+        <h4>Bring your books in</h4>
+        <p>Under <span class="ui">Bring your books in</span>, press <span class="ui">Read my books from Tally</span>. You can enter a <strong>From</strong> date; leave it blank to start from the date your books begin in Tally.</p>
+        <figure class="shot"><a class="screen-link" href="/assets/screens/tally/06-bring-books-in.png?v=20261127" data-lightbox data-image-label="Bring your books in · Read my books from Tally" aria-haspopup="dialog"><span class="screen-window"><picture><source srcset="/assets/screens/tally/06-bring-books-in.webp?v=20261127" type="image/webp"><img src="/assets/screens/tally/06-bring-books-in.png?v=20261127" width="1170" height="446" loading="lazy" decoding="async" alt="Connected card with Bring your books in and Read my books from Tally"></picture></span></a><figcaption>Bring your books in · Read my books from Tally</figcaption></figure>
+        <p>The program reads your accounts (Tally's masters), then your Day Book one month at a time, then your Trial Balance. The card shows the progress, for example <span class="msg">“Reading your books from Tally: 5 of 14 files. Keep Tally open.”</span></p>
+        <figure class="shot"><a class="screen-link" href="/assets/screens/tally/07-reading-progress.png?v=20261127" data-lightbox data-image-label="The card shows the progress · keep Tally open" aria-haspopup="dialog"><span class="screen-window"><picture><source srcset="/assets/screens/tally/07-reading-progress.webp?v=20261127" type="image/webp"><img src="/assets/screens/tally/07-reading-progress.png?v=20261127" width="1170" height="373" loading="lazy" decoding="async" alt="Reading your books from Tally: 0 of 10 files. Keep Tally open."></picture></span></a><figcaption>The card shows the progress · keep Tally open</figcaption></figure>
+      </li>
+      <li>
+        <h4>Review and approve the import</h4>
+        <p>When the files are read, an import opens below the card: <span class="msg">“Your books are read. Review them in the import below. Nothing is booked until you approve.”</span> This is the same review as an upload. <a href="#review">Section 07</a> explains each step: the account mapping, the dry run, approving, posting and finishing.</p>
+        <figure class="shot"><a class="screen-link" href="/assets/screens/tally/08-import-from-tally.png?v=20261127" data-lightbox data-image-label="Your books from Tally, ready to review" aria-haspopup="dialog"><span class="screen-window"><picture><source srcset="/assets/screens/tally/08-import-from-tally.webp?v=20261127" type="image/webp"><img src="/assets/screens/tally/08-import-from-tally.png?v=20261127" width="1479" height="615" loading="lazy" decoding="async" alt="The import read from Tally: Tally Masters and Tally Day Book files, with the account mapping"></picture></span></a><figcaption>Your books from Tally, ready to review</figcaption></figure>
+      </li>
+    </ol>
+    <p class="note key"><strong>Nothing is booked until you approve.</strong> The program only reads from Tally. It never changes anything in Tally, and the books in GeniusCFO change only after a person approves the import.</p>
+  </div>
+</section>
+
+<section class="chapter wash-tint" id="after">
+  <div class="wrap">
+    <p class="chapter-marker">04 · After you connect</p>
+    <h2>How your books stay in step with Tally.</h2>
+    <p class="lead">Once the first import is finished, GeniusCFO looks at Tally every 15 minutes while Tally and the program are open. Each look compares Tally's vouchers with your books and brings across only what changed.</p>
+
+    <div class="flow" aria-label="What each look does">
+      <span>1 · Masters<b>New and renamed ledgers</b></span>
+      <span>2 · Voucher list<b>What is new, edited or gone</b></span>
+      <span>3 · Day Book<b>Only the vouchers that changed</b></span>
+      <span>4 · Once a day<b>Trial Balance compared with Tally</b></span>
+    </div>
+
+    <h3>What happens to each kind of change</h3>
+    <div class="guide-table-wrap">
+      <table class="guide-table">
+        <thead><tr><th>In Tally</th><th>In GeniusCFO</th></tr></thead>
+        <tbody>
+          <tr><td>A new voucher</td><td>Arrives as a draft for you to check and post, or is posted at once if you chose <span class="ui">Post automatically</span>.</td></tr>
+          <tr><td>A voucher you have not posted yet is edited</td><td>The draft is updated to match Tally, and keeps its voucher number.</td></tr>
+          <tr><td>A voucher you already posted is edited</td><td>Under <span class="ui">Save as draft</span>, your books keep the posted entry and the card asks you to <span class="ui">Apply change</span>. When you apply it, the old entry is reversed and the new one posted. Under <span class="ui">Post automatically</span>, this happens at once.</td></tr>
+          <tr><td>A voucher is deleted or cancelled</td><td>A waiting draft is removed. A posted entry is reversed, after you apply it under <span class="ui">Save as draft</span>.</td></tr>
+          <tr><td>A new ledger</td><td>Gets an account in your chart of accounts. If GeniusCFO cannot tell which account it belongs to, the card asks you to choose one.</td></tr>
+          <tr><td>Nothing changed</td><td>Nothing in your books is touched. The card says <span class="msg">“Last look 12:55 pm: nothing changed.”</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Save as draft, or post automatically</h3>
+    <p>Under <span class="ui">When something changes in Tally</span> you choose how new entries arrive. New connections start on <strong>Save as draft</strong>.</p>
+    <ul>
+      <li><strong>Save as draft:</strong> new entries wait in <span class="ui">Journal Entries</span> › <span class="ui">Drafts</span>. Check each one and press <span class="ui">Post</span>, or tick several and press <span class="ui">Post selected</span>. A change to an entry you already posted waits on the card until you apply it.</li>
+      <li><strong>Post automatically:</strong> new and changed entries go straight into your books as soon as they are read.</li>
+    </ul>
+
+    <h3>What the card tells you</h3>
+    <div class="guide-table-wrap">
+      <table class="guide-table">
+        <thead><tr><th>On the card</th><th>What it means</th></tr></thead>
+        <tbody>
+          <tr><td>Last look at Tally</td><td>When GeniusCFO last looked, and what it found. Press <span class="ui">Sync now</span> to ask for a look on the program's next check-in, within a minute.</td></tr>
+          <tr><td>Next look about…</td><td>When the next look is due, and that it repeats every 15 minutes while Tally is open.</td></tr>
+          <tr><td>Waiting for you</td><td>How many drafts from Tally wait in Journal Entries. <span class="ui">Review drafts</span> opens them.</td></tr>
+          <tr><td>Trial Balance check</td><td>Once a day GeniusCFO compares Tally's Trial Balance with your books, ledger by ledger. If they differ, it names the ledgers and sends you a notification.</td></tr>
+          <tr><td>Entries need you</td><td>Changes GeniusCFO did not make on its own, each with its reason and, where it applies, an <span class="ui">Apply change</span> button.</td></tr>
+        </tbody>
+      </table>
+    </div>
+        <figure class="shot"><a class="screen-link" href="/assets/screens/tally/09-after-look-card.png?v=20261127" data-lightbox data-image-label="After a look · one new voucher saved as a draft" aria-haspopup="dialog"><span class="screen-window"><picture><source srcset="/assets/screens/tally/09-after-look-card.webp?v=20261127" type="image/webp"><img src="/assets/screens/tally/09-after-look-card.png?v=20261127" width="1170" height="563" loading="lazy" decoding="async" alt="Connected card: Last look 7:24 pm, 1 draft saved; next look about 7:39 pm; 1 draft from Tally waiting; Save as draft chosen"></picture></span></a><figcaption>After a look · one new voucher saved as a draft</figcaption></figure>
+
+    <h3>Opening balances</h3>
+    <p>Opening balances are posted once, when your books first come in. They are dated the day your books start (usually 1 April). If you read your books while the Tally company was still empty, the opening balances arrive on the first look after you enter them in Tally, as one draft entry for you to check.</p>
+
+    <p class="note"><strong>Safety stop.</strong> If Tally suddenly shows far fewer vouchers than before, or a different company with the same name, GeniusCFO stops and changes nothing. The card says <span class="msg">“Your books were not changed”</span> and why. Check that the right company is open in Tally. If the change is what you meant, press <span class="ui">Carry on</span>.</p>
+  </div>
+</section>
+
+<section class="chapter" id="daily">
+  <div class="wrap">
+    <p class="chapter-marker">05 · Everyday use</p>
+    <h2>The Tally program in everyday use.</h2>
+    <div class="guide-table-wrap">
+      <table class="guide-table">
+        <thead><tr><th>If you…</th><th>What happens</th></tr></thead>
+        <tbody>
+          <tr><td>Close TallyPrime</td><td>The program waits. The card says <span class="msg">“Waiting for Tally. Open TallyPrime and load your company.”</span> When you open Tally again, it catches up by itself.</td></tr>
+          <tr><td>Turn the computer off</td><td>Nothing is lost. The program starts again when you sign in to Windows, and the next look brings across whatever changed meanwhile.</td></tr>
+          <tr><td>Press <strong>Quit</strong> on the tray icon</td><td>The program stops, and GeniusCFO shows at once that it was closed on that computer. Nothing syncs until it runs again: run the downloaded <strong>GeniusCFO-Tally.exe</strong> once more, or sign out of Windows and back in.</td></tr>
+          <tr><td>Press <strong>Open GeniusCFO</strong> on the tray icon</td><td>Opens GeniusCFO in your browser, on the Imports &amp; Backup page.</td></tr>
+          <tr><td>Download and run a newer version</td><td>The new version replaces the one already running. Your connection stays as it is.</td></tr>
+          <tr><td>Upload files while connected</td><td>The sync waits while an import is open, so the same voucher cannot be booked twice. The card says <span class="msg">“Sync waits while an import is open.”</span> It resumes by itself once you finish or discard the import.</td></tr>
+          <tr><td>Your plan ends</td><td>The sync pauses and the card says so. Your books stay as they are. It resumes once you reactivate.</td></tr>
+          <tr><td>Move to a new computer</td><td>Press <span class="ui">Disconnect</span> on the card, install the program on the new computer, and connect again with its code.</td></tr>
+          <tr><td>Want to stop for good</td><td>Press <span class="ui">Disconnect</span> on the card and confirm. The program's connection ends at once. Your books in GeniusCFO stay as they are.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="chapter wash-tint" id="upload">
+  <div class="wrap">
+    <p class="chapter-marker">06 · Upload XML files</p>
+    <h2>Upload Tally XML files, step by step.</h2>
+    <p class="lead">Use this if you are not connecting Tally, or want to bring books across once. You need three files from TallyPrime; the third is optional but recommended.</p>
+
+    <h3>Export the files from TallyPrime</h3>
+    <ol class="guide-steps">
+      <li>
+        <h4>Masters (your ledgers and groups)</h4>
+        <p>In TallyPrime: <strong>Export</strong> › <strong>Masters</strong> › <strong>All Masters</strong>, and choose <strong>XML</strong> as the format.</p>
+      </li>
+      <li>
+        <h4>Day Book (your vouchers)</h4>
+        <p>Open <strong>Display</strong> › <strong>Day Book</strong>, set the period to the <strong>whole period</strong> you want (press F2 to change it), then <strong>Export</strong> as <strong>XML</strong>.</p>
+      </li>
+      <li>
+        <h4>Trial Balance (optional, recommended)</h4>
+        <p>Open the Trial Balance in the <strong>detailed, ledger-wise</strong> view and <strong>Export</strong> as <strong>XML</strong>. GeniusCFO uses it to check that the books it built match Tally's.</p>
+      </li>
+    </ol>
+    <p class="note">Export the files from TallyPrime itself. A file made for loading <em>into</em> Tally has no Tally IDs on its vouchers, and GeniusCFO cannot use it. Export one financial year at a time. Each XML file can be up to 500 MB, and a Zoho Books backup .zip up to 200 MB.</p>
+
+    <h3>Upload them</h3>
+    <ol class="guide-steps">
+      <li>
+        <h4>Open Upload files</h4>
+        <p><span class="ui">Settings</span> › <span class="ui">Imports &amp; Backup</span> › <span class="ui">Upload files</span>.</p>
+        <figure class="shot"><a class="screen-link" href="/assets/screens/tally/10-upload-files.png?v=20261127" data-lightbox data-image-label="Settings › Imports &amp; Backup › Upload files" aria-haspopup="dialog"><span class="screen-window"><picture><source srcset="/assets/screens/tally/10-upload-files.webp?v=20261127" type="image/webp"><img src="/assets/screens/tally/10-upload-files.png?v=20261127" width="1500" height="469" loading="lazy" decoding="async" alt="Upload files: Drop your files here, Choose files, and What to export"></picture></span></a><figcaption>Settings › Imports &amp; Backup › Upload files</figcaption></figure>
+      </li>
+      <li>
+        <h4>Drop the files, or press Choose files</h4>
+        <p>You can add all three at once. Under <span class="ui">This upload</span> each file gets one line: <span class="msg">“Added to this import”</span>, or the reason it was not added.</p>
+        <figure class="shot"><a class="screen-link" href="/assets/screens/tally/11-files-reading.png?v=20261127" data-lightbox data-image-label="Your files are read one by one" aria-haspopup="dialog"><span class="screen-window"><picture><source srcset="/assets/screens/tally/11-files-reading.webp?v=20261127" type="image/webp"><img src="/assets/screens/tally/11-files-reading.png?v=20261127" width="581" height="344" loading="lazy" decoding="async" alt="Three files being read, each with its progress"></picture></span></a><figcaption>Your files are read one by one</figcaption></figure>
+      </li>
+      <li>
+        <h4>Add anything you missed</h4>
+        <p>While the import is open, press <span class="ui">Add more files</span> at the bottom of it, for example to add the Trial Balance after the other two.</p>
+      </li>
+      <li>
+        <h4>Review, approve, post and finish</h4>
+        <p>The import opens on the same page. The next section explains each step.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="chapter" id="review">
+  <div class="wrap">
+    <p class="chapter-marker">07 · Reviewing an import</p>
+    <h2>What each step of the review means.</h2>
+    <p class="lead">Whether the files came from the Tally program or from your upload, the import shows five steps at the top: <strong>Files read · Accounts mapped · Dry run passed · Approved · Posted &amp; finalized</strong>. Nothing reaches your books before Approved.</p>
+
+    <ol class="guide-steps">
+      <li>
+        <h4>Files read</h4>
+        <p>Each file is listed with what was found in it, for example <span class="msg">“70 accounts, 4 with opening balances”</span> or <span class="msg">“53 vouchers”</span>. A file that could not be read says why. Use <span class="ui">Remove</span> to take a wrong file out.</p>
+        <figure class="shot"><a class="screen-link" href="/assets/screens/tally/12-import-five-steps.png?v=20261127" data-lightbox data-image-label="Files read · what was found in each file" aria-haspopup="dialog"><span class="screen-window"><picture><source srcset="/assets/screens/tally/12-import-five-steps.webp?v=20261127" type="image/webp"><img src="/assets/screens/tally/12-import-five-steps.png?v=20261127" width="1473" height="538" loading="lazy" decoding="async" alt="The import with its five steps, Books start on, the files and what was found in each"></picture></span></a><figcaption>Files read · what was found in each file</figcaption></figure>
+      </li>
+      <li>
+        <h4>Books start on</h4>
+        <p>Enter the first day your books in GeniusCFO cover, usually 1 April. Opening balances are dated that day.</p>
+      </li>
+      <li>
+        <h4>Accounts mapped</h4>
+        <p>Every Tally ledger is matched to an account in GeniusCFO's chart of accounts, using its Tally group. Customers and suppliers get their own accounts. The table shows each ledger, its Tally group, its opening balance and the account chosen. Use the filters <span class="ui">Needs a decision</span>, <span class="ui">Customers</span>, <span class="ui">Suppliers</span> and <span class="ui">With an opening balance</span>, and press <span class="ui">change</span> to choose a different account. The opening balances row at the bottom shows whether they balance.</p>
+        <figure class="shot"><a class="screen-link" href="/assets/screens/tally/13-account-mapping.png?v=20261127" data-lightbox data-image-label="Accounts mapped · openings balanced" aria-haspopup="dialog"><span class="screen-window"><picture><source srcset="/assets/screens/tally/13-account-mapping.webp?v=20261127" type="image/webp"><img src="/assets/screens/tally/13-account-mapping.png?v=20261127" width="1444" height="406" loading="lazy" decoding="async" alt="Account mapping filtered to With an opening balance: four ledgers, total ₹36,00,000 on each side, balanced"></picture></span></a><figcaption>Accounts mapped · openings balanced</figcaption></figure>
+      </li>
+      <li>
+        <h4>Run the dry run</h4>
+        <p>Press <span class="ui">Run the dry run</span>. GeniusCFO works out every entry without booking anything, and says either <span class="msg">“Dry run: ✓ ready to approve”</span> or what still needs your attention, such as a ledger without an account or vouchers dated before your books start.</p>
+        <figure class="shot"><a class="screen-link" href="/assets/screens/tally/14-dry-run.png?v=20261127" data-lightbox data-image-label="Dry run passed · ready to approve" aria-haspopup="dialog"><span class="screen-window"><picture><source srcset="/assets/screens/tally/14-dry-run.webp?v=20261127" type="image/webp"><img src="/assets/screens/tally/14-dry-run.png?v=20261127" width="1444" height="169" loading="lazy" decoding="async" alt="Dry run: ready to approve, with the Approve import button"></picture></span></a><figcaption>Dry run passed · ready to approve</figcaption></figure>
+      </li>
+      <li>
+        <h4>Approve import</h4>
+        <p>The owner or an executive presses <span class="ui">Approve import</span>, then confirms with <span class="ui">Yes, approve</span>. If Tally sent no entries at all, the question says so, so that books are not started empty by mistake.</p>
+        <figure class="shot"><a class="screen-link" href="/assets/screens/tally/15-approve-confirm.png?v=20261127" data-lightbox data-image-label="Confirm with Yes, approve" aria-haspopup="dialog"><span class="screen-window"><picture><source srcset="/assets/screens/tally/15-approve-confirm.webp?v=20261127" type="image/webp"><img src="/assets/screens/tally/15-approve-confirm.png?v=20261127" width="1444" height="188" loading="lazy" decoding="async" alt="Approve this import for Sws? with Yes, approve and Keep reviewing"></picture></span></a><figcaption>Confirm with Yes, approve</figcaption></figure>
+      </li>
+      <li>
+        <h4>Post to the books</h4>
+        <p>Press <span class="ui">Post to the books</span>. While it works, the panel says <span class="msg">“Still posting”</span>. When it finishes it says <span class="msg">“Posted. The books match the files you imported.”</span> and shows the dates your entries cover, with <span class="ui">Open in Journal</span> to see them.</p>
+        <figure class="shot"><a class="screen-link" href="/assets/screens/tally/16-post-to-books.png?v=20261127" data-lightbox data-image-label="Approved · press Post to the books" aria-haspopup="dialog"><span class="screen-window"><picture><source srcset="/assets/screens/tally/16-post-to-books.webp?v=20261127" type="image/webp"><img src="/assets/screens/tally/16-post-to-books.png?v=20261127" width="1470" height="588" loading="lazy" decoding="async" alt="Approved, ready to post, with the Post to the books button"></picture></span></a><figcaption>Approved · press Post to the books</figcaption></figure>
+        <figure class="shot"><a class="screen-link" href="/assets/screens/tally/17-posted-verify.png?v=20261127" data-lightbox data-image-label="Posted · check, then Verify &amp; finalize" aria-haspopup="dialog"><span class="screen-window"><picture><source srcset="/assets/screens/tally/17-posted-verify.webp?v=20261127" type="image/webp"><img src="/assets/screens/tally/17-posted-verify.png?v=20261127" width="1470" height="665" loading="lazy" decoding="async" alt="Posted. The books match the files you imported, with Verify & finalize and Roll back everything"></picture></span></a><figcaption>Posted · check, then Verify &amp; finalize</figcaption></figure>
+      </li>
+      <li>
+        <h4>Verify &amp; finalize</h4>
+        <p>Check a few entries, then press <span class="ui">Verify &amp; finalize</span>. Until you do, <span class="ui">Roll back everything</span> removes every entry this import posted, if something is wrong.</p>
+        <figure class="shot"><a class="screen-link" href="/assets/screens/tally/18-import-history-finalized.png?v=20261127" data-lightbox data-image-label="Finished · the import shows Finalized" aria-haspopup="dialog"><span class="screen-window"><picture><source srcset="/assets/screens/tally/18-import-history-finalized.webp?v=20261127" type="image/webp"><img src="/assets/screens/tally/18-import-history-finalized.png?v=20261127" width="1470" height="150" loading="lazy" decoding="async" alt="Import history: Sws, FINALIZED, with Open in Journal"></picture></span></a><figcaption>Finished · the import shows Finalized</figcaption></figure>
+      </li>
+    </ol>
+
+    <h3>What comes across from Tally</h3>
+    <ul>
+      <li>Every voucher as a journal entry with its debits and credits: sales, purchases, receipts, payments, contra, journals, credit notes and debit notes.</li>
+      <li>Sales and purchase vouchers become invoices and bills for the party named. Receipts, payments, notes and journals made against a bill in Tally settle that bill here too, so its paid, part-paid or unpaid status matches Tally.</li>
+      <li>Opening balances, once, dated the day your books start.</li>
+      <li>Every imported entry carries an <strong>Imported</strong> mark, so you always know where it came from.</li>
+    </ul>
+        <figure class="shot wide"><a class="screen-link" href="/assets/screens/tally/19-journal-imported.png?v=20261127" data-lightbox data-image-label="Journal Entries · each imported entry is marked Imported" aria-haspopup="dialog"><span class="screen-window"><picture><source srcset="/assets/screens/tally/19-journal-imported.webp?v=20261127" type="image/webp"><img src="/assets/screens/tally/19-journal-imported.png?v=20261127" width="1500" height="681" loading="lazy" decoding="async" alt="Journal Entries listing imported entries, each marked Imported and posted"></picture></span></a><figcaption>Journal Entries · each imported entry is marked Imported</figcaption></figure>
+    <p class="note">Before you approve, you can press <span class="ui">Discard</span> to drop the import completely. Your books do not change.</p>
+  </div>
+</section>
+
+<section class="chapter wash-tint" id="messages">
+  <div class="wrap">
+    <p class="chapter-marker">08 · Messages</p>
+    <h2>Messages you may see, and what to do.</h2>
+    <div class="guide-table-wrap">
+      <table class="guide-table">
+        <thead><tr><th>Message</th><th>What to do</th></tr></thead>
+        <tbody>
+          <tr><td class="msg">TallyPrime did not answer. Open it, load the company, and turn on its HTTP server</td><td>Open TallyPrime, load your company, and check <strong>F1 › Settings › Connectivity</strong> (see section 03).</td></tr>
+          <tr><td class="msg">Waiting for Tally. Open TallyPrime and load your company</td><td>Open the company in TallyPrime on the connected computer.</td></tr>
+          <tr><td class="msg">The Tally program is not running on that computer</td><td>Check that computer is switched on and online. If the program is not in its tray, run GeniusCFO-Tally.exe again.</td></tr>
+          <tr><td class="msg">The Tally program was closed on … Nothing syncs until it runs again</td><td>Someone pressed Quit. On that computer, run GeniusCFO-Tally.exe again, or sign out of Windows and back in.</td></tr>
+          <tr><td class="msg">Sync is paused because your plan has ended</td><td>Reactivate your plan from the button on the card. The sync resumes by itself.</td></tr>
+          <tr><td class="msg">Sync waits while an import is open</td><td>Finish or discard the import in Import history. The next look starts by itself.</td></tr>
+          <tr><td class="msg">Your books were not changed</td><td>Read the reason under it. Check the right company is open in Tally. If the change is real, press Carry on.</td></tr>
+          <tr><td class="msg">Changed in Tally. Your books keep the posted entry until you apply the change</td><td>Check the change and press Apply change, or Apply all for several.</td></tr>
+          <tr><td class="msg">A ledger on this voucher needs an account in GeniusCFO</td><td>Choose an account for the ledger listed on the card and press Save.</td></tr>
+          <tr><td class="msg">No entries were read from Tally</td><td>The Day Book was empty for the dates read. Check the right company is open, then discard the import and read again.</td></tr>
+          <tr><td class="msg">… vouchers have no Tally ID, so none were read</td><td>The file was made for loading into Tally. Export the Day Book from TallyPrime (section 06) and upload that file.</td></tr>
+          <tr><td class="msg">Not added: this is not a Tally or Zoho Books export</td><td>The file is something else. Export it from TallyPrime as XML.</td></tr>
+          <tr><td class="msg">Not added: the file seems damaged</td><td>The file did not finish exporting or copying. Export it again.</td></tr>
+          <tr><td class="msg">This export is for another company, but you are importing into …</td><td>Switch to the right company in GeniusCFO, or export from the right company in Tally. Approve refuses the file until they match.</td></tr>
+          <tr><td class="msg">Everything in these files is already in your books</td><td>Nothing to do. Re-uploading the same files never books anything twice; discard the import.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<section class="chapter chapter-major wash-tint" id="try">
+  <div class="wrap">
+    <div class="chapter-head chapter-head-centre">
+      <p class="chapter-marker">10 · Try it</p>
+      <h2>Try it on your own Tally books, for ₹9.</h2>
+      <p class="lead">Pay ₹9 once, sign up and connect Tally the same day. You get 7 days of full access, and nothing is charged afterwards.</p>
+      <div class="hero-actions guide-cta">
+        <a class="btn btn-primary" href="/business#demo" data-preserve-query>Try for ₹9</a>
+        <a class="btn btn-quiet" href="/ca-firms#demo" data-preserve-query>Try for ₹9 as a CA firm</a>
+      </div>
+      <p class="suite-note"><a href="/business/switch" data-preserve-query>Switching from Tally, Zoho or a spreadsheet? See how it works</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="faq">
+  <div class="wrap">
+    <p class="chapter-marker">09 · Questions</p>
+    <h2>Questions.</h2>
+    <div class="faq-list">
+    <details class="guide-faq">
+      <summary>Does GeniusCFO change anything in Tally?</summary>
+      <div><p>No. The program only reads from Tally, using a fixed set of export requests. It has no way to write to Tally.</p></div>
+    </details>
+    <details class="guide-faq">
+      <summary>Is my data safe on the way to GeniusCFO?</summary>
+      <div><p>The program only makes outgoing connections to GeniusCFO, over encrypted HTTPS. It opens nothing on your network for others to reach. It talks to Tally only on the same computer.</p></div>
+    </details>
+    <details class="guide-faq">
+      <summary>Can an entry be booked twice?</summary>
+      <div><p>No. Each Tally voucher carries its own ID, and GeniusCFO keeps exactly one entry for each one. Uploading the same files again, or uploading files for a period the program already brought across, finds the vouchers already in your books and does not book them again.</p></div>
+    </details>
+    <details class="guide-faq">
+      <summary>Can I use both ways?</summary>
+      <div><p>Yes, though not at the same moment. The sync waits while an upload is being reviewed, and carries on once it is finished or discarded.</p></div>
+    </details>
+    <details class="guide-faq">
+      <summary>What if I filed a GST return for a month, and a voucher in it changes in Tally?</summary>
+      <div><p>GeniusCFO does not change a filed period on its own. It holds the change and lists it for you, with the reason, so you can correct it deliberately.</p></div>
+    </details>
+    <details class="guide-faq">
+      <summary>Is stock brought across?</summary>
+      <div><p>Your vouchers and ledgers are. Stock values that Tally works out from its inventory are not, and they are left out of the daily Trial Balance check so they do not show as a difference.</p></div>
+    </details>
+    <details class="guide-faq">
+      <summary>Does the Tally program work on a Mac?</summary>
+      <div><p>No. TallyPrime runs on Windows, so the program is for Windows. If your Tally runs elsewhere, upload the XML files instead.</p></div>
+    </details>
+    <details class="guide-faq">
+      <summary>Does my CA still review the books?</summary>
+      <div><p>Yes. GeniusCFO prepares the entries; nothing is booked until a person approves the import, and drafts wait for review. Your CA keeps final sign-off.</p></div>
+    </details>
+</div>
+  </div>
+</section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div class="footer-brand"><a class="footer-logo-link" href="/business" aria-label="GeniusCFO home" data-preserve-query><img src="/assets/logo-lockup.svg?v=20260819-v6" width="752" height="256" alt="GeniusCFO"></a><p>Affordable accounting automation and financial answers for Indian businesses.</p></div>
+      <div class="footer-col"><h2>Business</h2><ul><li><a href="/business" data-preserve-query>Product</a></li><li><a href="/pricing?audience=business#business-plans" data-preserve-query>Business pricing</a></li><li><a href="/business/switch" data-preserve-query>Switch to GeniusCFO</a></li><li><a href="/stories" data-preserve-query>Stories</a></li><li><a href="/blog" data-preserve-query>Blog</a></li></ul></div>
+      <div class="footer-col"><h2>Accountant firms</h2><ul><li><a href="/ca-firms" data-preserve-query>Accountant/Firm experience</a></li><li><a href="/pricing?audience=ca-firms#firm-plans" data-preserve-query>Accountant/Firm pricing</a></li></ul></div>
+      <div class="footer-col"><h2>Access</h2><ul><li><a href="/business#demo" data-preserve-query>Try for ₹9</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+      <div class="footer-col"><h2>Let's Connect</h2><ul><li><a href="https://www.linkedin.com/company/genius-cfo" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://www.facebook.com/profile.php?id=61574302727802" target="_blank" rel="noopener noreferrer">Facebook</a></li><li><a href="https://www.instagram.com/genius_cfo" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><a href="https://x.com/GeniusCFO" target="_blank" rel="noopener noreferrer">X</a></li><li><a href="mailto:marketing@geniuscfo.ai">marketing@geniuscfo.ai</a></li></ul></div>
+    </div>
+    <div class="wrap footer-bottom"><p class="mono trust-line">UPDATED ACCOUNTS · CLEAR ANSWERS · HUMAN REVIEW</p><p>© 2026 GeniusCFO. Prices exclude 18% GST.</p><p class="footer-legal"><a href="/privacy" data-preserve-query>Privacy Policy</a></p></div>
+  </footer>
+
+  <dialog class="image-dialog" data-image-dialog aria-labelledby="image-dialog-title">
+    <div class="image-dialog-shell"><div class="image-dialog-head"><p id="image-dialog-title" data-image-dialog-title></p><span class="image-dialog-actions"><button type="button" class="image-dialog-replay" data-image-dialog-replay hidden>Play again</button><button type="button" class="image-dialog-close" data-image-dialog-close>Close</button></span></div><div class="image-dialog-stage"><img data-image-dialog-image alt=""></div></div>
+  </dialog>
+
+  <script src="/assets/site.js?v=20260912-v10-try9" defer></script>
+  <script src="/assets/site-v4.js?v=20260819-v6" defer></script>
+</body>
+</html>
