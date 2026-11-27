@@ -415,9 +415,9 @@
 
   /* ====================================================================
      Multi-step lead form
-     Step 1 — contact and role.  Step 2 — triage, branched by role (the
-     CA/Firm page only; the business page has no Step 2 and its Step 1
-     button reads "Try for ₹9", or "Book a Demo" for a firm role).
+     Step 1 — contact and role. Step 2 — triage (only on a form that still
+     carries it). Since 27 Nov 2026 every form on the site, business and
+     CA/Firm, is data-lead-payment-only: every role takes the ₹9 route.
      Step 3 — one of two routes, decided by the role chosen in Step 1:
        payment  business visitors on the business page go to the ₹9
                 Razorpay page (TRIAL_PAYMENT_URL), then to sign-up;
@@ -693,6 +693,7 @@
       const link = paymentStep ? paymentStep.querySelector("[data-payment-link]") : null;
       const target = (link && link.href) || TRIAL_PAYMENT_URL;
       pushDataLayer("lead_payment_redirect", {
+        event_id: state.eventId || "",
         role: state.role,
         track: track,
         trial_amount: 9,
@@ -935,14 +936,23 @@
         return;
       }
 
+      /* One id per submission, sent with the lead row and the redirect
+         event, so a server-side conversion can be deduplicated against the
+         browser one later. */
+      state.eventId = (window.crypto && typeof window.crypto.randomUUID === "function")
+        ? window.crypto.randomUUID()
+        : `lead_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+
       /* Step 1 is a contact record, not a conversion. */
       pushDataLayer("lead_step1_complete", {
         role: state.role,
         track: track,
         whatsapp_optin: consent && consent.checked ? "yes" : "no"
       });
-      send({ step: "1" });
-      if (track === "business") sendLeadIdentity(phone, field("email") ? email : "", value("interested_plan"));
+      send({ step: "1", event_id: state.eventId });
+      /* Businesses and firms both take the ₹9 route now, so both get the
+         identity beacon that joins the Razorpay payment to the ad visit. */
+      if (route() === "payment") sendLeadIdentity(phone, field("email") ? email : "", value("interested_plan"));
       resetCaptcha();
       /* The business form has no Step 2: its button goes straight to the
          route (payment, or the booking for a firm role). The CA/Firm form

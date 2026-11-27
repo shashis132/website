@@ -2,6 +2,18 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
+      "source": "/best-ai-accounting-software-india",
+      "destination": "/best-ai-accounting-software-india/index.html"
+    },
+    {
+      "source": "/tally",
+      "destination": "/tally/index.html"
+    },
+    {
+      "source": "/business/switch",
+      "destination": "/business/switch/index.html"
+    },
+    {
       "source": "/business/sellers",
       "destination": "/business/sellers/index.html"
     },
@@ -174,6 +186,36 @@
       "source": "/insights/through-the-glass",
       "destination": "/blog/through-the-glass",
       "permanent": true
+    },
+    {
+      "source": "/business/switch/",
+      "destination": "/business/switch",
+      "permanent": true
+    },
+    {
+      "source": "/business/switch/index.html",
+      "destination": "/business/switch",
+      "permanent": true
+    },
+    {
+      "source": "/tally/",
+      "destination": "/tally",
+      "permanent": true
+    },
+    {
+      "source": "/tally/index.html",
+      "destination": "/tally",
+      "permanent": true
+    },
+    {
+      "source": "/best-ai-accounting-software-india/",
+      "destination": "/best-ai-accounting-software-india",
+      "permanent": true
+    },
+    {
+      "source": "/best-ai-accounting-software-india/index.html",
+      "destination": "/best-ai-accounting-software-india",
+      "permanent": true
     }
   ],
   "headers": [
@@ -257,7 +299,7 @@
       ]
     },
     {
-      "source": "/assets/:file(site.css|sellers.css|restaurants.css|story.css|legal.css|site.js|site-v4.css|site-v4.js|logo-band.js|geniuscfo-logo-animation.js)",
+      "source": "/assets/:file(site.css|sellers.css|restaurants.css|story.css|legal.css|site.js|site-v4.css|site-v4.js|logo-band.js|geniuscfo-logo-animation.js|switch.css|tally.css|compare.css)",
       "headers": [
         {
           "key": "Cache-Control",

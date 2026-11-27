@@ -18,6 +18,9 @@ https://geniuscfo.ai is authoritative.
 - https://geniuscfo.ai/business/sellers — GeniusCFO for marketplace and D2C sellers
 - https://geniuscfo.ai/business/restaurants — GeniusCFO for restaurants, cafes and cloud kitchens
 - https://geniuscfo.ai/business/restaurant-groups — GeniusCFO for restaurant groups with more than one outlet
+- https://geniuscfo.ai/business/switch — switching to GeniusCFO from Tally, Zoho, Vyapar, a spreadsheet or Petpooja
+- https://geniuscfo.ai/tally — Tally Connect guide: connect TallyPrime or upload Tally XML, step by step
+- https://geniuscfo.ai/best-ai-accounting-software-india — comparison of 9 accounting tools for India, written by GeniusCFO, no ratings
 - https://geniuscfo.ai/ca-firms — GeniusCFO for CA and accounting firms
 - https://geniuscfo.ai/pricing — pricing for both audiences
 - https://geniuscfo.ai/blog — blog index: analysis of accounting automation
@@ -85,40 +88,46 @@ The website does not sell plans directly. Business pricing actions lead to the �
 Razorpay and then to sign-up; CA/Firm pricing actions lead to the same ₹9 trial. Plans are chosen and paid for inside the product after the trial.
 
 ## Questions and answers — GeniusCFO for business owners
-Source: https://geniuscfo.ai/business
 
 ### What does GeniusCFO do for a business?
 
-GeniusCFO automates bookkeeping, prepares GST information, matches bank transactions, shows important business numbers and alerts, and answers financial questions from updated accounts.
+It does your bookkeeping. GeniusCFO books entries from your bills, bank statements or Tally, matches your bank, prepares GST, TDS and income tax, and answers money questions from your own books. Your accountant or CA checks the work and files.
 
-### Do I need accounting knowledge to use GeniusCFO?
+### Do I need to know accounting to use it?
 
-No. Business owners can see clear dashboards and ask questions in everyday English. Your accountant or CA can review the accounting entries and source records.
+No. You see a simple dashboard and ask questions in everyday English, typed or spoken. Your accountant or CA can check the entries and the documents behind them.
 
-### Can I ask GeniusCFO questions by voice?
+### I use Tally. Do I have to stop?
 
-Yes. Ask GeniusCFO accepts typed or voice questions about profit, cash, GST and other financial information in the books.
+No. Connect Tally once and GeniusCFO checks it every 15 minutes while Tally is open, so your books here stay in step. It only reads from Tally and never changes anything there. See the Tally Connect guide.
 
-### Does GeniusCFO prepare GST information?
+### Does GeniusCFO file my GST returns?
 
-Yes. GeniusCFO uses updated books to prepare GST information, including output GST, input tax credit, net payable, return status and mismatches for review.
+It prepares them. GeniusCFO prepares GSTR-1, GSTR-3B, GSTR-9, GSTR-9C, CMP-08 and ITC-04 from your books and gives you the file for the GST portal. You or your CA file it, then record the ARN in GeniusCFO.
 
-### Can I use GeniusCFO on my phone and laptop?
+### What about TDS and income tax?
 
-Yes. GeniusCFO works on phone and desktop, so you can check business numbers, alerts and answers wherever you are.
+Both are included in every plan. The TDS workspace tracks deductions by section, challans and quarterly returns. The income tax page estimates the year's tax from your books and shows your next advance tax payment. Your accountant files.
 
-### Can my accountant or CA review the same books?
+### Can my accountant or CA see the same books?
 
-Yes. Your accountant or CA can review the entries, source records, reports and GST information in the same accounting workspace.
+Yes. Give them access and they can check the entries, source documents, reports and tax screens in the same workspace you use.
+
+### Can I use GeniusCFO on my phone?
+
+Yes. It works on phone and desktop, so you can check numbers, read warnings and ask questions wherever you are.
+
+### How is GeniusCFO different from Tally or Zoho with AI added?
+
+It was built for AI from the start. In older apps you type entries and the AI helps around the edges. In GeniusCFO the AI books the entries and you check them. Read the full comparison.
 
 ### What does the ₹9 trial include?
 
-Seven days of full access to everything - bookkeeping, GST information, bank matching, alerts and Ask GeniusCFO - on your own books. You pay ₹9 once on Razorpay, sign up, and start the same day. There is no UPI mandate and nothing is charged automatically afterwards: at the end of the 7 days you choose a plan, and if you do not, the AI stops while your books, statements and GST screens keep working.
+Seven days of full access to everything, on your own books: bookkeeping, Tally Connect, GST, TDS, income tax, bank matching, warnings and Ask GeniusCFO. You pay ₹9 once on Razorpay, sign up and start the same day. There is no card, no UPI mandate and nothing is charged automatically afterwards. At the end of the 7 days you choose a plan. If you don't, the AI stops while your books, statements and GST screens keep working, and nothing is deleted.
 
 ### Why does the trial cost ₹9?
 
-Because a free trial brought in fake sign-ups and people who worked through the AI credits meant for trials without any intention of using the product. A small payment keeps the trial for real businesses and keeps the AI allowance available to them.
-
+Because a free trial brought in fake sign-ups, and people who used up the AI credits meant for trials with no plan to use the product. A small payment keeps the trial for real businesses and firms, and keeps the AI allowance for them.
 
 ## Questions and answers — GeniusCFO for marketplace and D2C sellers
 Source: https://geniuscfo.ai/business/sellers
@@ -207,40 +216,46 @@ The kitchen's challan is a document. It is booked in the receiving outlet's prof
 A plan covers one company profile and one user; each further outlet is an extra company profile at ₹599 a month. Prices exclude 18% GST. The full price list, managed services and add-ons are on the pricing page.
 
 ## Questions and answers — GeniusCFO for CA and accounting firms
-Source: https://geniuscfo.ai/ca-firms
 
-### What accounting work can GeniusCFO automate?
+### What accounting work can GeniusCFO do for my clients?
 
-GeniusCFO automates routine bookkeeping entries, prepares GST information, financial statements and accounting reports, supports bank reconciliation, and keeps source references available for review.
+The routine preparation. Journal entries with debits and credits, bank reconciliation, Schedule III statements, and GST, TDS and income tax working, for each client company. Your team reviews it and the firm signs off.
 
 ### Can my team review entries before sign-off?
 
-Yes. Your team can review the prepared entries and their source records. Your firm keeps professional judgement and final sign-off.
+Yes. Every entry keeps its source document, nothing from a Tally import is booked until someone approves it, and the firm keeps professional judgement and final sign-off.
 
-### Which financial statements can GeniusCFO prepare?
+### My clients use Tally. Does that work?
 
-GeniusCFO prepares the Statement of Profit and Loss, Balance Sheet, Cash Flow Statement and Notes to Accounts. Trial Balance is available as a separate accounting report.
+Yes. Connect a client's Tally once and GeniusCFO reads it every 15 minutes while Tally is open. It is read-only and the Trial Balance is compared with Tally once a day. See the Tally Connect guide.
 
-### How does GeniusCFO help with GST?
+### Which GST returns does GeniusCFO prepare?
 
-It brings GST liability, input tax credit, mismatches and prepared GSTR-3B information into the client workspace for review.
+GSTR-1, GSTR-3B, GSTR-9, GSTR-9C, CMP-08 and ITC-04, from the client's books, with GSTR-2B matching and IMS. Your team files on the portal and records the ARN.
 
-### Can I use voice input?
+### Does it handle TDS and income tax?
 
-Yes. You can type a financial question or use voice input in Ask GeniusCFO.
+Yes. The TDS workspace tracks deductions by section, challans and quarterly returns. The income tax page estimates the year's tax and the advance tax instalments. Both are prepared from the books for your team to file.
+
+### Which financial statements can it prepare?
+
+Statement of Profit and Loss, Balance Sheet, Cash Flow Statement and Notes to Accounts in Schedule III format, plus the Trial Balance and General Ledger.
 
 ### How are CA/Firm plans priced?
 
-Firm plans are priced by the client companies and team members included. Team covers three client companies and Enterprise covers ten. Additional client companies are 599 rupees per month each and additional members are 299 rupees per month each. Monthly and 3-month billing are available.
+Team is ₹3,999 a month for 3 client companies and 2 extra members. Enterprise is ₹6,999 a month for 10 client companies and 5 extra members. Extra client companies are ₹599 a month each and extra members ₹299. Prices exclude 18% GST, and billing every 3 months costs 20% less.
 
 ### How does the firm trial work?
 
 The same way as for businesses. Pay ₹9 once on Razorpay, sign up, and use everything for 7 days. Nothing is charged afterwards. At the end you choose a firm plan inside the app.
 
-### Do CA/Firm plans include Accountant+ or CA+?
+### What does the ₹9 trial include?
 
-No. Those managed accounting services are for business customers. CA/Firm plans are for firms that provide accounting and professional services to their own clients.
+Seven days of full access to everything, on your own books: bookkeeping, Tally Connect, GST, TDS, income tax, bank matching, warnings and Ask GeniusCFO. You pay ₹9 once on Razorpay, sign up and start the same day. There is no card, no UPI mandate and nothing is charged automatically afterwards. At the end of the 7 days you choose a plan. If you don't, the AI stops while your books, statements and GST screens keep working, and nothing is deleted.
 
+### Why does the trial cost ₹9?
+
+Because a free trial brought in fake sign-ups, and people who used up the AI credits meant for trials with no plan to use the product. A small payment keeps the trial for real businesses and firms, and keeps the AI allowance for them.
 
 ## Questions and answers — GeniusCFO pricing
 Source: https://geniuscfo.ai/pricing
@@ -280,6 +295,116 @@ No. Accountant+ and CA+ are optional services for business customers and are bil
 ### How are plans for CA firms priced?
 
 Firm plans are priced by the client companies and team members included. Team covers three client companies and Enterprise covers ten. Additional client companies are 599 rupees per month each and additional members are 299 rupees per month each.
+
+## Questions and answers — Switch to GeniusCFO (https://geniuscfo.ai/business/switch)
+
+### Do I have to stop using my current software?
+
+No. If you use Tally, connect it and keep working in it: GeniusCFO reads your vouchers every 15 minutes and never changes anything in Tally. If you use something else, keep it running and upload the same bank statement and documents here. Compare the two side by side for 7 days.
+
+### What do I need to bring?
+
+One of three things. A Tally connection, set up in about five minutes on the computer that runs TallyPrime. Or Tally XML exports or a Zoho Books backup, uploaded once. Or your bank statement, invoices, bills and receipts as files: CSV, Excel, PDF, scans and photos are all read.
+
+### Does GeniusCFO change anything in Tally?
+
+No. The program only reads from Tally, and it talks to Tally only on the same computer. Nothing is booked in GeniusCFO until a person approves the import, and each Tally voucher is booked exactly once, so uploading the same files again never doubles an entry.
+
+### I run a restaurant on Petpooja. Do I have to upload sales every day?
+
+No. Connect the Gmail or Zoho inbox that receives your Petpooja sales reports, and every new report is read and booked to your company as it arrives. There is no upload and no manual entry.
+
+### Does my accountant have to change anything?
+
+No. Your accountant reviews the same books in the same workspace you use, with the source document attached to every entry, and still files your returns. Nothing here replaces your accountant.
+
+### What does the ₹9 trial include?
+
+Seven days of full access to everything, bookkeeping, GST, TDS and income tax information, bank matching, alerts and Ask GeniusCFO, on your own books. You pay ₹9 once on Razorpay, sign up, and start the same day. There is no UPI mandate and nothing is charged automatically afterwards.
+
+### What happens after the seven days?
+
+Nothing is charged automatically. You choose a plan inside the product. If you don't, the AI stops while your books, statements and GST screens keep working, and nothing is deleted.
+
+### Why does the trial cost ₹9?
+
+Because a free trial brought in fake sign-ups and people who worked through the AI credits meant for trials without any intention of using the product. A small payment keeps the trial for real businesses and keeps the AI allowance available to them.
+
+### Is my data safe if I decide not to buy a plan?
+
+Yes. Nothing is deleted. The AI stops, and your books, statements and GST screens keep working, so you can still open and read everything you uploaded.
+
+### Can I use GeniusCFO on my phone?
+
+Yes. GeniusCFO works on phone and desktop, so you can check business numbers, alerts and answers wherever you are, and ask questions by voice.
+
+## Questions and answers — Tally Connect guide (https://geniuscfo.ai/tally)
+
+### Does GeniusCFO change anything in Tally?
+
+No. The program only reads from Tally, using a fixed set of export requests. It has no way to write to Tally.
+
+### Is my data safe on the way to GeniusCFO?
+
+The program only makes outgoing connections to GeniusCFO, over encrypted HTTPS. It opens nothing on your network for others to reach. It talks to Tally only on the same computer.
+
+### Can an entry be booked twice?
+
+No. Each Tally voucher carries its own ID, and GeniusCFO keeps exactly one entry for each one. Uploading the same files again, or uploading files for a period the program already brought across, finds the vouchers already in your books and does not book them again.
+
+### Can I use both ways?
+
+Yes, though not at the same moment. The sync waits while an upload is being reviewed, and carries on once it is finished or discarded.
+
+### What if I filed a GST return for a month, and a voucher in it changes in Tally?
+
+GeniusCFO does not change a filed period on its own. It holds the change and lists it for you, with the reason, so you can correct it deliberately.
+
+### Is stock brought across?
+
+Your vouchers and ledgers are. Stock values that Tally works out from its inventory are not, and they are left out of the daily Trial Balance check so they do not show as a difference.
+
+### Does the Tally program work on a Mac?
+
+No. TallyPrime runs on Windows, so the program is for Windows. If your Tally runs elsewhere, upload the XML files instead.
+
+### Does my CA still review the books?
+
+Yes. GeniusCFO prepares the entries; nothing is booked until a person approves the import, and drafts wait for review. Your CA keeps final sign-off.
+
+## Questions and answers — Best AI accounting software in India (https://geniuscfo.ai/best-ai-accounting-software-india)
+
+### What is the best AI accounting software in India?
+
+It depends on who you want doing the entries. If you want the software to do the bookkeeping and your CA to check it, we built GeniusCFO for that. If you want to keep typing entries into Tally with some help, TallyPrime 7.1's document reading or an add-on like Vyapar TaxOne fit better. We make GeniusCFO, so weigh our view accordingly.
+
+### What does AI-native accounting mean?
+
+It means the software was designed for the AI to do the bookkeeping, with a person reviewing. Older software was designed for a person to type entries, and AI has been added around it as a helper.
+
+### Does AI accounting software replace my CA?
+
+No. GeniusCFO prepares the books and the tax working. Your accountant or CA reviews it, keeps professional judgement and files. The work is automated. The judgement stays human.
+
+### Can I keep using Tally with GeniusCFO?
+
+Yes. Tally Connect reads your Tally books every 15 minutes while Tally is open, and never changes anything in Tally. You can also upload Tally XML files once.
+
+### Does Tally have AI now?
+
+Yes. TallyPrime 7.1, released in June 2026, added TallyIra, including a tool that reads business documents and turns them into entries. Tally has also said it plans to rebuild its core for AI.
+
+### Is there free AI accounting software in India?
+
+Some tools have free plans, such as Zoho Books for businesses under ₹25 lakh revenue, and the basic versions of Vyapar, Refrens, hisabkitab and Khatabook. GeniusCFO's trial costs ₹9 for 7 days of full access.
+
+### Which AI accounting software handles GST, TDS and income tax together?
+
+GeniusCFO prepares GST returns, TDS and income tax with advance tax from one set of books. Many other tools cover GST well; check each vendor's page for TDS and income tax.
+
+### How do I switch accounting software in the middle of the year?
+
+Bring your opening balances and the year's entries across, then run both side by side for a few weeks. With GeniusCFO you can connect Tally or upload Tally or Zoho files, and nothing is booked until you approve it.
 
 ## Terms used
 

@@ -552,7 +552,7 @@ main > .hero { margin-top: 0; }
 /* Floating CTA pill, appears past the hero */
 .floating-cta {
   position: fixed;
-  top: 14px;
+  top: calc(14px + env(safe-area-inset-top, 0px));
   right: var(--gutter);
   z-index: 55;
   height: 42px;
