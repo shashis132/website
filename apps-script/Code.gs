@@ -65,7 +65,9 @@ var SHEET_NAME = 'Leads';
 var CAPTCHA_EXEMPT_PATHS = [
   '/business/sellers',
   '/business/restaurants',
-  '/business/restaurant-groups'
+  '/business/restaurant-groups',
+  '/business/switch',
+  '/best-ai-accounting-software-india'
 ];
 
 function captchaExempt_(path) {

@@ -171,23 +171,6 @@
   .help-list li { border-bottom: 0; border-top: 0; }
 }
 
-/* ---------- The draft marker ---------- *
-   Only for review. Marks a fact that has to be confirmed before the page
-   ships. Remove every [data-draft-flag] and this block on approval. */
-[data-draft-flag] {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 6px 10px;
-  border: 1px dashed var(--emerald-text);
-  border-radius: 4px;
-  color: var(--emerald-text);
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  line-height: 1.5;
-}
-.chapter.wash-tint [data-draft-flag] { background: var(--surface); }
 
 /* ---------- 03 · The trial ---------- *
    The dated ledger on the left, the phone on the right. The phone window is
@@ -202,7 +185,6 @@
 
 /* The capability strip sits tight under the hero: half the chapter rhythm. */
 #capabilities { padding-block: clamp(36px, 5vw, 64px); }
-[data-draft-flag] { margin-bottom: 4px; }
 .comparison-wrap + p { margin: 12px 0 0; }
 
 /* ---------- 01 · Three ways in ---------- *
@@ -251,32 +233,6 @@
 }
 /* The way-tag is the one emerald on this paper surface; the ✓ marks share it. */
 
-/* ---------- Pending screen slot (draft only) ---------- *
-   A window with no capture yet. Same chrome as a real window so the layout
-   is final; the body names the capture to make. Replaced by a real
-   <picture> before the page ships. */
-.screen-pending { display: block; }
-.screen-pending-body {
-  display: grid;
-  place-content: center;
-  gap: 8px;
-  aspect-ratio: 16 / 9;
-  padding: 24px;
-  text-align: center;
-  color: rgba(255,255,255,.66);
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  border: 1px dashed rgba(255,255,255,.28);
-  border-radius: 8px;
-  margin: 10px;
-}
-.screen-pending-body strong {
-  color: var(--emerald);
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
 
 /* Inside a way column the window does not bleed: it is not in a card. */
 .way .card-media { margin: 20px 0 0; padding-inline: 0; }
@@ -286,3 +242,6 @@
 .mailbox-row { display: grid; grid-template-columns: 1fr; gap: 24px 48px; align-items: center; margin-top: clamp(32px, 4vw, 48px); }
 .mailbox-row .note-honest { margin: 0; }
 @media (min-width: 900px) { .mailbox-row { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); } }
+
+.way-link { margin-top: 14px; font-size: 0.95rem; }
+.way-link a { color: var(--emerald-text); }
