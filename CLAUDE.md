@@ -189,7 +189,10 @@ Consequences:
 - Each submission gets an `event_id` (UUID). It goes in the lead row and in
   the `lead_payment_redirect` dataLayer event, for future CAPI dedup.
 - `lead_payment_redirect` carries `track` (`business` or `practice`), so GTM
-  can tell firms from businesses with the same tags. The server-container
+  can tell firms from businesses with the same tags. GTM version 13 (27 Nov
+  2026) fires a GA4 `generate_lead` on it (tag "GA4 generate_lead — ₹9 trial
+  form", event_id from the push); the server container forwards it to GA4
+  and its Meta CAPI tag sends it as a server-side Lead. The server-container
   identity beacon (`sendLeadIdentity`) now fires for firms too.
 - The FAQ explaining the ₹9 is on `/business`, `/ca-firms` and `/pricing`,
   in the visible text and the JSON-LD, and in both llms files. Keep them in
