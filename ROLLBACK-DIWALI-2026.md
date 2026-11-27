@@ -73,3 +73,7 @@ Commit 52b4ced changed every footer and schema Instagram link from `instagram.co
 ## 5 Nov 2026 · hook swap for the Diwali Meta ads (commit 207b5b0)
 
 /diwali gained the inline `?r=` hook swap (map inlined from `assets/diwali-hooks.json`, event `diwali_hook_view`); /business/restaurants and /business/restaurant-groups gained the DW-P8 and DW-P9 keys in their maps and JSON files. On rollback these keys can stay: an unknown or missing key always renders the default. The ad images live on branch `ads-media-diwali-2026` (folder `ads-media/`), never on main; delete that branch after 9 November.
+
+## Rolled back 27 Nov 2026
+
+Done on branch `content-update-nov-2026` at Shashi's request: `assets/diwali-2026.*` and `assets/diwali-hooks.json` deleted, every `DIWALI-2026` block removed from the 13 pages, the cache-header entries removed, and `/diwali` deleted outright with its rewrite and redirects (owner chose a 404 over a redirect). The DW keys in the restaurant hook maps stay (harmless). The `f2` branch in the subscription beacon in `assets/site.js` stays: it only labels a path that no longer exists.
