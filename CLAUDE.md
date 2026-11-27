@@ -193,7 +193,10 @@ Consequences:
   Cal.com-only on purpose: GTM version 13 raised it from this event and was
   rolled back to version 12 the same day (27 Nov 2026) because the server
   container sends every `generate_lead` to Meta as a Lead, and Shashi does not
-  want ₹9 forms counted as Meta Leads. The server-container
+  want ₹9 forms counted as Meta Leads. Instead, web GTM version 14 fires a
+  GA4-only `trial_form_lead` on `lead_payment_redirect` (event_id, lead_track,
+  lead_role, value 9 INR); server GTM version 14 forwards it to GA4 and its
+  Meta CAPI trigger excludes it. The server-container
   identity beacon (`sendLeadIdentity`) now fires for firms too.
 - The FAQ explaining the ₹9 is on `/business`, `/ca-firms` and `/pricing`,
   in the visible text and the JSON-LD, and in both llms files. Keep them in
