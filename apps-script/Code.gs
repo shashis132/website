@@ -66,8 +66,7 @@ var CAPTCHA_EXEMPT_PATHS = [
   '/business/sellers',
   '/business/restaurants',
   '/business/restaurant-groups',
-  '/business/switch',
-  '/best-ai-accounting-software-india'
+  '/business/switch'
 ];
 
 function captchaExempt_(path) {
