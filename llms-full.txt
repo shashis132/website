@@ -382,6 +382,14 @@ It depends on who you want doing the entries. If you want the software to do the
 
 It means the software was designed for the AI to do the bookkeeping, with a person reviewing. Older software was designed for a person to type entries, and AI has been added around it as a helper.
 
+### What is an AI CFO?
+
+An AI CFO is software that reads your books and tells you what they mean: it forecasts cash, warns you early about cash, tax and late customers, and answers money questions in plain English. GeniusCFO works as an AI CFO on top of books it keeps current every day.
+
+### Which accounting software in India has AI CFO features?
+
+GeniusCFO has AI CFO features built in: plain-English questions, early warnings, a cash flow forecast and runway, what-if plans and income tax worked out ahead of time. Zoho Books offers Zia insights on its higher plans. Most other tools on this list offer reports.
+
 ### Does AI accounting software replace my CA?
 
 No. GeniusCFO prepares the books and the tax working. Your accountant or CA reviews it, keeps professional judgement and files. The work is automated. The judgement stays human.
