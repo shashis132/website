@@ -1,0 +1,288 @@
+/* ==========================================================================
+   switch.css — components unique to /business/switch
+
+   Sits on top of site-v4.css and sellers.css and uses their tokens. The
+   page reuses the site's chapters, buttons, screen windows, pricing block,
+   lead form, comparison table, file list, honest note, dated ledger and
+   closing CTA row as they are. Only the objects below are new: the hero
+   measure, the capability strip, the "from" ledger, the support blocks and
+   the draft marker (which is stripped before the page ships).
+   ========================================================================== */
+
+/* ---------- The hero ---------- *
+   Same reasoning as the sellers page: the headline sets in the site's
+   --max-head measure one notch smaller than the business hero, so the CTA
+   lands above the fold on a 900px viewport. */
+.switch-hero .hero-copy h1 {
+  max-width: var(--max-head);
+  font-size: clamp(2.375rem, 5.2vw, 4.25rem);
+  text-wrap: balance;
+}
+.switch-hero .hero-copy h1 .h1-line-2 { display: block; color: var(--text-muted); }
+.switch-hero .hero-copy { max-width: var(--max-head); }
+.switch-hero .hero-proof { max-width: 34rem; }
+
+@media (min-width: 900px) {
+  .switch-hero .hero-grid {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    justify-items: start;
+    align-items: center;
+    text-align: left;
+  }
+  .switch-hero .hero-copy { justify-items: start; }
+  .switch-hero .hero-actions { justify-content: flex-start; }
+  .switch-hero .hero-product { margin-bottom: 0; }
+}
+
+/* ---------- The capability strip ---------- *
+   Four ruled columns under the hero. Where another site would put a proof
+   bar of customer numbers, this one puts four things the product does that
+   a CA can check. The figure is set in Display, the label in mono, the
+   sentence in Body. No emerald: the hero window above already has it. */
+.capability-strip {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--hairline-strong);
+  border-bottom: var(--hairline);
+}
+.capability-strip li {
+  padding: 22px 2px;
+  border-bottom: var(--hairline);
+}
+.capability-strip li:last-child { border-bottom: 0; }
+.capability-strip .cap-figure {
+  display: block;
+  color: var(--text-max);
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.capability-strip .cap-label {
+  display: block;
+  margin-top: 10px;
+  color: var(--text-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.capability-strip p {
+  max-width: 26rem;
+  margin: 10px 0 0;
+  color: var(--text-soft);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+@media (min-width: 720px) {
+  .capability-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
+  .capability-strip li:nth-last-child(-n+2) { border-bottom: 0; }
+}
+@media (min-width: 1100px) {
+  .capability-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .capability-strip li { border-bottom: 0; }
+}
+
+/* ---------- 04 · Where you are coming from ---------- *
+   One ruled row per tool, the tool's name on the left in Display and the
+   two-sentence note on the right. The same ledger as the month ledger, with
+   a name instead of a date. */
+.from-ledger {
+  margin: clamp(32px, 4vw, 48px) 0 0;
+  max-width: 52rem;
+  border-top: var(--hairline-strong);
+}
+.from-ledger > div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px 28px;
+  padding: 18px 2px;
+  border-bottom: var(--hairline);
+}
+@media (min-width: 640px) {
+  .from-ledger > div { grid-template-columns: 180px minmax(0, 1fr); align-items: baseline; }
+}
+.from-ledger dt {
+  color: var(--text-max);
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.from-ledger dd {
+  margin: 0;
+  max-width: var(--max-body);
+  color: var(--text-body);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+/* ---------- 05 · Help ---------- *
+   Three ruled blocks, no cards. The price inside each block is set in
+   Display with its qualifier in Body, the way every price on the site is. */
+.help-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--hairline-strong);
+}
+.help-list li {
+  padding: 24px 2px 26px;
+  border-bottom: var(--hairline);
+}
+.help-list h3 {
+  margin: 0 0 8px;
+  max-width: 22ch;
+}
+.help-list p {
+  max-width: var(--max-body);
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.help-list p + p { margin-top: 10px; }
+.help-list .help-price {
+  color: var(--text-max);
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  font-variant-numeric: tabular-nums;
+}
+.help-list .help-price small {
+  color: var(--text-subtle);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+@media (min-width: 900px) {
+  .help-list { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 40px; }
+  .help-list li { border-bottom: 0; border-top: 0; }
+}
+
+/* ---------- The draft marker ---------- *
+   Only for review. Marks a fact that has to be confirmed before the page
+   ships. Remove every [data-draft-flag] and this block on approval. */
+[data-draft-flag] {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 6px 10px;
+  border: 1px dashed var(--emerald-text);
+  border-radius: 4px;
+  color: var(--emerald-text);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+.chapter.wash-tint [data-draft-flag] { background: var(--surface); }
+
+/* ---------- 03 · The trial ---------- *
+   The dated ledger on the left, the phone on the right. The phone window is
+   the business page's ask-demo window at the same 380px, so the portrait
+   animation ships unchanged. */
+.switch-trial { display: grid; grid-template-columns: 1fr; gap: clamp(32px, 5vw, 56px); align-items: start; }
+.switch-trial-media .screen-window { max-width: 380px; margin-inline: auto; }
+@media (min-width: 900px) {
+  .switch-trial { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); align-items: center; }
+  .switch-trial-media .screen-window { margin-inline: 0 auto; }
+}
+
+/* The capability strip sits tight under the hero: half the chapter rhythm. */
+#capabilities { padding-block: clamp(36px, 5vw, 64px); }
+[data-draft-flag] { margin-bottom: 4px; }
+.comparison-wrap + p { margin: 12px 0 0; }
+
+/* ---------- 01 · Three ways in ---------- *
+   Three ruled columns, one per way into the product. Rules, not cards: a
+   hairline above the set and between columns on wide screens. The screen
+   inside each way is the ordinary card window. */
+.ways-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border-top: var(--hairline-strong);
+}
+.way { padding: 28px 2px 32px; border-bottom: var(--hairline); min-width: 0; }
+.way-tag {
+  margin: 0 0 12px;
+  color: var(--emerald-text);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.way h3 { margin: 0 0 10px; max-width: 20ch; }
+.way > p { max-width: var(--max-body); margin: 0; color: var(--text-body); font-size: 1rem; line-height: 1.55; }
+.way-facts {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--hairline);
+}
+.way-facts li {
+  position: relative;
+  padding: 9px 0 9px 22px;
+  border-bottom: var(--hairline);
+  color: var(--text-soft);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.way-facts li::before { content: "✓"; position: absolute; left: 2px; top: 9px; color: var(--emerald-text); font-weight: 700; }
+.way .card-media { margin-top: 20px; }
+.way .file-list { margin-top: 16px; }
+@media (min-width: 960px) {
+  .ways-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 40px; }
+  .way { border-bottom: 0; }
+  .way + .way { padding-left: 40px; margin-left: -40px; border-left: var(--hairline); padding-left: 40px; margin-left: 0; }
+}
+/* The way-tag is the one emerald on this paper surface; the ✓ marks share it. */
+
+/* ---------- Pending screen slot (draft only) ---------- *
+   A window with no capture yet. Same chrome as a real window so the layout
+   is final; the body names the capture to make. Replaced by a real
+   <picture> before the page ships. */
+.screen-pending { display: block; }
+.screen-pending-body {
+  display: grid;
+  place-content: center;
+  gap: 8px;
+  aspect-ratio: 16 / 9;
+  padding: 24px;
+  text-align: center;
+  color: rgba(255,255,255,.66);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  border: 1px dashed rgba(255,255,255,.28);
+  border-radius: 8px;
+  margin: 10px;
+}
+.screen-pending-body strong {
+  color: var(--emerald);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Inside a way column the window does not bleed: it is not in a card. */
+.way .card-media { margin: 20px 0 0; padding-inline: 0; }
+.way .card-media .screen-window { border-radius: var(--r-window); }
+
+/* The Petpooja note with its screen beside it. */
+.mailbox-row { display: grid; grid-template-columns: 1fr; gap: 24px 48px; align-items: center; margin-top: clamp(32px, 4vw, 48px); }
+.mailbox-row .note-honest { margin: 0; }
+@media (min-width: 900px) { .mailbox-row { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); } }
