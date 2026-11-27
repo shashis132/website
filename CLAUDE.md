@@ -172,37 +172,39 @@ URLs read `/ca-firms` rather than `/ca-firms#product`. Links keep their
 exist on the page falls through to native behaviour and leaves the hash —
 that is how a stray `#how` in the CA-firms footer was caught.
 
-## Two routes out of the lead form
+## One route out of the lead form (since 27 November 2026)
 
-Business visitors do not book a demo. The form on `/business` is one step:
-the details, then a button that sends them to the Razorpay page
-`https://rzp.io/rzp/tryfor9` (`TRIAL_PAYMENT_URL` in `assets/site.js`);
-Razorpay forwards them to the app sign-up and the 7-day trial starts
-there. CA and vCFO firms keep the Cal.com booking: on `/ca-firms` always
-(that form keeps its three steps), and on `/business` whenever the role
-chip is a firm. The markup decides where the payment route exists (the
-`[data-lead-payment]` panel is only on `/business`) and whether a Step 2
-exists at all (`setStep(panelFor(2) ? 2 : 3)`); the role decides which
-route is taken. Every business-facing CTA reads exactly "Try for ₹9" and
-every firm-facing CTA exactly "Book a Demo"; the business form's button
-switches between the two with the role chip.
+Every lead form on the site, business and CA/Firm, carries
+`data-lead-payment-only`: the details, then a button that sends the visitor
+to the Razorpay page `https://rzp.io/rzp/tryfor9` (`TRIAL_PAYMENT_URL` in
+`assets/site.js`); Razorpay forwards them to the app sign-up and the 7-day
+trial starts there. Firms no longer book a Cal.com demo. Every CTA on every
+page reads exactly "Try for ₹9". The Cal.com booking code in `site.js` is
+still there but no page uses it.
 
 Consequences:
 
 - The lead POST is sent with `keepalive` because the page leaves for
   Razorpay half a second after Step 1. Do not remove that flag.
-- `generate_lead` still comes only from a Cal.com booking, so business
-  leads no longer raise it. The page pushes `lead_payment_redirect` just
-  before leaving; the payment completes on Razorpay and the sign-up on the
-  app, neither of which this site can see. Counting a paid trial as a
-  conversion is a GTM change, not a website change.
-- The trial is 7 days for both audiences: ₹9 for businesses, free on
-  request for firms. The FAQ explaining the ₹9 (fake sign-ups burning the
-  trial AI credits) is on `/business` and `/pricing`, in the visible text
-  and the JSON-LD, and in both llms files. Keep all four in step.
+- Each submission gets an `event_id` (UUID). It goes in the lead row and in
+  the `lead_payment_redirect` dataLayer event, for future CAPI dedup.
+- `lead_payment_redirect` carries `track` (`business` or `practice`), so GTM
+  can tell firms from businesses with the same tags. The server-container
+  identity beacon (`sendLeadIdentity`) now fires for firms too.
+- The FAQ explaining the ₹9 is on `/business`, `/ca-firms` and `/pricing`,
+  in the visible text and the JSON-LD, and in both llms files. Keep them in
+  step.
 - The sandbox cannot reach `rzp.io`, so the redirect is verified by
   intercepting the navigation in Playwright; the real payment page is
   checked by Shashi.
+
+## Meta in-app browsers
+
+Most visitors arrive from Instagram and Facebook ads and read the site in
+Meta's in-app browser. Never use `target="_blank"` or `window.open`; never
+use `100vh` without a `100dvh` line after it; keep form inputs at 16px or
+more with `autocomplete`/`inputmode`; wrap every storage or cookie access in
+try/catch; keep `viewport-fit=cover` in the viewport tag.
 
 ## Working style that has held
 
